@@ -1,0 +1,34 @@
+CLASS ROSTER:
+
+Piece: Subclassed by a class for every piece
+	Responsible for: Name, Abbreviation, Move ID (int, determines special moves allowed),
+	points val(AI), team (bool- T = white)
+
+	Each individual piece subclass:
+	Responsible for: 
+
+BoardButton: Board squares which are buttons that report if a piece is on them, and entire game state.
+	Responsible for: Color of square, Clicked, Location/Name, if anything is clicke//d
+	Logic: Print game board in ASCII/Text window (abbreviations), get abbreviations based on moveID
+
+Move: So each move is an object/string with algorithmic notation.
+	Responsible for: Piece, Start Location, End Location.
+	Logic: Constructor takes in MoveID and End Location determining the legality of the move.
+
+Player: Subclassed by AI, handles client side and move history.
+	Responsible for: Move values for pieces captured, Move values for pieces lost, Total moves made,
+	Bool black/white, Score (for AI calculation and/or stat tracking), any applicable online info
+	Logic: TBD
+
+Board: 
+
+View: Observer pattern. For test builds, GUI functionality not built. Logic for gameplay, also gets the
+	input for command line/console new moves (algorithmic notation).
+	Logic: TBD
+
+GUI: Handles GUI objects and constructors.
+	Responsible for: GUI stuff
+	Logic: Gui stuff
+
+Board: Kind of replaced by BoardButton but maybe not, most functionality relegated to 
+	BB early on.

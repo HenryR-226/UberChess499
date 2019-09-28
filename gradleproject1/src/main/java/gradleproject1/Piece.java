@@ -11,11 +11,11 @@ package gradleproject1;
  */
 public class Piece {
     private boolean isWhite;
-    private String abbreviation;
+    private char abbreviation;
     int moveID;
     int points;
     
-    public String getAbbrev(){
+    public char getAbbrev(){
         return this.abbreviation;
     }    
     
