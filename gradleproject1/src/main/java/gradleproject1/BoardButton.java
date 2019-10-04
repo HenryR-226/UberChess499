@@ -1,14 +1,4 @@
-/*
- * To change this lic
-    
-    //enum for piece values
-    private static final int PAWN = 1;
-    private static final int KNIGHT = 2;
-    private static final int BISHOP = 3;
-    private static final int ense header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package gradleproject1;
 
 /**
@@ -31,10 +21,13 @@ public class BoardButton {
     //specific piece value stored here
     private static int pieceNumber;
     
-    static boolean isClicked;      //is specific square clicked
-    static boolean isWhite;        //is specific square white in color, else false
-    static boolean isPieceWhite;    //Is piece on specific square white, else false
-    private boolean somethingClicked;    //is anything on the board clicked, can't be static
+    private boolean isClicked;      //is specific square clicked
+    private final boolean isWhite;        //is specific square white in color, else false
+    private boolean isPieceWhite;    //Is piece on specific square white, else false
+    static private boolean somethingClicked;    //is anything on the board clicked, can't be static
+    
+    private final char letter;
+    private final char number;
     
     //Gameboard
     static private BoardButton[][] GameBoard = new BoardButton[rows][columns];
@@ -47,12 +40,12 @@ public class BoardButton {
     }
     
     //Draws out Ascii art of the gameboard
-    public static void draw(){
+    public void draw(){
         for (int i = 0; i < 8; i++){
             System.out.println(rowOffset + " [");       //Rows starting from 8
             for (int j = 0; j < 8; j++){
                 c = (char)GameBoard[i][j].getAbbrev(pieceNumber);
-                if(isWhite) c=java.lang.Character.toUpperCase(c);
+                if(isPieceWhite) c=java.lang.Character.toUpperCase(c);
                 System.out.print("," + c + ",");
             }
             System.out.println("]");
@@ -101,8 +94,7 @@ public class BoardButton {
     
     //Testable Main, mostly to check println offsets.
     public static void Main(String[] args){
-       initializeGame();
-       draw();  
+       initializeGame();      
     }
     
     public static void initializeGame(){                          //Black back line
