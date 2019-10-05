@@ -137,23 +137,23 @@ public class Board {
        //Draws out Ascii art of the gameboard
     public static void draw(){
         BoardButton b;
-        byte rowOffset = 0;
+        byte rowOffset = 7;
         char c;
-        for (int i = 0; i < 8; i++){
-            System.out.println(rowOffset + " [");       //Rows starting from 8
-            for (int j = 0; j < 8; j++){
+        for (int i = 7; i >= 0; i--){
+            System.out.print((rowOffset+1) + " [");       //Rows starting from 8
+            for (int j = 7; j >=0; j--){
                 b = GameBoard[i][j];
                 if(b.getPiece()!=null){
                 c = (char) b.getPiece().getAbbrev();
                 if(b.getPiece().isWhite()) c=java.lang.Character.toUpperCase(c);
-                System.out.print("," + c + ",");
+                System.out.print(c + ",");
                 } 
                 else System.out.print("-,");}
         
             System.out.println("]");
-            rowOffset++;
+            rowOffset--;
         }   
-        System.out.println("   A  B  C  D  E  F  G  H");     //Letter Grid      
+        System.out.println("   A B C D E F G H");     //Letter Grid      
     }        
       
      
