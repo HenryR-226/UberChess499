@@ -58,16 +58,8 @@ public class Board {
         a.setPiece(queen);
         
         
-        
-        
-        BoardButton b=GameBoard[0][1];
-        b.setPiece(knight);
-        GameBoard[0][2] = new BoardButton(0,2);
-        GameBoard[0][3] = new BoardButton(0,3);
-        GameBoard[0][4] = new BoardButton(0,4);
-        GameBoard[0][5] = new BoardButton(0,5);
-        GameBoard[0][6] = new BoardButton(0,6);
-        GameBoard[0][7] = new BoardButton(0,7);
+    
+       
     }
     
      public void initBlack(){
@@ -118,16 +110,7 @@ public class Board {
             GameBoard[1][i] = new BoardButton(1,i,1,x,'7', false);
         */
      
-    public void init(BoardButton[][] GameBoard){
-        GameBoard[0][0] = new BoardButton(0,0);
-        GameBoard[0][1] = new BoardButton(0,1);
-        GameBoard[0][2] = new BoardButton(0,2);
-        GameBoard[0][3] = new BoardButton(0,3);
-        GameBoard[0][4] = new BoardButton(0,4);
-        GameBoard[0][5] = new BoardButton(0,5);
-        GameBoard[0][6] = new BoardButton(0,6);
-        GameBoard[0][7] = new BoardButton(0,7);
-  }
+  
       /*
         for (int i =2; i<6; i++){                           //Empty No-Man's Land
             char x,y;
@@ -164,7 +147,9 @@ public class Board {
                 c = (char) b.getPiece().getAbbrev();
                 if(b.getPiece().isWhite()) c=java.lang.Character.toUpperCase(c);
                 System.out.print("," + c + ",");
-                }        }
+                } 
+                else System.out.print("-,");}
+        
             System.out.println("]");
             rowOffset++;
         }   

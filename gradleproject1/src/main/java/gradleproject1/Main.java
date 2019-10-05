@@ -19,8 +19,9 @@ public class Main {
         
        Board b=new Board();
            b.initBoard();
+             b.initBlack();
            b.initWhite();
-           b.initBlack();
+         
            b.draw();
     }
     
