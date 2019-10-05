@@ -21,9 +21,9 @@ public class BoardButton {
     //specific piece value stored here
     private static int pieceNumber;
     
-    private boolean isClicked;      //is specific square clicked
+    private boolean isClicked;             //is specific square clicked
     private final boolean isWhite;        //is specific square white in color, else false
-    private boolean isPieceWhite;    //Is piece on specific square white, else false
+    private boolean isPieceWhite;       //Is piece on specific square white, else false
     static private boolean somethingClicked;    //is anything on the board clicked, can't be static
     
     private final char letter;
@@ -78,17 +78,22 @@ public class BoardButton {
     }
     
     //White piece constructor
-    public BoardButton(int row, int column, int piece){
+    public BoardButton(int row, int column, int piece, char letter, char number){
         this.row=row;
         this.column=column;
         this.pieceNumber=piece;
+        this.letter = letter;
+        this.number=number;
+        this.isPieceWhite=true;
     }
     
     //Black piece constructor
-    public BoardButton(int row, int column, int piece, boolean color){
+    public BoardButton(int row, int column, int piece, char letter, char number, boolean color){
         this.row=row;
         this.column=column;
         this.pieceNumber=piece;
+        this.letter=letter;
+        this.number=number;
         this.isPieceWhite=false;
     }
     
@@ -98,33 +103,38 @@ public class BoardButton {
     }
     
     public static void initializeGame(){                          //Black back line
-        GameBoard[0][0] = new BoardButton(0,0,4, false);
-        GameBoard[0][1] = new BoardButton(0,1,2, false);
-        GameBoard[0][2] = new BoardButton(0,2,3, false);
-        GameBoard[0][3] = new BoardButton(0,3,5, false);
-        GameBoard[0][4] = new BoardButton(0,4,6, false);
-        GameBoard[0][5] = new BoardButton(0,5,3, false);
-        GameBoard[0][6] = new BoardButton(0,6,2, false);
-        GameBoard[0][7] = new BoardButton(0,7,4, false);
-        for (int i =0; i<8; i++){                          //Black pawn row
-            GameBoard[1][i] = new BoardButton(1,i,1,false);
+        GameBoard[0][0] = new BoardButton(0,0,4,'A','8', false);
+        GameBoard[0][1] = new BoardButton(0,1,2,'B', '8', false);
+        GameBoard[0][2] = new BoardButton(0,2,3,'C', '8', false);
+        GameBoard[0][3] = new BoardButton(0,3,5,'D', '8', false);
+        GameBoard[0][4] = new BoardButton(0,4,6,'E', '8', false);
+        GameBoard[0][5] = new BoardButton(0,5,3,'F', '8', false);
+        GameBoard[0][6] = new BoardButton(0,6,2,'G', '8', false);
+        GameBoard[0][7] = new BoardButton(0,7,4,'H', '8', false);
+        for (byte i =0; i<8; i++){                          //Black pawn row
+            char x = (char)('A' + i);              //Letter col var
+            //char y = (char)(i+1);                           //Number row var
+            GameBoard[1][i] = new BoardButton(1,i,1,x,'7', false);
         }
         for (int i =2; i<6; i++){                           //Empty No-Man's Land
             for (int j = 0; j<8; j++){
-                GameBoard[i][j] = new BoardButton(i, j, 0);
+                char x = (char)('A' + i-2);                    //Row letters
+                char y = (char)(j+1);
+                GameBoard[i][j] = new BoardButton(i, j, 0, x, y);
             }
         }      
         for (int i=0; i<8; i++){                            //White pawn row
-            GameBoard[6][i] = new BoardButton(6, i, 1);
+            char x = (char)('A'+i);
+            GameBoard[6][i] = new BoardButton(6, i, 1, x, '7');
         }                                                   //White back line
-        GameBoard[7][0] = new BoardButton(0,0,4);
-        GameBoard[7][1] = new BoardButton(0,1,2);
-        GameBoard[7][2] = new BoardButton(0,2,3);
-        GameBoard[7][3] = new BoardButton(0,3,5);
-        GameBoard[7][4] = new BoardButton(0,4,6);
-        GameBoard[7][5] = new BoardButton(0,5,3);
-        GameBoard[7][6] = new BoardButton(0,6,2);
-        GameBoard[7][7] = new BoardButton(0,7,4);
+        GameBoard[7][0] = new BoardButton(0,0,4, 'A', '1');
+        GameBoard[7][1] = new BoardButton(0,1,2, 'B', '1');
+        GameBoard[7][2] = new BoardButton(0,2,3, 'C', '1');
+        GameBoard[7][3] = new BoardButton(0,3,5, 'D', '1');
+        GameBoard[7][4] = new BoardButton(0,4,6, 'E', '1');
+        GameBoard[7][5] = new BoardButton(0,5,3, 'F', '1');
+        GameBoard[7][6] = new BoardButton(0,6,2, 'G', '1');
+        GameBoard[7][7] = new BoardButton(0,7,4, 'H', '1');
     }
 }
 
