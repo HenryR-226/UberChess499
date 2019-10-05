@@ -15,14 +15,18 @@ public class Main {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        System.out.println("ayylmao");
+        System.out.println("UberChess Chess Game Initialization");
         
        Board b=new Board();
            b.initBoard();
-             b.initBlack();
+           b.initBlack();
            b.initWhite();
-         
+        
            b.draw();
+           System.out.println(" ");
+           System.out.println("White: Upper Case, first move:");
+           System.out.println("Hint: Type grid square for first pawn move (no need to specify pawn):");
+           
     }
     
 }

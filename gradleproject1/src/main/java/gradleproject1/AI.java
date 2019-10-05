@@ -10,5 +10,7 @@ package gradleproject1;
  * @author Tyrone Lamar
  */
 public class AI {
+    private double blackPoints;
+    private double whitePoints;
     
 }

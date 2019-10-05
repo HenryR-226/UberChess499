@@ -156,7 +156,9 @@ public class Board {
         System.out.println("   A B C D E F G H");     //Letter Grid      
     }        
       
-     
+    public BoardButton[][] getGameBoard(){
+        return GameBoard;
+    }
            
            
        

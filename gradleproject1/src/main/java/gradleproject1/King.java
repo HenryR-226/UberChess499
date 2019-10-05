@@ -15,4 +15,6 @@ public class King extends Piece{
        this.setIsWhite(team);
        setAbbreviation('k');
     }
+    
+    
 }
