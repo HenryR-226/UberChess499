@@ -12,7 +12,7 @@ package gradleproject1;
 public class Piece {
     private boolean isWhite;
     private char abbreviation;
-    int moveID;
+    public int moveID;
     int points;
     
     public char getAbbrev(){
@@ -24,13 +24,40 @@ public class Piece {
     }    
     
     public boolean isWhite(){
-        return this.isWhite();
+        return isWhite;
     }    
     
     public int moveID(){
         return this.moveID;
     }    
     
+    public void setIsWhite(boolean white){
+        this.isWhite=white;
+    }    
+    
+    public void setAbbreviation(char abbrev){
+        this.abbreviation = abbrev;
+    }
     
     
+    /*
+    public char getAbbrev(int pieceNo){
+        switch(pieceNo) {
+            case 1:
+                return 'p';
+            case 2:    
+                return 'n';
+            case 3:    
+                return 'b';
+            case 4:
+                return 'r';
+            case 5:    
+                return 'q';
+            case 6:    
+                return 'k';
+            default:    
+                return '-';
+        }    
+    }
+    */
 }

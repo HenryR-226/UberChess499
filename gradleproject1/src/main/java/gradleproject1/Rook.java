@@ -9,6 +9,10 @@ package gradleproject1;
  *
  * @author Tyrone Lamar
  */
-public class Rook {
-    
+public class Rook extends Piece {
+    public Rook(int moveID, boolean team){
+       this.moveID=moveID;
+       this.setIsWhite(team);
+       setAbbreviation('r');
+    }
 }

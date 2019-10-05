@@ -10,5 +10,9 @@ package gradleproject1;
  * @author Tyrone Lamar
  */
 public class Bishop extends Piece {
-    
+    public Bishop(int moveID, boolean team){
+       this.moveID=moveID;
+       this.setIsWhite(team);
+       setAbbreviation('b');
+    }
 }

@@ -10,5 +10,9 @@ package gradleproject1;
  * @author Tyrone Lamar
  */
 public class Knight extends Piece {
-    
+    public Knight(int moveID, boolean team){
+       this.moveID=moveID;
+       this.setIsWhite(team);
+       setAbbreviation('n');
+    }
 }

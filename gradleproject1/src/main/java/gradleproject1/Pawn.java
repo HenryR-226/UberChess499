@@ -4,11 +4,17 @@
  * and open the template in the editor.
  */
 package gradleproject1;
-
 /**
  *
  * @author Tyrone Lamar
  */
 public class Pawn extends Piece {
     
+   
+    
+   public Pawn(int moveID, boolean team){
+       this.moveID=moveID;
+       this.setIsWhite(team);
+       setAbbreviation('p');
+    }
 }

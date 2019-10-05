@@ -9,6 +9,13 @@ package gradleproject1;
  *
  * @author Tyrone Lamar
  */
-public class Queen {
+public class Queen extends Piece {
     
+    
+    
+    public Queen(int moveID, boolean team){
+       this.moveID=moveID;
+       this.setIsWhite(team);
+       setAbbreviation('q');
+    }
 }

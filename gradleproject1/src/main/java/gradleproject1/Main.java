@@ -16,6 +16,12 @@ public class Main {
     public static void main(String[] args) {
         // TODO code application logic here
         System.out.println("ayylmao");
+        
+       Board b=new Board();
+           b.initBoard();
+           b.initWhite();
+           b.initBlack();
+           b.draw();
     }
     
 }

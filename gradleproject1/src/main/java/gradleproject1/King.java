@@ -9,6 +9,10 @@ package gradleproject1;
  *
  * @author Tyrone Lamar
  */
-public class King {
-    
+public class King extends Piece{
+    public King(int moveID, boolean team){
+       this.moveID=moveID;
+       this.setIsWhite(team);
+       setAbbreviation('k');
+    }
 }
