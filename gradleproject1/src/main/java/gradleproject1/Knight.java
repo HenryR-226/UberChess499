@@ -14,5 +14,6 @@ public class Knight extends Piece {
        this.moveID=moveID;
        this.setIsWhite(team);
        setAbbreviation('n');
+       this.points=3.25;
     }
 }

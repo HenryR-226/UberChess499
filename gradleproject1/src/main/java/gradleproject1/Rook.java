@@ -14,5 +14,6 @@ public class Rook extends Piece {
        this.moveID=moveID;
        this.setIsWhite(team);
        setAbbreviation('r');
+       this.points=5;
     }
 }

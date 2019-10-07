@@ -17,5 +17,6 @@ public class Queen extends Piece {
        this.moveID=moveID;
        this.setIsWhite(team);
        setAbbreviation('q');
+       this.points=9;
     }
 }

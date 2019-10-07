@@ -8,7 +8,7 @@ package gradleproject1;
  *
  * @author Tyrone Lamar
  */
-
+import java.util.*;
 public class Board {
      
     static private BoardButton[][] GameBoard = new BoardButton[8][8];
@@ -133,7 +133,7 @@ public class Board {
         GameBoard[7][6] = new BoardButton(0,6,2, 'G', '1');
         GameBoard[7][7] = new BoardButton(0,7,4, 'H', '1');
     }*/
-    
+     
        //Draws out Ascii art of the gameboard
     public static void draw(){
         BoardButton b;
@@ -155,13 +155,10 @@ public class Board {
         }   
         System.out.println("   A B C D E F G H");     //Letter Grid      
     }        
-      
+        
+    
     public BoardButton[][] getGameBoard(){
         return GameBoard;
-    }
-           
-           
+    }       
        
 }
-    
-       

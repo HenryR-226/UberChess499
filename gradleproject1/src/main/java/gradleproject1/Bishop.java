@@ -14,5 +14,6 @@ public class Bishop extends Piece {
        this.moveID=moveID;
        this.setIsWhite(team);
        setAbbreviation('b');
+       this.points=3;
     }
 }

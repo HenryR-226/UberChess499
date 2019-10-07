@@ -16,5 +16,6 @@ public class Pawn extends Piece {
        this.moveID=moveID;
        this.setIsWhite(team);
        setAbbreviation('p');
+       this.points=1;
     }
 }

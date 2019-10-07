@@ -13,13 +13,13 @@ public class Piece {
     private boolean isWhite;
     private char abbreviation;
     public int moveID;
-    int points;
+    double points;
     
     public char getAbbrev(){
         return this.abbreviation;
     }    
     
-    public int getPoints(){
+    public double getPoints(){
         return this.points;
     }    
     

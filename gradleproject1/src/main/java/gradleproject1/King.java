@@ -14,6 +14,7 @@ public class King extends Piece{
        this.moveID=moveID;
        this.setIsWhite(team);
        setAbbreviation('k');
+       this.points=90;
     }
     
     
