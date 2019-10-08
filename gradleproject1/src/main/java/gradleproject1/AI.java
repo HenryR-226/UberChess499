@@ -1,5 +1,6 @@
 package gradleproject1;
-
+import java.util.*;
+import java.lang.*;
 /**
  *
  * @author Tyrone Lamar
@@ -18,7 +19,12 @@ public class AI extends Player {
     private double blackPoints;
     private double whitePoints;
     
-     //Grid offset arrays. White at bottom. For black pieces flips position and reads from that value of array
+   /* Grid offset arrays. White at bottom. For black pieces flips position 
+    * and reads from that value of array within offset getter.
+    * @author Henry Rheault, taken from 
+    * https://www.freecodecamp.org/news/simple-chess-ai-step-by-step-1d55a9266977/
+    */
+    
     private static double[][] gridOffsetPawn = new double[][]
     {
         {0, 0, 0, 0, 0, 0, 0, 0},
@@ -168,9 +174,33 @@ public class AI extends Player {
             
             else {
                 System.out.println("Offset program fucked up! Returning default of 0 offset.");
-                return (double)0;
+                e.printStackTrace();
+                return 0.0;
             }
         }
     }
+    /**
+     * @author Henry Rheault
+     * Method to calculate the points state on the board for @param player
+     * @return the player's points
+     */
     
-}
+    private double evalPoints(Player p, Board b){
+        double result = 0;
+        BoardButton[][] board = b.getGameBoard();               //Get locations
+        ArrayList<Double> pointsList = new ArrayList<Double>(); //Create list of point objects
+        for (int i=0; i<8; i++){                                //For each row and column of BoardButton
+            for(int j=0; j<8; j++){                             //Find pieces belonging to player p and summate points
+                                                                //This code isn't clean and needs to run hundreds of thousands of times
+                                                                //So it needs to be better than "check every square for where there's
+                                                                //A piece on that team, every time"
+            
+            
+        
+        //Piece doesn't have it's own location, only BoardButton does
+        return result;    
+        }
+        
+ }    
+    
+

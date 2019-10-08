@@ -14,13 +14,17 @@ public class Board {
     static private BoardButton[][] GameBoard = new BoardButton[8][8];
     
     public void initBoard(){
+        boolean white = false;
              for(int i=0;i<8;i++){
-             for(int j=0;j<8;j++){
-             BoardButton b= new BoardButton(i,j);
-             GameBoard[i][j] =b;
+                for(int j=0;j<8;j++){
+                    BoardButton b= new BoardButton(i,j);
+                    b.setColor(white);
+                    GameBoard[i][j] =b;
+                    white = !white;                         //Flip color
                  
-            }                 
-        }
+                 }                 
+            white = !white;    
+            }
     } 
     
     
@@ -148,7 +152,11 @@ public class Board {
                 if(b.getPiece().isWhite()) c=java.lang.Character.toUpperCase(c);
                 System.out.print(c + ",");
                 } 
-                else System.out.print("-,");}
+                else if (b.isWhite()) System.out.print("-,");
+                else System.out.print("+,");
+            
+            }
+            
         
             System.out.println("]");
             rowOffset--;

@@ -7,6 +7,7 @@ public class BoardButton {
     int column;
     private Piece piece;
     private String abbreviation;
+    private boolean isWhite;                  //Is the square dark or light
     /*
     private static final int PAWN=1;
     private static final int KNIGHT=2;
@@ -90,6 +91,13 @@ public class BoardButton {
        
     }
     
+   public void setColor(boolean c){
+       this.isWhite = c;
+   }
+   public boolean isWhite(){
+       return this.isWhite;
+   }    
+   
     //Testable Main, mostly to check println offsets.
     public static void Main(String[] args){            
     }
