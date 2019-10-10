@@ -200,6 +200,8 @@ public class AI extends Player {
         //Piece doesn't have it's own location, only BoardButton does
         return result;    
         }
+        }
+    }
         
  }    
     

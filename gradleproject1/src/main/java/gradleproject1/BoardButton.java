@@ -8,6 +8,9 @@ public class BoardButton {
     private Piece piece;
     private String abbreviation;
     private boolean isWhite;                  //Is the square dark or light
+    private boolean isFull;                   //Is something there
+    private boolean highlighted = false;              //Should I be highlighted right now?
+    
     /*
     private static final int PAWN=1;
     private static final int KNIGHT=2;
@@ -34,8 +37,36 @@ public class BoardButton {
         return piece;
     }
     
+    //Assumes check has been run for empty square
     public void setPiece(Piece p){
+        this.isFull = true;
         this.piece = p;
+    }
+    
+    //Piece moves off voluntarily
+    public void removePiece(){
+        this.piece=null;
+        this.isFull=false;
+    }
+    /**
+     * @author Henry Rheault
+     * 
+     * Method for a piece being captured, takes argument of a piece doing the capturing.
+     * Adds the piece to a player's lost pieces list and removes from their active piece list.
+     * Then rewrites the piece on the given BB as the argument piece.
+     */
+    public void removePiece(Piece p){
+        Player player; GameState g;
+        boolean team = p.isWhite();
+        if (team) player = g.getBlack();           //If p is white -> black lost piece
+        else player = g.getWhite();                //If p is black -> white lost piece
+        player.pieceCaptured(this.piece);
+        this.piece = p;
+        this.isFull=true;
+    }
+    
+    public boolean isFull(){
+        return this.isFull;
     }
     
     /**
@@ -79,6 +110,12 @@ public class BoardButton {
     
     public String getAbbreviation(){
         return this.abbreviation;
+    }
+    
+    public BoardButton toArray(String s){
+        BoardButton b;
+        
+        
     }
     
     public void clicked(){

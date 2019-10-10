@@ -11,12 +11,20 @@ package gradleproject1;
  */
 public class GameState {
     private int cores;                                //Number of CPU hardware threads available to JVM at run time
+    private Player playerWhite;
+    private Player playerBlack;
     
     public int getCurrentThreads(){                    //Determines optimal number of threads to start for AI calculations
         int cores = Runtime.getRuntime().availableProcessors();
         return cores;
     }
     
+    public Player getWhite(){
+        return this.playerWhite;
+    }
+    public Player getBlack(){
+        return this.playerBlack;
+    }    
     
     
 }

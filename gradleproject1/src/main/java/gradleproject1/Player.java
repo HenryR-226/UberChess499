@@ -12,9 +12,11 @@ public class Player {
     private boolean canCastle;                              //CAN the gamer castle, false if king and/or close side rook moves
     
     private boolean team;     
+    private boolean ai;
     private double points;                                  //AI points variable for current game state
     private Boolean game;                                   //True = won, false = lost, null = in progress, thus upper case 'B'
     
+    private static int numTeams = 0;                    //Don't make more than 2 teams, dingus
     
     public void addMove(String m){
         moveList.add(m);
@@ -51,5 +53,17 @@ public class Player {
             if (team) System.out.println("Player White wins!");
             else System.out.println("Player Black wins!");
         }    
+    }    
+    
+    public Player(boolean team, boolean ai){
+        try{
+            assert (numTeams <2);
+            this.ai = ai;
+            this.team=team;
+            numTeams++;
+        } catch (Exception e) {
+            System.out.println("Already two teams. That or something has gone very very wrong.");
+            e.printStackTrace();
+        }
     }    
 }

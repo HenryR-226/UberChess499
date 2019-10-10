@@ -5,6 +5,8 @@
  */
 package gradleproject1;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Tyrone Lamar
@@ -16,4 +18,6 @@ public class Knight extends Piece {
        setAbbreviation('n');
        this.points=3.25;
     }
+    
+   
 }

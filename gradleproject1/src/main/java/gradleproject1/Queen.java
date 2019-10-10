@@ -5,6 +5,8 @@
  */
 package gradleproject1;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Tyrone Lamar
@@ -19,4 +21,8 @@ public class Queen extends Piece {
        setAbbreviation('q');
        this.points=9;
     }
+    
+    @Override
+   public ArrayList<BoardButton> getMoves(Piece p){
+   }
 }

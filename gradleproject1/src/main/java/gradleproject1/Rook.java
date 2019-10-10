@@ -5,6 +5,8 @@
  */
 package gradleproject1;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Tyrone Lamar
@@ -16,4 +18,8 @@ public class Rook extends Piece {
        setAbbreviation('r');
        this.points=5;
     }
+    
+   @Override
+   public ArrayList<BoardButton> getMoves(Piece p){
+   }
 }
