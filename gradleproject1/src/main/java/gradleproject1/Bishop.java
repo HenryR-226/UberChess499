@@ -1,7 +1,5 @@
 package gradleproject1;
 
-import java.util.ArrayList;
-
 /**
  * @author Henry Rheault
  */
