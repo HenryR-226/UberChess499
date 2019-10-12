@@ -13,6 +13,37 @@ public class Board {
      
     static private BoardButton[][] GameBoard = new BoardButton[8][8];
     
+    /**@author Henry Rheault
+     * Method to take in string of piece location and natively/abstractly convert to 
+     * array memory location
+     */
+    
+    public BoardButton toArray(String s){
+        BoardButton b;
+        int x=-1;
+        int y=-1;
+        try{
+            assert (s.length() == 2);
+            char[] temp = s.toCharArray();
+
+            //Take string, convert to chars, and get Memory Array location from the Chess String location
+            char col = temp[0];                             //A-H, not case sensitive, input argument
+            char r0w = temp[1];                             //1-8, input argument
+            col = Character.toUpperCase(col);               //Ensures that the column character is upper case for ease of assert
+            if (!(Character.isLetter(col) || col>'H')) assert (Character.isLetter(col) && col<='H');  //Set user error flag and break out of try if not  
+            else x = col - 'A';
+                      
+                
+            if (r0w >8 || r0w<0) assert (r0w <=8 && r0w>0);                   //Set user error flag and break out of try if not
+            else y = 8-r0w;  
+            b = GameBoard[x][y];
+            return b;
+        } catch (Exception e) {
+            System.out.println("You should probably not call publically available methods with random input.");
+            e.printStackTrace();
+        }  finally { return null;  }
+    }    
+    
     public void initBoard(){
         boolean white = false;
              for(int i=0;i<8;i++){
@@ -100,45 +131,8 @@ public class Board {
         
         
     }
-        
-        
-        
-        
-        /*
-        
-        
-        
-            for (byte i =0; i<8; i++){                          //Black pawn row
-            char x = (char)('A' + i);              //Letter col var
-            //char y = (char)(i+1);                           //Number row var
-            GameBoard[1][i] = new BoardButton(1,i,1,x,'7', false);
-        */
      
-  
-      /*
-        for (int i =2; i<6; i++){                           //Empty No-Man's Land
-            char x,y;
-            for (int j = 0; j<8; j++){
-                 x = (char)('A' + i-2);                    //Row letters
-                 y = (char)(j+1);
-                GameBoard[i][j] = new BoardButton(i, j, 0, x, y);
-            }
-        }      
-        for (int i=0; i<8; i++){                            //White pawn row
-            char x = (char)('A'+i);
-            GameBoard[6][i] = new BoardButton(6, i, 1, x, '7');
-        }                                                   //White back line
-        GameBoard[7][0] = new BoardButton(0,0,4, 'A', '1');
-        GameBoard[7][1] = new BoardButton(0,1,2, 'B', '1');
-        GameBoard[7][2] = new BoardButton(0,2,3, 'C', '1');
-        GameBoard[7][3] = new BoardButton(0,3,5, 'D', '1');
-        GameBoard[7][4] = new BoardButton(0,4,6, 'E', '1');
-        GameBoard[7][5] = new BoardButton(0,5,3, 'F', '1');
-        GameBoard[7][6] = new BoardButton(0,6,2, 'G', '1');
-        GameBoard[7][7] = new BoardButton(0,7,4, 'H', '1');
-    }*/
-     
-       //Draws out Ascii art of the gameboard
+       //Draws out Ascii art of the gameboard. To be called after every successfully committed move
     public static void draw(){
         BoardButton b;
         byte rowOffset = 7;

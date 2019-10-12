@@ -7,7 +7,7 @@
  */
 package gradleproject1;
 import java.util.*;
-import java.lang.Object;
+import java.lang.*;
 
 /**
  *

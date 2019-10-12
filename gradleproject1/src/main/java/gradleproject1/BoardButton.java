@@ -3,6 +3,7 @@ package gradleproject1;
  * @author Tyrone Lamar
  */
 public class BoardButton {
+    GameState g;
     int row;
     int column;
     private Piece piece;
@@ -112,11 +113,7 @@ public class BoardButton {
         return this.abbreviation;
     }
     
-    public BoardButton toArray(String s){
-        BoardButton b;
-        
-        
-    }
+    
     
     public void clicked(){
         

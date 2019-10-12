@@ -23,4 +23,15 @@ public class Bishop extends Piece {
    @Override
    public ArrayList<BoardButton> getMoves(Piece p){
    }
+   private static double[][] gridOffsetBishop = new double[][]
+    {
+        {-2, -1, -1, -1, -1, -1, -1, -2},
+        {-1, 0, 0, 0, 0, 0, 0, -1},
+        {-1, 0, 0.5, 1, 1, 0.5, 0, -1},
+        {-1, 0.5, 0.5, 1, 1, 0.5, 0.5, -1},
+        {-1, 0, 1, 1, 1, 1, 0, -1},
+        {-1, 1, 1, 1, 1, 1, 1, -1},
+        {-1, 0.5, 0, 0, 0, 0, 0.5, -1},
+        {-2, -1, -1, -1, -1, -1, -1, -2}
+    };
 }

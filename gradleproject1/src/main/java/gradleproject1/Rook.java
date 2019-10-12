@@ -22,4 +22,15 @@ public class Rook extends Piece {
    @Override
    public ArrayList<BoardButton> getMoves(Piece p){
    }
+   
+    private static double[][] gridOffsetRook = new double[][]{
+        {0, 0, 0, 0, 0, 0, 0, 0},
+        {0.5, 1, 1, 1, 1, 1, 1, 0.5},
+        {-.5, 0, 0, 0, 0, 0, 0, -.5},
+        {-.5, 0, 0, 0, 0, 0, 0, -.5},
+        {-.5, 0, 0, 0, 0, 0, 0, -.5},
+        {-.5, 0, 0, 0, 0, 0, 0, -.5},
+        {-.5, 0, 0, 0, 0, 0, 0, -.5},  
+        {0, 0, 0, 0.5, 0.5, 0, 0, 0}       
+    };
 }

@@ -1,7 +1,7 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ *  Singleton object intended to be collections of players, handle 
+ *  win/loss/tie, do backend housekeeping, and allow for references to 
+ *  player objects to be passed nicely based on color. 
  */
 package gradleproject1;
 
@@ -19,6 +19,7 @@ public class GameState {
         return cores;
     }
     
+    //These two methods needed for Piece Capturing implementation
     public Player getWhite(){
         return this.playerWhite;
     }
@@ -26,5 +27,8 @@ public class GameState {
         return this.playerBlack;
     }    
     
+    public GameState getGameState(){
+        return this;
+    }
     
 }
