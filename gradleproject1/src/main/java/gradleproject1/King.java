@@ -5,8 +5,8 @@
  */
 package gradleproject1;
 
-import java.util.ArrayList;
-
+import java.util.*;
+import java.lang.*;
 /**
  *
  * @author Tyrone Lamar
@@ -31,7 +31,7 @@ public class King extends Piece{
        char[] allowedRow = new char[3];
        char col = c[0];
        char row = c[1];
-       if (col != 'A' && col!='H'){
+       if (col != 'A' && col!='H'){                                     //King is not along the edges
            for (int i =-1; i<2; i++) allowedCol[i+1] = (char)(col+i);
        }
        else if (col == 'A'){
@@ -44,7 +44,7 @@ public class King extends Piece{
            allowedCol[1] = 'G';
            allowedCol[2] = ' ';
        }
-       if (row != '1' && row!='8'){
+       if (row != '1' && row!='8'){                                     //King is not along top or bottom
            for (int j =-1; j<2; j++) allowedRow[j+1] = (char)(row+j);
        }
        else if (row == '1'){
@@ -58,9 +58,10 @@ public class King extends Piece{
            allowedRow[2] = ' ';
        } 
        //Add strings of valid squares to the array list of possible moves acceptable
-       for (int i =0; i<2; i++){
-           for (int j=0; j<2; j++){
-               String string = String.valueOf(allowedRow[i] + allowedRow[j]);
+       for (int i =0; i<=2; i++){
+           for (int j=0; j<=2; j++){
+               String string = String.valueOf(allowedRow[i]);
+               string = string + String.valueOf(allowedRow[j]);           
                validSquares.add(string);
            }    
        }
