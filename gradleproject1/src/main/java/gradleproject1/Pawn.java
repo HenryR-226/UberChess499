@@ -13,10 +13,10 @@ import java.util.ArrayList;
  */
 public class Pawn extends Piece {
     boolean firstMove;          //If it is the pawn's first move allowing a double jump
-    boolean attacked;           //If the pawn has attacked before, on a different column
+    boolean canAttack;           //If the pawn can attack
     boolean blocked;            //currently blocked in front?
     char column;                //Pawn's "home" column
-   
+    
     
    public Pawn(int moveID, boolean team){
        this.moveID=moveID;
@@ -27,7 +27,17 @@ public class Pawn extends Piece {
    
    @Override
    public ArrayList<BoardButton> getMoves(Piece p){
-       
+       if (firstMove){
+             //can move two forward
+       }
+       if (canAttack){
+            //Call board for two grid locations adjacent
+            //can move forward + over one
+           
+       }
+       else if(!blocked){
+           //can move forward one only
+       }
        
    }
    

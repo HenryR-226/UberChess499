@@ -30,8 +30,12 @@ public class Main {
            
     }
     
+    /**
+     * Call when user starts a new AI game
+     */
+    
     public static void ownedByFactsAndLogic(){
-        System.out.println(" -+ydNNNNMMNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNNNNNho/.                                                                     "); System.out.println(
+         System.out.println("                                                               -+ydNNNNMMNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNNNNNho/.                                                                     "); System.out.println(
 "                                                            .+hmNNNNMNNMMMMMMMMMMMMMMMMMMNNNNNNNNMMMMMMMMMMMMMMMMMMMMMMMMMNNNNNNNNNds:                                                                 "); System.out.println(
 "                                                         -+hmNNNNNNMMMMMNNNNNNNNNNNNNNNNNNNNNMNMMMMNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNds-                                                              "); System.out.println(
 "                                                       -smmNNNNNMMMNNMNmmNNNNNNNNNNNMMNMMNMMMMMMMMMMMMMMMNNNNNNNNNNMMMMNNNNNNNNNNNNNNNNNNy-                                                            "); System.out.println(
@@ -133,24 +137,25 @@ public class Main {
 "+ysoooshmmmmhyhmNNNNNNNNNmmNNNNNNNNNNNNmNmMMMMMMMMMMMMMMMNNNNNNNNNNNNNNNho/+//:::::::/:/://////////++/++/++++oo++oooooosoosydNMNMMMMNMMMMMMMMMMMMMMMMMNNNNdMMMMMMMMMMMMMMMNMMMMMMMMMMMMNNNNNMMMMMMMMNNNN"); System.out.println(
 "soshdmmmmdyymNNNNNNNNNNNmNNNNNNNNNNNNNNNmNmMMMMMMMMMMMMMMNMMMMNNNNNNNNNNNds+///::::::::::/:///////////////+++++++++++++oosymNNNMNMNMMMMMMMMMMMMMMMMMMMMNNmdMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNNMNMMMMMMMMMNN"); System.out.println(
 "dmmmmmmdyhmNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNmNNMMMMMMMMMMMNMMMMMMNNNNNNNNNNNNNy+/////::::::::::::::////////////+//+++//++oooyNNNNMNMNMMMMMMMMMMMMMMMMMMMMMNNNdMMMMMMMMMMMMMMMMMNMMMMMMMMMMMMMNNMMMMMMMMMMMM ");
-System.out.println("\"); System.out.println(\"              _______                       _________ _        _            ______   _______      _______           _        _______  ______       ______           \"); \n" +
-"System.out.println(\"|\\\\\\\\     /|(  ___  )|\\\\\\\\     /|    |\\\\\\\\     /|\\\\\\\\__   __/( \\\\\\\\      ( \\\\\\\\          (  ___ \\\\\\\\ (  ____ \\\\\\\\    (  ___  )|\\\\\\\\     /|( (    /|(  ____ \\\\\\\\(  __  \\\\\\\\     (  ___ \\\\\\\\ |\\\\\\\\     /|\");\n" +
-"System.out.println(\"( \\\\\\\\   / )| (   ) || )   ( |    | )   ( |   ) (   | (      | (          | (   ) )| (    \\\\\\\\/    | (   ) || )   ( ||  \\\\\\\\  ( || (    \\\\\\\\/| (  \\\\\\\\  )    | (   ) )( \\\\\\\\   / )\"); \n" +
-"System.out.println(\" \\\\\\\\ (_) / | |   | || |   | |    | | _ | |   | |   | |      | |          | (__/ / | (__        | |   | || | _ | ||   \\\\\\\\ | || (__    | |   ) |    | (__/ /  \\\\\\\\ (_) / \"); \n" +
-"System.out.println(\"  \\\\\\\\   /  | |   | || |   | |    | |( )| |   | |   | |      | |          |  __ (  |  __)       | |   | || |( )| || (\\\\\\\\ \\\\\\\\) ||  __)   | |   | |    |  __ (    \\\\\\\\   /  \"); \n" +
-"System.out.println(\"   ) (   | |   | || |   | |    | || || |   | |   | |      | |          | (  \\\\\\\\ \\\\\\\\ | (          | |   | || || || || | \\\\\\\\   || (      | |   ) |    | (  \\\\\\\\ \\\\\\\\    ) (   \"); \n" +
-"System.out.println(\"   | |   | (___) || (___) |    | () () |___) (___| (____/\\\\\\\\| (____/\\\\\\\\    | )___) )| (____/\\\\\\\\    | (___) || () () || )  \\\\\\\\  || (____/\\\\\\\\| (__/  )    | )___) )   | |   \"); \n" +
-"System.out.println(\"   \\\\\\\\_/   (_______)(_______)    (_______)\\\\\\\\_______/(_______/(_______/    |/ \\\\\\\\___/ (_______/    (_______)(_______)|/    )_)(_______/(______/     |/ \\\\\\\\___/    \\\\\\\\_/   \"); \n" +
-"System.out.println(\"                                                                                                                                                                \"); \n" +
-"System.out.println(\"                   _______  _______  _______ _________ _______          _______  _        ______         _        _______  _______ _________ _______            \"); \n" +
-"System.out.println(\"                  (  ____ \\\\\\\\(  ___  )(  ____ \\\\\\\\\\\\\\\\__   __/(  ____ \\\\\\\\        (  ___  )( (    /|(  __  \\\\\\\\       ( \\\\\\\\      (  ___  )(  ____ \\\\\\\\\\\\\\\\__   __/(  ____ \\\\\\\\           \"); \n" +
-"System.out.println(\"                  | (    \\\\\\\\/| (   ) || (    \\\\\\\\/   ) (   | (    \\\\\\\\/        | (   ) ||  \\\\\\\\  ( || (  \\\\\\\\  )      | (      | (   ) || (    \\\\\\\\/   ) (   | (    \\\\\\\\/           \"); \n" +
-"System.out.println(\"                  | (__    | (___) || |         | |   | (_____         | (___) ||   \\\\\\\\ | || |   ) |      | |      | |   | || |         | |   | |                 \"); \n" +
-"System.out.println(\"                  |  __)   |  ___  || |         | |   (_____  )        |  ___  || (\\\\\\\\ \\\\\\\\) || |   | |      | |      | |   | || | ____    | |   | |                 \"); \n" +
-"System.out.println(\"                  | (      | (   ) || |         | |         ) |        | (   ) || | \\\\\\\\   || |   ) |      | |      | |   | || | \\\\\\\\_  )   | |   | |                 \"); \n" +
-"System.out.println(\"                  | )      | )   ( || (____/\\\\\\\\   | |   /\\\\\\\\____) |        | )   ( || )  \\\\\\\\  || (__/  )      | (____/\\\\\\\\| (___) || (___) |___) (___| (____/\\\\\\\\           \"); \n" +
-"System.out.println(\"                  |/       |/     \\\\\\\\|(_______/   )_(   \\\\\\\\_______)        |/     \\\\\\\\||/    )_)(______/       (_______/(_______)(_______)\\\\\\\\_______/(_______/           \"); \n" +
-"System.out.println(\"                                                                                                                                                      "); 
+
+ 
+System.out.println("          _______                       _________ _        _            ______   _______      _______           _        _______  ______       ______           ");
+System.out.println("|\\     /|(  ___  )|\\     /|    |\\     /|\\__   __/( \\      ( \\          (  ___ \\ (  ____ \\    (  ___  )|\\     /|( (    /|(  ____ \\(  __  \\     (  ___ \\ |\\     /|  ");
+System.out.println("( \\   / )| (   ) || )   ( |    | )   ( |   ) (   | (      | (          | (   ) )| (    \\/    | (   ) || )   ( ||  \\  ( || (    \\/| (  \\  )    | (   ) )( \\   / ) ");
+System.out.println(" \\ (_) / | |   | || |   | |    | | _ | |   | |   | |      | |          | (__/ / | (__        | |   | || | _ | ||   \\ | || (__    | |   ) |    | (__/ /  \\ (_) /  ");
+System.out.println("  \\   /  | |   | || |   | |    | |( )| |   | |   | |      | |          |  __ (  |  __)       | |   | || |( )| || (\\ \\) ||  __)   | |   | |    |  __ (    \\   /   ");
+System.out.println("   ) (   | |   | || |   | |    | || || |   | |   | |      | |          | (  \\ \\ | (          | |   | || || || || | \\   || (      | |   ) |    | (  \\ \\    ) (    ");
+System.out.println("   | |   | (___) || (___) |    | () () |___) (___| (____/\\| (____/\\    | )___) )| (____/\\    | (___) || () () || )  \\  || (____/\\| (__/  )    | )___) )   | |    ");
+System.out.println("   \\_/   (_______)(_______)    (_______)\\_______/(_______/(_______/    |/ \\___/ (_______/    (_______)(_______)|/    )_)(_______/(______/     |/ \\___/    \\_/    ");
+System.out.println("                                                                                                                                                                ");
+System.out.println("                   _______  _______  _______ _________ _______          _______  _        ______         _        _______  _______ _________ _______            ");
+System.out.println("                  (  ____ \\(  ___  )(  ____ \\\\__   __/(  ____ \\        (  ___  )( (    /|(  __  \\       ( \\      (  ___  )(  ____ \\\\__   __/(  ____ \\            ");
+System.out.println("                  | (    \\/| (   ) || (    \\/   ) (   | (    \\/        | (   ) ||  \\  ( || (  \\  )      | (      | (   ) || (    \\/   ) (   | (    \\/            ");
+System.out.println("                  | (__    | (___) || |         | |   | (_____         | (___) ||   \\ | || |   ) |      | |      | |   | || |         | |   | |                 ");
+System.out.println("                  |  __)   |  ___  || |         | |   (_____  )        |  ___  || (\\ \\) || |   | |      | |      | |   | || | ____    | |   | |                 ");
+System.out.println("                  | (      | (   ) || |         | |         ) |        | (   ) || | \\   || |   ) |      | |      | |   | || | \\_  )   | |   | |                 ");
+System.out.println("                  | )      | )   ( || (____/\\   | |   /\\____) |        | )   ( || )  \\  || (__/  )      | (____/\\| (___) || (___) |___) (___| (____/\\           ");
+System.out.println("                  |/       |/     \\|(_______/   )_(   \\_______)        |/     \\||/    )_)(______/       (_______/(_______)(_______)\\_______/(_______/           "); 
     }
     
 }

@@ -23,24 +23,27 @@ public class Move {
     private Board b;
     
     //From square TO square
-    public Move(Piece p, char row, char column, char r, char c) throws Exception {
+    public Move(Piece p, char row, char column) throws Exception {
         try{
             //Check according to rules for movement
             //Throw out exception if not valid move
             
             BoardButton[][] GameBoard = b.getGameBoard();          //Fetch gameboard object
-            int i = 8 -(int)row;                                    //Number row
-            int j = (int)column; 
             
-            int m = 8 - (int)r;
-            int n = (int)c;
+            String s = p.getLocation();
+            char loc[] = s.toCharArray();
+            int i = (int)loc[0];                                    //Number column
+            int j = (int)loc[1]; 
+            
+            int m = 8 - (int)row;
+            int n = (int)column;
             this.old = GameBoard[i][j];
             this.n3w = GameBoard[m][n];
             
-            System.out.println(p.getAbbrev() + " moved from " + row + column + " to " + r + c + ".");            
+            System.out.println(p.getAbbrev() + " moved from " + loc[0] + loc[1] + " to " + row + column + ".");            
             
             String move = String.valueOf(p.getAbbrev());
-            move = move + r + c;
+            move = move + row + column;
             if (p.isWhite()) whitePlayer.addMove(move);
             else blackPlayer.addMove(move);
             
