@@ -12,7 +12,7 @@ public class Player {
     private boolean canCastle;                              //CAN the gamer castle, false if king and/or close side rook moves
     
     private boolean team;     
-    private boolean ai;
+    private boolean ai = false;
     private double points;                                  //AI points variable for current game state
     private Boolean game;                                   //True = won, false = lost, null = in progress, thus upper case 'B'
     

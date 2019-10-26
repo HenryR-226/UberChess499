@@ -56,7 +56,7 @@ public class BoardButton {
      * Adds the piece to a player's lost pieces list and removes from their active piece list.
      * Then rewrites the piece on the given BB as the argument piece.
      */
-    public void removePiece(Piece p){
+ /*   public void removePiece(Piece p){
         Player player; GameState g;
         boolean team = p.isWhite();
         if (team) player = g.getBlack();           //If p is white -> black lost piece
@@ -64,7 +64,7 @@ public class BoardButton {
         player.pieceCaptured(this.piece);
         this.piece = p;
         this.isFull=true;
-    }
+    } */
     
     public boolean isFull(){
         return this.isFull;
@@ -131,6 +131,8 @@ public class BoardButton {
    public boolean isWhite(){
        return this.isWhite;
    }    
+   
+   
    
     //Testable Main, mostly to check println offsets.
     public static void Main(String[] args){            

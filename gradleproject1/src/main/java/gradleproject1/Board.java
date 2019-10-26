@@ -57,77 +57,121 @@ public class Board {
             white = !white;    
             }
     } 
-    
-    
+
     
     public void initWhite(){
-        Piece pawn = new Pawn(1, true);
-        Piece rook = new Rook(4, true);
-        Piece bishop = new Bishop(3, true);
-        Piece knight = new Knight(2, true);
-        Piece queen = new Queen(5, true);
-        Piece kang = new King(6, true);
+        Piece Pawn1 = new Pawn("Pawn1", true);
+        Piece Pawn2 = new Pawn("Pawn2", true);
+        Piece Pawn3 = new Pawn("Pawn3", true);
+        Piece Pawn4 = new Pawn("Pawn4", true);
+        Piece Pawn5 = new Pawn("Pawn5", true);
+        Piece Pawn6 = new Pawn("Pawn6", true);
+        Piece Pawn7 = new Pawn("Pawn7", true);
+        Piece Pawn8 = new Pawn("Pawn8", true);
+        
+        
+        Piece Rook1 = new Rook("Rook1", true);
+        Piece Rook2 = new Rook("Rook2", true);
+        Piece BishopLight = new Bishop("BishopLight", true);
+        Piece BishopDark = new Bishop("BishopDark", true);
+        Piece Knight1 = new Knight("Knight1", true);
+        Piece Knight2 = new Knight("Knight2", true);
+        Piece Queen = new Queen("Queen", true);
+        Piece Kang = new King("Kang", true);
         BoardButton a;
         
         //set pawns
-        for(int i = 0; i<8; i++){
-            a=GameBoard[1][i];
-            a.setPiece(pawn);
-        }
+        a=GameBoard[1][0];
+        a.setPiece(Pawn1);
+        a=GameBoard[1][1];
+        a.setPiece(Pawn2);
+        a=GameBoard[1][2];
+        a.setPiece(Pawn3);
+        a=GameBoard[1][3];
+        a.setPiece(Pawn4);
+        a=GameBoard[1][4];
+        a.setPiece(Pawn5);
+        a=GameBoard[1][5];
+        a.setPiece(Pawn6);
+        a=GameBoard[1][6];
+        a.setPiece(Pawn7);
+        a=GameBoard[1][7];
+        a.setPiece(Pawn8);
         
         a=GameBoard[0][0];
-        a.setPiece(rook);
+        a.setPiece(Rook1);
         a=GameBoard[0][7];
-        a.setPiece(rook);
+        a.setPiece(Rook2);
         a=GameBoard[0][1];
-        a.setPiece(knight);
+        a.setPiece(Knight1);
         a=GameBoard[0][6];
-        a.setPiece(knight);
+        a.setPiece(Knight2);
         a=GameBoard[0][2];
-        a.setPiece(bishop);
+        a.setPiece(BishopLight);
         a=GameBoard[0][5];
-        a.setPiece(bishop);
+        a.setPiece(BishopDark);
         a=GameBoard[0][4];
-        a.setPiece(kang);
+        a.setPiece(Kang);
         a=GameBoard[0][3];
-        a.setPiece(queen);
-        
-        
-    
-       
+        a.setPiece(Queen);
     }
     
      public void initBlack(){
-        Piece blackPawn = new Pawn(1, false);
-        Piece blackRook = new Rook(4, false);
-        Piece blackBishop = new Bishop(3, false);
-        Piece blackKnight = new Knight(2, false);
-        Piece blackQueen = new Queen(5, false);
-        Piece blackKang = new King(6, false);
-         BoardButton a;
-         
-        //set pawns
-        for(int i = 0; i<8; i++){
-            a=GameBoard[6][i];
-            a.setPiece(blackPawn);
-        }
+        Piece pawn1 = new Pawn("pawn1", true);
+        Piece pawn2 = new Pawn("pawn2", true);
+        Piece pawn3 = new Pawn("pawn3", true);
+        Piece pawn4 = new Pawn("pawn4", true);
+        Piece pawn5 = new Pawn("pawn5", true);
+        Piece pawn6 = new Pawn("pawn6", true);
+        Piece pawn7 = new Pawn("pawn7", true);
+        Piece pawn8 = new Pawn("pawn8", true);
+        
+        
+        Piece rook1 = new Rook("rook1", true);
+        Piece rook2 = new Rook("rook2", true);
+        Piece bishopLight = new Bishop("bishopLight", true);
+        Piece bishopDark = new Bishop("bishopDark", true);
+        Piece knight1 = new Knight("knight1", true);
+        Piece knight2 = new Knight("knight2", true);
+        Piece queen = new Queen("queen", true);
+        Piece kang = new King("kang", true);
+        
+        
+        BoardButton a;
+        
+        a=GameBoard[6][0];
+        a.setPiece(pawn1);
+        a=GameBoard[6][1];
+        a.setPiece(pawn2);
+        a=GameBoard[6][2];
+        a.setPiece(pawn3);
+        a=GameBoard[6][3];
+        a.setPiece(pawn4);
+        a=GameBoard[6][4];
+        a.setPiece(pawn5);
+        a=GameBoard[6][5];
+        a.setPiece(pawn6);
+        a=GameBoard[6][6];
+        a.setPiece(pawn7);
+        a=GameBoard[6][7];
+        a.setPiece(pawn8);
         
         a=GameBoard[7][0];
-        a.setPiece(blackRook);
+        a.setPiece(rook1);
         a=GameBoard[7][7];
-        a.setPiece(blackRook);
+        a.setPiece(rook2);
         a=GameBoard[7][1];
-        a.setPiece(blackKnight);
+        a.setPiece(knight1);
         a=GameBoard[7][6];
-        a.setPiece(blackKnight);
+        a.setPiece(knight2);
         a=GameBoard[7][2];
-        a.setPiece(blackBishop);
+        a.setPiece(bishopDark);
         a=GameBoard[7][5];
-        a.setPiece(blackBishop);
+        a.setPiece(bishopLight);
         a=GameBoard[7][4];
-        a.setPiece(blackKang);
+        a.setPiece(kang);
         a=GameBoard[7][3];
-        a.setPiece(blackQueen);
+        a.setPiece(queen);
         
         
     }
@@ -137,22 +181,20 @@ public class Board {
         BoardButton b;
         byte rowOffset = 7;
         char c;
+        System.out.println("   A B C D E F G H");
         for (int i = 7; i >= 0; i--){
             System.out.print((rowOffset+1) + " [");       //Rows starting from 8
             for (int j = 7; j >=0; j--){
                 b = GameBoard[i][j];
                 if(b.getPiece()!=null){
                 c = (char) b.getPiece().getAbbrev();
-                if(b.getPiece().isWhite()) c=java.lang.Character.toUpperCase(c);
                 System.out.print(c + ",");
                 } 
                 else if (b.isWhite()) System.out.print("-,");
                 else System.out.print("+,");
             
             }
-            
-        
-            System.out.println("]");
+            System.out.println("] " + (rowOffset+1));
             rowOffset--;
         }   
         System.out.println("   A B C D E F G H");     //Letter Grid      

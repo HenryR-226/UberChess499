@@ -15,25 +15,36 @@ public class Queen extends Piece {
     
     
     
-    public Queen(int moveID, boolean team){
-       this.moveID=moveID;
+    public Queen(String moveID, boolean team){
+       this.pieceID=moveID;
        this.setIsWhite(team);
-       setAbbreviation('q');
+       if (team) setAbbreviation('Q');
+       else if(!team) setAbbreviation('q');
        this.points=9;
     }
     
-    @Override
-   public ArrayList<BoardButton> getMoves(Piece p){
-   }
+    
    
-   private static double[][] gridOffsetQueen = new double[][]{
-        {-2, -1, -1, -0.5, -0.5, -1, -1, -2},
-        {-1, 0, 0, 0, 0, 0, 0, -1},
-        {-1, 0, 0.5, 0.5, 0.5, 0.5, 0, -1},
-        {-0.5, 0, 0.5, 0.5, 0.5, 0.5, 0, -0.5},
-        {0, 0, 0.5, 0.5, 0.5, 0.5, 0, -0.5},
-        {-1, 0.5, 0.5, 0.5, 0.5, 0.5, 0, -1},
-        {-1, 0, 0.5, 0, 0, 0, 0, -1},
-        {-2, -1, -1, -0.5, -0.5, -1, -1, -2}   
-    };
+   
+   
+   /*
+   public double getGridOffset(){
+         try {
+            String s = this.getLocation();
+
+            char loc[] = s.toCharArray();
+            int i = (int) loc[0];                                    //Number column
+            int j = (int) loc[1];
+
+            int n = 8 - (int) loc[1];
+            int m = (int) loc[0];
+
+            return this.gridOffset[m][n];
+
+        } catch (Exception e) {
+            System.out.println("Something fucked up in grid offset.");
+            e.printStackTrace();
+            return 0;
+        }
+    } */
 }
