@@ -19,7 +19,7 @@ public class Main {
     public static void main(String[] args) {
         // TODO code application logic here
         System.out.println("UberChess Chess Game Initialization");
-        Scanner in = new Scanner(System.in);
+        Scanner test = new Scanner(System.in);
         
        Board b=new Board();
            b.initBoard();
@@ -33,8 +33,13 @@ public class Main {
            System.out.println("Hint: Type grid square for first pawn move (no need to specify pawn):");
            
            System.out.println("Enter move for pawn");
-           String newMove = in.nextLine();
-           System.out.println("This is new move: " + newMove);
+           if(test.hasNextLine()){
+                String story = test.nextLine();
+            }
+
+            //System.out.println("this is nextline: " + test.hasNextLine());
+           //String newMove = test.nextLine();
+          // System.out.println("This is new move: " + newMove);
            
            
     }
