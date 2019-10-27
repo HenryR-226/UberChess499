@@ -7,16 +7,18 @@
  *
  * @author Tyrone Lamar
  */
-package gradleproject1;
 
+package gradleproject1;
 import java.util.*;
 public class Board {
      
-    static private BoardButton[][] GameBoard = new BoardButton[8][8];
+    private BoardButton[][] GameBoard = new BoardButton[8][8];
    
     /**@author Henry Rheault
      * Method to take in string of piece location and natively/abstractly convert to
-     * array memory location
+     * array memory location.
+     * 
+     * Needs to be fixed as of 10/27 as the board layout has been altered.
      */
    
     public BoardButton toArray(String s){
@@ -56,7 +58,7 @@ public class Board {
                  
                  }                
             white = !white;    
-            }
+        }
     }
  
    
@@ -81,7 +83,6 @@ public class Board {
         Piece Kang = new King("Kang", true);
         BoardButton a;
        
-        //set pawns
         a=GameBoard[0][1];
         a.setPiece(Pawn1);
         a=GameBoard[1][1];
@@ -178,13 +179,13 @@ public class Board {
     }
      
     //Draws out Ascii art of the gameboard. To be called after every successfully committed move
-    public static void draw() {
+    public void draw() {
         BoardButton b;
         byte rowOffset = 7;
         char c;
         System.out.println("   A B C D E F G H");
         for (int j = 7; j >= 0; j--) {
-            System.out.print((rowOffset + 1) + " [");       //Rows starting from 8
+            System.out.print((rowOffset) + " [");       //Rows starting from 8
             for (int i = 0; i <= 7; i++) {
                 b = GameBoard[i][j];
                 if (b.getPiece() != null) {
@@ -197,7 +198,7 @@ public class Board {
                 }
  
             }
-            System.out.println("] " + (rowOffset + 1));
+            System.out.println("] " + (rowOffset));
             rowOffset--;
         }
         System.out.println("   A B C D E F G H");     //Letter Grid      

@@ -1,14 +1,15 @@
+ 
 /*
  *  SUPERCLASS For all piece objects
  *  Handles Point values for AI, Abbreviations, Move ID for special moves determination,
  *  and team affiliation, True= white, false = black
- *  Each piece Subclass handles an Overrided getMoves() called by the central getMoves() to 
+ *  Each piece Subclass handles an Overrided getMoves() called by the central getMoves() to
  *  generate piece specific moves based on location and move rules.
  */
-package gradleproject1;
+ package gradleproject1;
 import java.util.*;
 import java.lang.*;
-
+ 
 /**
  *
  * @author Tyrone Lamar
@@ -18,45 +19,56 @@ public class Piece {
     private char abbreviation;
     public String pieceID;          //unique string to identify a particular piece object
     double points;
-    String location;                                //Bite me
-    
+    String location;                                
+    private static BoardButton[][] board;
+    private static Board b;
+   
+    public static BoardButton[][] getBoard() {
+        return board;
+    }
+ 
+    public static void setBoard(Board boardInput) {
+        Piece.b = boardInput;
+        Piece.board=b.getGameBoard();
+    }
+ 
     public char getAbbrev(){
         return this.abbreviation;
     }    
-    
+   
     public double getPoints(){
         return this.points;
     }    
-    
+   
     public boolean isWhite(){
         return isWhite;
     }    
-    
-    
+   
+   
     public void setIsWhite(boolean white){
         this.isWhite=white;
     }    
-    
+   
     public void setAbbreviation(char abbrev){
         this.abbreviation = abbrev;
     }
-    
+   
     public String getLocation(){
         return this.location;
     }
-    
-    
+   
+   
     /**
-     * @author Henry Rheault 
+     * @author Henry Rheault
      * A method to return an array list of all valid board button squares valid to move a piece onto.
      * @param piece object
      * @return all valid moves allowed
     */
-    
+   
     public ArrayList<BoardButton> getMoves(Piece p){
         ArrayList<BoardButton> validMoves = new ArrayList<BoardButton>();      
         ArrayList<BoardButton> candidateMoves = new ArrayList<BoardButton>();             //Returned list from Piece subclass to be sifted through based on game rules
-       Board board; 
+       Board board;
        boolean team = p.isWhite();          
        char c = Character.toUpperCase(p.getAbbrev());
        switch (c){
@@ -67,7 +79,7 @@ public class Piece {
 //           case 'B':    
 //               candidateMoves= getBishopMoves(p);
 //           case 'R':
-//               candidateMoves=Rook.getRookMoves(p);   
+//               candidateMoves=Rook.getRookMoves(p);  
 //           case 'Q':    
 //               candidateMoves=Queen.getQueenMoves(p);
 //           case 'K':    
@@ -76,7 +88,7 @@ public class Piece {
        
        for (BoardButton b : candidateMoves){           //Get valid moves for particular piece object
            /*if king not put in check AND (b is not full OR b is full but with an opposite color piece (if a piece is attackable or not
-           handled within Pawn subclass) 
+           handled within Pawn subclass)
            */
            if (/*King not in check*/ !b.isFull()||(b.isFull()&&b.getPiece().isWhite()!=team) ){     //If b is empty OR occupied by opposite team
            validMoves.add(b);
@@ -85,7 +97,7 @@ public class Piece {
        
        return validMoves;
     }
-    
+   
     public ArrayList<BoardButton> getPawnMoves(Piece p){
         ArrayList<BoardButton> result = new ArrayList<BoardButton>();
         //boolean hasMoved = p.firstMove();
@@ -95,18 +107,18 @@ public class Piece {
 //       if (canAttack){
 //            //Call board for two grid locations adjacent
 //            //can move forward + over one
-//           
+//          
 //       }
 //       else if(!blocked){
 //           //can move forward one only
 //       }
-
+ 
         ArrayList<BoardButton> validY = new ArrayList<BoardButton>();
         ArrayList<BoardButton> valixX = new ArrayList<BoardButton>();
-        
+       
         //if()
-
-
+ 
+ 
         return result;
    }
    
@@ -137,7 +149,7 @@ public class Piece {
                }
            }
        
-       return validGrids; 
+       return validGrids;
        }
        return validGrids;
     }
@@ -145,12 +157,12 @@ public class Piece {
 /*    public ArrayList<BoardButton> getKnightMoves(Piece p){
     }
     public ArrayList<BoardButton> getRookMoves(Piece p){
-   } 
+   }
     public ArrayList<BoardButton> getQueenMoves(Piece p){
    } */
     //Returns LIST of BOARDBUTTONS which will be at Indexes the piece is allowed to move to
     public ArrayList<BoardButton> getKingMoves(Piece p){
-      
+     
        ArrayList<BoardButton> moveList = new ArrayList<>();      //Return values
        //ArrayList<String> validGrids = new ArrayList<String>();
        ArrayList<Integer> validX = new ArrayList<>();
@@ -203,19 +215,19 @@ public class Piece {
        }
        //Now take all permutations of the row and col values, discarding the 'unchanged' move
        //https://stackoverflow.com/questions/17192796/generate-all-combinations-from-multiple-lists
-//       for (Integer x : validX){
-//           for (Integer y : validY){
-//               BoardButton button = GameBoard[x][y];
-//               moveList.add(button);
-//           }
-//       }
+       for (Integer x : validX){
+           for (Integer y : validY){
+               BoardButton button = board[x][y];
+               moveList.add(button);
+           }
+       }
        
        return moveList;
-    } 
-    
-    
+    }
+   
+   
     public void deleteThis(){
         String newGuy = "D5";
-        
+       
     }
 }

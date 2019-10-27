@@ -22,7 +22,13 @@ public class Move {
     
     private Board b;
     
-    //From square TO square
+    /** @author Henry Rheault
+    *
+    * Commits a move to a gamer's move list. Assumes move is valid when being called.
+    * Try-Catch for good measure and debugging ease to see if the error is within Move or elsewhere.
+    * 
+    * Adds a move to a particular gamer's move list for demo purposes. 
+    */
     public Move(Piece p, char row, char column) throws Exception {
         try{
             //Check according to rules for movement
@@ -50,7 +56,7 @@ public class Move {
             //Game.update();
             
         } catch (Exception e) {
-            System.out.println("Invalid move. Try again.");
+            System.out.println("Invalid move constructor. Try again.");
         }
     }
 }
