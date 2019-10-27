@@ -12,13 +12,58 @@ package gradleproject1;
 import java.util.*;
 public class Board {
      
+    private Player whitePlayer;
+    private Player blackPlayer;
+    
+    public Board(Player whitePlayer, Player blackPlayer){
+        this.blackPlayer=blackPlayer;
+        this.whitePlayer=whitePlayer;
+    }
+    
     private BoardButton[][] GameBoard = new BoardButton[8][8];
    
+    private ArrayList<Move> possibleMoves;
+    
+    
+    /**
+     * @Author Henry Rheault
+     *
+     * MASTER MOVE METHOD. Calls getPieceList for a particular gamer to get their list of pieces on the board.
+     * Then calls Piece.getMoves() to return a semi-filtered list.
+     * of candidate moves. getMoves() in piece calls each piece's individual
+     * submethods for specific move generation, returns back to Piece.getMoves()
+     * to be returned to here.
+     *
+     * This method then sifts down to make sure the move isn't illegal, converts
+     * it as chess notation, and pushes it to array list as a string. This
+     * processes all possible moves for a given team.
+     */
+    public ArrayList<Move> getMoves(Player p) throws Exception {
+        ArrayList<ArrayList<BoardButton>> moveSquareList = new ArrayList<ArrayList<BoardButton>>();             //List of Lists, one list for each piece's possible moves
+        Move move;                                                            //Return string of given move
+        for (Piece piece : p.getPieceList()) {                                   //For each piece in player's list
+        moveSquareList.add(piece.getMoves(piece));                              //Add a list of possible board squares that piece can move to
+            for (ArrayList<BoardButton> al : moveSquareList) {                      //For each list of boardbuttons in the movesquare list
+                for (BoardButton b : al) {                                          //For each boadbutton IN said list of boardbuttons
+                    if ((b.isFull()) && (b.getPiece().isWhite() != piece.isWhite())/*&& not in check*/ || !b.isFull()) {            //Check conditions
+                        move = new Move(piece, b);                                  //Construct the move
+                        possibleMoves.add(move);                                    //Post the move to final move list
+                    }
+                } //if statement: IF ( ( (boardsquare is full AND the piece is opposite team as yours) OR b is not full) AND king not in check)
+            }     //Warning- pawn rules. This will report a space immediately forward of the pawn occupied by enemy piece as valid move.
+        }         //I think this will be tested/weeded out in the Pawn specific candidate generation moves to keep this clean.
+
+        return possibleMoves;                                    //Return the final move list. AI selects from this randomly and potential move to be made MUST BE in here
+    }
+    
+    
     /**@author Henry Rheault
      * Method to take in string of piece location and natively/abstractly convert to
      * array memory location.
      * 
      * Needs to be fixed as of 10/27 as the board layout has been altered.
+     * 
+     * @deprecated 
      */
    
     public BoardButton toArray(String s){

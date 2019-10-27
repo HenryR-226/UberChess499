@@ -23,6 +23,24 @@ public class Piece {
     private static BoardButton[][] board;
     private static Board b;
    
+    private ArrayList<BoardButton> possibleMoves;               //Each piece keeps track of where it can currently move.
+    
+    public ArrayList<BoardButton> getPossibleMoves(){
+        return possibleMoves;
+    }
+    
+    public void deleteMoveSquare(BoardButton b) throws Exception{
+        try{
+        possibleMoves.remove(b);
+        } catch (Exception e) {
+            System.out.println("deleteMoveSquare called with invalid board square argument.");
+        }
+    }
+    
+    public void addMoveSquare(BoardButton b) throws Exception{
+         possibleMoves.add(b);
+    }
+    
     public static BoardButton[][] getBoard() {
         return board;
     }
@@ -61,12 +79,15 @@ public class Piece {
     /**
      * @author Henry Rheault
      * A method to return an array list of all valid board button squares valid to move a piece onto.
+     * 
+     * Calls a particular piece's method for move generation for RAW (unfiltered) candidate moves, then
+     * weeds through them here for GUI/AI purposes.
+     * 
      * @param piece object
      * @return all valid moves allowed
     */
    
-    public ArrayList<BoardButton> getMoves(Piece p){
-        ArrayList<BoardButton> validMoves = new ArrayList<BoardButton>();      
+    public ArrayList<BoardButton> getMoves(Piece p){     
         ArrayList<BoardButton> candidateMoves = new ArrayList<BoardButton>();             //Returned list from Piece subclass to be sifted through based on game rules
        Board board;
        boolean team = p.isWhite();          
@@ -91,11 +112,11 @@ public class Piece {
            handled within Pawn subclass)
            */
            if (/*King not in check*/ !b.isFull()||(b.isFull()&&b.getPiece().isWhite()!=team) ){     //If b is empty OR occupied by opposite team
-           validMoves.add(b);
+           possibleMoves.add(b);
            }
         }
        
-       return validMoves;
+       return possibleMoves;
     }
    
     public ArrayList<BoardButton> getPawnMoves(Piece p){
@@ -122,6 +143,7 @@ public class Piece {
         return result;
    }
    
+    //Bishop raw moves generator
     public ArrayList<String> getBishopMoves(Piece p){
        //https://math.stackexchange.com/questions/1566115/formula-that-describes-the-movement-of-a-bishop-in-chess
        //Moving from x1, y1 to x2, y2 is a valid move if abs(x2-x1) = abs(y2 - y1) > 0.
@@ -214,15 +236,16 @@ public class Piece {
            row = row+1;
        }
        //Now take all permutations of the row and col values, discarding the 'unchanged' move
-       //https://stackoverflow.com/questions/17192796/generate-all-combinations-from-multiple-lists
        for (Integer x : validX){
            for (Integer y : validY){
                BoardButton button = board[x][y];
                moveList.add(button);
+               moveList.remove(board[row][col]);
            }
        }
        
-       return moveList;
+       possibleMoves = moveList;
+       return possibleMoves;
     }
    
    

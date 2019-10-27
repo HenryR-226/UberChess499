@@ -7,7 +7,10 @@ package gradleproject1;
 
 /**
  *
- * @author Tyrone Lamar
+ * @author Henry Rheault
+ * 
+ * Move is a special type of string consisting of 3 characters: Piece Abbrev, Col char and Row char.
+ * EG: NE3, kG7.
  */
 public class Move {
     
@@ -31,8 +34,6 @@ public class Move {
     */
     public Move(Piece p, char row, char column) throws Exception {
         try{
-            //Check according to rules for movement
-            //Throw out exception if not valid move
             
             BoardButton[][] GameBoard = b.getGameBoard();          //Fetch gameboard object
             
@@ -41,7 +42,9 @@ public class Move {
             int i = (int)loc[0];                                    //Number column
             int j = (int)loc[1]; 
             
-            int m = 8 - (int)row;
+            //  10/27/19: Update and make sure with new grid layout this reports/converts the correct grid notations! 
+            // A1 - 0,0; H8 - 7,7, etc.
+            int m = (int)row;
             int n = (int)column;
             this.old = GameBoard[i][j];
             this.n3w = GameBoard[m][n];
@@ -59,4 +62,29 @@ public class Move {
             System.out.println("Invalid move constructor. Try again.");
         }
     }
+       public Move (Piece p, BoardButton button) throws Exception {          //Overloaded constructor, simply declare a boardbutton to attempt a move to
+           try{
+           BoardButton[][] GameBoard = b.getGameBoard();          //Fetch gameboard object
+            
+            String s = p.getLocation();
+            char loc[] = s.toCharArray();
+            int i = (int)loc[0];                                    //Number column
+            int j = (int)loc[1]; 
+               
+            this.old = GameBoard[i][j];
+            this.n3w = button;
+            String abbrev = n3w.getAbbreviation();
+            System.out.println(p.getAbbrev() + " moved from " + loc[0] + loc[1] + " to " + abbrev + ".");
+            
+            String move = String.valueOf(p.getAbbrev());
+            move = move + abbrev;
+            if (p.isWhite()) whitePlayer.addMove(move);
+            else blackPlayer.addMove(move);
+            
+            
+            
+           } catch (Exception e) {
+               System.out.println("Invalid move constructor taking board square. Try again.");
+               e.printStackTrace();
+       }}
 }

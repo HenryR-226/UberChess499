@@ -1,17 +1,19 @@
 /*
  Uberchess current build : 0.00.01
 */
-
-package gradleproject1;
-
+ 
+ 
+ 
 /**
  *
  * @author Tyrone Lamar
  */
+
+package gradleproject1;
 import java.util.Scanner;
-
+ 
 public class Main {
-
+ 
    
     /**
      * @param args the command line arguments
@@ -19,35 +21,58 @@ public class Main {
     public static void main(String[] args) {
         // TODO code application logic here
         System.out.println("UberChess Chess Game Initialization");
-        Scanner test = new Scanner(System.in);
-        
-       Board b=new Board();
-           b.initBoard();
-           b.initBlack();
-           b.initWhite();
-        
+        Scanner s = new Scanner(System.in);
+        boolean run = true;
+        Player whitePlayer = new Player(true, false);
+        Player blackPlayer = new Player(false, false);
+ 
+        Board b=new Board(whitePlayer, blackPlayer);
+        BoardButton[][] GameBoard = b.getGameBoard();
+        b.initBoard();
+        b.initBlack();
+        b.initWhite();
+        b.draw();
+        Piece.setBoard(b);
+ 
+        System.out.println(" ");
+        System.out.println("White: Upper Case, first move:");
+        System.out.println("Hint: Type grid square for first pawn move (no need to specify pawn):");
+        System.out.println("Enter move for pawn");
+       
+        while(run)  {
            
-           b.draw();
-           System.out.println(" ");
-           System.out.println("White: Upper Case, first move:");
-           System.out.println("Hint: Type grid square for first pawn move (no need to specify pawn):");
+            System.out.println("\nEnter X ");
+            String oldX= s.nextLine();
+            if(oldX.compareToIgnoreCase("quit") == 0)   {
+                break;
+            }  
+            System.out.println("Enter Y ");
+            String oldY= s.nextLine();
+ 
+            BoardButton a = GameBoard[Integer.valueOf(oldX)][Integer.valueOf(oldY)];
+            Piece test = a.getPiece();
            
-           System.out.println("Enter move for pawn");
-           if(test.hasNextLine()){
-                String story = test.nextLine();
+            try {
+                System.out.println("\nPiece: " + test.getAbbrev());
+                if(test.isWhite() == true)  {
+                    System.out.println("Piece Team: White \n\n");
+                }else   {
+                    System.out.println("Piece Team: Black \n\n");
+                }
+               
+            }catch (Exception e)    {
+                System.out.println("No Piece at Entered Location");
+ 
             }
-
-            //System.out.println("this is nextline: " + test.hasNextLine());
-           //String newMove = test.nextLine();
-          // System.out.println("This is new move: " + newMove);
+            b.draw();
            
-           
+        }
     }
-    
+   
     /**
      * Call when user starts a new AI game
      */
-    
+   
     public static void ownedByFactsAndLogic(){
          System.out.println("                                                               -+ydNNNNMMNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNNNNNho/.                                                                     "); System.out.println(
 "                                                            .+hmNNNNMNNMMMMMMMMMMMMMMMMMMNNNNNNNNMMMMMMMMMMMMMMMMMMMMMMMMMNNNNNNNNNds:                                                                 "); System.out.println(
@@ -151,7 +176,7 @@ public class Main {
 "+ysoooshmmmmhyhmNNNNNNNNNmmNNNNNNNNNNNNmNmMMMMMMMMMMMMMMMNNNNNNNNNNNNNNNho/+//:::::::/:/://////////++/++/++++oo++oooooosoosydNMNMMMMNMMMMMMMMMMMMMMMMMNNNNdMMMMMMMMMMMMMMMNMMMMMMMMMMMMNNNNNMMMMMMMMNNNN"); System.out.println(
 "soshdmmmmdyymNNNNNNNNNNNmNNNNNNNNNNNNNNNmNmMMMMMMMMMMMMMMNMMMMNNNNNNNNNNNds+///::::::::::/:///////////////+++++++++++++oosymNNNMNMNMMMMMMMMMMMMMMMMMMMMNNmdMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNNMNMMMMMMMMMNN"); System.out.println(
 "dmmmmmmdyhmNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNmNNMMMMMMMMMMMNMMMMMMNNNNNNNNNNNNNy+/////::::::::::::::////////////+//+++//++oooyNNNNMNMNMMMMMMMMMMMMMMMMMMMMMNNNdMMMMMMMMMMMMMMMMMNMMMMMMMMMMMMMNNMMMMMMMMMMMM ");
-
+ 
  
 System.out.println("          _______                       _________ _        _            ______   _______      _______           _        _______  ______       ______           ");
 System.out.println("|\\     /|(  ___  )|\\     /|    |\\     /|\\__   __/( \\      ( \\          (  ___ \\ (  ____ \\    (  ___  )|\\     /|( (    /|(  ____ \\(  __  \\     (  ___ \\ |\\     /|  ");
@@ -169,8 +194,7 @@ System.out.println("                  | (__    | (___) || |         | |   | (___
 System.out.println("                  |  __)   |  ___  || |         | |   (_____  )        |  ___  || (\\ \\) || |   | |      | |      | |   | || | ____    | |   | |                 ");
 System.out.println("                  | (      | (   ) || |         | |         ) |        | (   ) || | \\   || |   ) |      | |      | |   | || | \\_  )   | |   | |                 ");
 System.out.println("                  | )      | )   ( || (____/\\   | |   /\\____) |        | )   ( || )  \\  || (__/  )      | (____/\\| (___) || (___) |___) (___| (____/\\           ");
-System.out.println("                  |/       |/     \\|(_______/   )_(   \\_______)        |/     \\||/    )_)(______/       (_______/(_______)(_______)\\_______/(_______/           "); 
+System.out.println("                  |/       |/     \\|(_______/   )_(   \\_______)        |/     \\||/    )_)(______/       (_______/(_______)(_______)\\_______/(_______/           ");
     }
-    
+   
 }
-
