@@ -20,7 +20,8 @@ public class Bishop extends Piece {
     public Bishop(String moveID, boolean team){
        this.pieceID=moveID;
        this.setIsWhite(team);
-       setAbbreviation('b');
+       if(team) setAbbreviation('B');
+       else setAbbreviation('b');
        this.points=3;
     }
   

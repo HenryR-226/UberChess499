@@ -81,38 +81,38 @@ public class Board {
         BoardButton a;
         
         //set pawns
-        a=GameBoard[1][0];
+        a=GameBoard[0][6];
         a.setPiece(Pawn1);
-        a=GameBoard[1][1];
-        a.setPiece(Pawn2);
-        a=GameBoard[1][2];
-        a.setPiece(Pawn3);
-        a=GameBoard[1][3];
-        a.setPiece(Pawn4);
-        a=GameBoard[1][4];
-        a.setPiece(Pawn5);
-        a=GameBoard[1][5];
-        a.setPiece(Pawn6);
         a=GameBoard[1][6];
+        a.setPiece(Pawn2);
+        a=GameBoard[2][6];
+        a.setPiece(Pawn3);
+        a=GameBoard[3][6];
+        a.setPiece(Pawn4);
+        a=GameBoard[4][6];
+        a.setPiece(Pawn5);
+        a=GameBoard[5][6];
+        a.setPiece(Pawn6);
+        a=GameBoard[6][6];
         a.setPiece(Pawn7);
-        a=GameBoard[1][7];
+        a=GameBoard[7][6];
         a.setPiece(Pawn8);
         
-        a=GameBoard[0][0];
-        a.setPiece(Rook1);
         a=GameBoard[0][7];
+        a.setPiece(Rook1);
+        a=GameBoard[7][7];
         a.setPiece(Rook2);
-        a=GameBoard[0][1];
+        a=GameBoard[1][7];
         a.setPiece(Knight1);
-        a=GameBoard[0][6];
+        a=GameBoard[6][7];
         a.setPiece(Knight2);
-        a=GameBoard[0][2];
+        a=GameBoard[2][7];
         a.setPiece(BishopLight);
-        a=GameBoard[0][5];
+        a=GameBoard[5][7];
         a.setPiece(BishopDark);
-        a=GameBoard[0][4];
+        a=GameBoard[4][7];
         a.setPiece(Kang);
-        a=GameBoard[0][3];
+        a=GameBoard[5][7];
         a.setPiece(Queen);
     }
     
@@ -139,66 +139,68 @@ public class Board {
         
         BoardButton a;
         
-        a=GameBoard[6][0];
+        a=GameBoard[0][1];
         a.setPiece(pawn1);
-        a=GameBoard[6][1];
+        a=GameBoard[1][1];
         a.setPiece(pawn2);
-        a=GameBoard[6][2];
+        a=GameBoard[2][1];
         a.setPiece(pawn3);
-        a=GameBoard[6][3];
+        a=GameBoard[3][1];
         a.setPiece(pawn4);
-        a=GameBoard[6][4];
+        a=GameBoard[4][1];
         a.setPiece(pawn5);
-        a=GameBoard[6][5];
+        a=GameBoard[5][1];
         a.setPiece(pawn6);
-        a=GameBoard[6][6];
+        a=GameBoard[6][1];
         a.setPiece(pawn7);
-        a=GameBoard[6][7];
+        a=GameBoard[7][1];
         a.setPiece(pawn8);
         
-        a=GameBoard[7][0];
+        a=GameBoard[0][0];
         a.setPiece(rook1);
-        a=GameBoard[7][7];
+        a=GameBoard[7][0];
         a.setPiece(rook2);
-        a=GameBoard[7][1];
+        a=GameBoard[1][0];
         a.setPiece(knight1);
-        a=GameBoard[7][6];
+        a=GameBoard[6][0];
         a.setPiece(knight2);
-        a=GameBoard[7][2];
+        a=GameBoard[5][0];
         a.setPiece(bishopDark);
-        a=GameBoard[7][5];
+        a=GameBoard[2][0];
         a.setPiece(bishopLight);
-        a=GameBoard[7][4];
+        a=GameBoard[4][0];
         a.setPiece(kang);
-        a=GameBoard[7][3];
+        a=GameBoard[3][0];
         a.setPiece(queen);
         
         
     }
      
-       //Draws out Ascii art of the gameboard. To be called after every successfully committed move
-    public static void draw(){
+    //Draws out Ascii art of the gameboard. To be called after every successfully committed move
+    public static void draw() {
         BoardButton b;
         byte rowOffset = 7;
         char c;
         System.out.println("   A B C D E F G H");
-        for (int i = 7; i >= 0; i--){
-            System.out.print((rowOffset+1) + " [");       //Rows starting from 8
-            for (int j = 7; j >=0; j--){
+        for (int i = 0; i <= 7; i++) {
+            System.out.print((rowOffset + 1) + " [");       //Rows starting from 8
+            for (int j = 7; j >= 0; j--) {
                 b = GameBoard[i][j];
-                if(b.getPiece()!=null){
-                c = (char) b.getPiece().getAbbrev();
-                System.out.print(c + ",");
-                } 
-                else if (b.isWhite()) System.out.print("-,");
-                else System.out.print("+,");
-            
+                if (b.getPiece() != null) {
+                    c = (char) b.getPiece().getAbbrev();
+                    System.out.print(c + ",");
+                } else if (b.isWhite()) {
+                    System.out.print("-,");
+                } else {
+                    System.out.print("+,");
+                }
+
             }
-            System.out.println("] " + (rowOffset+1));
+            System.out.println("] " + (rowOffset + 1));
             rowOffset--;
-        }   
+        }
         System.out.println("   A B C D E F G H");     //Letter Grid      
-    }        
+    }
         
     
     public BoardButton[][] getGameBoard(){
