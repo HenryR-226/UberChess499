@@ -117,24 +117,24 @@ public class Board {
     }
     
      public void initBlack(){
-        Piece pawn1 = new Pawn("pawn1", true);
-        Piece pawn2 = new Pawn("pawn2", true);
-        Piece pawn3 = new Pawn("pawn3", true);
-        Piece pawn4 = new Pawn("pawn4", true);
-        Piece pawn5 = new Pawn("pawn5", true);
-        Piece pawn6 = new Pawn("pawn6", true);
-        Piece pawn7 = new Pawn("pawn7", true);
-        Piece pawn8 = new Pawn("pawn8", true);
+        Piece pawn1 = new Pawn("pawn1", false);
+        Piece pawn2 = new Pawn("pawn2", false);
+        Piece pawn3 = new Pawn("pawn3", false);
+        Piece pawn4 = new Pawn("pawn4", false);
+        Piece pawn5 = new Pawn("pawn5", false);
+        Piece pawn6 = new Pawn("pawn6", false);
+        Piece pawn7 = new Pawn("pawn7", false);
+        Piece pawn8 = new Pawn("pawn8", false);
         
         
-        Piece rook1 = new Rook("rook1", true);
-        Piece rook2 = new Rook("rook2", true);
-        Piece bishopLight = new Bishop("bishopLight", true);
-        Piece bishopDark = new Bishop("bishopDark", true);
-        Piece knight1 = new Knight("knight1", true);
-        Piece knight2 = new Knight("knight2", true);
-        Piece queen = new Queen("queen", true);
-        Piece kang = new King("kang", true);
+        Piece rook1 = new Rook("rook1", false);
+        Piece rook2 = new Rook("rook2", false);
+        Piece bishopLight = new Bishop("bishopLight", false);
+        Piece bishopDark = new Bishop("bishopDark", false);
+        Piece knight1 = new Knight("knight1", false);
+        Piece knight2 = new Knight("knight2", false);
+        Piece queen = new Queen("queen", false);
+        Piece kang = new King("kang", false);
         
         
         BoardButton a;
