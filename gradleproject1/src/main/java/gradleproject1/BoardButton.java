@@ -34,8 +34,13 @@ public class BoardButton {
     static private char c;
     static private short rowOffset = 1;           //idk why I put these here as globals since I only need it in draw()
     
-    public Piece getPiece(){
-        return piece;
+    
+    public Piece getPiece() throws NullPointerException {
+        try {
+            return piece;
+        } catch (NullPointerException npe) {
+            return null;
+        }
     }
     
     //Assumes check has been run for empty square

@@ -56,6 +56,40 @@ public class Board {
         return possibleMoves;                                    //Return the final move list. AI selects from this randomly and potential move to be made MUST BE in here
     }
     
+    /**
+     * @author Henry Rheault Returns specific BoardButtons given the arguments
+     * of X & Y coordinates.
+     */
+    public BoardButton getBoardButton(int x, int y) {
+        try {
+            BoardButton result = GameBoard[x][y];
+            return result;
+        } catch (Exception e) {
+            System.out.println("Getting board button failed. Probably out of bounds so no such button.");
+            e.printStackTrace();
+        } finally {
+            return null;
+        }
+    }
+
+    /*
+     * Same as above but in chess notation. Don't know which one will be more 
+     * convenient or used more.
+     */
+    public BoardButton getBoardButton(char row, char col) {
+        try {
+            int x = ((int) row - 'A');
+            int y = (int) col;
+            BoardButton result = GameBoard[x][y];
+            return result;
+        } catch (Exception e) {
+            System.out.println("Getting board button failed. Probably passed bad Chess notation input.");
+            e.printStackTrace();
+        } finally {
+            return null;
+        }
+    }
+    
     
     /**@author Henry Rheault
      * Method to take in string of piece location and natively/abstractly convert to
