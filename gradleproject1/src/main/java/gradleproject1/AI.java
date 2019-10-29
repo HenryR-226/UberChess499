@@ -25,6 +25,7 @@ public class AI extends Player {              //H
     private double blackPoints;
     private double whitePoints;
    
+    
     public AI(boolean team, boolean aiAgent){
         super(team, aiAgent);
         Player p = new Player(team, aiAgent);
@@ -111,23 +112,32 @@ public class AI extends Player {              //H
     }
     /**
      * @author Henry Rheault
-     * Method to calculate the points state on the board for @param player
+     * Overloaded Method to get the grid offset for a particular piece object as the piece is what has
+     * access to it. @return double pointsOffset
+     */
+    public Double getGridOffset(Piece p) {
+        String location = p.getLocation();
+        char piece = p.getAbbrev();
+        Double points = getGridOffset(location, piece);
+        return points;
+    }
+    
+    
+    /**
+     * @author Henry Rheault
+     * Method to calculate the points state on the board for @param piece list (Normally hypothetical piece list for AI calculations)
      * @return the player's points
      */
    
-   
-    private double evalPoints(Player p, Board b){                                         //H
+    private double evalPoints(ArrayList<Piece> pieces){                                     
         double result = 0;
-        BoardButton[][] board = b.getGameBoard();               //Get locations
+        BoardButton[][] board;               //Get locations
         ArrayList<Double> pointsList = new ArrayList<Double>(); //Create list of point objects
-        for(Piece piece : p.getPieceList()){                             //For each row and column of BoardButton
+        for(Piece piece : pieces){                             //For each row and column of BoardButton
             result = result + getGridOffset(piece.getLocation(), piece.getAbbrev());    //Find pieces belonging to player p and summate points
         }                                                        //This code isn't clean and needs to run hundreds of thousands of times
                                                                 //So it needs to be better than "check every square for where there's
                                                                 //A piece on that team, every time"
-           
-           
-       
         return result;    
         }
  

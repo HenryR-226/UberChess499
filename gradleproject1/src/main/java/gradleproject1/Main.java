@@ -23,15 +23,15 @@ public class Main {
         Board b=new Board(whitePlayer, blackPlayer);
         BoardButton[][] GameBoard = b.getGameBoard();
         b.initBoard();
-        b.initBlack();
-        b.initWhite();
+        //b.initBlack();                //Now called within initBoard() in Board class.
+        //b.initWhite();
         b.draw();
         Piece.setBoard(b);
  
         System.out.println(" ");
         System.out.println("White: Upper Case, first move:");
         System.out.println("Hint: Type grid square for first pawn move (no need to specify pawn):");
-        System.out.println("Enter move for pawn");
+        //System.out.println("Enter move for pawn");
        
         while(run)  {
            
@@ -42,7 +42,9 @@ public class Main {
             }  
             System.out.println("Enter Y ");
             String oldY= s.nextLine();
- 
+            if(oldY.compareToIgnoreCase("quit") == 0)   {
+                break;
+            }  
             BoardButton a = GameBoard[Integer.valueOf(oldX)][Integer.valueOf(oldY)];
             Piece test = a.getPiece();
            
@@ -56,7 +58,6 @@ public class Main {
                
             }catch (Exception e)    {
                 System.out.println("No Piece at Entered Location");
- 
             }
             b.draw();
            

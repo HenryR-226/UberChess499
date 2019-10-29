@@ -7,7 +7,9 @@ public class Board {
     
     public Board(Player whitePlayer, Player blackPlayer){
         this.blackPlayer=blackPlayer;
+        blackPlayer.setBoard(this);
         this.whitePlayer=whitePlayer;
+        whitePlayer.setBoard(this);
     }
     
     private BoardButton[][] GameBoard = new BoardButton[8][8];
@@ -30,7 +32,7 @@ public class Board {
      */
     public ArrayList<Move> getMoves(Player p) throws Exception {
         ArrayList<ArrayList<BoardButton>> moveSquareList = new ArrayList<ArrayList<BoardButton>>();             //List of Lists, one list for each piece's possible moves
-        Move move;                                                            //Return string of given move
+        Move move;                                                              //Return string of given move
         for (Piece piece : p.getPieceList()) {                                   //For each piece in player's list
             moveSquareList.add(piece.getMoves(piece));                              //Add a list of possible board squares that piece can move to
             for (ArrayList<BoardButton> al : moveSquareList) {                      //For each list of boardbuttons in the movesquare list
@@ -114,18 +116,30 @@ public class Board {
         }  finally { return null;  }
     }    
    
+    /**
+     * @author Henry Rheault
+     * 
+     * Updated 10/29/2019 and not tested- Added feature to assign board abbreviations 
+     * within init board method. So it goes to each board square and tells it 'you are A1/E4', etc.
+     * Calls an overloaded method that processes the int input and then itself calls the setter.
+     */
+    
     public void initBoard(){
         boolean white = false;
-             for(int i=0;i<8;i++){
-                for(int j=0;j<8;j++){
-                    BoardButton b= new BoardButton(i,j);
-                    b.setColor(white);
-                    GameBoard[i][j] =b;
+             for(int i='A';i<'I';i++){
+                for(int j=1;j<9;j++){
+                    BoardButton butn= new BoardButton(i,j);
+                    butn.setColor(white);
+                    butn.setAbbreviation(i,j);
+                    GameBoard[i-'A'][j-1] =butn;
                     white = !white;                         //Flip color
                  
                  }                
             white = !white;    
         }
+        initWhite();     
+        initBlack();
+         
     }
  
    

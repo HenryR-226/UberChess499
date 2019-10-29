@@ -15,6 +15,8 @@ public class Player {
    
     private static int numTeams = 0;                    //Don't make more than 2 teams, dingus
    
+    private Board b;
+    
    public Player(boolean team, boolean ai){
         try{
             assert (numTeams <2);
@@ -79,6 +81,8 @@ public class Player {
             else System.out.println("Player Black wins!");
         }    
     }    
-   
-       
+    
+    public void setBoard(Board board){
+        this.b = board;
+    }
 }

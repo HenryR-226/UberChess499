@@ -10,6 +10,10 @@ public class BoardButton {
     private boolean isFull;                   //Is something there
     private boolean highlighted = false;              //Should I be highlighted right now?
     
+    public void setGameState(GameState game){
+        this.g = game;
+    }
+    
     /*
     private static final int PAWN=1;
     private static final int KNIGHT=2;
@@ -59,15 +63,15 @@ public class BoardButton {
      * Adds the piece to a player's lost pieces list and removes from their active piece list.
      * Then rewrites the piece on the given BB as the argument piece.
      */
-/*    public void removePiece(Piece p){
-        Player player; GameState g;
+    public void removePiece(Piece p){
+        Player player; 
         boolean team = p.isWhite();
         if (team) player = g.getBlack();           //If p is white -> black lost piece
         else player = g.getWhite();                //If p is black -> white lost piece
         player.pieceCaptured(this.piece);
         this.piece = p;
         this.isFull=true;
-    } */
+    } 
     
     public boolean isFull(){
         return this.isFull;
@@ -77,7 +81,9 @@ public class BoardButton {
      *@author Henry Rheault 
      * 
      * Method for assigning the boardbutton a chessboard abbreviation that it can
-     * simply report back. Verifies format with code cloned from GridOffset
+     * simply report back. Verifies format with code cloned from GridOffset.
+     * If not upper case when passed in it is converted to be such. MUST BE UPPERCASE
+     * as arithmetic checks are being run on it compared to 'A' and 'H' both upper case.
      */
     public void setAbbreviation(String s){
         boolean userErrorFlag = false;
@@ -99,18 +105,36 @@ public class BoardButton {
             }                     
             
             //Format verified, convert Letter-Number to Array indexes
-            this.abbreviation = s;
+            String string = String.valueOf(col);
+            this.abbreviation = string + String.valueOf(r0w);
             
         } catch (Exception e){
             if (s.length()!=2 || userErrorFlag){
                 System.out.println("You did something wrong. Invalid format.");
+                System.out.println("Input : " + s);
             }    
             else {
                 System.out.println("Some shit went down.");
+                System.out.println("Input : " + s);
                 e.printStackTrace();
             }    
         }    
     }    
+    
+    public void setAbbreviation(int col, int row){
+        try{
+            assert (col>='A' && col<='H');
+            assert (row>=1 && row<=8);
+            String s = String.valueOf(col);
+            s = s+String.valueOf(row);
+            setAbbreviation(s);
+            
+        } catch (Exception e) {
+            System.out.println("Invalid col & row passed.");
+            System.out.println("Input : " + col + " " + row);
+            e.printStackTrace();
+        }
+    }
     
     public String getAbbreviation(){
         return this.abbreviation;
