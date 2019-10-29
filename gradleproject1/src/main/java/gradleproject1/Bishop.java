@@ -6,8 +6,7 @@ import java.math.*;
 
 
 /**
- *
- * @author Tyrone Lamar
+ * @author Henry Rheault
  */
 public class Bishop extends Piece {
     boolean lightSquares;       //True for light square bishop, false for dark square

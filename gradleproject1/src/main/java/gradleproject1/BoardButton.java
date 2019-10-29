@@ -12,18 +12,7 @@ public class BoardButton {
     
     public void setGameState(GameState game){
         this.g = game;
-    }
-    
-    /*
-    private static final int PAWN=1;
-    private static final int KNIGHT=2;
-    private static final int BISHOP=3;
-    private static final int ROOK=4;
-    private static final int QUEEN = 5;
-    private static final int KING = 6;
-    private static final int NULL=0;
-    //specific piece value stored here
-    */   
+    }  
 
     public BoardButton() {
     }

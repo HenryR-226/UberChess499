@@ -1,15 +1,10 @@
-                                          //H : Commented out to make the code not break constantly
 package gradleproject1;
 import java.util.ArrayList;
- 
-/*                                          //H : Commented out to make the code not break constantly
-package gradleproject1;
-import java.util.*;
-import java.lang.*;
+
  
 /**
  *
- * @author Tyrone Lamar
+ * @author Henry Rheault
  *
  * Class for AI agent and all related methods/logic, makes moves on the AI's behalf
  * via the Move ADT/API.
@@ -18,7 +13,7 @@ import java.lang.*;
  *
  *
  * "Big Brain!"
- *      -Felix Kjellberg, Führer of the 4th Reich
+ *      -Felix Kjellberg
  *
  */
 public class AI extends Player {              //H
