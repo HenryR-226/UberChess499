@@ -1,22 +1,19 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package gradleproject1;
 
 /**
  *
  * @author Henry Rheault
  * 
- * Move is a special type of string consisting of 3 characters: Piece Abbrev, Col char and Row char.
- * EG: NE3, kG7.
+ * Move started as a specific type of string, eg, nE4, KG7. It has changed 
+ * to store the old and new board squares it was involving, it's notation,
+ * and the piece that moved.
  */
 public class Move {
     
     private BoardButton old;
     private BoardButton n3w;
     
+    private String abbreviation;
     private Piece piece;
     private boolean isWhite;
     
@@ -24,6 +21,7 @@ public class Move {
     private Player blackPlayer;
     
     private Board b;
+    
     
     /** @author Henry Rheault
     *
@@ -50,6 +48,7 @@ public class Move {
             this.n3w = GameBoard[m][n];
             
             System.out.println(p.getAbbrev() + " moved from " + loc[0] + loc[1] + " to " + row + column + ".");            
+            setAbbreviation(String.valueOf(p.getAbbrev())+String.valueOf(row) + String.valueOf(column));
             
             String move = String.valueOf(p.getAbbrev());
             move = move + row + column;
@@ -62,29 +61,57 @@ public class Move {
             System.out.println("Invalid move constructor. Try again.");
         }
     }
-       public Move (Piece p, BoardButton button) throws Exception {          //Overloaded constructor, simply declare a boardbutton to attempt a move to
-           try{
-           BoardButton[][] GameBoard = b.getGameBoard();          //Fetch gameboard object
-            
+    
+    public Move(Piece p, BoardButton button) throws Exception {          //Overloaded constructor, simply declare a boardbutton to attempt a move to
+        try {
+            BoardButton[][] GameBoard = b.getGameBoard();          //Fetch gameboard object
+
             String s = p.getLocation();
             char loc[] = s.toCharArray();
-            int i = (int)loc[0];                                    //Number column
-            int j = (int)loc[1]; 
-               
+            int i = (int) loc[0];                                    //Number column
+            int j = (int) loc[1];
+
             this.old = GameBoard[i][j];
             this.n3w = button;
             String abbrev = n3w.getAbbreviation();
             System.out.println(p.getAbbrev() + " moved from " + loc[0] + loc[1] + " to " + abbrev + ".");
-            
+
             String move = String.valueOf(p.getAbbrev());
             move = move + abbrev;
-            if (p.isWhite()) whitePlayer.addMove(move);
-            else blackPlayer.addMove(move);
+            setAbbreviation(move);
             
-            
-            
-           } catch (Exception e) {
-               System.out.println("Invalid move constructor taking board square. Try again.");
-               e.printStackTrace();
-       }}
+            if (p.isWhite()) {
+                whitePlayer.addMove(move);
+            } else {
+                blackPlayer.addMove(move);
+            }
+
+        } catch (Exception e) {
+            System.out.println("Invalid move constructor taking board square. Try again.");
+            e.printStackTrace();
+        }
+    }
+    
+    public BoardButton getOld(){
+        return this.old;
+    }
+    public BoardButton getNew(){
+        return this.n3w;
+    }
+    
+    public String getAbbreviation(){
+        return this.abbreviation;
+    }
+    
+    //To be updated: Make it take in args of char and do the operations/checks as done in the Move constructors above
+    //To be equivalent to proper Object Oriented form. IE: "no funky data"
+    private void setAbbreviation(String s){
+        try{
+            assert(s.length() == 3);
+        } catch (Exception e) {
+            System.out.println("Yo invalid move passed in to set abbreviation!");
+            System.out.println("Move abbrev passed: " + s);
+            e.printStackTrace();
+        }
+    }
 }

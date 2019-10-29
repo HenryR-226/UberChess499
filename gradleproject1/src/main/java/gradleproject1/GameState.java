@@ -5,10 +5,6 @@
  */
 package gradleproject1;
 
-/**
- *
- * @author Tyrone Lamar
- */
 public class GameState {
     private int cores;                                //Number of CPU hardware threads available to JVM at run time
     private Player playerWhite;

@@ -2,12 +2,6 @@
  Uberchess current build : 0.00.01
 */
  
- 
- 
-/**
- *
- * @author Tyrone Lamar
- */
 
 package gradleproject1;
 import java.util.Scanner;

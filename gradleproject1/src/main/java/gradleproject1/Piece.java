@@ -10,10 +10,7 @@
 import java.util.*;
 import java.lang.*;
  
-/**
- *
- * @author Tyrone Lamar
- */
+
 public class Piece {
     private boolean isWhite;
     private char abbreviation;
@@ -108,12 +105,11 @@ public class Piece {
        }
        
        for (BoardButton b : candidateMoves){           //Get valid moves for particular piece object
-           /*if king not put in check AND (b is not full OR b is full but with an opposite color piece (if a piece is attackable or not
-           handled within Pawn subclass)
-           */
-           if (/*King not in check*/ !b.isFull()||(b.isFull()&&b.getPiece().isWhite()!=team) ){     //If b is empty OR occupied by opposite team
+           //if king not put in check - No need to test for 'is full' or 'can attack' as each piece method handles that now
+           
+           //if (/*King not in check*/){    
            possibleMoves.add(b);
-           }
+           //}
         }
        
        return possibleMoves;
@@ -174,35 +170,7 @@ public class Piece {
     }
    
     
-    //Bishop raw moves generator
-    public ArrayList<BoardButton> getBishopMoves(Piece p){
-       //https://math.stackexchange.com/questions/1566115/formula-that-describes-the-movement-of-a-bishop-in-chess
-       //Moving from x1, y1 to x2, y2 is a valid move if abs(x2-x1) = abs(y2 - y1) > 0.
-       
-       ArrayList<BoardButton> validGrids = new ArrayList<BoardButton>();      //Return values
-       ArrayList<Integer> validX = new ArrayList<Integer>();
-       ArrayList<Integer> validY = new ArrayList<Integer>();
-       String s=this.location;                                      //Readability
-       char[] c = s.toCharArray();
-       Integer col = c[0]-'A';              //0 at A, 7 at H
-       Integer row = c[1]+1;                //1 at 0, 8 at 7
-       
-       Integer col2=col;            //Moving to
-       Integer row2=row;
-       //Populates an array list with strings of Int, for taking all permutations of to get move list grid squares
-       for (Integer i = col2 ; i<=8; i++){                       //65 = 'A' in ASCII. 72 = 'H'
-           for (Integer j = row2; j<=8; j++){
-               if ((Math.abs(i - col)==(Math.abs(j - row))) && Math.abs(i - col)>0){
-               //Add col2, row2 to valid grid squares in Chess notation
-               validX.add(i);
-               validY.add(j);
-               }
-           }
-       
-       return validGrids;
-       }
-       return validGrids;
-    }
+    
 
     //Returns LIST of BOARDBUTTONS which will be at Indexes the piece is allowed to move to
     public ArrayList<BoardButton> getKingMoves(Piece p){
@@ -261,7 +229,7 @@ public class Piece {
        for (Integer x : validX){
            for (Integer y : validY){
                BoardButton button = board[x][y];
-               moveList.add(button);
+               if (!button.isFull() || button.isFull() && button.getPiece().isWhite()!= p.isWhite()) moveList.add(button);
            }
        }
        moveList.remove(board[row][col]);
@@ -269,24 +237,200 @@ public class Piece {
        return possibleMoves;
     }
     
+    /*
+    *@author Henry Rheault
+    *
+    * Generates Queen move squares. Calls Rook and Bishop methods to get
+    * what would be valid in either case, then combines the lists.
+    * Big Brain!!!!!
+    */
     public ArrayList<BoardButton> getQueenMoves(Piece p){
         ArrayList<BoardButton> validSquares = new ArrayList<BoardButton>();
-        
+        validSquares = p.getBishopMoves(p);
+        ArrayList<BoardButton> validRook = p.getRookMoves(p);
+        for (BoardButton b : validRook) validSquares.add(b);
         return validSquares;
     }
-   
+    
+    
+    //Bishop raw moves generator
+    public ArrayList<BoardButton> getBishopMoves(Piece p){
+       //https://math.stackexchange.com/questions/1566115/formula-that-describes-the-movement-of-a-bishop-in-chess
+       //Moving from x1, y1 to x2, y2 is a valid move if abs(x2-x1) = abs(y2 - y1) > 0.
+       //Too small brain. Did Rook-style move generation until obstacle instead.
+       
+       ArrayList<BoardButton> validSquares = new ArrayList<BoardButton>();      //Return values
+       String s=this.location;                                      //Readability
+       char[] c = s.toCharArray();
+       Integer col = c[0]-'A';              //0 at A, 7 at H
+       Integer row = (int) c[1];                //0 at 1, 7 at 8
+       
+       int ctrx = col;
+       int ctry = row;
+       
+       BoardButton b;
+       // if ((Math.abs(i - col)==(Math.abs(j - row))) && Math.abs(i - col)>0){
+       
+       //Go in each of 4 diagonals.
+       // Plus X, Plus Y:
+       do {
+           ctrx++; ctry++;
+           try { 
+               b = board[ctrx][ctry];
+               if (!b.isFull() || b.isWhite()!=p.isWhite() && ctry<8 && ctrx<8) validSquares.add(b);
+           } catch (Exception e) { break; }
+       } while (!b.isFull() && ctrx<8 && ctry<8);
+       
+       //Minus X, Plus Y
+       ctrx=col;
+       ctry=row;
+       do {
+           ctrx--; ctry++;
+           try { 
+               b = board[ctrx][ctry];
+               if (!b.isFull() || b.isWhite()!=p.isWhite() && ctry<8 && ctrx>-1) validSquares.add(b);
+           } catch (Exception e) { break; }
+           
+       } while (!b.isFull() && ctrx>-1 && ctry<8);
+       
+       //Minus X, Minus Y:
+       ctrx=col;
+       ctry=row;
+       do {
+           ctrx--; ctry--;
+           try { 
+               b = board[ctrx][ctry];
+               if (!b.isFull() || b.isWhite()!=p.isWhite() && ctry>-1 && ctrx>-1) validSquares.add(b);
+           } catch (Exception e) { break; }
+       } while (!b.isFull() && ctrx>-1 && ctry>-1);
+           
+       //Plus X, Minus Y:
+       ctrx=col;
+       ctry=row;
+       do {
+           ctrx++; ctry++;
+           try{ 
+                b = board[ctrx][ctry];
+                if (!b.isFull() || b.isWhite()!=p.isWhite() && ctry>-1 && ctrx<8) validSquares.add(b);
+           } catch (Exception e) { break; }
+       } while (!b.isFull() && ctrx<8 && ctry>-1);
+       
+       return validSquares;
+    }
+    
+    
+   /**
+    * @author Henry Rheault
+    * 
+    * So I was thinking that I don't want the Board to waste time checking possible squares
+    * if they are blocked by another piece on the 'infinite range' piece classes.
+    * So it checks for piece occupying a square in front of it and stops generating moves in that
+    * direction once the square is occupied in front of it.
+    */ 
+    
     public ArrayList<BoardButton> getRookMoves(Piece p){
         ArrayList<BoardButton> validSquares = new ArrayList<BoardButton>();
+        BoardButton b;
+        String location = p.getLocation();
+        char[] c = location.toCharArray();
+        int x = ((int)c[0]-'A');
+        int y = (int) c[1];
+        int ctrx = x;
+        int ctry = y;
+        do {
+            ctry++;
+            try{
+                b = board[x][ctry];                           //Go positive Y down it's col
+                if (!b.isFull() || b.isWhite()!=p.isWhite() && ctry<8) validSquares.add(b);
+            } catch (Exception e) { break; }            
+        } while (!b.isFull() && ctry<8);              //Stop at first occupied or out of bounds square
+        ctry=y;
+        do {
+            ctry--;
+            try{
+                b = board[x][ctry];                              //Go negative Y down it's col
+                if (!b.isFull() || b.isWhite()!=p.isWhite() && ctry>-1) validSquares.add(b);
+            } catch (Exception e) { break; }
+        } while (!b.isFull() && ctry>-1);              
+        do {
+            ctrx++;
+            try{
+                b = board[ctrx][y];                           //Go positive X down it's row
+                if (!b.isFull() || b.isWhite()!=p.isWhite() && ctrx<8) validSquares.add(b);
+            } catch (Exception e) { break; }
+        } while (!b.isFull() && ctrx<8);              
+        ctrx=x;
+        do {
+            ctrx--;
+            try{
+                b = board[ctrx][y];                              //Negative X down it's row
+                if (!b.isFull() || b.isWhite()!=p.isWhite() && ctrx>-1) validSquares.add(b);
+            } catch (Exception e) { break; }
+        } while (!b.isFull() && ctrx>-1);              //Stop at first occupied or out of bounds square
         
         return validSquares;
     }
     
+    /**
+     * @author Henry Rheault
+     * 
+     * Implements Knight move rules. My method is to make lists of 1 and 2 squares off respectively,
+     * then take all combinations of opposing number lists.
+     */
     public ArrayList<BoardButton> getKnightMoves(Piece p){
         ArrayList<BoardButton> validSquares = new ArrayList<BoardButton>();
+        ArrayList<Integer> validX1 = new ArrayList<Integer>();      //x +-1
+        ArrayList<Integer> validY1 = new ArrayList<Integer>();      //x +-2
+        ArrayList<Integer> validX2 = new ArrayList<Integer>();      //y +-1
+        ArrayList<Integer> validY2 = new ArrayList<Integer>();      //y +-2
         
+        String location = p.getLocation();
+        char[] c = location.toCharArray();
+        int x = ((int)c[0]-'A');
+        int y = (int) c[1];
+        
+        //Generate X valuses valid for each list
+        validX1.add(x-1);
+        validX2.add(x-2);
+        validX1.add(x+1);
+        validX2.add(x+2);
+        for (Integer i : validX1){                              //Prune out of bounds values
+            if (i<0 || i>7) validX1.remove(i);
+        }
+        for (Integer i : validX2){
+            if (i<0 || i>7) validX2.remove(i);
+        }
+        //Generate Y values valid for each list
+        validY1.add(y-1);
+        validY2.add(y-2);
+        validY1.add(y+1);
+        validY2.add(y+2);
+        for (Integer j : validY1){
+            if (j<0 || j>7) validY1.remove(j);
+        }  
+        for (Integer j : validY2){ 
+            if (j<0 || j>7) validY2.remove(j);
+        }
+        //Combine X+-1 with Y+-2
+        for (Integer i : validX1){
+            for (Integer j : validY2){ 
+                if (!board[i][j].isFull() || board[i][j].isFull() && board[i][j].getPiece().isWhite()!= p.isWhite()) validSquares.add(board[i][j]);
+            }
+        }    
+        //Combine X+-2 with Y+-1
+        for (Integer i : validX2){
+            for (Integer j : validY1){
+                if (!board[i][j].isFull() || board[i][j].isFull() && board[i][j].getPiece().isWhite()!= p.isWhite()) validSquares.add(board[i][j]);
+            }    
+        }
         return validSquares;
     }
    
+    /*
+    * Started by James.
+    * I don't remember what for.
+    * Kurwa.
+    */
     public void deleteThis(){
         String newGuy = "D5";
        

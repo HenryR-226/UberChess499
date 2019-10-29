@@ -1,7 +1,5 @@
 package gradleproject1;
-/**
- * @author Tyrone Lamar
- */
+
 public class BoardButton {
     GameState g;
     int row;

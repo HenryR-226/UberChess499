@@ -1,13 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-/**
- *
- * @author Tyrone Lamar
- */
-
 package gradleproject1;
 import java.util.*;
 public class Board {
@@ -42,18 +32,16 @@ public class Board {
         ArrayList<ArrayList<BoardButton>> moveSquareList = new ArrayList<ArrayList<BoardButton>>();             //List of Lists, one list for each piece's possible moves
         Move move;                                                            //Return string of given move
         for (Piece piece : p.getPieceList()) {                                   //For each piece in player's list
-        moveSquareList.add(piece.getMoves(piece));                              //Add a list of possible board squares that piece can move to
+            moveSquareList.add(piece.getMoves(piece));                              //Add a list of possible board squares that piece can move to
             for (ArrayList<BoardButton> al : moveSquareList) {                      //For each list of boardbuttons in the movesquare list
                 for (BoardButton b : al) {                                          //For each boadbutton IN said list of boardbuttons
-                    if ((b.isFull()) && (b.getPiece().isWhite() != piece.isWhite())/*&& not in check*/ || !b.isFull()) {            //Check conditions
-                        move = new Move(piece, b);                                  //Construct the move
-                        possibleMoves.add(move);                                    //Post the move to final move list
-                    }
-                } //if statement: IF ( ( (boardsquare is full AND the piece is opposite team as yours) OR b is not full) AND king not in check)
-            }     //Warning- pawn rules. This will report a space immediately forward of the pawn occupied by enemy piece as valid move.
-        }         //I think this will be tested/weeded out in the Pawn specific candidate generation moves to keep this clean.
+                    move = new Move(piece, b);                                  //Construct the move
+                    possibleMoves.add(move);                                    //Post the move to final move list
+                } //if statement for king not in check)
+            }     //This will NOT report a space immediately forward of the pawn occupied by enemy piece as valid move.
+        }         //This will be tested/weeded out in the Pawn specific candidate generation moves to keep this clean.
 
-        return possibleMoves;                                    //Return the final move list. AI selects from this randomly and potential move to be made MUST BE in here
+        return possibleMoves;                        //Return the final move list. AI selects from this randomly and potential move to be made MUST BE in here
     }
     
     /**
@@ -257,7 +245,8 @@ public class Board {
        
     }
      
-    //Draws out Ascii art of the gameboard. To be called after every successfully committed move
+    //Draws out Ascii art of the gameboard. To be called after every successfully committed move.
+    //MASSIVE overhaul/Bugfix on the part of Ryan and Henry on 10/27/2019
     public void draw() {
         BoardButton b;
         byte rowOffset = 7;

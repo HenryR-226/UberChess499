@@ -1,9 +1,6 @@
 package gradleproject1;
 import java.util.*;
-/**
- *
- * @author Tyrone Lamar
- */
+
 public class Player {
     private ArrayList moveList = new ArrayList<String>();
     private ArrayList pieceList = new ArrayList<Piece>();   //Pieces currently on the board
