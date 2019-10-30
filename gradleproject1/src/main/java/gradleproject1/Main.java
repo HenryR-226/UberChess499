@@ -56,12 +56,12 @@ public class Main {
                     System.out.println("Piece Team: Black \n\n");
                 }
                
-            }catch (Exception e)    {
+            } catch (Exception e) {
                 System.out.println("No Piece at Entered Location");
             }
             b.draw();
            
-        }
+        }       //End While
     }
    
     /**

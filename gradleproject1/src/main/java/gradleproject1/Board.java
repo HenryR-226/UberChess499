@@ -47,7 +47,7 @@ public class Board {
     }
     
     /**
-     * @author Henry Rheault Returns specific BoardButtons given the arguments
+     * @author Henry Rheault Returns specific BoardButton given the arguments
      * of X & Y coordinates.
      */
     public BoardButton getBoardButton(int x, int y) {
@@ -152,16 +152,31 @@ public class Board {
         Piece Pawn6 = new Pawn("Pawn6", true);
         Piece Pawn7 = new Pawn("Pawn7", true);
         Piece Pawn8 = new Pawn("Pawn8", true);
-       
+       whitePlayer.addPiece(Pawn1);
+       whitePlayer.addPiece(Pawn2);
+       whitePlayer.addPiece(Pawn3);
+       whitePlayer.addPiece(Pawn4);
+       whitePlayer.addPiece(Pawn5);
+       whitePlayer.addPiece(Pawn6);
+       whitePlayer.addPiece(Pawn7);
+       whitePlayer.addPiece(Pawn8);
        
         Piece Rook1 = new Rook("Rook1", true);
         Piece Rook2 = new Rook("Rook2", true);
+        whitePlayer.addPiece(Rook1);
+        whitePlayer.addPiece(Rook2);
         Piece BishopLight = new Bishop("BishopLight", true);
         Piece BishopDark = new Bishop("BishopDark", true);
+        whitePlayer.addPiece(BishopLight);
+        whitePlayer.addPiece(BishopDark);
         Piece Knight1 = new Knight("Knight1", true);
         Piece Knight2 = new Knight("Knight2", true);
+        whitePlayer.addPiece(Knight1);
+        whitePlayer.addPiece(Knight2);
         Piece Queen = new Queen("Queen", true);
+        whitePlayer.addPiece(Queen);
         Piece Kang = new King("Kang", true);
+        whitePlayer.addPiece(Kang);
         BoardButton a;
        
         a=GameBoard[0][1];
@@ -208,17 +223,32 @@ public class Board {
         Piece pawn6 = new Pawn("pawn6", false);
         Piece pawn7 = new Pawn("pawn7", false);
         Piece pawn8 = new Pawn("pawn8", false);
+       blackPlayer.addPiece(pawn1);
+       blackPlayer.addPiece(pawn2);
+       blackPlayer.addPiece(pawn3);
+       blackPlayer.addPiece(pawn4);
+       blackPlayer.addPiece(pawn5);
+       blackPlayer.addPiece(pawn6);
+       blackPlayer.addPiece(pawn7);
+       blackPlayer.addPiece(pawn8);
        
-       
+               
         Piece rook1 = new Rook("rook1", false);
         Piece rook2 = new Rook("rook2", false);
+        blackPlayer.addPiece(rook1);
+        blackPlayer.addPiece(rook2);
         Piece bishopLight = new Bishop("bishopLight", false);
         Piece bishopDark = new Bishop("bishopDark", false);
+        blackPlayer.addPiece(bishopLight);
+        blackPlayer.addPiece(bishopDark);
         Piece knight1 = new Knight("knight1", false);
         Piece knight2 = new Knight("knight2", false);
+        blackPlayer.addPiece(knight1);
+        blackPlayer.addPiece(knight2);
         Piece queen = new Queen("queen", false);
+        blackPlayer.addPiece(queen);
         Piece kang = new King("kang", false);
-       
+        blackPlayer.addPiece(kang);
        
         BoardButton a;
        

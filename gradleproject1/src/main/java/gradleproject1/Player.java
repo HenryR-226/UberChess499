@@ -60,6 +60,10 @@ public class Player {
     public double getPoints(){
         return points;
     }    
+    
+    public void addPiece(Piece p){
+        this.pieceList.add(p);
+    }
    
     public ArrayList<Piece> getPieceList(){
         return this.pieceList;
