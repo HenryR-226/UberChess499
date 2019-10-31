@@ -55,7 +55,8 @@ public class Move {
             if (p.isWhite()) whitePlayer.addMove(move);
             else blackPlayer.addMove(move);
             
-            //Game.update();
+            String location = this.n3w.getAbbreviation();
+            p.setLocation(location);
             
         } catch (Exception e) {
             System.out.println("Invalid move constructor. Try again.");
