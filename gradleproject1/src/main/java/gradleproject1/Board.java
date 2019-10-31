@@ -141,8 +141,7 @@ public class Board {
         initBlack();
          
     }
- 
-   
+
     public void initWhite(){
         Piece Pawn1 = new Pawn("Pawn1", true);
         Piece Pawn2 = new Pawn("Pawn2", true);
@@ -152,6 +151,7 @@ public class Board {
         Piece Pawn6 = new Pawn("Pawn6", true);
         Piece Pawn7 = new Pawn("Pawn7", true);
         Piece Pawn8 = new Pawn("Pawn8", true);
+        //Manually add pieces to piece list. Should be done in piece constructor but w/e
        whitePlayer.addPiece(Pawn1);
        whitePlayer.addPiece(Pawn2);
        whitePlayer.addPiece(Pawn3);
@@ -179,39 +179,56 @@ public class Board {
         whitePlayer.addPiece(Kang);
         BoardButton a;
        
+        //Manually placing and declaring to each piece their locations
         a=GameBoard[0][1];
         a.setPiece(Pawn1);
+        Pawn1.setLocation("A2");
         a=GameBoard[1][1];
         a.setPiece(Pawn2);
+        Pawn2.setLocation("B2");
         a=GameBoard[2][1];
         a.setPiece(Pawn3);
+        Pawn3.setLocation("C2");
         a=GameBoard[3][1];
         a.setPiece(Pawn4);
+        Pawn4.setLocation("D2");
         a=GameBoard[4][1];
         a.setPiece(Pawn5);
+        Pawn5.setLocation("E2");
         a=GameBoard[5][1];
         a.setPiece(Pawn6);
+        Pawn6.setLocation("F2");
         a=GameBoard[6][1];
         a.setPiece(Pawn7);
+        Pawn7.setLocation("G2");
         a=GameBoard[7][1];
         a.setPiece(Pawn8);
+        Pawn8.setLocation("H2");
        
         a=GameBoard[0][0];
         a.setPiece(Rook1);
+        Rook1.setLocation("A1");
         a=GameBoard[7][0];
         a.setPiece(Rook2);
+        Rook2.setLocation("H1");
         a=GameBoard[1][0];
         a.setPiece(Knight1);
+        Knight1.setLocation("B1");
         a=GameBoard[6][0];
         a.setPiece(Knight2);
+        Knight2.setLocation("G1");
         a=GameBoard[2][0];
         a.setPiece(BishopLight);
+        BishopLight.setLocation("C1");
         a=GameBoard[5][0];
         a.setPiece(BishopDark);
+        BishopDark.setLocation("F1");
         a=GameBoard[4][0];
         a.setPiece(Kang);
+        Kang.setLocation("D1");
         a=GameBoard[3][0];
         a.setPiece(Queen);
+        Queen.setLocation("E1");
     }
    
      public void initBlack(){
@@ -254,38 +271,53 @@ public class Board {
        
         a=GameBoard[0][6];
         a.setPiece(pawn1);
+        pawn1.setLocation("A7");
         a=GameBoard[1][6];
         a.setPiece(pawn2);
         a=GameBoard[2][6];
+        pawn2.setLocation("B7");
         a.setPiece(pawn3);
         a=GameBoard[3][6];
+        pawn3.setLocation("C7");
         a.setPiece(pawn4);
         a=GameBoard[4][6];
+        pawn4.setLocation("D7");
         a.setPiece(pawn5);
         a=GameBoard[5][6];
+        pawn5.setLocation("E7");
         a.setPiece(pawn6);
         a=GameBoard[6][6];
+        pawn6.setLocation("F7");
         a.setPiece(pawn7);
         a=GameBoard[7][6];
+        pawn7.setLocation("G7");
         a.setPiece(pawn8);
+        pawn8.setLocation("H7");
        
         a=GameBoard[0][7];
         a.setPiece(rook1);
+        rook1.setLocation("A8");
         a=GameBoard[7][7];
         a.setPiece(rook2);
+        rook2.setLocation("H8");
         a=GameBoard[1][7];
         a.setPiece(knight1);
+        knight1.setLocation("B8");
         a=GameBoard[6][7];
         a.setPiece(knight2);
+        knight2.setLocation("G8");
         a=GameBoard[5][7];
         a.setPiece(bishopDark);
+        bishopDark.setLocation("F8");
         a=GameBoard[2][7];
         a.setPiece(bishopLight);
+        bishopLight.setLocation("C8");
         a=GameBoard[4][7];
         a.setPiece(kang);
+        kang.setLocation("E8");
         a=GameBoard[3][7];
         a.setPiece(queen);
-       
+       queen.setLocation("D8");
        
     }
      

@@ -56,7 +56,7 @@ public class Piece {
     }    
    
     public boolean isWhite(){
-        return isWhite;
+        return this.isWhite;
     }    
    
    
@@ -71,7 +71,10 @@ public class Piece {
     public String getLocation(){
         return this.location;
     }
-   
+    //BE CAREFUL!! NO CHECKS YET!!
+    public void setLocation(String loc){
+        this.location = loc;
+    }
    
     /**
      * @author Henry Rheault
