@@ -57,9 +57,8 @@ public class Board {
         } catch (Exception e) {
             System.out.println("Getting board button failed. Probably out of bounds so no such button.");
             e.printStackTrace();
-        } finally {
             return null;
-        }
+        } 
     }
 
     /*
@@ -126,6 +125,8 @@ public class Board {
      * within init board method. So it goes to each board square and tells it 'you are A1/E4', etc.
      * Calls an overloaded method that processes the int input and then itself calls the setter.
      * @throws Exception 
+     * 
+     *FIXME : Row E and all Knights are not being initialized!!
      */
     
     public void initBoard() throws Exception{

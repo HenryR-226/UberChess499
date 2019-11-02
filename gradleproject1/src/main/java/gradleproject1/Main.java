@@ -25,6 +25,8 @@ public class Main {
         b.initBoard();
         //b.initBlack();                //Now called within initBoard() in Board class.
         //b.initWhite();
+        System.out.println("E1: " + b.getBoardButton(4, 1).getPiece().getAbbrev());
+        
         b.draw();
         Piece.setBoard(b);
  
@@ -33,49 +35,59 @@ public class Main {
         System.out.println("Hint: Type grid square for first pawn move (no need to specify pawn):");
         //System.out.println("Enter move for pawn");
        
-        while(run)  {
-           
-            System.out.println("\nEnter Col ");
-            String oldX= s.nextLine();
-            if(oldX.compareToIgnoreCase("quit") == 0)   {
-                break;
-            }  
-            char[] oldXchar = oldX.toCharArray();
-            int x = (int) oldXchar[0];
-            System.out.println("Enter Row ");
-            String oldY= s.nextLine();
-            if(oldY.compareToIgnoreCase("quit") == 0)   {
-                break;
-            }  
-            //Changed 11/2/2019 - Test again. Attempted to make the test values be Letter & Row Number
-            BoardButton a = GameBoard[x-'A'][Integer.valueOf(oldY)-1];
-            Piece test = a.getPiece();
-            
-            ArrayList<BoardButton> moves = new ArrayList<BoardButton>();
-            
-            moves = test.getMoves(test);
-            
-            try {
-                System.out.println("\nPiece: " + test.getName());
-                if(test.isWhite() == true)  {
-                    System.out.println("Piece Team: White \n");
-                }else   {
-                    System.out.println("Piece Team: Black \n");
-                }
-               
-            } catch (Exception e) {
-                System.out.println("No Piece at Entered Location");
-            }
-            
-            for(BoardButton c: moves) {
-            	System.out.println("Possible Moves " + c.getAbbreviation());
-            }
-            System.out.println("");
-            
-            b.draw();
-           
-        }       //End While
-    }
+		while (run) {
+			ArrayList<BoardButton> moves = new ArrayList<BoardButton>();
+			try {
+				System.out.println("\nEnter Col ");
+				String oldX = s.nextLine();
+				if (oldX.compareToIgnoreCase("quit") == 0) {
+					break;
+				}
+				char[] oldXchar = oldX.toCharArray();
+				int x = (int) oldXchar[0];
+				System.out.println("Enter Row ");
+				String oldY = s.nextLine();
+				if (oldY.compareToIgnoreCase("quit") == 0) {
+					break;
+				}
+				// Changed 11/2/2019 - Test again. Attempted to make the test values be Letter &
+				// Row Number
+				System.out.println("Asserts being called");
+				assert (x - 'A') >= 0;
+				assert (x - 'A') <= 7;
+				assert (Integer.valueOf(oldY) - 1) >= 0;
+				assert (Integer.valueOf(oldY) - 1) <= 7;
+				System.out.println("Asserts true");
+				BoardButton a = GameBoard[x - 'A'][Integer.valueOf(oldY) - 1];
+				System.out.println("Calling button " + (x - 'A') + " " + (Integer.valueOf(oldY) -1) );
+				Piece test = a.getPiece();
+				System.out.println("Piece obtained," + a.getPiece().getAbbrev() + " , calling getmoves");
+				moves = test.getMoves(test);
+				System.out.println("Moves gotten");
+
+				System.out.println("\nPiece: " + test.getName());
+				if (test.isWhite() == true) {
+					System.out.println("Piece Team: White \n");
+				} else {
+					System.out.println("Piece Team: Black \n");
+				}
+
+			} catch (Exception e) {
+				System.out.println("No Moves at Entered Location");
+				e.printStackTrace();
+			}
+
+			for (BoardButton c : moves) {
+				System.out.println("Possible Moves " + c.getAbbreviation());
+			}
+			System.out.println("");
+			
+			
+
+			b.draw();
+
+		} // End While
+	}
    
     /**
      * Call when user starts a new AI game

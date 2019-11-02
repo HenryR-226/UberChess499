@@ -108,10 +108,6 @@ public class BoardButton {
      * as arithmetic checks are being run on it compared to 'A' and 'H' both upper case.
      */
     public void setAbbreviation(String s){
-<<<<<<< HEAD
-
-=======
->>>>>>> ASCII-+-move-implementation-started
     	this.abbreviation = s;
     }    
    
@@ -153,19 +149,11 @@ public class BoardButton {
                     System.out.println("You passed: " + col);
                     colFlag = true;
             }
-<<<<<<< HEAD
-            if (rowFlag || colFlag ) throw new Exception();
-        
-            System.out.println("Here is C: " + stringAbrv);        
-
-            setAbbreviation(stringAbrv);
-=======
 
             if (rowFlag || colFlag ) throw new Exception();       
 
             setAbbreviation(stringAbrv);
            
->>>>>>> ASCII-+-move-implementation-started
         } catch (Exception e) {
             System.out.println("Invalid col & row passed.");
             System.out.println("Input : " + col + " " + row);

@@ -225,8 +225,8 @@ public class Piece {
                 }
             }
             
-            if (highSide!= null && highSide.getPiece().isWhite()) result.add(highSide);
-            if (lowSide!= null && lowSide.getPiece().isWhite()) result.add(lowSide);
+            if (highSide!= null && highSide.isFull() && highSide.getPiece().isWhite()) result.add(highSide);
+            if (lowSide!= null && lowSide.isFull() && lowSide.getPiece().isWhite()) result.add(lowSide);
             if (!front.isFull() && y!=7) result.add(front);
         }
         return result;
@@ -243,7 +243,9 @@ public class Piece {
        String s=this.location;                                  //Readability
        char[] c = s.toCharArray();                              //converts location into char array to get the column and row
        Integer col = c[0]-'A';
-       Integer row = 8-c[1];
+       System.out.println("King's col: " + col);
+       Integer row = c[1] - 49;
+       System.out.println("King's row: " + row);
        
        //Populates an array list with strings of Int, for taking all permutations of to get move list grid squares
        if (col!=0&&col!=7){
@@ -285,6 +287,14 @@ public class Piece {
            validY.add(row);
            row = row+1;
        }
+       System.out.println("Valid X and Y's for King moves");
+       for (Integer x : validX){
+           for (Integer y : validY){
+        	   System.out.println("X: " + x);
+        	   System.out.println("Y: " + y);
+           }
+       }
+       
        //Now take all permutations of the row and col values, discarding the 'unchanged' move
        for (Integer x : validX){
            for (Integer y : validY){
@@ -323,7 +333,7 @@ public class Piece {
        String s=this.location;                   //Readability
        char[] c = s.toCharArray();
        Integer col = c[0]-'A';                  //0 at A, 7 at H
-       Integer row = (int) c[1];                //0 at 1, 7 at 8
+       Integer row = (int) c[1] - 49;                //0 at 1, 7 at 8
        
        int ctrx = col;
        int ctry = row;
@@ -447,7 +457,7 @@ public class Piece {
         String location = p.getLocation();
         char[] c = location.toCharArray();
         int x = ((int)c[0]-'A');
-        int y = (int) c[1];
+        int y = (int) c[1] - 49;
        
         //Generate X valuses valid for each list
         validX1.add(x-1);
