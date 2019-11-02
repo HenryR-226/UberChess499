@@ -1,7 +1,6 @@
 /*
  Uberchess current build : 0.00.01
 */
- 
 
 package gradleproject1;
 import java.util.Scanner;
@@ -36,7 +35,14 @@ public class Main {
         while(run)  {
            
             System.out.println("\nEnter X ");
-            String oldX= s.nextLine();
+            String oldX;
+            try {
+                oldX= s.nextLine();
+            } catch (Exception e){
+                System.out.println("No new line. Breaking");
+                break;
+            }
+            
             if(oldX.compareToIgnoreCase("quit") == 0)   {
                 break;
             }  

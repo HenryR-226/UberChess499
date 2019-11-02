@@ -90,7 +90,8 @@ public class Board {
      * @deprecated 
      */
    
-    public BoardButton toArray(String s){
+   // public BoardButton toArray(String s){
+        /*
         BoardButton b;
         int x=-1;
         int y=-1;
@@ -113,8 +114,10 @@ public class Board {
         } catch (Exception e) {
             System.out.println("You should probably not call publically available methods with random input.");
             e.printStackTrace();
-        }  finally { return null;  }
-    }    
+        }  finally { return null;  } */
+        
+        
+    //}    
    
     /**
      * @author Henry Rheault
@@ -130,8 +133,9 @@ public class Board {
                 for(int j=1;j<9;j++){
                     BoardButton butn= new BoardButton(i,j);
                     butn.setColor(white);
+                    //ABBREVIATION IS BEING PASSED ASCII VALUES!! NEEDS FIX!
                     butn.setAbbreviation(i,j);
-                    GameBoard[i-'A'][j-1] =butn;
+                    GameBoard['A'-i][j-1] =butn;
                     white = !white;                         //Flip color
                  
                  }                

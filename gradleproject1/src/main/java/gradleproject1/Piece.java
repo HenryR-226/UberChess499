@@ -1,4 +1,3 @@
- 
 /*
  *  SUPERCLASS For all piece objects
  *  Handles Point values for AI, Abbreviations, Move ID for special moves determination,
@@ -6,11 +5,13 @@
  *  Each piece Subclass handles an Overrided getMoves() called by the central getMoves() to
  *  generate piece specific moves based on location and move rules.
  */
- package gradleproject1;
+ 
+package gradleproject1;
+
 import java.util.*;
 import java.lang.*;
  
-
+ 
 public class Piece {
     private boolean isWhite;
     private char abbreviation;
@@ -20,12 +21,12 @@ public class Piece {
     private static BoardButton[][] board;
     private static Board b;
    
-    private ArrayList<BoardButton> possibleMoves;               //Each piece keeps track of where it can currently move.
-    
+    private ArrayList<BoardButton> possibleMoves;              //Each piece keeps track of where it can currently move.
+   
     public ArrayList<BoardButton> getPossibleMoves(){
         return possibleMoves;
     }
-    
+   
     public void deleteMoveSquare(BoardButton b) throws Exception{
         try{
         possibleMoves.remove(b);
@@ -33,11 +34,11 @@ public class Piece {
             System.out.println("deleteMoveSquare called with invalid board square argument.");
         }
     }
-    
+   
     public void addMoveSquare(BoardButton b) throws Exception{
          possibleMoves.add(b);
     }
-    
+   
     public static BoardButton[][] getBoard() {
         return board;
     }
@@ -55,8 +56,12 @@ public class Piece {
         return this.points;
     }    
    
-    public boolean isWhite(){
-        return this.isWhite;
+    public Boolean isWhite(){
+        try {
+            return this.isWhite;
+        }catch (Exception e)    {
+            return null;
+        }
     }    
    
    
@@ -79,102 +84,148 @@ public class Piece {
     /**
      * @author Henry Rheault
      * A method to return an array list of all valid board button squares valid to move a piece onto.
-     * 
+     *
      * Calls a particular piece's method for move generation for RAW (unfiltered) candidate moves, then
      * weeds through them here for GUI/AI purposes.
-     * 
+     *
      * @param piece object
      * @return all valid moves allowed
     */
    
-    public ArrayList<BoardButton> getMoves(Piece p){     
+    public ArrayList<BoardButton> getMoves(Piece p){    
         ArrayList<BoardButton> candidateMoves = new ArrayList<BoardButton>();             //Returned list from Piece subclass to be sifted through based on game rules
        Board board;
+       possibleMoves = new ArrayList<BoardButton>();
        boolean team = p.isWhite();          
        char c = Character.toUpperCase(p.getAbbrev());
        switch (c){
            case 'P':
                candidateMoves= getPawnMoves((Pawn) p);
+               break;
            case 'N':    
                candidateMoves= getKnightMoves(p);
+               break;
            case 'B':    
                candidateMoves= getBishopMoves(p);
+               break;
            case 'R':
-               candidateMoves=getRookMoves(p);  
+               candidateMoves=getRookMoves(p);
+               break;
            case 'Q':    
                candidateMoves=getQueenMoves(p);
+               break;
            case 'K':    
-               candidateMoves=getKingMoves(p);    
+               candidateMoves=getKingMoves(p);  
+               break;
        }
        
        for (BoardButton b : candidateMoves){           //Get valid moves for particular piece object
            //if king not put in check - No need to test for 'is full' or 'can attack' as each piece method handles that now
            
            //if (/*King not in check*/){    
-           possibleMoves.add(b);
+           this.possibleMoves.add(b);
            //}
         }
        
-       return possibleMoves;
+       return this.possibleMoves;
     }
    
     /**
      * @author Henry Rheault
-     * Generates possible pawn moves. Board will not have to sift through 
+     * Generates possible pawn moves. Board will not have to sift through
      * these as it generates only valid moves for itself, as a consequence of needing
      * to check whether it can attack.
      */
     public ArrayList<BoardButton> getPawnMoves(Pawn p) {
         ArrayList<BoardButton> result = new ArrayList<BoardButton>();
+       
         String location = p.getLocation();
-        char[] c = location.toCharArray();
-        int x = ((int) c[0] - 1);
-        int y = (int) c[1];
+        //char[] c = location.toCharArray();
+        //int x = ((int) c[0] - 65);
+        //int y = (int) c[1] - 49;
+        
+        ArrayList<Integer> cords = BoardButton.toArray(location);
+        int x = cords.get(0);
+        int y = cords.get(1);
         boolean team = p.isWhite();
-
+ 
         BoardButton highSide;
         BoardButton lowSide;
         BoardButton front;
+       
+        System.out.println("Location: " + location);
+        System.out.println("X and Y " + x + " " + y);
         if (team) {                      //White pawn, goes up
-            if (x + 1 < 9) highSide = board[x + 1][y + 1];
-            else  highSide = null;
-            if (x - 1 > -1) lowSide = board[x - 1][y + 1];
-            else lowSide = null;
-            if (y + 1 < 9) front = board[x][y + 1];  
-            else front = null;
+            if (x + 1 < 8) {
+                highSide = board[x + 1][y + 1];
+                System.out.println("HighSide set to: " + (x + 1) + " " + (y + 1));
+            }else   {
+                highSide = null;
+                System.out.println("Highside set to null " );
+            }
+            if (x - 1 > -1) {
+                lowSide = board[x - 1][y + 1];
+                System.out.println("LowSide set to: " + (x - 1) + " " + (y + 1));
+            }else   {
+                lowSide = null;
+                System.out.println("Lowside set to null " );
+            }
+            if (y + 1 < 9) {
+                front = board[x][y + 1];
+                System.out.println("Front set to: " + x + " " + (y + 1));
+            }else   {
+                front = null;
+                System.out.println("Front set to null");
+            }
             if (p.firstMove()) {
                 BoardButton front2 = board[x][y + 2];
                 if (!front2.isFull()) {
                     result.add(front2);
                 }
             }
-            if (!highSide.getPiece().isWhite() && highSide.getPiece() != null && x != 7) result.add(highSide);
-            if (!lowSide.getPiece().isWhite() && highSide.getPiece() != null && x != 0)  result.add(lowSide);
+           
+            if (((highSide!= null) && (((highSide.getPiece()==null))||(!highSide.getPiece().isWhite())))) result.add(highSide);
+            if (((lowSide!= null) && (((lowSide.getPiece()==null))||(!lowSide.getPiece().isWhite())))) result.add(lowSide);
             if (!front.isFull() && y != 7) result.add(front);
-                
+               
         } else {                          //Black team, pawn down
-            if (x + 1 < 9) highSide = board[x + 1][y - 1];
-            else highSide = null;
-            if (x - 1 > -1) lowSide = board[x - 1][y - 1];
-            else lowSide = null;
-            if (y - 1 > -1) front = board[x][y - 1];
-            else front = null;
+            if (x + 1 < 8)  {
+                highSide = board[x + 1][y - 1];
+                System.out.println("HighSide set to: " + (x + 1) + " " + (y - 1));
+            }else {
+                highSide = null;
+                System.out.println("Highside set to null " );
+            }
+            if (x - 1 > -1) {
+                lowSide = board[x - 1][y - 1];
+                System.out.println("LowSide set to: " + (x - 1) + " " + (y - 1));
+            }else   {
+                lowSide = null;
+                System.out.println("Lowside set to null " );
+            }
+            if (y - 1 > -1) {
+                front = board[x][y - 1];
+                System.out.println("Front set to: " + x + " " + (y - 1));
+            }else   {
+                front = null;
+                System.out.println("Front set to null");
+            }
             if (p.firstMove()) {
                 BoardButton front2 = board[x][y - 2];
                 if (!front2.isFull()) {
                     result.add(front2);
                 }
             }
-            if (highSide.getPiece() != null && highSide.getPiece().isWhite() && x != 7) result.add(highSide);
-            if (lowSide.getPiece().isWhite() && highSide.getPiece() != null && x != 0) result.add(lowSide);
-            if (!front.isFull() && y != 0) result.add(front);
+            if (((highSide!= null) && (((highSide.getPiece()==null))||(highSide.getPiece().isWhite())))) result.add(highSide);
+            if (((lowSide!= null) && (((lowSide.getPiece()==null))||(lowSide.getPiece().isWhite())))) result.add(lowSide);
+            if (!front.isFull() && y != 7) result.add(front);
         }
         return result;
     }
    
-    
-    
-
+   
+   
+ 
     //Returns LIST of BOARDBUTTONS which will be at Indexes the piece is allowed to move to
     public ArrayList<BoardButton> getKingMoves(Piece p){
      
@@ -239,7 +290,7 @@ public class Piece {
        possibleMoves = moveList;
        return possibleMoves;
     }
-    
+   
     /*
     *@author Henry Rheault
     *
@@ -254,8 +305,8 @@ public class Piece {
         for (BoardButton b : validRook) validSquares.add(b);
         return validSquares;
     }
-    
-    
+   
+   
     //Bishop raw moves generator
     public ArrayList<BoardButton> getBishopMoves(Piece p){
        //https://math.stackexchange.com/questions/1566115/formula-that-describes-the-movement-of-a-bishop-in-chess
@@ -278,7 +329,7 @@ public class Piece {
        // Plus X, Plus Y:
        do {
            ctrx++; ctry++;
-           try { 
+           try {
                b = board[ctrx][ctry];
                if (!b.isFull() || b.isWhite()!=p.isWhite() && ctry<8 && ctrx<8) validSquares.add(b);
            } catch (Exception e) { break; }
@@ -289,7 +340,7 @@ public class Piece {
        ctry=row;
        do {
            ctrx--; ctry++;
-           try { 
+           try {
                b = board[ctrx][ctry];
                if (!b.isFull() || b.isWhite()!=p.isWhite() && ctry<8 && ctrx>-1) validSquares.add(b);
            } catch (Exception e) { break; }
@@ -301,7 +352,7 @@ public class Piece {
        ctry=row;
        do {
            ctrx--; ctry--;
-           try { 
+           try {
                b = board[ctrx][ctry];
                if (!b.isFull() || b.isWhite()!=p.isWhite() && ctry>-1 && ctrx>-1) validSquares.add(b);
            } catch (Exception e) { break; }
@@ -312,7 +363,7 @@ public class Piece {
        ctry=row;
        do {
            ctrx++; ctry++;
-           try{ 
+           try{
                 b = board[ctrx][ctry];
                 if (!b.isFull() || b.isWhite()!=p.isWhite() && ctry>-1 && ctrx<8) validSquares.add(b);
            } catch (Exception e) { break; }
@@ -320,17 +371,17 @@ public class Piece {
        
        return validSquares;
     }
-    
-    
+   
+   
    /**
     * @author Henry Rheault
-    * 
+    *
     * So I was thinking that I don't want the Board to waste time checking possible squares
     * if they are blocked by another piece on the 'infinite range' piece classes.
     * So it checks for piece occupying a square in front of it and stops generating moves in that
     * direction once the square is occupied in front of it.
-    */ 
-    
+    */
+   
     public ArrayList<BoardButton> getRookMoves(Piece p){
         ArrayList<BoardButton> validSquares = new ArrayList<BoardButton>();
         BoardButton b;
@@ -370,13 +421,13 @@ public class Piece {
                 if (!b.isFull() || b.isWhite()!=p.isWhite() && ctrx>-1) validSquares.add(b);
             } catch (Exception e) { break; }
         } while (!b.isFull() && ctrx>-1);              //Stop at first occupied or out of bounds square
-        
+       
         return validSquares;
     }
-    
+   
     /**
      * @author Henry Rheault
-     * 
+     *
      * Implements Knight move rules. My method is to make lists of 1 and 2 squares off respectively,
      * then take all combinations of opposing number lists.
      */
@@ -386,12 +437,12 @@ public class Piece {
         ArrayList<Integer> validY1 = new ArrayList<Integer>();      //x +-2
         ArrayList<Integer> validX2 = new ArrayList<Integer>();      //y +-1
         ArrayList<Integer> validY2 = new ArrayList<Integer>();      //y +-2
-        
+       
         String location = p.getLocation();
         char[] c = location.toCharArray();
         int x = ((int)c[0]-'A');
         int y = (int) c[1];
-        
+       
         //Generate X valuses valid for each list
         validX1.add(x-1);
         validX2.add(x-2);
@@ -411,12 +462,12 @@ public class Piece {
         for (Integer j : validY1){
             if (j<0 || j>7) validY1.remove(j);
         }  
-        for (Integer j : validY2){ 
+        for (Integer j : validY2){
             if (j<0 || j>7) validY2.remove(j);
         }
         //Combine X+-1 with Y+-2
         for (Integer i : validX1){
-            for (Integer j : validY2){ 
+            for (Integer j : validY2){
                 if (!board[i][j].isFull() || board[i][j].isFull() && board[i][j].getPiece().isWhite()!= p.isWhite()) validSquares.add(board[i][j]);
             }
         }    
@@ -438,4 +489,5 @@ public class Piece {
         String newGuy = "D5";
        
     }
+
 }
