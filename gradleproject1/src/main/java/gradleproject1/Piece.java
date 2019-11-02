@@ -242,7 +242,7 @@ public class Piece {
        
        String s=this.location;                                  //Readability
        char[] c = s.toCharArray();                              //converts location into char array to get the column and row
-       Integer col = c[0]-'A';
+       Integer col = c[0]- 64;
        System.out.println("King's col: " + col);
        Integer row = c[1] - 49;
        System.out.println("King's row: " + row);
@@ -290,8 +290,8 @@ public class Piece {
        System.out.println("Valid X and Y's for King moves");
        for (Integer x : validX){
            for (Integer y : validY){
-        	   System.out.println("X: " + x);
-        	   System.out.println("Y: " + y);
+        	   System.out.println("X: " + x + " Y: " + y);
+        	   //System.out.println("Y: " + y);
            }
        }
        
