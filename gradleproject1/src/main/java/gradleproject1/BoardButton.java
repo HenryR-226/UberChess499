@@ -108,7 +108,46 @@ public class BoardButton {
      * as arithmetic checks are being run on it compared to 'A' and 'H' both upper case.
      */
     public void setAbbreviation(String s){
+<<<<<<< Updated upstream
     	this.abbreviation = s;
+=======
+        boolean userErrorFlag = false;
+        System.out.println("String passed: " + s);
+        try{
+            assert (s.length() == 2);
+            char[] temp = s.toCharArray();
+            //FIXME 
+            //Take string, convert to chars, and get Memory Array location from the Chess String location
+            char col = (char) temp[0];                             //A-H, not case sensitive, input argument
+            System.out.println("Col: " + col);
+            int r0w = (int) (temp[1]);                             //1-8, input argument
+            System.out.println("Row: " + row);
+            col = Character.toUpperCase(col);               //Ensures that the column character is upper case for ease of assert
+            if (!(Character.isLetter(col) || col>'H')){
+                userErrorFlag = true;                          //Make sure col starts with an actual letter between A and H
+                assert (Character.isLetter(col) && col<='H');  //Set user error flag and break out of try if not
+            }  
+            if (r0w >8 || r0w<0){
+                userErrorFlag = true;                        //Make sure row given is less than 8
+                assert (r0w <=8 && r0w>0);                   //Set user error flag and break out of try if not
+            }                    
+           
+            //Format verified, convert Letter-Number to Array indexes
+            String string = String.valueOf(col);
+            this.abbreviation = string + String.valueOf(r0w);
+           
+        } catch (Exception e){
+            if (s.length()!=2 || userErrorFlag){
+                System.out.println("You did something wrong. Invalid format.");
+                System.out.println("Input : " + s);
+            }    
+            else {
+                System.out.println("Some shit went down.");
+                System.out.println("Input : " + s);
+                e.printStackTrace();
+            }    
+        }    
+>>>>>>> Stashed changes
     }    
    
     //FIX ME
@@ -117,6 +156,7 @@ public class BoardButton {
         boolean colFlag = false;
         boolean rowFlag = false;
         try{
+<<<<<<< Updated upstream
             String stringAbrv= "Z";
 
             switch (col){
@@ -144,18 +184,71 @@ public class BoardButton {
                 case (7):    
                     stringAbrv = "H"+ (row);
                 	break;
+=======
+            char c= 'Z';
+            char row2 = '9';
+            switch (col){
+                case (0):
+                    c = 'A';
+                case (1):    
+                    c = 'B';
+                case (2):    
+                    c = 'C';
+                case (3):    
+                    c = 'D';
+                case (4):    
+                    c = 'E';
+                case(5):    
+                    c = 'F';
+                case(6):    
+                    c = 'G';
+                case (7):    
+                    c = 'H';
+>>>>>>> Stashed changes
                 default: 
                     System.out.println("Yo dingus invalid column, 0 - 7 only");
                     System.out.println("You passed: " + col);
                     colFlag = true;
                     
             }
+<<<<<<< Updated upstream
 
             if (rowFlag || colFlag ) throw new Exception();
         
             System.out.println("Here is C: " + stringAbrv);        
 
             setAbbreviation(stringAbrv);
+=======
+            switch (row){               
+                case (0):
+                    row2 = '1';
+                case (1):    
+                    row2 = '2';
+                case (2):    
+                    row2= '3';
+                case (3):    
+                    row2= '4';
+                case (4):    
+                    row2= '5';
+                case (5):    
+                    row2='6';
+                case (6):    
+                    row2='7';
+                case (7):    
+                    row2='8';
+                default:    
+                    System.out.println("Yo dingus invalid row, 0-7 only.");
+                    System.out.println("You passed: " + row);
+                    rowFlag = true;
+                    
+            }
+            if (rowFlag || colFlag ) throw new Exception();
+            String s = Character.toString(c);
+            s = s + Character.toString(row2);
+            System.out.println("String passed: ");
+            System.out.println(s);
+            setAbbreviation(s);
+>>>>>>> Stashed changes
            
         } catch (Exception e) {
             System.out.println("Invalid col & row passed.");
