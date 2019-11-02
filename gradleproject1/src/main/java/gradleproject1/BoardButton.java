@@ -75,8 +75,8 @@ public class BoardButton {
     
     //Piece moves off voluntarily
     public void removePiece(){
-        this.piece=null;
-        this.isFull=false;
+    	this.isFull=false;
+    	this.piece=null;
     }
     /**
      * @author Henry Rheault

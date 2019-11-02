@@ -18,10 +18,10 @@ public class Move {
     private Piece captured;
     private boolean isWhite;
     
-    private Player whitePlayer;
-    private Player blackPlayer;
+    private static Player whitePlayer;
+    private static Player blackPlayer;
     
-    private Board b;
+    private static Board b;
     
     
     /** @author Henry Rheault
@@ -71,8 +71,8 @@ public class Move {
 
             String s = p.getLocation();
             char loc[] = s.toCharArray();
-            int i = (int) loc[0];                                    //Number column
-            int j = (int) loc[1];
+            int i = (int) loc[0]-'A';                                    //Number column
+            int j = (int) loc[1]-'0';
 
             this.old = GameBoard[i][j];
             this.n3w = button;
@@ -80,7 +80,7 @@ public class Move {
             System.out.println(p.getAbbrev() + " moved from " + loc[0] + loc[1] + " to " + abbrev + ".");
 
             String move = String.valueOf(p.getAbbrev());
-            if (n3w.getPiece()!= null) move = move + "x";                           //x means a piece captured the piece on it's destination square
+            if (!n3w.isFull()) move = move + "x";                           //x means a piece captured the piece on it's destination square
             move = move + abbrev;
             setAbbreviation(move);
             
@@ -89,6 +89,14 @@ public class Move {
             } else {
                 blackPlayer.addMove(move);
             }
+            String location = this.n3w.getAbbreviation();
+           
+            old.removePiece();
+            n3w.setPiece(p);
+            p.setLocation(location);
+            
+            System.out.println("Old is empty: " + old.isFull()); 
+            
 
         } catch (Exception e) {
             System.out.println("Invalid move constructor taking board square. Try again.");
@@ -116,4 +124,17 @@ public class Move {
     private void setAbbreviation(String s){
        this.abbreviation = s;
     }
+    
+    public static void setGameBoard(Board board) {
+    	b = board;
+    }
+    public static void setWhitePlayer(Player whitey) {
+    	whitePlayer = whitey;
+    }
+    public static void setBlackPlayer(Player black) {
+    	blackPlayer = black;
+    }
+    
+    
+    
 }

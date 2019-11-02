@@ -8,27 +8,68 @@ import java.util.Scanner;
 public class Main {
  
    
-    /**
-     * @param args the command line arguments
-     * @throws Exception 
-     */
-    public static void main(String[] args) throws Exception {
-        // TODO code application logic here
-        System.out.println("UberChess Chess Game Initialization");
-        Scanner s = new Scanner(System.in);
-        boolean run = true;
+	public static Board testBoard(char c) throws Exception {
+		
+        Player whitePlayer = new Player(true, false);
+        Player blackPlayer = new Player(false, false);
+ 
+        Board b=new Board(whitePlayer, blackPlayer);
+        BoardButton[][] GameBoard = b.getGameBoard();
+		c=Character.toUpperCase(c);
+		switch (c) {
+			case 'Q':
+				b.initBoardQueenTest();
+				break;
+			case 'K':
+				b.initBoardKingTest();
+				break;
+			case 'B':	
+				b.initBoardBishopTest();
+				break;
+			case 'N':	
+				b.initBoardKnightTest();
+				break;
+			case 'R':	
+				b.initBoardRookTest();
+				break;
+			default:	
+				b = initDefault();
+		}
+		return b;
+	}
+
+	public static Board initDefault() throws Exception {
+		
         Player whitePlayer = new Player(true, false);
         Player blackPlayer = new Player(false, false);
  
         Board b=new Board(whitePlayer, blackPlayer);
         BoardButton[][] GameBoard = b.getGameBoard();
         b.initBoard();
-        //b.initBlack();                //Now called within initBoard() in Board class.
-        //b.initWhite();
-        System.out.println("E1: " + b.getBoardButton(4, 1).getPiece().getAbbrev());
+        return b;
+	}
+	
+	
+    /**
+     * @param args the command line arguments
+     * @throws Exception 
+     */
+    public static void main(String[] args) throws Exception {
+    	
+		Scanner s = new Scanner(System.in);
+		String in = null;
+		char c = ' ';
+		System.out.println("Enter character of Piece to construct test board, invalid char/piece for default game:");
+		if (s.hasNextLine()) in = s.nextLine();
+		if (in!=null) c = in.charAt(0);
+		
+		Board b = testBoard(c);
+		BoardButton[][] GameBoard = b.getGameBoard();
+        boolean run = true;
         
-        b.draw();
+        b.draw(b);
         Piece.setBoard(b);
+        Move.setGameBoard(b);
  
         System.out.println(" ");
         System.out.println("White: Upper Case, first move:");
@@ -44,7 +85,7 @@ public class Main {
 					break;
 				}
 				char[] oldXchar = oldX.toCharArray();
-				int x = (int) oldXchar[0];
+				int x = (int) Character.toUpperCase(oldXchar[0]);
 				System.out.println("Enter Row ");
 				String oldY = s.nextLine();
 				if (oldY.compareToIgnoreCase("quit") == 0) {
@@ -77,14 +118,14 @@ public class Main {
 				e.printStackTrace();
 			}
 
-			for (BoardButton c : moves) {
-				System.out.println("Possible Moves " + c.getAbbreviation());
+			for (BoardButton foff : moves) {
+				System.out.println("Possible Moves " + foff.getAbbreviation());
 			}
 			System.out.println("");
 			
 			
 
-			b.draw();
+			b.draw(b);
 
 		} // End While
 	}

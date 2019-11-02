@@ -99,6 +99,8 @@ public class Piece {
      * @param piece object
      * @return all valid moves allowed
     */
+    
+    //Cocurrent modification: https://stackoverflow.com/questions/18448671/how-to-avoid-concurrentmodificationexception-while-removing-elements-from-arr
     public ArrayList<BoardButton> getMoves(Piece p){    
         ArrayList<BoardButton> candidateMoves = new ArrayList<BoardButton>();             //Returned list from Piece subclass to be sifted through based on game rules
        Board board;
@@ -404,7 +406,7 @@ public class Piece {
         String location = p.getLocation();
         char[] c = location.toCharArray();
         int x = ((int)c[0]-'A');
-        int y = (int) c[1];
+        int y = (int) c[1]-'0';
         int ctrx = x;
         int ctry = y;
         do {

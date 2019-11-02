@@ -329,19 +329,19 @@ public class Board {
      
     //Draws out Ascii art of the gameboard. To be called after every successfully committed move.
     //MASSIVE overhaul/Bugfix on the part of Ryan and Henry on 10/27/2019
-    public void draw() {
-        BoardButton b;
+    public void draw(Board b) {
+        BoardButton butn=null;
         byte rowOffset = 8;
         char c;
         System.out.println("   A B C D E F G H");
         for (int j = 7; j >= 0; j--) {
             System.out.print((rowOffset) + " [");       //Rows starting from 8
             for (int i = 0; i <= 7; i++) {
-                b = GameBoard[i][j];
-                if (b.getPiece() != null) {
-                    c = (char) b.getPiece().getAbbrev();
+                butn = GameBoard[i][j];
+                if (butn.isFull()) {
+                    c = (char) butn.getPiece().getAbbrev();
                     System.out.print(c + ",");
-                } else if (b.isWhite()) {
+                } else if (butn.isWhite()) {
                     System.out.print("-,");
                 } else {
                     System.out.print("+,");
@@ -358,5 +358,116 @@ public class Board {
     public BoardButton[][] getGameBoard(){
         return GameBoard;
     }      
+    
+	// Test board initializations. Used for generating a board with a single piece
+	// on it in the center of the board to test move rules.
+	public void initBoardQueenTest() throws Exception {
+		boolean white = false;
+		System.out.println("Queen Test init called:");
+		for (int i = 0; i < 8; i++) {
+			for (int j = 1; j < 9; j++) {
+				BoardButton butn = new BoardButton(i, j);
+				butn.setColor(white);
+				// ABBREVIATION IS BEING PASSED ASCII VALUES!! NEEDS FIX!
+				butn.setAbbreviation(i, j);
+				GameBoard[i][j - 1] = butn;
+				white = !white; // Flip color
+
+			}
+			white = !white;
+		}
+		Piece Queen = new Queen("Queen", true);
+		whitePlayer.addPiece(Queen);
+		BoardButton a = GameBoard[3][3];
+		Queen.setLocation("D4");
+		a.setPiece(Queen);
+		System.out.println(a.getPiece().getAbbrev());
+		System.out.println(a.getPiece().getLocation());
+
+	}
+
+	public void initBoardKnightTest() throws Exception {
+		boolean white = false;
+		for (int i = 0; i < 8; i++) {
+			for (int j = 1; j < 9; j++) {
+				BoardButton butn = new BoardButton(i, j);
+				butn.setColor(white);
+				// ABBREVIATION IS BEING PASSED ASCII VALUES!! NEEDS FIX!
+				butn.setAbbreviation(i, j);
+				GameBoard[i][j - 1] = butn;
+				white = !white; // Flip color
+
+			}
+			white = !white;
+		}
+		Piece Knight = new Knight("Knight", true);
+		whitePlayer.addPiece(Knight);
+		BoardButton a = GameBoard[3][3];
+		a.setPiece(Knight);
+		Knight.setLocation("D4");
+	}
+
+	public void initBoardKingTest() throws Exception {
+		boolean white = false;
+		for (int i = 0; i < 8; i++) {
+			for (int j = 1; j < 9; j++) {
+				BoardButton butn = new BoardButton(i, j);
+				butn.setColor(white);
+				// ABBREVIATION IS BEING PASSED ASCII VALUES!! NEEDS FIX!
+				butn.setAbbreviation(i, j);
+				GameBoard[i][j - 1] = butn;
+				white = !white; // Flip color
+
+			}
+			white = !white;
+		}
+		Piece King = new King("King", true);
+		whitePlayer.addPiece(King);
+		BoardButton a = GameBoard[3][3];
+		a.setPiece(King);
+		King.setLocation("D4");
+	}
+
+	public void initBoardRookTest() throws Exception {
+		boolean white = false;
+		for (int i = 0; i < 8; i++) {
+			for (int j = 1; j < 9; j++) {
+				BoardButton butn = new BoardButton(i, j);
+				butn.setColor(white);
+				// ABBREVIATION IS BEING PASSED ASCII VALUES!! NEEDS FIX!
+				butn.setAbbreviation(i, j);
+				GameBoard[i][j - 1] = butn;
+				white = !white; // Flip color
+
+			}
+			white = !white;
+		}
+		Piece Rook = new Rook("Rook", true);
+		whitePlayer.addPiece(Rook);
+		BoardButton a = GameBoard[3][3];
+		a.setPiece(Rook);
+		Rook.setLocation("D4");
+	}
+
+	public void initBoardBishopTest() throws Exception {
+		boolean white = false;
+		for (int i = 0; i < 8; i++) {
+			for (int j = 1; j < 9; j++) {
+				BoardButton butn = new BoardButton(i, j);
+				butn.setColor(white);
+				// ABBREVIATION IS BEING PASSED ASCII VALUES!! NEEDS FIX!
+				butn.setAbbreviation(i, j);
+				GameBoard[i][j - 1] = butn;
+				white = !white; // Flip color
+
+			}
+			white = !white;
+		}
+		Piece Bishop = new Bishop("Bishop", true);
+		whitePlayer.addPiece(Bishop);
+		BoardButton a = GameBoard[3][3];
+		a.setPiece(Bishop);
+		Bishop.setLocation("D4");
+	}
        
 }
