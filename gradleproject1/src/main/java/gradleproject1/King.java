@@ -6,6 +6,7 @@ import java.lang.*;
 public class King extends Piece{
 
     public King(String moveID, boolean team){
+    	this.setName("Kang");
        this.pieceID=moveID;
        this.setIsWhite(team);
        if(team) setAbbreviation('K');

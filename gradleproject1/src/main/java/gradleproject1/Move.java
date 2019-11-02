@@ -15,6 +15,7 @@ public class Move {
     
     private String abbreviation;
     private Piece piece;
+    private Piece captured;
     private boolean isWhite;
     
     private Player whitePlayer;
@@ -51,6 +52,7 @@ public class Move {
             setAbbreviation(String.valueOf(p.getAbbrev())+String.valueOf(row) + String.valueOf(column));
             
             String move = String.valueOf(p.getAbbrev());
+            if (n3w.getPiece()!= null) move = move + "x";                           //x means a piece captured the piece on it's destination square
             move = move + row + column;
             if (p.isWhite()) whitePlayer.addMove(move);
             else blackPlayer.addMove(move);
@@ -78,6 +80,7 @@ public class Move {
             System.out.println(p.getAbbrev() + " moved from " + loc[0] + loc[1] + " to " + abbrev + ".");
 
             String move = String.valueOf(p.getAbbrev());
+            if (n3w.getPiece()!= null) move = move + "x";                           //x means a piece captured the piece on it's destination square
             move = move + abbrev;
             setAbbreviation(move);
             
@@ -111,30 +114,6 @@ public class Move {
     //To be updated: Make it take in args of char and do the operations/checks as done in the Move constructors above
     //To be equivalent to proper Object Oriented form. IE: "no funky data"
     private void setAbbreviation(String s){
-        try{
-            assert(s.length() <= 3);
-            char[] c = s.toCharArray();
-            String result;
-            if (c[0] == 'p' || c[0] == 'P'){            //If it was a pawn move, remove abbrev for said pawn move
-                char c2[] = { c[1], c[2]};
-                assert (c[1]>= 'A' && c[2] <= 'H');
-                assert (c[2]>='1' && c[2]<='8');
-                result = String.valueOf(c[1]);
-                result = result + String.valueOf(c[2]);
-                this.abbreviation = result;
-            }       //Else it wasn't a pawn move
-            assert(Character.toUpperCase(c[0]) == 'N' || Character.toUpperCase(c[0]) == 'B' 
-            || Character.toUpperCase(c[0]) == 'K' || Character.toUpperCase(c[0]) == 'Q' || Character.toUpperCase(c[0]) == 'R');
-            assert(c[1] >= 'A' && c[1] <='H' || c[1] >= 'a' && c[1] <= 'h');
-            assert (c[2] >= '1' && c[2]<= '8');
-            result = String.valueOf(c[0]);
-            result = result + String.valueOf(c[1]);
-            result = result + String.valueOf(c[2]);
-            this.abbreviation = result;
-        } catch (Exception e) {
-            System.out.println("Yo, invalid move passed in to set abbreviation!");
-            System.out.println("Move abbrev passed: " + s);
-            e.printStackTrace();
-        }
+       this.abbreviation = s;
     }
 }

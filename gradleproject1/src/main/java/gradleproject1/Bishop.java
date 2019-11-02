@@ -12,6 +12,7 @@ public class Bishop extends Piece {
     boolean lightSquares;       //True for light square bishop, false for dark square
     
     public Bishop(String moveID, boolean team){
+       this.setName("Bishop");
        this.pieceID=moveID;
        this.setIsWhite(team);
        if(team) setAbbreviation('B');

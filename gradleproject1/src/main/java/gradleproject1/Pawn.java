@@ -11,6 +11,7 @@ public class Pawn extends Piece {
     
     
    public Pawn(String pawnID, boolean team){
+	   this.setName("Pawn");
        this.pieceID=pawnID;
        this.setIsWhite(team);
        if (team) setAbbreviation('P');
@@ -26,12 +27,5 @@ public class Pawn extends Piece {
    public void madeFirstMove(){
        this.firstMove = true;
    }
-   
-   
-   
-
-   
-  
-   
-    
+ 
 }

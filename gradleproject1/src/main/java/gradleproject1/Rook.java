@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 public class Rook extends Piece {
     public Rook(String moveID, boolean team){
+    	this.setName("Rook");
        this.pieceID=moveID;
        this.setIsWhite(team);
        if (team) setAbbreviation('R');

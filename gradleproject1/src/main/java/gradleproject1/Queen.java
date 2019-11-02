@@ -8,6 +8,7 @@ public class Queen extends Piece {
     
     
     public Queen(String moveID, boolean team){
+    	this.setName("Queen");
        this.pieceID=moveID;
        this.setIsWhite(team);
        if (team) setAbbreviation('Q');

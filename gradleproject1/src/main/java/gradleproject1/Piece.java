@@ -15,7 +15,8 @@ import java.lang.*;
 public class Piece {
     private boolean isWhite;
     private char abbreviation;
-    public String pieceID;          //unique string to identify a particular piece object
+    private String name;
+    public String pieceID;                                      //unique string to identify a particular piece object
     double points;
     String location;                                
     private static BoardButton[][] board;
@@ -64,7 +65,6 @@ public class Piece {
         }
     }    
    
-   
     public void setIsWhite(boolean white){
         this.isWhite=white;
     }    
@@ -80,6 +80,14 @@ public class Piece {
     public void setLocation(String loc){
         this.location = loc;
     }
+    
+    public void setName(String s) {
+    	this.name = s;
+    }
+    
+    public String getName() {
+    	return this.name;
+    }
    
     /**
      * @author Henry Rheault
@@ -91,7 +99,6 @@ public class Piece {
      * @param piece object
      * @return all valid moves allowed
     */
-   
     public ArrayList<BoardButton> getMoves(Piece p){    
         ArrayList<BoardButton> candidateMoves = new ArrayList<BoardButton>();             //Returned list from Piece subclass to be sifted through based on game rules
        Board board;
@@ -216,16 +223,14 @@ public class Piece {
                     result.add(front2);
                 }
             }
-            if (((highSide!= null) && (((highSide.getPiece()==null))||(highSide.getPiece().isWhite())))) result.add(highSide);
-            if (((lowSide!= null) && (((lowSide.getPiece()==null))||(lowSide.getPiece().isWhite())))) result.add(lowSide);
-            if (!front.isFull() && y != 7) result.add(front);
+            
+            if (highSide!= null && highSide.getPiece().isWhite()) result.add(highSide);
+            if (lowSide!= null && lowSide.getPiece().isWhite()) result.add(lowSide);
+            if (!front.isFull() && y!=7) result.add(front);
         }
         return result;
     }
-   
-   
-   
- 
+
     //Returns LIST of BOARDBUTTONS which will be at Indexes the piece is allowed to move to
     public ArrayList<BoardButton> getKingMoves(Piece p){
      
@@ -314,9 +319,9 @@ public class Piece {
        //Too small brain. Did Rook-style move generation until obstacle instead.
        
        ArrayList<BoardButton> validSquares = new ArrayList<BoardButton>();      //Return values
-       String s=this.location;                                      //Readability
+       String s=this.location;                   //Readability
        char[] c = s.toCharArray();
-       Integer col = c[0]-'A';              //0 at A, 7 at H
+       Integer col = c[0]-'A';                  //0 at A, 7 at H
        Integer row = (int) c[1];                //0 at 1, 7 at 8
        
        int ctrx = col;

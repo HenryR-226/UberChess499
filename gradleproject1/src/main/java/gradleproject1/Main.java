@@ -2,8 +2,6 @@ package gradleproject1;
 /*
  Uberchess current build : 0.00.01
 */
- 
-
 import java.util.ArrayList;
 import java.util.Scanner;
  
@@ -37,17 +35,20 @@ public class Main {
        
         while(run)  {
            
-            System.out.println("\nEnter X ");
+            System.out.println("\nEnter Col ");
             String oldX= s.nextLine();
             if(oldX.compareToIgnoreCase("quit") == 0)   {
                 break;
             }  
-            System.out.println("Enter Y ");
+            char[] oldXchar = oldX.toCharArray();
+            int x = (int) oldXchar[0];
+            System.out.println("Enter Row ");
             String oldY= s.nextLine();
             if(oldY.compareToIgnoreCase("quit") == 0)   {
                 break;
             }  
-            BoardButton a = GameBoard[Integer.valueOf(oldX)][Integer.valueOf(oldY)];
+            //Changed 11/2/2019 - Test again. Attempted to make the test values be Letter & Row Number
+            BoardButton a = GameBoard[x-'A'][Integer.valueOf(oldY)-1];
             Piece test = a.getPiece();
             
             ArrayList<BoardButton> moves = new ArrayList<BoardButton>();
@@ -55,7 +56,7 @@ public class Main {
             moves = test.getMoves(test);
             
             try {
-                System.out.println("\nPiece: " + test.getAbbrev());
+                System.out.println("\nPiece: " + test.getName());
                 if(test.isWhite() == true)  {
                     System.out.println("Piece Team: White \n\n");
                 }else   {

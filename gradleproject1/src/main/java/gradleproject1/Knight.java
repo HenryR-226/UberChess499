@@ -5,6 +5,7 @@ import java.util.ArrayList;
 public class Knight extends Piece {
     
     public Knight(String moveID, boolean team){
+    	this.setName("Knight");
        this.pieceID=moveID;
        this.setIsWhite(team);
        if(team) setAbbreviation('N');

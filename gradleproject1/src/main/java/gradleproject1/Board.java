@@ -130,13 +130,6 @@ public class Board {
      */
     
     public void initBoard() throws Exception{
-=======
-     * 
-     * @deprecated
-     */
-    @SuppressWarnings( "deprecation" )
-    public void initBoard() throws Exception {
->>>>>>> Stashed changes
         boolean white = false;
              for(int i = 0; i < 8; i++){
                 for(int j = 1; j < 9; j++){
