@@ -160,29 +160,30 @@ public class Piece {
         BoardButton lowSide;
         BoardButton front;
        
-        System.out.println("Location: " + location);
+        System.out.println("\nLocation Entrered: " + location + "\n");
 
+        System.out.println("Moves Found:");
         if (team) {                      //White pawn, goes up
             if (x + 1 < 8) {
                 highSide = board[x + 1][y + 1];
                 System.out.println("HighSide set to: " + (x + 1) + " " + (y + 1));
             }else   {
                 highSide = null;
-                System.out.println("Highside set to null " );
+                System.out.println("Highside set to: null " );
             }
             if (x - 1 > -1) {
                 lowSide = board[x - 1][y + 1];
                 System.out.println("LowSide set to: " + (x - 1) + " " + (y + 1));
             }else   {
                 lowSide = null;
-                System.out.println("Lowside set to null " );
+                System.out.println("Lowside set to: null " );
             }
             if (y + 1 < 9) {
                 front = board[x][y + 1];
                 System.out.println("Front set to: " + x + " " + (y + 1));
             }else   {
                 front = null;
-                System.out.println("Front set to null");
+                System.out.println("Front set to: null");
             }
             if (p.firstMove()) {
                 BoardButton front2 = board[x][y + 2];
