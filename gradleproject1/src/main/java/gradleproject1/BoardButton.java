@@ -108,56 +108,54 @@ public class BoardButton {
      * as arithmetic checks are being run on it compared to 'A' and 'H' both upper case.
      */
     public void setAbbreviation(String s){
-        boolean userErrorFlag = false;
-        System.out.println("String passed: " + s);
-        try{
-            assert (s.length() == 2);
-            char[] temp = s.toCharArray();
-            //FIXME 
-            //Take string, convert to chars, and get Memory Array location from the Chess String location
-            char col = (char) temp[0];                             //A-H, not case sensitive, input argument
-            System.out.println("Col: " + col);
-            char r0w = (char) (temp[1]);                             //1-8, input argument
-            System.out.println("Row: " + row);
-            col = Character.toUpperCase(col);               //Ensures that the column character is upper case for ease of assert
-            if (!(Character.isLetter(col) || col>'H')){
-                userErrorFlag = true;                          //Make sure col starts with an actual letter between A and H
-                assert (Character.isLetter(col) && col<='H');  //Set user error flag and break out of try if not
-            }  
-            if (r0w >8 || r0w<0){
-                userErrorFlag = true;                        //Make sure row given is less than 8
-                assert (r0w <=8 && r0w>0);                   //Set user error flag and break out of try if not
-            }                    
-           
-            //Format verified, convert Letter-Number to Array indexes
-            String string = String.valueOf(col);
-            this.abbreviation = string + String.valueOf(r0w);
-           
-        } catch (Exception e){
-            if (s.length()!=2 || userErrorFlag){
-                System.out.println("You did something wrong. Invalid format.");
-                System.out.println("Input : " + s);
-            }    
-            else {
-                System.out.println("Some shit went down.");
-                System.out.println("Input : " + s);
-                e.printStackTrace();
-            }    
-        }    
+    	this.abbreviation = s;
     }    
    
     //FIX ME
     //https://pastebin.com/N71TiVif
-    public void setAbbreviation(int col, int row){
+    public void setAbbreviation(int col, int row) throws Exception{
+        boolean colFlag = false;
+        boolean rowFlag = false;
         try{
-            assert (col>='A' && col<='H');
-            assert (row>=1 && row<=8);
-            System.out.println("Row is " + row);
-            String s = String.valueOf((char) col);
-            String s2 = s.concat(String.valueOf((char) row));
-            System.out.println("S val passed: " + s2);
-            
-            setAbbreviation(s2);
+            String stringAbrv= "Z";
+
+            switch (col){
+                case (0):
+                    stringAbrv = "A" + (row);
+                	break;
+                case (1):    
+                    stringAbrv = "B"+ (row);
+                	break;
+                case (2):    
+                    stringAbrv = "C"+ (row);
+            		break;           		
+                case (3):    
+                    stringAbrv = "D"+ (row);
+            		break;
+                case (4):    
+                    stringAbrv = "E"+ (row);
+            		break;
+                case(5):    
+                    stringAbrv = "F"+ (row);
+                	break;
+                case(6):    
+                    stringAbrv = "G"+ (row);
+                	break;
+                case (7):    
+                    stringAbrv = "H"+ (row);
+                	break;
+                default: 
+                    System.out.println("Yo dingus invalid column, 0 - 7 only");
+                    System.out.println("You passed: " + col);
+                    colFlag = true;
+                    
+            }
+
+            if (rowFlag || colFlag ) throw new Exception();
+        
+            System.out.println("Here is C: " + stringAbrv);        
+
+            setAbbreviation(stringAbrv);
            
         } catch (Exception e) {
             System.out.println("Invalid col & row passed.");

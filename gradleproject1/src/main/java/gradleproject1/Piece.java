@@ -154,7 +154,7 @@ public class Piece {
         BoardButton front;
        
         System.out.println("Location: " + location);
-        System.out.println("X and Y " + x + " " + y);
+
         if (team) {                      //White pawn, goes up
             if (x + 1 < 8) {
                 highSide = board[x + 1][y + 1];

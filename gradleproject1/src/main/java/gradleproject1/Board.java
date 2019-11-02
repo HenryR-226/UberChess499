@@ -125,17 +125,18 @@ public class Board {
      * Updated 10/29/2019 and not tested- Added feature to assign board abbreviations 
      * within init board method. So it goes to each board square and tells it 'you are A1/E4', etc.
      * Calls an overloaded method that processes the int input and then itself calls the setter.
+     * @throws Exception 
      */
     
-    public void initBoard(){
+    public void initBoard() throws Exception{
         boolean white = false;
-             for(int i='A';i<'I';i++){
-                for(int j=1;j<9;j++){
+             for(int i = 0; i < 8; i++){
+                for(int j = 1; j < 9; j++){
                     BoardButton butn= new BoardButton(i,j);
                     butn.setColor(white);
                     //ABBREVIATION IS BEING PASSED ASCII VALUES!! NEEDS FIX!
                     butn.setAbbreviation(i,j);
-                    GameBoard['A'-i][j-1] =butn;
+                    GameBoard[i][j-1] =butn;
                     white = !white;                         //Flip color
                  
                  }                
@@ -329,7 +330,7 @@ public class Board {
     //MASSIVE overhaul/Bugfix on the part of Ryan and Henry on 10/27/2019
     public void draw() {
         BoardButton b;
-        byte rowOffset = 7;
+        byte rowOffset = 8;
         char c;
         System.out.println("   A B C D E F G H");
         for (int j = 7; j >= 0; j--) {

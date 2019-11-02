@@ -1,8 +1,10 @@
+package gradleproject1;
 /*
  Uberchess current build : 0.00.01
 */
+ 
 
-package gradleproject1;
+import java.util.ArrayList;
 import java.util.Scanner;
  
 public class Main {
@@ -10,8 +12,9 @@ public class Main {
    
     /**
      * @param args the command line arguments
+     * @throws Exception 
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         // TODO code application logic here
         System.out.println("UberChess Chess Game Initialization");
         Scanner s = new Scanner(System.in);
@@ -35,14 +38,7 @@ public class Main {
         while(run)  {
            
             System.out.println("\nEnter X ");
-            String oldX;
-            try {
-                oldX= s.nextLine();
-            } catch (Exception e){
-                System.out.println("No new line. Breaking");
-                break;
-            }
-            
+            String oldX= s.nextLine();
             if(oldX.compareToIgnoreCase("quit") == 0)   {
                 break;
             }  
@@ -53,7 +49,11 @@ public class Main {
             }  
             BoardButton a = GameBoard[Integer.valueOf(oldX)][Integer.valueOf(oldY)];
             Piece test = a.getPiece();
-           
+            
+            ArrayList<BoardButton> moves = new ArrayList<BoardButton>();
+            
+            moves = test.getMoves(test);
+            
             try {
                 System.out.println("\nPiece: " + test.getAbbrev());
                 if(test.isWhite() == true)  {
@@ -65,6 +65,11 @@ public class Main {
             } catch (Exception e) {
                 System.out.println("No Piece at Entered Location");
             }
+            
+            for(BoardButton c: moves) {
+            	System.out.println("Possible Moves " + c.getAbbreviation());
+            }
+            
             b.draw();
            
         }       //End While
