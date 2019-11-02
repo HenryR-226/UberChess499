@@ -231,10 +231,10 @@ public class Board {
         BishopDark.setLocation("F1");
         a=GameBoard[4][0];
         a.setPiece(Kang);
-        Kang.setLocation("D1");
+        Kang.setLocation("E1");
         a=GameBoard[3][0];
         a.setPiece(Queen);
-        Queen.setLocation("E1");
+        Queen.setLocation("D1");
     }
    
      public void initBlack(){

@@ -242,7 +242,7 @@ public class Piece {
        
        String s=this.location;                                  //Readability
        char[] c = s.toCharArray();                              //converts location into char array to get the column and row
-       Integer col = c[0]- 64;
+       Integer col = c[0]- 65;
        System.out.println("King's col: " + col);
        Integer row = c[1] - 49;
        System.out.println("King's row: " + row);
