@@ -125,18 +125,10 @@ public class Board {
      * Updated 10/29/2019 and not tested- Added feature to assign board abbreviations 
      * within init board method. So it goes to each board square and tells it 'you are A1/E4', etc.
      * Calls an overloaded method that processes the int input and then itself calls the setter.
-<<<<<<< Updated upstream
      * @throws Exception 
      */
     
     public void initBoard() throws Exception{
-=======
-     * 
-     * @deprecated
-     */
-    @SuppressWarnings( "deprecation" )
-    public void initBoard() throws Exception {
->>>>>>> Stashed changes
         boolean white = false;
              for(int i = 0; i < 8; i++){
                 for(int j = 1; j < 9; j++){
