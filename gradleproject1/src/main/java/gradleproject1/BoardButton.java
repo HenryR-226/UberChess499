@@ -151,9 +151,7 @@ public class BoardButton {
                     
             }
 
-            if (rowFlag || colFlag ) throw new Exception();
-        
-            System.out.println("Here is C: " + stringAbrv);        
+            if (rowFlag || colFlag ) throw new Exception();       
 
             setAbbreviation(stringAbrv);
            

@@ -57,9 +57,9 @@ public class Main {
             try {
                 System.out.println("\nPiece: " + test.getAbbrev());
                 if(test.isWhite() == true)  {
-                    System.out.println("Piece Team: White \n\n");
+                    System.out.println("Piece Team: White \n");
                 }else   {
-                    System.out.println("Piece Team: Black \n\n");
+                    System.out.println("Piece Team: Black \n");
                 }
                
             } catch (Exception e) {
@@ -69,6 +69,7 @@ public class Main {
             for(BoardButton c: moves) {
             	System.out.println("Possible Moves " + c.getAbbreviation());
             }
+            System.out.println("");
             
             b.draw();
            
