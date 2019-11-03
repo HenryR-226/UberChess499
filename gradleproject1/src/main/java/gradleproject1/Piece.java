@@ -536,7 +536,6 @@ public class Piece {
 		}
 		lsize = validX2.size();
 		for (int i = 0; i < lsize; i++) {
-			System.out.print(i);
 			Integer a = validX2.get(i);
 			if (a < 0 || a > 7) {
 				lsize--;
@@ -557,7 +556,6 @@ public class Piece {
 			}
 		}
 		lsize = validY2.size();
-		System.out.print(lsize);
 		for (int i = 0; i < lsize; i++) {
 
 			Integer a = validY2.get(i);
