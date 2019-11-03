@@ -69,7 +69,7 @@ public class BoardButton {
     
     //Assumes check has been run for empty square
     public void setPiece(Piece p){
-        this.isFull = true;
+    	this.isFull = true;
         this.piece = p;
     }
     
@@ -77,6 +77,8 @@ public class BoardButton {
     public void removePiece(){
     	this.isFull=false;
     	this.piece=null;
+    	System.out.println("Piece removed and set to null");
+    	System.out.println(this.isFull);
     }
     /**
      * @author Henry Rheault

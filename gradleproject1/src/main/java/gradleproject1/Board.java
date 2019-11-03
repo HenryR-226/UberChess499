@@ -470,4 +470,11 @@ public class Board {
 		Bishop.setLocation("D4");
 	}
        
+	public Player getWhitePlayer() {
+		return whitePlayer;
+	}
+	public Player getBlackPlayer() {
+		return blackPlayer;
+	}
+	
 }

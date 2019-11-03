@@ -12,7 +12,9 @@ public class Main {
 		
         Player whitePlayer = new Player(true, false);
         Player blackPlayer = new Player(false, false);
- 
+        Move.setWhitePlayer(whitePlayer);
+        Move.setBlackPlayer(blackPlayer);
+        
         Board b=new Board(whitePlayer, blackPlayer);
         BoardButton[][] GameBoard = b.getGameBoard();
 		c=Character.toUpperCase(c);
@@ -42,6 +44,8 @@ public class Main {
 		
         Player whitePlayer = new Player(true, false);
         Player blackPlayer = new Player(false, false);
+        Move.setWhitePlayer(whitePlayer);
+        Move.setBlackPlayer(blackPlayer);
  
         Board b=new Board(whitePlayer, blackPlayer);
         BoardButton[][] GameBoard = b.getGameBoard();
@@ -70,6 +74,7 @@ public class Main {
         b.draw(b);
         Piece.setBoard(b);
         Move.setGameBoard(b);
+       
  
         System.out.println(" ");
         System.out.println("White: Upper Case, first move:");
@@ -79,13 +84,81 @@ public class Main {
 		while (run) {
 			ArrayList<BoardButton> moves = new ArrayList<BoardButton>();
 			try {
+				
+				
+				System.out.println("Move or Info? M for move, I for info, 'Quit' to quit:");
+				String control = s.nextLine();
+				if (control.compareToIgnoreCase("quit") == 0) {
+					break;
+				}
+				if (control.compareToIgnoreCase("M") == 0) {				//Call moves, select a grid location of a piece
+					System.out.println("\nEnter Col ");
+					String oldX1 = s.nextLine();
+					if (oldX1.compareToIgnoreCase("quit") == 0) {
+						break;
+					}
+					char[] oldXchar = oldX1.toCharArray();
+					int x = (int) Character.toUpperCase(oldXchar[0]);
+					System.out.println("Enter Row ");
+					String oldY1 = s.nextLine();
+					if (oldY1.compareToIgnoreCase("quit") == 0) {
+						break;
+					}
+					// Changed 11/2/2019 - Test again. Attempted to make the test values be Letter &
+					// Row Number
+					System.out.println("Asserts being called");
+					assert (x - 'A') >= 0;
+					assert (x - 'A') <= 7;
+					assert (Integer.valueOf(oldY1) - 1) >= 0;
+					assert (Integer.valueOf(oldY1) - 1) <= 7;
+					System.out.println("Asserts true");
+					BoardButton a = GameBoard[x - 'A'][Integer.valueOf(oldY1) - 1];
+					System.out.println("Calling button " + (x - 'A') + " " + (Integer.valueOf(oldY1) -1) );
+					Piece test = a.getPiece();
+					System.out.println("Piece obtained," + a.getPiece().getAbbrev() + " , calling getmoves");
+					moves = test.getMoves(test);
+					System.out.println("Moves gotten");
+					for (BoardButton m : moves) {
+						System.out.print(m.getAbbreviation() + ", ");
+						System.out.println(".");
+					}
+					boolean moveFlag = true;
+					Move moveIteration = null;
+					while (moveFlag) {
+						/*
+						System.out.println("Enter col to move:");
+						String move = s.nextLine();
+						if (move.compareToIgnoreCase("quit")==0) break;
+						*/
+						System.out.println("\nEnter Col ");
+						String oldX2 = s.nextLine();
+						if (oldX2.compareToIgnoreCase("quit") == 0) {
+							break;
+						}
+						char[] oldXchar2 = oldX1.toCharArray();
+						int x2 = (int) Character.toUpperCase(oldXchar[0]);
+						System.out.println("Enter Row ");
+						String oldY2 = s.nextLine();
+						if (oldY2.compareToIgnoreCase("quit") == 0) {
+							break;
+						}
+						for (BoardButton butn : moves) {
+							if (test.getAbbrev() + oldX2 + oldY2 == test.getAbbrev()+ butn.getAbbreviation()) moveIteration = new Move(test, butn);
+							b.getWhitePlayer().addMove(moveIteration.getAbbreviation());
+					}
+				}
+				b.draw(b);
+			}	
+				
+			else if (control.compareToIgnoreCase("I")==0) {	
 				System.out.println("\nEnter Col ");
 				String oldX = s.nextLine();
 				if (oldX.compareToIgnoreCase("quit") == 0) {
 					break;
 				}
-				char[] oldXchar = oldX.toCharArray();
-				int x = (int) Character.toUpperCase(oldXchar[0]);
+				int x2, y2;
+				char[] oldXchar2 = oldX.toCharArray();
+				x2 = (int) Character.toUpperCase(oldXchar2[0]);
 				System.out.println("Enter Row ");
 				String oldY = s.nextLine();
 				if (oldY.compareToIgnoreCase("quit") == 0) {
@@ -94,25 +167,29 @@ public class Main {
 				// Changed 11/2/2019 - Test again. Attempted to make the test values be Letter &
 				// Row Number
 				System.out.println("Asserts being called");
-				assert (x - 'A') >= 0;
-				assert (x - 'A') <= 7;
+				assert (x2 - 'A') >= 0;
+				assert (x2 - 'A') <= 7;
 				assert (Integer.valueOf(oldY) - 1) >= 0;
 				assert (Integer.valueOf(oldY) - 1) <= 7;
 				System.out.println("Asserts true");
-				BoardButton a = GameBoard[x - 'A'][Integer.valueOf(oldY) - 1];
-				System.out.println("Calling button " + (x - 'A') + " " + (Integer.valueOf(oldY) -1) );
-				Piece test = a.getPiece();
-				System.out.println("Piece obtained," + a.getPiece().getAbbrev() + " , calling getmoves");
-				moves = test.getMoves(test);
+				BoardButton a1 = GameBoard[x2 - 'A'][Integer.valueOf(oldY) - 1];
+				System.out.println("Calling button " + (x2  - 'A') + " " + (Integer.valueOf(oldY) -1) );
+				Piece test2 = a1.getPiece();
+				System.out.println("Piece obtained," + a1.getPiece().getAbbrev() + " , calling getmoves");
+				moves = test2.getMoves(test2);
 				System.out.println("Moves gotten");
 
-				System.out.println("\nPiece: " + test.getName());
-				if (test.isWhite() == true) {
+				System.out.println("\nPiece: " + test2.getName());
+				if (test2.isWhite() == true) {
 					System.out.println("Piece Team: White \n");
 				} else {
 					System.out.println("Piece Team: Black \n");
 				}
-
+				
+				b.draw(b);
+				}
+				
+				
 			} catch (Exception e) {
 				System.out.println("No Moves at Entered Location");
 				e.printStackTrace();
