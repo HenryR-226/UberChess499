@@ -2,7 +2,7 @@ package gradleproject1;
 import java.util.*;
 
 public class Player {
-    private ArrayList moveList = new ArrayList<String>();
+    private ArrayList moveList = new ArrayList<Move>();
     private ArrayList pieceList = new ArrayList<Piece>();   //Pieces currently on the board
     private ArrayList piecesLost = new ArrayList<Piece>();  //Pieces lost by that gamer
     private boolean hasCastled;                             //Has the gamer castled
@@ -45,8 +45,8 @@ public class Player {
         this.ai = ai;
     }
  
-    public void addMove(String m){
-        moveList.add(m);
+    public void addMove(Move moveIteration){
+        moveList.add(moveIteration);
     }
    
     public String getLastMove(){

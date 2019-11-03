@@ -124,20 +124,31 @@ public class Piece {
                candidateMoves=getQueenMoves(p);
                break;
            case 'K':    
-               candidateMoves=getKingMoves(p);  
+               candidateMoves=getKingMoves(p);
+               System.out.println("Switch Size " + candidateMoves.size());
                break;
        }
        
-       for (BoardButton b : candidateMoves){           //Get valid moves for particular piece object
+       for (int i = 0; i < candidateMoves.size(); i++){           //Get valid moves for particular piece object
            //if king not put in check - No need to test for 'is full' or 'can attack' as each piece method handles that now
            
            //if (/*King not in check*/){    
-           this.possibleMoves.add(b);
-           //}
+           this.possibleMoves.add(candidateMoves.get(i));
+           
+           /**
+            * This breaks the Loop when all possible moves have been added from candidate Moves.
+            * For some reason with out this break and if statement the for loop counter "i"
+            * goes past candidateMoves.size() and goes until memory crash.
+            */
+           if(possibleMoves.size() == candidateMoves.size())    {
+               break;
+           }          
         }
        
+       if (c == 'K') possibleMoves.remove(possibleMoves.size() - 1);
        return this.possibleMoves;
     }
+    
    
     /**
      * @author Henry Rheault
@@ -190,6 +201,8 @@ public class Piece {
             if (p.firstMove()) {
                 BoardButton front2 = board[x][y + 2];
                 if (!front2.isFull()) {
+                	System.out.println("Pawn's first move! Should add " + front2.getAbbreviation() + " to list!");
+
                     result.add(front2);
                 }
             }
@@ -235,79 +248,80 @@ public class Piece {
     }
 
     //Returns LIST of BOARDBUTTONS which will be at Indexes the piece is allowed to move to
+    //Tested and verified to be working: Henry Rheault, 11/3/2019
     public ArrayList<BoardButton> getKingMoves(Piece p){
-     
-       ArrayList<BoardButton> moveList = new ArrayList<>();      //Return values
-       //ArrayList<String> validGrids = new ArrayList<String>();
-       ArrayList<Integer> validX = new ArrayList<>();
-       ArrayList<Integer> validY = new ArrayList<>();
-       
-       String s=this.location;                                  //Readability
-       char[] c = s.toCharArray();                              //converts location into char array to get the column and row
-       Integer col = c[0]- 65;
-       System.out.println("King's col: " + col);
-       Integer row = c[1] - 49;
-       System.out.println("King's row: " + row);
-       
-       //Populates an array list with strings of Int, for taking all permutations of to get move list grid squares
-       if (col!=0&&col!=7){
-           validX.add(col);
-           col = col+1;
-           validX.add(col);
-           col = col-2;
-           validX.add(col);
-           col = col+1;                     //Reset to original position
-       }    else if (col==0){
-           validX.add(col);
-           col = col+1;
-           validX.add(col);
-           col = col-1;
-       }
-       else if(col==7){
-           validX.add(col);
-           col = col-1;
-           validX.add(col);
-           col = col+1;
-       }
-       
-       if (row!=7&&row!=0){
-           validY.add(row);
-           row = row+1;
-           validY.add(row);
-           row = row-2;
-           validY.add(row);
-           row = row+1;
-       }
-       else if (row==0){
-           validY.add(row);
-           row = row+1;
-           validY.add(row);
-           row = row-1;
-       } else if (row==7){
-           validY.add(row);
-           row = row-1;
-           validY.add(row);
-           row = row+1;
-       }
-       System.out.println("Valid X and Y's for King moves");
-       for (Integer x : validX){
-           for (Integer y : validY){
-        	   System.out.println("X: " + x + " Y: " + y);
-        	   //System.out.println("Y: " + y);
-           }
-       }
-       
-       //Now take all permutations of the row and col values, discarding the 'unchanged' move
-       for (Integer x : validX){
-           for (Integer y : validY){
-               BoardButton button = board[x][y];
-               if (!button.isFull() || button.isFull() && button.getPiece().isWhite()!= p.isWhite()) moveList.add(button);
-           }
-       }
-       moveList.remove(board[row][col]);
-       possibleMoves = moveList;
-       return possibleMoves;
-    }
+        
+        ArrayList<BoardButton> moveList = new ArrayList<>();      //Return values
+        //ArrayList<String> validGrids = new ArrayList<String>();
+        ArrayList<Integer> validX = new ArrayList<>();
+        ArrayList<Integer> validY = new ArrayList<>();
+        
+        String s=this.location;                                  //Readability
+        char[] c = s.toCharArray();                              //converts location into char array to get the column and row
+        Integer col = c[0]- 65;
+        System.out.println("King's col: " + col);
+        Integer row = c[1] - 49;
+        System.out.println("King's row: " + row);
+        
+        //Populates an array list with strings of Int, for taking all permutations of to get move list grid squares
+        if (col!=0&&col!=7){
+            validX.add(col);
+            col = col+1;
+            validX.add(col);
+            col = col-2;
+            validX.add(col);
+            col = col+1;                     //Reset to original position
+        }    else if (col==0){
+            validX.add(col);
+            col = col+1;
+            validX.add(col);
+            col = col-1;
+        }
+        else if(col==7){
+            validX.add(col);
+            col = col-1;
+            validX.add(col);
+            col = col+1;
+        }
+        
+        if (row!=7&&row!=0){
+            validY.add(row);
+            row = row+1;
+            validY.add(row);
+            row = row-2;
+            validY.add(row);
+            row = row+1;
+        }
+        else if (row==0){
+            validY.add(row);
+            row = row+1;
+            validY.add(row);
+            row = row-1;
+        } else if (row==7){
+            validY.add(row);
+            row = row-1;
+            validY.add(row);
+            row = row+1;
+        }
+        System.out.println("Valid X and Y's for King moves");
+        for (Integer x : validX){
+            for (Integer y : validY){
+                System.out.println("X: " + x + " Y: " + y);
+                
+                BoardButton button = board[x][y];
+                //Now take all permutations of the row and col values, discarding the 'unchanged' move
+                
+                if (!button.isFull() || button.isFull() && button.getPiece().isWhite()!= p.isWhite()) moveList.add(button);
+                
+                //System.out.println("Y: " + y);
+            }
+        }
+        
+        moveList.remove(board[col][row]);
+        possibleMoves = moveList;
+        System.out.println(possibleMoves.size());
+        return possibleMoves;
+     }
    
     /*
     *@author Henry Rheault
@@ -326,6 +340,7 @@ public class Piece {
    
    
     //Bishop raw moves generator
+    //Tested and verified accurate on Test Board: Henry Rheault, 11/3/2019
     public ArrayList<BoardButton> getBishopMoves(Piece p){
        //https://math.stackexchange.com/questions/1566115/formula-that-describes-the-movement-of-a-bishop-in-chess
        //Moving from x1, y1 to x2, y2 is a valid move if abs(x2-x1) = abs(y2 - y1) > 0.
@@ -380,7 +395,7 @@ public class Piece {
        ctrx=col;
        ctry=row;
        do {
-           ctrx++; ctry++;
+           ctrx++; ctry--;
            try{
                 b = board[ctrx][ctry];
                 if (!b.isFull() || b.isWhite()!=p.isWhite() && ctry>-1 && ctrx<8) validSquares.add(b);
@@ -399,20 +414,21 @@ public class Piece {
     * So it checks for piece occupying a square in front of it and stops generating moves in that
     * direction once the square is occupied in front of it.
     */
-   
+   //Tested and found accurate: Henry Rheault, 11/3/2019
     public ArrayList<BoardButton> getRookMoves(Piece p){
         ArrayList<BoardButton> validSquares = new ArrayList<BoardButton>();
         BoardButton b;
         String location = p.getLocation();
         char[] c = location.toCharArray();
         int x = ((int)c[0]-'A');
-        int y = (int) c[1]-'0';
+        int y = (int) c[1]-'0'-1;
         int ctrx = x;
         int ctry = y;
         do {
             ctry++;
             try{
                 b = board[x][ctry];                           //Go positive Y down it's col
+                
                 if (!b.isFull() || b.isWhite()!=p.isWhite() && ctry<8) validSquares.add(b);
             } catch (Exception e) { break; }            
         } while (!b.isFull() && ctry<8);              //Stop at first occupied or out of bounds square
@@ -421,6 +437,7 @@ public class Piece {
             ctry--;
             try{
                 b = board[x][ctry];                              //Go negative Y down it's col
+                System.out.println("Checking " + x + " and " + ctry);
                 if (!b.isFull() || b.isWhite()!=p.isWhite() && ctry>-1) validSquares.add(b);
             } catch (Exception e) { break; }
         } while (!b.isFull() && ctry>-1);              
@@ -449,6 +466,8 @@ public class Piece {
      * Implements Knight move rules. My method is to make lists of 1 and 2 squares off respectively,
      * then take all combinations of opposing number lists.
      */
+    
+    //Tested and verified to work. Ryan Brodsky, 11/3/2019
     public ArrayList<BoardButton> getKnightMoves(Piece p){
         ArrayList<BoardButton> validSquares = new ArrayList<BoardButton>();
         ArrayList<Integer> validX1 = new ArrayList<Integer>();      //x +-1
@@ -459,7 +478,7 @@ public class Piece {
         String location = p.getLocation();
         char[] c = location.toCharArray();
         int x = ((int)c[0]-'A');
-        int y = (int) c[1] - 49;
+        int y = (int) c[1] - '0' -1;
        
         //Generate X valuses valid for each list
         validX1.add(x-1);
@@ -495,7 +514,17 @@ public class Piece {
                 if (!board[i][j].isFull() || board[i][j].isFull() && board[i][j].getPiece().isWhite()!= p.isWhite()) validSquares.add(board[i][j]);
             }    
         }
+        
         return validSquares;
+    }
+    
+    //Started by Henry Rheault on 11/3/2019
+    //Designed to sort an array list into actual legible alphabetical order since I don't understand the <T> nonsense and want the BBs sorted by string lexiographal order
+    public ArrayList<BoardButton> sort (ArrayList<BoardButton> a){
+    	
+    	ArrayList<BoardButton> ret = new ArrayList<BoardButton>();
+    	
+    	return ret;
     }
    
     /*

@@ -95,6 +95,7 @@ public class Move {
             old.removePiece();
             n3w.setPiece(p);
             p.setLocation(location);
+            if (
             
             System.out.println("Old is empty: " + old.isFull()); 
             

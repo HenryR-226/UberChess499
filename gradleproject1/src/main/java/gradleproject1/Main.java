@@ -2,9 +2,8 @@ package gradleproject1;
 /*
  Uberchess current build : 0.00.01
 */
-import java.util.ArrayList;
-import java.util.Scanner;
- 
+import java.util.*;
+
 public class Main {
  
    
@@ -118,10 +117,11 @@ public class Main {
 					System.out.println("Piece obtained," + a.getPiece().getAbbrev() + " , calling getmoves");
 					moves = test.getMoves(test);
 					System.out.println("Moves gotten");
-					for (BoardButton m : moves) {
-						System.out.print(m.getAbbreviation() + ", ");
-						System.out.println(".");
-					}
+					 for (int ctr = 0; ctr < moves.size(); ctr++) {
+	                        System.out.print(moves.get(ctr).getAbbreviation() + ", ");
+	                        System.out.println(".");
+	                    }
+				
 					boolean moveFlag = true;
 					Move moveIteration = null;
 					while (moveFlag) {
@@ -142,9 +142,11 @@ public class Main {
 						if (oldY2.compareToIgnoreCase("quit") == 0) {
 							break;
 						}
+						//System.out.println("Move attempted: " + );
 						for (BoardButton butn : moves) {
-							if (test.getAbbrev() + oldX2 + oldY2 == test.getAbbrev()+ butn.getAbbreviation()) moveIteration = new Move(test, butn);
-							b.getWhitePlayer().addMove(moveIteration.getAbbreviation());
+							if ((Character.toString(test.getAbbrev()) + oldX2 + oldY2).compareTo(test.getAbbrev()+ butn.getAbbreviation())==0) moveIteration = new Move(test, butn);
+							System.out.println("Move attempted: " + (Character.toString(test.getAbbrev()) + oldX2 + oldY2) + " should be equal to " + test.getAbbrev()+ butn.getAbbreviation()) ;
+							b.getWhitePlayer().addMove(moveIteration);
 					}
 				}
 				b.draw(b);
@@ -189,7 +191,10 @@ public class Main {
 				b.draw(b);
 				}
 				
-				
+			else if (control.compareToIgnoreCase("quit") == 0) {
+				System.out.println("Loop broken. Have a nice day, party hard!");
+				break;
+			}
 			} catch (Exception e) {
 				System.out.println("No Moves at Entered Location");
 				e.printStackTrace();
