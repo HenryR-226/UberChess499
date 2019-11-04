@@ -73,7 +73,7 @@ public class Main {
 		boolean run = true;
 
 		b.draw(b);
-		Piece.setBoard(b);
+
 		Move.setGameBoard(b);
 
 		System.out.println(" ");
@@ -115,7 +115,7 @@ public class Main {
 					System.out.println("Calling button " + (x - 'A') + " " + (Integer.valueOf(oldY1) - 1));
 					Piece test = a.getPiece();
 					System.out.println("Piece obtained," + a.getPiece().getAbbrev() + " , calling getmoves");
-					moves = test.getMoves(test);
+					moves = test.getMoves(test, GameBoard);
 					System.out.println("Moves gotten");
 					for (int ctr = 0; ctr < moves.size(); ctr++) {
 						System.out.print(moves.get(ctr).getAbbreviation() + ", ");
@@ -152,7 +152,7 @@ public class Main {
 							// b.getWhitePlayer().addMove(moveIteration);
 
 						}
-						b.draw(b);
+						moveFlag = false;
 					}
 				}
 
@@ -182,7 +182,7 @@ public class Main {
 					System.out.println("Calling button " + (x2 - 'A') + " " + (Integer.valueOf(oldY) - 1));
 					Piece test2 = a1.getPiece();
 					System.out.println("Piece obtained," + a1.getPiece().getAbbrev() + " , calling getmoves");
-					moves = test2.getMoves(test2);
+					moves = test2.getMoves(test2, GameBoard);
 					System.out.println("Moves gotten");
 
 					System.out.println("\nPiece: " + test2.getName());
