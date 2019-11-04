@@ -19,7 +19,7 @@ public class King extends Piece {
 
 	@Override
 	public ArrayList<BoardButton> getMoves(Piece p, BoardButton[][] board) {
-
+		
 		ArrayList<BoardButton> moveList = new ArrayList<>(); // Return values
 		// ArrayList<String> validGrids = new ArrayList<String>();
 		ArrayList<Integer> validX = new ArrayList<>();

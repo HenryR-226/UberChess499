@@ -7,7 +7,9 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
-
+	
+	
+	// Creates test board with single piece in the center of the board for testability of generating moves. Space or other character for default
 	public static Board testBoard(char c) throws Exception {
 
 		Player whitePlayer = new Player(true, false);
@@ -58,7 +60,8 @@ public class Main {
 	 * @throws Exception
 	 */
 	public static void main(String[] args) throws Exception {
-
+		
+		GameState g = new GameState();
 		Scanner s = new Scanner(System.in);
 		String in = null;
 		char c = ' ';
@@ -75,11 +78,12 @@ public class Main {
 		b.draw(b);
 
 		Move.setGameBoard(b);
-
+		/*
 		System.out.println(" ");
 		System.out.println("White: Upper Case, first move:");
 		System.out.println("Hint: Type grid square for first pawn move (no need to specify pawn):");
-		// System.out.println("Enter move for pawn");
+		/
+		*/// System.out.println("Enter move for pawn");
 
 		while (run) {
 			ArrayList<BoardButton> moves = new ArrayList<BoardButton>();
@@ -91,32 +95,49 @@ public class Main {
 					break;
 				}
 				if (control.compareToIgnoreCase("M") == 0) { // Call moves, select a grid location of a piece
-					System.out.println("\nEnter Col ");
-					String oldX1 = s.nextLine();
-					if (oldX1.compareToIgnoreCase("quit") == 0) {
-						break;
-					}
-					char[] oldXchar = oldX1.toCharArray();
-					int x = (int) Character.toUpperCase(oldXchar[0]);
-					System.out.println("Enter Row ");
-					String oldY1 = s.nextLine();
-					if (oldY1.compareToIgnoreCase("quit") == 0) {
-						break;
-					}
-					// Changed 11/2/2019 - Test again. Attempted to make the test values be Letter &
-					// Row Number
-					System.out.println("Asserts being called");
-					assert (x - 'A') >= 0;
-					assert (x - 'A') <= 7;
-					assert (Integer.valueOf(oldY1) - 1) >= 0;
-					assert (Integer.valueOf(oldY1) - 1) <= 7;
-					System.out.println("Asserts true");
-					BoardButton a = GameBoard[x - 'A'][Integer.valueOf(oldY1) - 1];
-					System.out.println("Calling button " + (x - 'A') + " " + (Integer.valueOf(oldY1) - 1));
-					Piece test = a.getPiece();
+					Piece test = null;
+					BoardButton a = null;
+					String oldX1 = null;
+					char[] oldXchar = { ' ' };
+					do {
+						System.out.println("\nEnter Col ");
+						oldX1 = s.nextLine();
+						if (oldX1.compareToIgnoreCase("quit") == 0) {
+							break;
+						}
+						oldXchar = oldX1.toCharArray();
+						oldXchar[0] = Character.toUpperCase(oldXchar[0]);
+						int x = (int) oldXchar[0];
+						System.out.println("Enter Row ");
+						String oldY1 = s.nextLine();
+						if (oldY1.compareToIgnoreCase("quit") == 0) {
+							break;
+						}
+						// Changed 11/2/2019 - Test again. Attempted to make the test values be Letter &
+						// Row Number
+						// System.out.println("Asserts being called");
+						assert (x - 'A') >= 0;
+						assert (x - 'A') <= 7;
+						assert (Integer.valueOf(oldY1) - 1) >= 0;
+						assert (Integer.valueOf(oldY1) - 1) <= 7;
+						// System.out.println("Asserts true");
+						a = GameBoard[x - 'A'][Integer.valueOf(oldY1) - 1];
+						// System.out.println("Calling button " + (x - 'A') + " " +
+						// (Integer.valueOf(oldY1) - 1));
+
+						try {
+							test = a.getPiece();
+							if (test.isWhite() != g.whoseTurn())
+								System.out.println("Wrong team. Try again:");
+							assert (test.isWhite() == g.whoseTurn()); // Just crash the Try-Catch if a piece is selected
+																		// of wrong color
+						} catch (Exception e) {
+							System.out.println("Wrong team. Try again.");
+						}
+					} while (test.isWhite() != g.whoseTurn());
 					System.out.println("Piece obtained," + a.getPiece().getAbbrev() + " , calling getmoves");
 					moves = test.getMoves(test, GameBoard);
-					System.out.println("Moves gotten");
+					System.out.println("Possible Moves:");
 					for (int ctr = 0; ctr < moves.size(); ctr++) {
 						System.out.print(moves.get(ctr).getAbbreviation() + ", ");
 						System.out.println(".");
@@ -143,16 +164,20 @@ public class Main {
 						}
 						// System.out.println("Move attempted: " + );
 						for (BoardButton butn : moves) {
-							if ((Character.toString(test.getAbbrev()) + oldX2 + oldY2)
+							if ((Character.toString(test.getAbbrev()) + oldX2.toUpperCase()+ oldY2)
 									.compareTo(test.getAbbrev() + butn.getAbbreviation()) == 0)
 								moveIteration = new Move(test, butn);
+							
+							/*
 							System.out
 									.println("Move attempted: " + (Character.toString(test.getAbbrev()) + oldX2 + oldY2)
-											+ " should be equal to " + test.getAbbrev() + butn.getAbbreviation());
+											+ " should be equal to " + test.getAbbrev() + butn.getAbbreviation()); */
+							
 							// b.getWhitePlayer().addMove(moveIteration);
 
 						}
 						moveFlag = false;
+						g.turn();
 					}
 				}
 
@@ -183,7 +208,7 @@ public class Main {
 					Piece test2 = a1.getPiece();
 					System.out.println("Piece obtained," + a1.getPiece().getAbbrev() + " , calling getmoves");
 					moves = test2.getMoves(test2, GameBoard);
-					System.out.println("Moves gotten");
+					System.out.println("Possible Moves:");
 
 					System.out.println("\nPiece: " + test2.getName());
 					if (test2.isWhite() == true) {
@@ -192,7 +217,6 @@ public class Main {
 						System.out.println("Piece Team: Black \n");
 					}
 
-					b.draw(b);
 				}
 
 				else if (control.compareToIgnoreCase("quit") == 0) {
@@ -204,9 +228,10 @@ public class Main {
 				e.printStackTrace();
 			}
 
-			for (BoardButton foff : moves) {
-				System.out.println("Possible Moves " + foff.getAbbreviation());
-			}
+//			for (BoardButton foff : moves) {
+//				System.out.println("Possible Moves " + foff.getAbbreviation());
+//			}
+			
 			System.out.println("");
 
 			b.draw(b);

@@ -78,12 +78,10 @@ public class Piece {
 		return this.name;
 	}
 
-<<<<<<< Updated upstream
-	public ArrayList<BoardButton> getMoves(Piece p, BoardButton[][] board) {
+	public ArrayList<BoardButton> getMovesOverloaded(Piece p, BoardButton[][] board) {
 		return null;
 	}
 
-=======
 	/**
 	 * @author Henry Rheault A method to return an array list of all valid board
 	 *         button squares valid to move a piece onto.
@@ -98,31 +96,30 @@ public class Piece {
 
 	// Cocurrent modification:
 	// https://stackoverflow.com/questions/18448671/how-to-avoid-concurrentmodificationexception-while-removing-elements-from-arr
-	public ArrayList<BoardButton> getMoves(Piece p) {
+	public ArrayList<BoardButton> getMoves(Piece p, BoardButton[][] board) {
 		ArrayList<BoardButton> candidateMoves = new ArrayList<BoardButton>(); // Returned list from Piece subclass to be
 																				// sifted through based on game rules
-		Board board;
 		possibleMoves = new ArrayList<BoardButton>();
 		boolean team = p.isWhite();
 		char c = Character.toUpperCase(p.getAbbrev());
 		switch (c) {
 		case 'P':
-			candidateMoves = getPawnMoves((Pawn) p);
+			candidateMoves = getMoves((Pawn) p, board);
 			break;
 		case 'N':
-			candidateMoves = getKnightMoves(p);
+			candidateMoves = getMoves((Knight) p, board);
 			break;
 		case 'B':
-			candidateMoves = getBishopMoves(p);
+			candidateMoves = getMoves((Bishop) p, board);
 			break;
 		case 'R':
-			candidateMoves = getRookMoves(p);
+			candidateMoves = getMoves((Rook) p, board);
 			break;
 		case 'Q':
-			candidateMoves = getQueenMoves(p);
+			candidateMoves = getMoves((Queen) p, board);
 			break;
 		case 'K':
-			candidateMoves = getKingMoves(p);
+			candidateMoves = getMoves((King) p, board);
 			System.out.println("Switch Size " + candidateMoves.size());
 			break;
 		}
@@ -148,12 +145,13 @@ public class Piece {
 			possibleMoves.remove(possibleMoves.size() - 1);
 		return this.possibleMoves;
 	}
+	/*
 
 	/**
 	 * @author Henry Rheault Generates possible pawn moves. Board will not have to
 	 *         sift through these as it generates only valid moves for itself, as a
 	 *         consequence of needing to check whether it can attack.
-	 */
+	 * /
 	public ArrayList<BoardButton> getPawnMoves(Pawn p) {
 		ArrayList<BoardButton> result = new ArrayList<BoardButton>();
 
@@ -334,7 +332,7 @@ public class Piece {
 	 *
 	 * Generates Queen move squares. Calls Rook and Bishop methods to get what would
 	 * be valid in either case, then combines the lists. Big Brain!!!!!
-	 */
+	 * /
 	public ArrayList<BoardButton> getQueenMoves(Piece p) {
 		ArrayList<BoardButton> validSquares = new ArrayList<BoardButton>();
 		validSquares = p.getBishopMoves(p);
@@ -435,7 +433,7 @@ public class Piece {
 	 *         'infinite range' piece classes. So it checks for piece occupying a
 	 *         square in front of it and stops generating moves in that direction
 	 *         once the square is occupied in front of it.
-	 */
+	 * /
 	// Tested and found accurate: Henry Rheault, 11/3/2019
 	public ArrayList<BoardButton> getRookMoves(Piece p) {
 		ArrayList<BoardButton> validSquares = new ArrayList<BoardButton>();
@@ -500,7 +498,7 @@ public class Piece {
 	 * Implements Knight move rules. My method is to make lists of 1 and 2
 	 * squares off respectively, then take all combinations of opposing
 	 * number lists.
-	 */
+	 * /
 
 	// Tested and verified to work on test board. Ryan Brodsky, 11/3/2019
 	//Fixed to stop throwing ConcurrentModificationException and to work for Main Board. Oleg S, 11/3/2019
@@ -577,13 +575,13 @@ public class Piece {
 		}
 
 		return validSquares;
-	}
+	}  */
 
 	// Started by Henry Rheault on 11/3/2019
 	// Designed to sort an array list into actual legible alphabetical order since I
 	// don't understand the <T> pattern and want the BBs sorted by string
 	// lexiographal order. But way too much work to implement for QOL in printouts
->>>>>>> Stashed changes
+
 	public ArrayList<BoardButton> sort(ArrayList<BoardButton> a) {
 
 		ArrayList<BoardButton> ret = new ArrayList<BoardButton>();

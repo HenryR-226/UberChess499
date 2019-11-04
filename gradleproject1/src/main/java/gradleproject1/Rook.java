@@ -14,7 +14,7 @@ public class Rook extends Piece {
 		this.points = 5;
 	}
 
-	public ArrayList<BoardButton> getMoves(Piece piece, BoardButton[][] board) {
+	public ArrayList<BoardButton> getMoves(Rook piece, BoardButton[][] board) {
 		Rook p = (Rook) piece;
 		ArrayList<BoardButton> validSquares = new ArrayList<BoardButton>();
 		BoardButton b;

@@ -23,7 +23,7 @@ public class Pawn extends Piece {
 
 		this.points = 1;
 	}
-
+	
 	@Override
 	public ArrayList<BoardButton> getMoves(Piece piece, BoardButton[][] board) {
 		Pawn p = (Pawn) piece;
@@ -46,24 +46,24 @@ public class Pawn extends Piece {
 		if (team) { // White pawn, goes up
 			if (x + 1 < 8) {
 				highSide = board[x + 1][y + 1];
-				System.out.println("HighSide set to: " + (x + 1) + " " + (y + 1));
+				//System.out.println("HighSide set to: " + (x + 1) + " " + (y + 1));
 			} else {
 				highSide = null;
-				System.out.println("Highside set to: null ");
+				//System.out.println("Highside set to: null ");
 			}
 			if (x - 1 > -1) {
 				lowSide = board[x - 1][y + 1];
-				System.out.println("LowSide set to: " + (x - 1) + " " + (y + 1));
+				//System.out.println("LowSide set to: " + (x - 1) + " " + (y + 1));
 			} else {
 				lowSide = null;
-				System.out.println("Lowside set to: null ");
+				//System.out.println("Lowside set to: null ");
 			}
 			if (y + 1 < 9) {
 				front = board[x][y + 1];
-				System.out.println("Front set to: " + x + " " + (y + 1));
+				//System.out.println("Front set to: " + x + " " + (y + 1));
 			} else {
 				front = null;
-				System.out.println("Front set to: null");
+				//System.out.println("Front set to: null");
 			}
 			if (p.firstMove()) {
 				BoardButton front2 = board[x][y + 2];
@@ -84,24 +84,24 @@ public class Pawn extends Piece {
 		} else { // Black team, pawn down
 			if (x + 1 < 8) {
 				highSide = board[x + 1][y - 1];
-				System.out.println("HighSide set to: " + (x + 1) + " " + (y - 1));
+				//System.out.println("HighSide set to: " + (x + 1) + " " + (y - 1));
 			} else {
 				highSide = null;
-				System.out.println("Highside set to null ");
+				//System.out.println("Highside set to null ");
 			}
 			if (x - 1 > -1) {
 				lowSide = board[x - 1][y - 1];
-				System.out.println("LowSide set to: " + (x - 1) + " " + (y - 1));
+				//System.out.println("LowSide set to: " + (x - 1) + " " + (y - 1));
 			} else {
 				lowSide = null;
-				System.out.println("Lowside set to null ");
+				//System.out.println("Lowside set to null ");
 			}
 			if (y - 1 > -1) {
 				front = board[x][y - 1];
-				System.out.println("Front set to: " + x + " " + (y - 1));
+				//System.out.println("Front set to: " + x + " " + (y - 1));
 			} else {
 				front = null;
-				System.out.println("Front set to null");
+				//System.out.println("Front set to null");
 			}
 			if (p.firstMove()) {
 				BoardButton front2 = board[x][y - 2];

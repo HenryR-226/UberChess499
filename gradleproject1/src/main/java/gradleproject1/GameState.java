@@ -9,6 +9,7 @@ public class GameState {
     private int cores;                                //Number of CPU hardware threads available to JVM at run time
     private Player playerWhite;
     private Player playerBlack;
+    boolean turn = true;						//True = white turn, false = black turn
     
     public int getCurrentThreads(){                    //Determines optimal number of threads to start for AI calculations
         int cores = Runtime.getRuntime().availableProcessors();
@@ -27,4 +28,11 @@ public class GameState {
         return this;
     }
     
+    public boolean whoseTurn() {
+    	return this.turn;
+    }
+    
+    public void turn() {							//Turn made, next player's turn
+    	this.turn = !turn;
+    }
 }

@@ -77,8 +77,8 @@ public class BoardButton {
 	public void removePiece() {
 		this.isFull = false;
 		this.piece = null;
-		System.out.println("Piece removed and set to null");
-		System.out.println(this.isFull);
+		//System.out.println("Piece removed and set to null");
+		//System.out.println(this.isFull);
 	}
 
 	/**

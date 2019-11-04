@@ -63,8 +63,8 @@ public class Move {
 				blackPlayer.addMove(move);
 
 			String location = this.n3w.getAbbreviation();
-			p.setLocation(location);
-
+			p.setLocation(location); 
+			
 		} catch (Exception e) {
 			System.out.println("Invalid move constructor. Try again.");
 		}
@@ -81,7 +81,7 @@ public class Move {
 			int j = (int) loc[1] - '0' - 1;
 
 			this.old = GameBoard[i][j];
-			System.out.println("Calling remove on boardbutton" + i + " " + j);
+			//System.out.println("Calling remove on boardbutton" + i + " " + j);
 			this.n3w = button;
 			String abbrev = n3w.getAbbreviation();
 			System.out.println(p.getAbbrev() + " moved from " + loc[0] + loc[1] + " to " + abbrev + ".");
