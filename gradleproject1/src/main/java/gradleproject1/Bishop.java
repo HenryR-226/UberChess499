@@ -32,10 +32,14 @@ public class Bishop extends Piece {
 		Bishop p = (Bishop) piece;
 		ArrayList<BoardButton> validSquares = new ArrayList<BoardButton>(); // Return values
 
-		int ctrx = piece.col;
-		int ctry = piece.row;
-
-		BoardButton b;
+		String location = p.getLocation();
+		char[] c = location.toCharArray();
+		int x = ((int) c[0] - 'A');
+		int y = (int) c[1] - '0' - 1;
+		int ctrx = x;
+		System.out.println("This is x : " + ctrx);
+		int ctry = y;
+		BoardButton b = null;
 		// if ((Math.abs(i - col)==(Math.abs(j - row))) && Math.abs(i - col)>0){
 
 		// Go in each of 4 diagonals.
@@ -45,56 +49,60 @@ public class Bishop extends Piece {
 			ctry++;
 			try {
 				b = board[ctrx][ctry];
+				System.out.println("Bishop ++ checking " + ctrx + " and " + ctry);
 				if (!b.isFull() || b.isWhite() != p.isWhite() && ctry < 8 && ctrx < 8)
 					validSquares.add(b);
 			} catch (Exception e) {
-				break;
+				//break;
 			}
 		} while (!b.isFull() && ctrx < 8 && ctry < 8);
 
 		// Minus X, Plus Y
-		ctrx = col;
-		ctry = row;
+		ctrx = x;
+		ctry = y;
 		do {
 			ctrx--;
 			ctry++;
 			try {
 				b = board[ctrx][ctry];
+				System.out.println("Bishop -+ checking " + ctrx + " and " + ctry);
 				if (!b.isFull() || b.isWhite() != p.isWhite() && ctry < 8 && ctrx > -1)
 					validSquares.add(b);
 			} catch (Exception e) {
-				break;
+				//break;
 			}
 
 		} while (!b.isFull() && ctrx > -1 && ctry < 8);
 
 		// Minus X, Minus Y:
-		ctrx = col;
-		ctry = row;
+		ctrx = x;
+		ctry = y;
 		do {
 			ctrx--;
 			ctry--;
 			try {
 				b = board[ctrx][ctry];
+				System.out.println("Bishop -- checking " + ctrx + " and " + ctry);
 				if (!b.isFull() || b.isWhite() != p.isWhite() && ctry > -1 && ctrx > -1)
 					validSquares.add(b);
 			} catch (Exception e) {
-				break;
+				//break;
 			}
 		} while (!b.isFull() && ctrx > -1 && ctry > -1);
 
 		// Plus X, Minus Y:
-		ctrx = col;
-		ctry = row;
+		ctrx = x;
+		ctry = y;
 		do {
 			ctrx++;
 			ctry--;
 			try {
 				b = board[ctrx][ctry];
+				System.out.println("Bishop +- checking " + ctrx + " and " + ctry);
 				if (!b.isFull() || b.isWhite() != p.isWhite() && ctry > -1 && ctrx < 8)
 					validSquares.add(b);
 			} catch (Exception e) {
-				break;
+				//break;
 			}
 		} while (!b.isFull() && ctrx < 8 && ctry > -1);
 

@@ -28,7 +28,7 @@ public class Rook extends Piece {
 			ctry++;
 			try {
 				b = board[x][ctry]; // Go positive Y down it's col
-
+				System.out.println("Rook checking " + ctrx + " and " + ctry);
 				if (!b.isFull() || b.isWhite() != p.isWhite() && ctry < 8)
 					validSquares.add(b);
 			} catch (Exception e) {
@@ -40,7 +40,7 @@ public class Rook extends Piece {
 			ctry--;
 			try {
 				b = board[x][ctry]; // Go negative Y down it's col
-				System.out.println("Checking " + x + " and " + ctry);
+				System.out.println("Rook checking " + x + " and " + ctry);
 				if (!b.isFull() || b.isWhite() != p.isWhite() && ctry > -1)
 					validSquares.add(b);
 			} catch (Exception e) {
@@ -51,6 +51,7 @@ public class Rook extends Piece {
 			ctrx++;
 			try {
 				b = board[ctrx][y]; // Go positive X down it's row
+				System.out.println("Rook checking " + ctrx + " and " + ctry);
 				if (!b.isFull() || b.isWhite() != p.isWhite() && ctrx < 8)
 					validSquares.add(b);
 			} catch (Exception e) {
@@ -62,6 +63,7 @@ public class Rook extends Piece {
 			ctrx--;
 			try {
 				b = board[ctrx][y]; // Negative X down it's row
+				System.out.println("Rook checking " + ctrx + " and " + ctry);
 				if (!b.isFull() || b.isWhite() != p.isWhite() && ctrx > -1)
 					validSquares.add(b);
 			} catch (Exception e) {
