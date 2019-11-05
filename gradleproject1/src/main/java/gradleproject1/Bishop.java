@@ -9,8 +9,11 @@ public class Bishop extends Piece {
 	boolean lightSquares; // True for light square bishop, false for dark square
 
 	public Bishop(String moveID, boolean team, int row, int col) {
-		this.row = row;
-		this.col = col;
+		String loc = new String();
+		loc = Character.toString((char)row + 'A');
+		loc = loc + Integer.toString(col+1);
+		this.setLocation(loc);
+		
 		this.setName("Bishop");
 		this.pieceID = moveID;
 		this.setIsWhite(team);

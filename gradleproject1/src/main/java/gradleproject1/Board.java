@@ -378,7 +378,7 @@ public class Board {
 			}
 			white = !white;
 		}
-		Piece Queen = new Queen("Queen", true, 0, 0);
+		Piece Queen = new Queen("Queen", true, 3, 3);
 		whitePlayer.addPiece(Queen);
 		BoardButton a = GameBoard[3][3];
 		Queen.setLocation("D4");
@@ -402,7 +402,7 @@ public class Board {
 			}
 			white = !white;
 		}
-		Piece Knight = new Knight("Knight", true, 0, 0);
+		Piece Knight = new Knight("Knight", true, 3, 3);
 		whitePlayer.addPiece(Knight);
 		BoardButton a = GameBoard[3][3];
 		a.setPiece(Knight);
@@ -423,7 +423,7 @@ public class Board {
 			}
 			white = !white;
 		}
-		Piece King = new King("King", true, 0, 0);
+		Piece King = new King("King", true, 3, 3);
 		whitePlayer.addPiece(King);
 		BoardButton a = GameBoard[3][3];
 		a.setPiece(King);

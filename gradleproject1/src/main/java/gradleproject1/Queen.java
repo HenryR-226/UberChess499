@@ -5,8 +5,14 @@ import java.util.ArrayList;
 public class Queen extends Piece {
 
 	public Queen(String moveID, boolean team, int row, int col) {
-		this.col = col;
-		this.row = row;
+		//System.out.println("Row: " + row + " , col: " + col);
+		//System.out.println((char) (row + 'A'));
+		String loc = Character.toString((char)row + 'A');
+		//System.out.println("Loc: "+ loc);
+		loc = loc + Integer.toString(col+1);
+		//System.out.println("Loc: " + loc);
+		this.setLocation(loc);
+		
 		this.setName("Queen");
 		this.pieceID = moveID;
 		this.setIsWhite(team);
@@ -19,10 +25,10 @@ public class Queen extends Piece {
 
 	@Override
 	public ArrayList<BoardButton> getMoves(Piece piece, BoardButton[][] board) {
-		Rook rook = new Rook("Rook1", piece.isWhite(), piece.row, piece.col);
-		rook.location = piece.location;
-		Bishop bishop = new Bishop("fggfd", piece.isWhite(), piece.row, piece.col);
-		bishop.location = piece.location;
+		Rook rook = new Rook("Rook1", piece.isWhite(), piece.getRow(), piece.getCol());
+		rook.setLocation(piece.getLocation());
+		Bishop bishop = new Bishop("fggfd", piece.isWhite(), piece.getRow(), piece.getCol());
+		bishop.setLocation(piece.getLocation());
 		ArrayList<BoardButton> validSquares = new ArrayList<BoardButton>();
 		validSquares = bishop.getMoves(bishop, board);
 		System.out.print(validSquares.size());

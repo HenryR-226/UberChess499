@@ -5,8 +5,11 @@ import java.util.ArrayList;
 public class King extends Piece {
 
 	public King(String moveID, boolean team, int row, int col) {
-		this.col = col;
-		this.row = row;
+		String loc = new String();
+		loc = Character.toString((char)row + 'A');
+		loc = loc + Integer.toString(col+1);
+		this.setLocation(loc);
+		
 		this.setName("Kang");
 		this.pieceID = moveID;
 		this.setIsWhite(team);
@@ -25,7 +28,7 @@ public class King extends Piece {
 		ArrayList<Integer> validX = new ArrayList<>();
 		ArrayList<Integer> validY = new ArrayList<>();
 
-		String s = this.location; // Readability
+		String s = this.getLocation(); // Readability
 		char[] c = s.toCharArray(); // converts location into char array to get the column and row
 		Integer col = c[0] - 65;
 		System.out.println("King's col: " + col);

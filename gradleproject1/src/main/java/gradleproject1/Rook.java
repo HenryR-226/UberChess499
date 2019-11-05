@@ -6,6 +6,10 @@ public class Rook extends Piece {
 	public Rook(String moveID, boolean team, int row, int col) {
 		this.setName("Rook");
 		this.pieceID = moveID;
+		String loc = Character.toString((char)row + 'A');
+		//System.out.println("Loc: "+ loc);
+		loc = loc + Integer.toString(col+1);
+		this.setLocation(loc);
 		this.setIsWhite(team);
 		if (team)
 			setAbbreviation('R');

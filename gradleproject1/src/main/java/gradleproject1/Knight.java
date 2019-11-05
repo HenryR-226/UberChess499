@@ -5,8 +5,11 @@ import java.util.ArrayList;
 public class Knight extends Piece {
 
 	public Knight(String moveID, boolean team, int row, int col) {
-		this.row = row;
-		this.col = col;
+		String loc = new String();
+		loc = Character.toString((char)row + 'A');
+		loc = loc + Integer.toString(col+1);
+		this.setLocation(loc);
+		
 		this.setName("Knight");
 		this.pieceID = moveID;
 		this.setIsWhite(team);

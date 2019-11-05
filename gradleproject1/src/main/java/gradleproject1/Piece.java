@@ -11,15 +11,15 @@ package gradleproject1;
 import java.util.ArrayList;
 
 public class Piece {
-	public int row, col;
+	private int row, col;			//Array notation column and row.
 	private boolean isWhite;
 	private char abbreviation;
 	private String name;
-	public String pieceID; // unique string to identify a particular piece object
+	public String pieceID; 			// unique string to identify a particular piece object
 	double points;
-	String location;
+	private String location;
 
-	private ArrayList<BoardButton> possibleMoves; // Each piece keeps track of where it can currently move.
+	private ArrayList<BoardButton> possibleMoves; 		// Each piece keeps track of where it can currently move.
 
 	public ArrayList<BoardButton> getPossibleMoves() {
 		return possibleMoves;
@@ -61,14 +61,37 @@ public class Piece {
 		this.abbreviation = abbrev;
 	}
 
+	//Returns CHESS notation
 	public String getLocation() {
 		return this.location;
 	}
-
-	// BE CAREFUL!! NO CHECKS YET!!
-	public void setLocation(String loc) {
-		this.location = loc;
+	
+	//Oleg wanted these. Returns ARRAY NOTATION
+	public int getCol() {
+		return this.col;
 	}
+	public int getRow() {
+		return this.row;
+	}
+
+	//Auto updates the location vars, both of them
+	public void setLocation(String loc) {
+		try {
+			assert (loc.length() == 2);
+			char[] raw = loc.toCharArray();
+			char colc = Character.toUpperCase(raw[0]);
+			assert (colc >='A' && colc <='H');
+			int rows = (int) raw[1] - '0' - 1;
+			assert (rows <=7 && rows>=0);
+			this.location = loc;
+			this.row = rows;
+			this.col = colc;
+		} catch (Exception e) {
+			System.out.println("Invalid string sent to setLocation in Piece class, line 78");
+			e.printStackTrace();
+		}
+	}
+		
 
 	public void setName(String s) {
 		this.name = s;

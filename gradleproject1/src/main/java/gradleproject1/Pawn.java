@@ -11,8 +11,11 @@ public class Pawn extends Piece {
 	int col, row;
 
 	public Pawn(String pawnID, boolean team, int row, int col) {
-		this.row = row;
-		this.col = col;
+		this.setRow(row);
+		this.setCol(col);
+		String loc = Character.toString((char)row + 'A');
+		loc = loc + Integer.toString(col+1);
+		this.setLocation(loc);
 		this.setName("Pawn");
 		this.pieceID = pawnID;
 		this.setIsWhite(team);
