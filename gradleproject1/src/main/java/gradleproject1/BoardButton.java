@@ -69,6 +69,15 @@ public class BoardButton {
 
 	// Assumes check has been run for empty square
 	public void setPiece(Piece p) {
+		try{
+			if (this.isFull) {
+				assert (this.piece.isWhite()!=p.isWhite());
+			}
+			} catch (Exception e) {
+				System.out.println("Illegal move created, friendly fire!");
+				e.printStackTrace();
+			}
+
 		this.isFull = true;
 		this.piece = p;
 	}

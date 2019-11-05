@@ -49,10 +49,39 @@ public class Board {
 				// enemy piece as valid move.
 		} // This will be tested/weeded out in the Pawn specific candidate generation
 			// moves to keep this clean.
-
 		return possibleMoves; // Return the final move list. AI selects from this randomly and potential move
-								// to be made MUST BE in here
-	}
+	}						// to be made MUST BE in here
+	
+	
+		// Draws out Ascii art of the gameboard. To be called after every successfully
+		// committed move.
+		// MASSIVE overhaul/Bugfix on the part of Ryan and Henry on 10/27/2019
+		public void draw(Board b) {
+			BoardButton butn = null;
+			byte rowOffset = 8;
+			char c;
+			System.out.println("   A B C D E F G H");
+			for (int j = 7; j >= 0; j--) {
+				System.out.print((rowOffset) + " ["); // Rows starting from 8
+				for (int i = 0; i <= 7; i++) {
+					butn = GameBoard[i][j];
+					if (butn.isFull()) {
+						c = (char) butn.getPiece().getAbbrev();
+						System.out.print(c + ",");
+					} else if (butn.isWhite()) {
+						System.out.print("-,");
+					} else {
+						System.out.print("+,");
+					}
+
+				}
+				System.out.println("] " + (rowOffset));
+				rowOffset--;
+			}
+			System.out.println("   A B C D E F G H"); // Letter Grid
+		}
+		
+	
 
 	/**
 	 * @author Henry Rheault Returns specific BoardButton given the arguments of X &
@@ -258,21 +287,21 @@ public class Board {
 		blackPlayer.addPiece(pawn7);
 		blackPlayer.addPiece(pawn8);
 
-		Piece rook1 = new Rook("rook1", false, 7, 0);
+		Piece rook1 = new Rook("rook1", false, 0, 7);
 		Piece rook2 = new Rook("rook2", false, 7, 7);
 		blackPlayer.addPiece(rook1);
 		blackPlayer.addPiece(rook2);
-		Piece bishopLight = new Bishop("bishopLight", false, 7, 2);
-		Piece bishopDark = new Bishop("bishopDark", false, 7, 5);
+		Piece bishopLight = new Bishop("bishopLight", false, 2, 7);
+		Piece bishopDark = new Bishop("bishopDark", false, 5, 7);
 		blackPlayer.addPiece(bishopLight);
 		blackPlayer.addPiece(bishopDark);
-		Piece knight1 = new Knight("knight1", false, 7, 1);
-		Piece knight2 = new Knight("knight2", false, 7, 6);
+		Piece knight1 = new Knight("knight1", false, 1, 7);
+		Piece knight2 = new Knight("knight2", false, 6, 7);
 		blackPlayer.addPiece(knight1);
 		blackPlayer.addPiece(knight2);
-		Piece queen = new Queen("queen", false, 7, 3);
+		Piece queen = new Queen("queen", false, 3, 7);
 		blackPlayer.addPiece(queen);
-		Piece kang = new King("kang", false, 7, 4);
+		Piece kang = new King("kang", false, 4, 7);
 		blackPlayer.addPiece(kang);
 
 		BoardButton a;
@@ -329,33 +358,7 @@ public class Board {
 
 	}
 
-	// Draws out Ascii art of the gameboard. To be called after every successfully
-	// committed move.
-	// MASSIVE overhaul/Bugfix on the part of Ryan and Henry on 10/27/2019
-	public void draw(Board b) {
-		BoardButton butn = null;
-		byte rowOffset = 8;
-		char c;
-		System.out.println("   A B C D E F G H");
-		for (int j = 7; j >= 0; j--) {
-			System.out.print((rowOffset) + " ["); // Rows starting from 8
-			for (int i = 0; i <= 7; i++) {
-				butn = GameBoard[i][j];
-				if (butn.isFull()) {
-					c = (char) butn.getPiece().getAbbrev();
-					System.out.print(c + ",");
-				} else if (butn.isWhite()) {
-					System.out.print("-,");
-				} else {
-					System.out.print("+,");
-				}
-
-			}
-			System.out.println("] " + (rowOffset));
-			rowOffset--;
-		}
-		System.out.println("   A B C D E F G H"); // Letter Grid
-	}
+	
 
 	public BoardButton[][] getGameBoard() {
 		return GameBoard;
@@ -383,8 +386,12 @@ public class Board {
 		BoardButton a = GameBoard[3][3];
 		Queen.setLocation("D4");
 		a.setPiece(Queen);
-		System.out.println(a.getPiece().getAbbrev());
-		System.out.println(a.getPiece().getLocation());
+		Piece queen = new Queen("queen", false, 5,5);
+		a = GameBoard[5][5];
+		queen.setLocation("F6");
+		a.setPiece(queen);
+		//System.out.println(a.getPiece().getAbbrev());
+		//System.out.println(a.getPiece().getLocation());
 
 	}
 
@@ -407,6 +414,10 @@ public class Board {
 		BoardButton a = GameBoard[3][3];
 		a.setPiece(Knight);
 		Knight.setLocation("D4");
+		Piece knight = new Knight("knight", false, 5,5);
+		a = GameBoard[5][5];
+		knight.setLocation("F6");
+		a.setPiece(knight);
 	}
 
 	public void initBoardKingTest() throws Exception {
@@ -428,6 +439,10 @@ public class Board {
 		BoardButton a = GameBoard[3][3];
 		a.setPiece(King);
 		King.setLocation("D4");
+		Piece king = new King("king", false, 5, 5);
+		a = GameBoard[5][5];
+		king.setLocation("F6");
+		a.setPiece(king);
 	}
 
 	public void initBoardRookTest() throws Exception {
@@ -449,6 +464,10 @@ public class Board {
 		BoardButton a = GameBoard[3][3];
 		a.setPiece(Rook);
 		Rook.setLocation("D4");
+		Piece rook = new Rook("rook", false, 5, 5);
+		a = GameBoard[5][5];
+		rook.setLocation("F6");
+		a.setPiece(rook);
 	}
 
 	public void initBoardBishopTest() throws Exception {
@@ -470,6 +489,10 @@ public class Board {
 		BoardButton a = GameBoard[3][3];
 		a.setPiece(Bishop);
 		Bishop.setLocation("D4");
+		Piece bishop = new Bishop("Bishop", false, 3, 3);
+		a = GameBoard[5][5];
+		bishop.setLocation("F6");
+		a.setPiece(bishop);
 	}
 
 	public Player getWhitePlayer() {

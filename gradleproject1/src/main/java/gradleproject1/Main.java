@@ -74,10 +74,12 @@ public class Main {
 		Board b = testBoard(c);
 		BoardButton[][] GameBoard = b.getGameBoard();
 		boolean run = true;
+		boolean turn = g.whoseTurn();
 
 		b.draw(b);
 
 		Move.setGameBoard(b);
+		System.out.println("White: Upper Case, first move:");
 		/*
 		System.out.println(" ");
 		System.out.println("White: Upper Case, first move:");
@@ -89,7 +91,7 @@ public class Main {
 			ArrayList<BoardButton> moves = new ArrayList<BoardButton>();
 			try {
 
-				System.out.println("Move or Info? M for move, I for info, 'Quit' to quit:");
+				System.out.println("Move or Info? M for move, I for info, H for history, 'Quit' to quit:");
 				String control = s.nextLine();
 				if (control.compareToIgnoreCase("quit") == 0) {
 					break;
@@ -100,7 +102,7 @@ public class Main {
 					String oldX1 = null;
 					char[] oldXchar = { ' ' };
 					do {											//Do-while for the player to select a piece of the proper team
-						System.out.println("\nEnter Col ");			//While kicks the player back up here if they select a wrong team's piece
+						System.out.println("\nEnter Col ");			//While kicks the player back up here if they select a wrong team's piece or a piece with 0 moves 
 						oldX1 = s.nextLine();
 						if (oldX1.compareToIgnoreCase("quit") == 0) {
 							break;
@@ -134,15 +136,20 @@ public class Main {
 						} catch (Exception e) {
 							System.out.println("Wrong team. Try again.");
 						}
-					} while (test.isWhite() != g.whoseTurn());			//End do-while. Piece obtained, getmoves called
+						moves = test.getMoves(test, GameBoard);							// Make sure the moves list isnt' null, would previously 'pass' your turn
+						System.out.println("Possible Moves:");
+						for (int ctr = 0; ctr < moves.size(); ctr++) 
+							System.out.print(moves.get(ctr).getAbbreviation() + ", ");
+						System.out.println(".");
+						if (moves.size() == 0) {
+							System.out.println("No valid moves. Select another piece.");
+						}
+						
+					} while (test.isWhite() != g.whoseTurn() || moves.size() == 0);			//End do-while. Piece obtained, getmoves called
 					
-					System.out.println("Piece obtained: " + a.getPiece().getName() + " , calling getmoves");
-					moves = test.getMoves(test, GameBoard);
-					System.out.println("Possible Moves:");
-					for (int ctr = 0; ctr < moves.size(); ctr++) {
-						System.out.print(moves.get(ctr).getAbbreviation() + ", ");
-					}   System.out.println(".");
-
+					//System.out.println("Piece obtained: " + a.getPiece().getName() + " , calling getmoves");
+					
+					
 					boolean moveFlag = true;
 					Move moveIteration = null;
 					while (moveFlag) {
@@ -175,7 +182,10 @@ public class Main {
 
 						} if (!madeMove) System.out.println("Invalid move. Try again.");
 						moveFlag = false;
+						if (g.whoseTurn()) System.out.println("Black's Turn:");
+						else System.out.println("White's Turn:");
 						g.turn();
+					
 					}
 				}
 
@@ -195,18 +205,17 @@ public class Main {
 					}
 					// Changed 11/2/2019 - Test again. Attempted to make the test values be Letter &
 					// Row Number
-					System.out.println("Asserts being called");
+					//System.out.println("Asserts being called");
 					assert (x2 - 'A') >= 0;
 					assert (x2 - 'A') <= 7;
 					assert (Integer.valueOf(oldY) - 1) >= 0;
 					assert (Integer.valueOf(oldY) - 1) <= 7;
-					System.out.println("Asserts true");
+					//System.out.println("Asserts true");
 					BoardButton a1 = GameBoard[x2 - 'A'][Integer.valueOf(oldY) - 1];
-					System.out.println("Calling button " + (x2 - 'A') + " " + (Integer.valueOf(oldY) - 1));
+					//System.out.println("Calling button " + (x2 - 'A') + " " + (Integer.valueOf(oldY) - 1));
 					Piece test2 = a1.getPiece();
-					System.out.println("Piece obtained," + a1.getPiece().getAbbrev() + " , calling getmoves");
+					//System.out.println("Piece obtained," + a1.getPiece().getAbbrev() + " , calling getmoves");
 					moves = test2.getMoves(test2, GameBoard);
-					System.out.println("Possible Moves:");
 
 					System.out.println("\nPiece: " + test2.getName());
 					if (test2.isWhite() == true) {
