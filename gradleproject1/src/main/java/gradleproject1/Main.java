@@ -50,6 +50,7 @@ public class Main {
 		Move.setBlackPlayer(blackPlayer);
 
 		Board b = new Board(whitePlayer, blackPlayer);
+		
 		BoardButton[][] GameBoard = b.getGameBoard();
 		b.initBoard();
 		return b;
@@ -57,11 +58,12 @@ public class Main {
 
 	/**
 	 * @param args the command line arguments
-	 * @throws Exception
+	 * @throws Exception, because some things it calls throw exception, and I'm tired of big scary red error bars
 	 */
 	public static void main(String[] args) throws Exception {
 		
 		GameState g = new GameState();
+
 		Scanner s = new Scanner(System.in);
 		String in = null;
 		char c = ' ';
@@ -75,7 +77,10 @@ public class Main {
 		BoardButton[][] GameBoard = b.getGameBoard();
 		boolean run = true;
 		boolean turn = g.whoseTurn();
-
+		
+		g.setWhite(b.getWhitePlayer());
+		g.setBlack(b.getBlackPlayer());
+		
 		b.draw(b);
 
 		Move.setGameBoard(b);
@@ -96,6 +101,8 @@ public class Main {
 				if (control.compareToIgnoreCase("quit") == 0) {
 					break;
 				}
+				
+				//MOVE MODE
 				if (control.compareToIgnoreCase("M") == 0) { // Call moves, select a grid location of a piece
 					Piece test = null;
 					BoardButton a = null;
@@ -174,9 +181,15 @@ public class Main {
 						for (BoardButton butn : moves) {
 							if ((Character.toString(test.getAbbrev()) + oldX2.toUpperCase()+ oldY2)
 									.compareTo(test.getAbbrev() + butn.getAbbreviation()) == 0) {
-									
+								Piece enemy = butn.getPiece();	
 								moveIteration = new Move(test, butn);
 								madeMove=true;	
+								
+								if (moveIteration.getAbbreviation().contains("x")) {
+									System.out.println("Piece captured!");
+									if (enemy.isWhite()) System.out.println("White " + enemy.getName() + " captured on square " + butn.getAbbreviation() + "!");
+									else System.out.println("Black " + enemy.getName() + " captured on square " + butn.getAbbreviation() + "!");
+								}
 				
 							}
 
@@ -188,7 +201,7 @@ public class Main {
 					
 					}
 				}
-
+				//INFO MODE
 				else if (control.compareToIgnoreCase("I") == 0) {
 					System.out.println("\nEnter Col ");
 					String oldX = s.nextLine();
@@ -224,6 +237,23 @@ public class Main {
 						System.out.println("Piece Team: Black \n");
 					}
 
+				}
+				
+				//HISTORY MODE
+				else if (control.compareToIgnoreCase("H") ==0) {
+					//System.out.println("Calling History mode:");
+					boolean historyOfWhomstdve = g.whoseTurn();
+					//System.out.println("Team = " + historyOfWhomstdve);
+					ArrayList<String> gamerMoves;
+					//System.out.println("Calling getMoves:");
+					if (historyOfWhomstdve) gamerMoves = g.getWhite().getMoves();
+					else gamerMoves = g.getBlack().getMoves();
+					System.out.println("Your team's moves:");
+					for (String m : gamerMoves) {
+						System.out.println(m);
+					}
+					System.out.println("");
+					
 				}
 
 				else if (control.compareToIgnoreCase("quit") == 0) {

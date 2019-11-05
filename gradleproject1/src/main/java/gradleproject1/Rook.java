@@ -29,12 +29,26 @@ public class Rook extends Piece {
 		int y = (int) c[1] - '0' - 1;
 		int ctrx = x;
 		int ctry = y;
-		do {
-			ctry++;
+		boolean team = p.isWhite();
+		/*
+		 do {
 			try {
+				ctrx++;
+				ctry++;
+				b = board[ctrx][ctry];
+				if ((!b.isFull() || (b.getPiece().isWhite()!=team)) && ctry < 8 && ctrx < 8)
+					validSquares.add(b);
+			} catch (Exception e) {
+		
+			}
+		} while (!b.isFull() && ctrx < 8 && ctry < 8);
+		*/
+		do {
+			try {
+				ctry++;
 				b = board[x][ctry]; // Go positive Y down it's col
 				//System.out.println("Rook checking " + ctrx + " and " + ctry);
-				if (!b.isFull() || b.isWhite() != p.isWhite() && ctry < 8)
+				if (!b.isFull() || b.getPiece().isWhite() != team && ctry < 8)
 					validSquares.add(b);
 			} catch (Exception e) {
 				break;
@@ -46,7 +60,7 @@ public class Rook extends Piece {
 			try {
 				b = board[x][ctry]; // Go negative Y down it's col
 				//System.out.println("Rook checking " + x + " and " + ctry);
-				if (!b.isFull() || b.isWhite() != p.isWhite() && ctry > -1)
+				if (!b.isFull() || b.getPiece().isWhite() !=team && ctry > -1)
 					validSquares.add(b);
 			} catch (Exception e) {
 				break;
@@ -57,7 +71,7 @@ public class Rook extends Piece {
 			try {
 				b = board[ctrx][y]; // Go positive X down it's row
 				//System.out.println("Rook checking " + ctrx + " and " + ctry);
-				if (!b.isFull() || b.isWhite() != p.isWhite() && ctrx < 8)
+				if (!b.isFull() || b.getPiece().isWhite() != p.isWhite() && ctrx < 8)
 					validSquares.add(b);
 			} catch (Exception e) {
 				break;
@@ -69,7 +83,7 @@ public class Rook extends Piece {
 			try {
 				b = board[ctrx][y]; // Negative X down it's row
 				//System.out.println("Rook checking " + ctrx + " and " + ctry);
-				if (!b.isFull() || b.isWhite() != p.isWhite() && ctrx > -1)
+				if (!b.isFull() || b.getPiece().isWhite() != p.isWhite() && ctrx > -1)
 					validSquares.add(b);
 			} catch (Exception e) {
 				break;

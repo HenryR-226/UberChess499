@@ -392,7 +392,27 @@ public class Board {
 		a.setPiece(queen);
 		//System.out.println(a.getPiece().getAbbrev());
 		//System.out.println(a.getPiece().getLocation());
-
+		Piece rook = new Rook("rook", false, 3, 6);
+		Piece rook2 = new Rook("rook2", false, 1, 3);
+		Piece rook3 = new Rook("rook3", false, 6, 3);
+		Piece rook4 = new Rook("rook4", false, 3, 1);
+		a = GameBoard[3][6]; rook.setLocation("D7"); a.setPiece(rook);
+		a = GameBoard[1][3]; a.setPiece(rook2); rook2.setLocation("B4");
+		a= GameBoard[6][3]; a.setPiece(rook3);  rook3.setLocation("G4");
+		a= GameBoard[3][1]; a.setPiece(rook4);  rook4.setLocation("D2");
+		
+		Piece bishop = new Bishop("Bishop", false, 6, 6);
+		Piece bishop2 = new Bishop("Bishop", false, 1, 1);
+		Piece bishop3= new Bishop("Bishop", false, 1, 5);
+		Piece bishop4 = new Bishop("Bishop", false, 5, 1);
+		a = GameBoard[6][6];
+		bishop.setLocation("G7");
+		a.setPiece(bishop);
+		//a = GameBoard[6][6]; a.setPiece(bishop); bishop.setLocation("G7");
+		a = GameBoard[1][1]; a.setPiece(bishop2); bishop2.setLocation("B2");
+		a = GameBoard[1][5]; a.setPiece(bishop3); bishop3.setLocation("B6");
+		a = GameBoard[5][1]; a.setPiece(bishop4); bishop4.setLocation("F2");
+		
 	}
 
 	public void initBoardKnightTest() throws Exception {
@@ -415,9 +435,8 @@ public class Board {
 		a.setPiece(Knight);
 		Knight.setLocation("D4");
 		Piece knight = new Knight("knight", false, 5,5);
-		a = GameBoard[5][5];
-		knight.setLocation("F6");
-		a.setPiece(knight);
+		a = GameBoard[5][5];  knight.setLocation("F6");  a.setPiece(knight);
+		
 	}
 
 	public void initBoardKingTest() throws Exception {
@@ -464,10 +483,14 @@ public class Board {
 		BoardButton a = GameBoard[3][3];
 		a.setPiece(Rook);
 		Rook.setLocation("D4");
-		Piece rook = new Rook("rook", false, 5, 5);
-		a = GameBoard[5][5];
-		rook.setLocation("F6");
-		a.setPiece(rook);
+		Piece rook = new Rook("rook", false, 3, 6);
+		Piece rook2 = new Rook("rook2", false, 1, 5);
+		Piece rook3 = new Rook("rook3", false, 6, 5);
+		Piece rook4 = new Rook("rook4", false, 3, 1);
+		a = GameBoard[3][6]; rook.setLocation("D7"); a.setPiece(rook);
+		a = GameBoard[1][3]; a.setPiece(rook2); rook2.setLocation("B4");
+		a= GameBoard[6][3]; a.setPiece(rook3);  rook3.setLocation("G4");
+		a= GameBoard[3][1]; a.setPiece(rook4);  rook4.setLocation("D2");
 	}
 
 	public void initBoardBishopTest() throws Exception {
@@ -489,10 +512,17 @@ public class Board {
 		BoardButton a = GameBoard[3][3];
 		a.setPiece(Bishop);
 		Bishop.setLocation("D4");
-		Piece bishop = new Bishop("Bishop", false, 3, 3);
-		a = GameBoard[5][5];
-		bishop.setLocation("F6");
+		Piece bishop = new Bishop("Bishop", false, 6, 6);
+		Piece bishop2 = new Bishop("Bishop", false, 1, 1);
+		Piece bishop3= new Bishop("Bishop", false, 1, 5);
+		Piece bishop4 = new Bishop("Bishop", false, 5, 1);
+		a = GameBoard[6][6];
+		bishop.setLocation("G7");
 		a.setPiece(bishop);
+		//a = GameBoard[6][6]; a.setPiece(bishop); bishop.setLocation("G7");
+		a = GameBoard[1][1]; a.setPiece(bishop2); bishop2.setLocation("B2");
+		a = GameBoard[1][5]; a.setPiece(bishop3); bishop3.setLocation("B6");
+		a = GameBoard[5][1]; a.setPiece(bishop4); bishop4.setLocation("F2");
 	}
 
 	public Player getWhitePlayer() {

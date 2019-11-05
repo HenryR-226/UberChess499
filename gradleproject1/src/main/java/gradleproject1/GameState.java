@@ -15,6 +15,12 @@ public class GameState {
         int cores = Runtime.getRuntime().availableProcessors();
         return cores;
     }
+    public void setWhite(Player white) {
+    	this.playerWhite = white;
+    }
+    public void setBlack(Player black) {
+    	this.playerBlack=black;
+    }
     
     //These two methods needed for Piece Capturing implementation
     public Player getWhite(){

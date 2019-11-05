@@ -51,11 +51,10 @@ public class Bishop extends Piece {
 		// Go in each of 4 diagonals.
 		// Plus X, Plus Y:
 		do {
-			
 			try {
-				b = board[ctrx][ctry];
 				ctrx++;
 				ctry++;
+				b = board[ctrx][ctry];
 				//System.out.println("Bishop ++ checking " + ctrx + " and " + ctry);
 				//testBool = ((!b.isFull() || (b.getPiece().isWhite()!=team)) && ctry < 8 && ctrx < 8);
 				if ((!b.isFull() || (b.getPiece().isWhite()!=team)) && ctry < 8 && ctrx < 8)
@@ -63,7 +62,7 @@ public class Bishop extends Piece {
 				//if (!b.isFull() && crty<8 && ctrx)
 				//System.out.println("Is " + b.getAbbreviation() + " full: " + b.isFull());
 				//System.out.println("Or " + b.isWhite()!= p.isWhite() + ".");
-				//System.out.println("Boolean result: " + testBool);
+				//System.out.println("Boolean result for " + b.getAbbreviation() + ": " + testBool);
 			} catch (Exception e) {
 				//break;
 			}
@@ -79,7 +78,7 @@ public class Bishop extends Piece {
 				ctry++;
 				b = board[ctrx][ctry];
 				//System.out.println("Bishop -+ checking " + ctrx + " and " + ctry);
-				if ((!b.isFull() || b.getPiece().isWhite() != p.isWhite()) && ctry < 8 && ctrx > -1)
+				if ((!b.isFull() || (b.getPiece().isWhite()!=team)) && ctry < 8 && ctrx > -1)
 					validSquares.add(b);
 				//System.out.println("Is " + b.getAbbreviation() + " full: " + !b.isFull());
 				//System.out.println("Or " + b.isWhite()!= p.isWhite() + ".");
@@ -99,7 +98,7 @@ public class Bishop extends Piece {
 				ctry--;
 				b = board[ctrx][ctry];
 				//System.out.println("Bishop -- checking " + ctrx + " and " + ctry);
-				if (!b.isFull() || b.isWhite()!= p.isWhite() && ctry > -1 && ctrx > -1)
+				if ((!b.isFull() || b.isWhite()!= team) && ctry > -1 && ctrx > -1)
 					validSquares.add(b);
 				//System.out.println("Is " + b.getAbbreviation() + " full: " + !b.isFull());
 				//System.out.println("Or " + b.isWhite()!= p.isWhite() + ".");
@@ -118,7 +117,7 @@ public class Bishop extends Piece {
 				ctry--;
 				b = board[ctrx][ctry];
 				//System.out.println("Bishop +- checking " + ctrx + " and " + ctry);
-				if (!b.isFull() || b.isWhite() != p.isWhite() && ctry > -1 && ctrx < 8)
+				if ((!b.isFull() || b.isWhite() != team) && ctry > -1 && ctrx < 8)
 					validSquares.add(b);
 				//System.out.println("Is " + b.getAbbreviation() + " full: " + !b.isFull());
 				//System.out.println("Or " + b.isWhite()!= p.isWhite() + ".");

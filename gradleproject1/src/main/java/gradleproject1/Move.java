@@ -87,7 +87,7 @@ public class Move {
 			System.out.println(p.getAbbrev() + " moved from " + loc[0] + loc[1] + " to " + abbrev + ".");
 
 			String move = String.valueOf(p.getAbbrev());
-			if (!n3w.isFull())
+			if (n3w.getPiece()!=null)
 				move = move + "x"; // x means a piece captured the piece on it's destination square
 			move = move + abbrev;
 			setAbbreviation(move);

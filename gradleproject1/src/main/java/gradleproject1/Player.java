@@ -3,9 +3,9 @@ package gradleproject1;
 import java.util.ArrayList;
 
 public class Player {
-	private ArrayList moveList = new ArrayList<String>();
-	private ArrayList pieceList = new ArrayList<Piece>(); // Pieces currently on the board
-	private ArrayList piecesLost = new ArrayList<Piece>(); // Pieces lost by that gamer
+	private ArrayList<String> moveList = new ArrayList<String>();
+	private ArrayList<Piece> pieceList = new ArrayList<Piece>(); // Pieces currently on the board
+	private ArrayList<Piece> piecesLost = new ArrayList<Piece>(); // Pieces lost by that gamer
 	private boolean hasCastled; // Has the gamer castled
 	private boolean canCastle; // CAN the gamer castle, false if king and/or close side rook moves
 
@@ -48,6 +48,7 @@ public class Player {
 
 	public void addMove(String moveIteration) {
 		moveList.add(moveIteration);
+		//System.out.println("Move added: " + moveIteration);
 	}
 
 	public String getLastMove() {
@@ -55,6 +56,11 @@ public class Player {
 		return (String) moveList.get(index - 1); // Cast to string and return while not removing last move
 	}
 
+	public ArrayList<String> getMoves(){
+		//for (String s : moveList) System.out.println(s);
+		return this.moveList;
+	}
+	
 	public void setPoints(double d) { // (?°???°)
 		this.points = d;
 	}
