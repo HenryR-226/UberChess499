@@ -99,8 +99,8 @@ public class Main {
 					BoardButton a = null;
 					String oldX1 = null;
 					char[] oldXchar = { ' ' };
-					do {
-						System.out.println("\nEnter Col ");
+					do {											//Do-while for the player to select a piece of the proper team
+						System.out.println("\nEnter Col ");			//While kicks the player back up here if they select a wrong team's piece
 						oldX1 = s.nextLine();
 						if (oldX1.compareToIgnoreCase("quit") == 0) {
 							break;
@@ -129,19 +129,19 @@ public class Main {
 							test = a.getPiece();
 							if (test.isWhite() != g.whoseTurn())
 								System.out.println("Wrong team. Try again:");
-							assert (test.isWhite() == g.whoseTurn()); // Just crash the Try-Catch if a piece is selected
-																		// of wrong color
+							assert (test.isWhite() == g.whoseTurn()); // Crash the Try-Catch if a piece is selected of wrong color
+																		
 						} catch (Exception e) {
 							System.out.println("Wrong team. Try again.");
 						}
-					} while (test.isWhite() != g.whoseTurn());
-					System.out.println("Piece obtained," + a.getPiece().getAbbrev() + " , calling getmoves");
+					} while (test.isWhite() != g.whoseTurn());			//End do-while. Piece obtained, getmoves called
+					
+					System.out.println("Piece obtained: " + a.getPiece().getName() + " , calling getmoves");
 					moves = test.getMoves(test, GameBoard);
 					System.out.println("Possible Moves:");
 					for (int ctr = 0; ctr < moves.size(); ctr++) {
 						System.out.print(moves.get(ctr).getAbbreviation() + ", ");
-						System.out.println(".");
-					}
+					}   System.out.println(".");
 
 					boolean moveFlag = true;
 					Move moveIteration = null;
@@ -150,32 +150,30 @@ public class Main {
 						 * System.out.println("Enter col to move:"); String move = s.nextLine(); if
 						 * (move.compareToIgnoreCase("quit")==0) break;
 						 */
-						System.out.println("\nEnter Col ");
+						System.out.println("\nEnter Col to Move to: ");
 						String oldX2 = s.nextLine();
 						if (oldX2.compareToIgnoreCase("quit") == 0) {
 							break;
 						}
 						char[] oldXchar2 = oldX1.toCharArray();
 						int x2 = (int) Character.toUpperCase(oldXchar[0]);
-						System.out.println("Enter Row ");
+						System.out.println("Enter Row to Move to: ");
 						String oldY2 = s.nextLine();
 						if (oldY2.compareToIgnoreCase("quit") == 0) {
 							break;
 						}
 						// System.out.println("Move attempted: " + );
+						boolean madeMove=false;
 						for (BoardButton butn : moves) {
 							if ((Character.toString(test.getAbbrev()) + oldX2.toUpperCase()+ oldY2)
-									.compareTo(test.getAbbrev() + butn.getAbbreviation()) == 0)
+									.compareTo(test.getAbbrev() + butn.getAbbreviation()) == 0) {
+									
 								moveIteration = new Move(test, butn);
-							
-							/*
-							System.out
-									.println("Move attempted: " + (Character.toString(test.getAbbrev()) + oldX2 + oldY2)
-											+ " should be equal to " + test.getAbbrev() + butn.getAbbreviation()); */
-							
-							// b.getWhitePlayer().addMove(moveIteration);
+								madeMove=true;	
+				
+							}
 
-						}
+						} if (!madeMove) System.out.println("Invalid move. Try again.");
 						moveFlag = false;
 						g.turn();
 					}

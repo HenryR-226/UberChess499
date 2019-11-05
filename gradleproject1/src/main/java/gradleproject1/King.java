@@ -31,9 +31,9 @@ public class King extends Piece {
 		String s = this.getLocation(); // Readability
 		char[] c = s.toCharArray(); // converts location into char array to get the column and row
 		Integer col = c[0] - 65;
-		System.out.println("King's col: " + col);
+		//System.out.println("King's col: " + col);
 		Integer row = c[1] - 49;
-		System.out.println("King's row: " + row);
+		//System.out.println("King's row: " + row);
 
 		// Populates an array list with strings of Int, for taking all permutations of
 		// to get move list grid squares
@@ -74,10 +74,10 @@ public class King extends Piece {
 			validY.add(row);
 			row = row + 1;
 		}
-		System.out.println("Valid X and Y's for King moves");
+		//System.out.println("Valid X and Y's for King moves");
 		for (Integer x : validX) {
 			for (Integer y : validY) {
-				System.out.println("X: " + x + " Y: " + y);
+				//System.out.println("X: " + x + " Y: " + y);
 
 				BoardButton button = board[x][y];
 				// Now take all permutations of the row and col values, discarding the

@@ -125,6 +125,7 @@ public class Piece {
 		possibleMoves = new ArrayList<BoardButton>();
 		boolean team = p.isWhite();
 		char c = Character.toUpperCase(p.getAbbrev());
+		
 		switch (c) {
 		case 'P':
 			candidateMoves = getMoves((Pawn) p, board);

@@ -31,7 +31,7 @@ public class Queen extends Piece {
 		bishop.setLocation(piece.getLocation());
 		ArrayList<BoardButton> validSquares = new ArrayList<BoardButton>();
 		validSquares = bishop.getMoves(bishop, board);
-		System.out.print(validSquares.size());
+		//System.out.print(validSquares.size());
 		ArrayList<BoardButton> validRook = rook.getMoves(rook, board);
 		for (BoardButton b : validRook)
 			validSquares.add(b);

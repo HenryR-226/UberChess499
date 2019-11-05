@@ -40,7 +40,7 @@ public class Bishop extends Piece {
 		int x = ((int) c[0] - 'A');
 		int y = (int) c[1] - '0' - 1;
 		int ctrx = x;
-		System.out.println("This is x : " + ctrx);
+		//System.out.println("This is x : " + ctrx);
 		int ctry = y;
 		BoardButton b = null;
 		// if ((Math.abs(i - col)==(Math.abs(j - row))) && Math.abs(i - col)>0){
@@ -52,7 +52,7 @@ public class Bishop extends Piece {
 			ctry++;
 			try {
 				b = board[ctrx][ctry];
-				System.out.println("Bishop ++ checking " + ctrx + " and " + ctry);
+				//System.out.println("Bishop ++ checking " + ctrx + " and " + ctry);
 				if (!b.isFull() || b.isWhite() != p.isWhite() && ctry < 8 && ctrx < 8)
 					validSquares.add(b);
 			} catch (Exception e) {
@@ -68,7 +68,7 @@ public class Bishop extends Piece {
 			ctry++;
 			try {
 				b = board[ctrx][ctry];
-				System.out.println("Bishop -+ checking " + ctrx + " and " + ctry);
+				//System.out.println("Bishop -+ checking " + ctrx + " and " + ctry);
 				if (!b.isFull() || b.isWhite() != p.isWhite() && ctry < 8 && ctrx > -1)
 					validSquares.add(b);
 			} catch (Exception e) {
@@ -85,7 +85,7 @@ public class Bishop extends Piece {
 			ctry--;
 			try {
 				b = board[ctrx][ctry];
-				System.out.println("Bishop -- checking " + ctrx + " and " + ctry);
+				//System.out.println("Bishop -- checking " + ctrx + " and " + ctry);
 				if (!b.isFull() || b.isWhite() != p.isWhite() && ctry > -1 && ctrx > -1)
 					validSquares.add(b);
 			} catch (Exception e) {
@@ -101,7 +101,7 @@ public class Bishop extends Piece {
 			ctry--;
 			try {
 				b = board[ctrx][ctry];
-				System.out.println("Bishop +- checking " + ctrx + " and " + ctry);
+				//System.out.println("Bishop +- checking " + ctrx + " and " + ctry);
 				if (!b.isFull() || b.isWhite() != p.isWhite() && ctry > -1 && ctrx < 8)
 					validSquares.add(b);
 			} catch (Exception e) {
