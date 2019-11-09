@@ -30,19 +30,7 @@ public class Rook extends Piece {
 		int ctrx = x;
 		int ctry = y;
 		boolean team = p.isWhite();
-		/*
-		 do {
-			try {
-				ctrx++;
-				ctry++;
-				b = board[ctrx][ctry];
-				if ((!b.isFull() || (b.getPiece().isWhite()!=team)) && ctry < 8 && ctrx < 8)
-					validSquares.add(b);
-			} catch (Exception e) {
 		
-			}
-		} while (!b.isFull() && ctrx < 8 && ctry < 8);
-		*/
 		do {
 			try {
 				ctry++;
@@ -89,7 +77,38 @@ public class Rook extends Piece {
 				break;
 			}
 		} while (!b.isFull() && ctrx > -1); // Stop at first occupied or out of bounds square
-
+		
 		return validSquares;
 	}
+	@Override
+	public Double getOffset() {
+		if (isWhite) {
+			return gridOffsetWhite[col][row];
+		}
+		else {
+			return gridOffsetBlack[col][row];
+		}
+	}
+	private static final double[][] gridOffsetWhite = new double[][] {
+		 {0, 0, 0, 0.5, 0.5, 0, 0, 0}  ,
+		 {-.5, 0, 0, 0, 0, 0, 0, -.5},
+		 {-.5, 0, 0, 0, 0, 0, 0, -.5},
+        {-.5, 0, 0, 0, 0, 0, 0, -.5},
+        {-.5, 0, 0, 0, 0, 0, 0, -.5},
+        {-.5, 0, 0, 0, 0, 0, 0, -.5},
+        {0.5, 1, 1, 1, 1, 1, 1, 0.5},
+        {0, 0, 0, 0, 0, 0, 0, 0}
+    };
+		
+	
+	 private static final double[][] gridOffsetBlack = new double[][]{                                //H
+	        {0, 0, 0, 0, 0, 0, 0, 0},
+	        {0.5, 1, 1, 1, 1, 1, 1, 0.5},
+	        {-.5, 0, 0, 0, 0, 0, 0, -.5},
+	        {-.5, 0, 0, 0, 0, 0, 0, -.5},
+	        {-.5, 0, 0, 0, 0, 0, 0, -.5},
+	        {-.5, 0, 0, 0, 0, 0, 0, -.5},
+	        {-.5, 0, 0, 0, 0, 0, 0, -.5},  
+	        {0, 0, 0, 0.5, 0.5, 0, 0, 0}      
+	    };
 }

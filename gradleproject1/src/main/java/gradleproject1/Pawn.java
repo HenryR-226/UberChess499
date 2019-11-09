@@ -146,5 +146,38 @@ public class Pawn extends Piece {
 	public void madeFirstMove() {
 		this.firstMove = true;
 	}
+	
+	@Override
+	public Double getOffset() {
+		//System.out.println("Calling Pawn getOffset:, line 152 in Pawn");
+		if (isWhite) {	
+			return gridOffsetWhite[col][row];
+		}
+		else {
+			return gridOffsetBlack[col][row];
+		}
+	}
+	private static final double[][] gridOffsetBlack = new double[][]
+		    {
+		        {0, 0, 0, 0, 0, 0, 0, 0},
+		        {5, 5, 5, 5, 5, 5, 5, 5},
+		        {1, 1, 2, 3, 3, 2, 1, 1},
+		        {0.5, 0.5, 1, 2.5, 2.5, 1, 0.5, 0.5},
+		        {0, 0, 0, 2, 2, 0, 0, 0},
+		        {0.5, -0.5, -1, 0, 0, -1, -0.5, 0.5},
+		        {0.5, 1, 1, -2, -2, 1, 1, 0.5},
+		        {0, 0, 0, 0, 0, 0, 0, 0}
+		    };
 
+	private static final double[][] gridOffsetWhite = new double[][]
+	    {
+			{0, 0, 0, 0, 0, 0, 0, 0},
+			{0.5, 1, 1, -2, -2, 1, 1, 0.5},
+			{0.5, -0.5, -1, 0, 0, -1, -0.5, 0.5},
+			{0, 0, 0, 2, 2, 0, 0, 0},
+			{0.5, 0.5, 1, 2.5, 2.5, 1, 0.5, 0.5},
+			{1, 1, 2, 3, 3, 2, 1, 1},
+			{5, 5, 5, 5, 5, 5, 5, 5},
+			{0, 0, 0, 0, 0, 0, 0, 0}
+    };
 }

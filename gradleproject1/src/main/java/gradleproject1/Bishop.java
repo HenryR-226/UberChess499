@@ -64,7 +64,7 @@ public class Bishop extends Piece {
 				//System.out.println("Or " + b.isWhite()!= p.isWhite() + ".");
 				//System.out.println("Boolean result for " + b.getAbbreviation() + ": " + testBool);
 			} catch (Exception e) {
-				//break;
+				break;
 			}
 		} while (!b.isFull() && ctrx < 8 && ctry < 8);
 
@@ -83,7 +83,7 @@ public class Bishop extends Piece {
 				//System.out.println("Is " + b.getAbbreviation() + " full: " + !b.isFull());
 				//System.out.println("Or " + b.isWhite()!= p.isWhite() + ".");
 			} catch (Exception e) {
-				//break;
+				break;
 			}
 
 		} while (!b.isFull() && ctrx > -1 && ctry < 8);
@@ -103,7 +103,7 @@ public class Bishop extends Piece {
 				//System.out.println("Is " + b.getAbbreviation() + " full: " + !b.isFull());
 				//System.out.println("Or " + b.isWhite()!= p.isWhite() + ".");
 			} catch (Exception e) {
-				//break;
+				break;
 			}
 		} while (!b.isFull() && ctrx > -1 && ctry > -1);
 
@@ -122,7 +122,7 @@ public class Bishop extends Piece {
 				//System.out.println("Is " + b.getAbbreviation() + " full: " + !b.isFull());
 				//System.out.println("Or " + b.isWhite()!= p.isWhite() + ".");
 			} catch (Exception e) {
-				//break;
+				break;
 			}
 		} while (!b.isFull() && ctrx < 8 && ctry > -1);
 

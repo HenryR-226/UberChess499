@@ -1,10 +1,13 @@
 package gradleproject1;
 
+import java.sql.Time;
+import java.time.Duration;
 /*
  Uberchess current build : 0.00.01
 */
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.concurrent.TimeUnit;
 
 public class Main {
 	
@@ -147,13 +150,14 @@ public class Main {
 							assert (test.isWhite() == g.whoseTurn()); // Crash the Try-Catch if a piece is selected of wrong color
 																		
 						} catch (Exception e) {
-							System.out.println("Wrong team. Try again.");
+							System.out.println("Generalized error. Try again.");
 						}
 						moves = test.getMoves(test, GameBoard);							// Make sure the moves list isnt' null, would previously 'pass' your turn
 						System.out.println("Possible Moves:");
 						for (int ctr = 0; ctr < moves.size(); ctr++) 
 							System.out.print(moves.get(ctr).getAbbreviation() + ", ");
 						System.out.println(".");
+						System.out.println("Current offset: " + test.getOffset());
 						if (moves.size() == 0) {
 							System.out.println("No valid moves. Select another piece.");
 						}
@@ -242,7 +246,29 @@ public class Main {
 					} else {
 						System.out.println("Piece Team: Black \n");
 					}
-
+					System.out.println("Current offset: " + test2.getOffset());
+					System.out.print("Selected team points: ");
+					if (test2.isWhite()) {
+						System.out.println(g.getWhite().evalPoints());
+					} else {
+						System.out.println(g.getBlack().evalPoints());
+					}
+					
+					System.out.println("Generating all moves: ");
+					ArrayList<String> allPlayersMovesList = new ArrayList<String>();
+					long time = System.nanoTime();
+					if (test2.isWhite()) allPlayersMovesList = b.getMoves(g.getWhite());
+					else allPlayersMovesList = b.getMoves(g.getBlack());
+					long time2 = System.nanoTime();
+					System.out.println("All moves for team selected: ");
+					for (String m : allPlayersMovesList) {
+						System.out.print(m + ", ");
+					}
+					long elapsed = time2-time;
+					long result = TimeUnit.SECONDS.convert(elapsed, TimeUnit.NANOSECONDS);
+					
+					System.out.println("Time taken to generate moves:" + result );
+					
 				}
 				
 				//HISTORY MODE

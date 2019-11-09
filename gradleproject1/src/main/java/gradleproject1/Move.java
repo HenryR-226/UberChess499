@@ -22,7 +22,7 @@ public class Move {
 	private static Player blackPlayer;
 
 	private static Board b;
-
+	
 	/**
 	 * @author Henry Rheault
 	 *
@@ -31,6 +31,8 @@ public class Move {
 	 *         the error is within Move or elsewhere.
 	 * 
 	 *         Adds a move to a particular gamer's move list for demo purposes.
+	 *         
+	 *         @deprecated
 	 */
 	public Move(Piece p, char row, char column) throws Exception {
 		try {
@@ -69,7 +71,42 @@ public class Move {
 			System.out.println("Invalid move constructor. Try again.");
 		}
 	}
+	
+	public Move(Piece p, BoardButton button, boolean thisIsAMoveGeneratorOnlyWillNotPushAMove) throws Exception { // Overloaded																											// boardbutton
+		// to attempt a move to
+		try {
+			BoardButton[][] GameBoard = b.getGameBoard(); // Fetch gameboard object
+			this.piece = piece;
+			String s = p.getLocation();
+			char loc[] = s.toCharArray();
+			int i = (int) loc[0] - 'A'; // Number column
+			int j = (int) loc[1] - '0' - 1;
 
+			this.old = GameBoard[i][j];
+//System.out.println("Calling remove on boardbutton" + i + " " + j);
+			this.n3w = button;
+			String abbrev = n3w.getAbbreviation();
+			System.out.println("Line 89 in Move, " + p.getAbbrev() + " moved from " + loc[0] + loc[1] + " to " + abbrev + ".");
+
+			String move = String.valueOf(p.getAbbrev());
+			if (n3w.getPiece() != null)
+				move = move + "x"; // x means a piece captured the piece on it's destination square
+			move = move + abbrev;
+			setAbbreviation(move);
+
+			if (p.isWhite()) {
+				whitePlayer.addMove(move);
+			} else {
+				blackPlayer.addMove(move);
+			}
+
+		} catch (Exception e) {
+			System.out.println("Invalid move constructor taking board square. Try again.");
+			e.printStackTrace();
+		}
+	}
+
+	
 	public Move(Piece p, BoardButton button) throws Exception { // Overloaded constructor, simply declare a boardbutton
 																// to attempt a move to
 		try {

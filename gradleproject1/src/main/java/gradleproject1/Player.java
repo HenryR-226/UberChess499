@@ -11,7 +11,8 @@ public class Player {
 
 	private boolean team;
 	private boolean ai = false;
-	private double points; // AI points variable for current game state
+	private static double whitePoints; // AI points variable for current game state
+	private static double blackPoints;
 	private Boolean game; // True = won, false = lost, null = in progress, thus upper case 'B'
 
 	private static int numTeams = 0; // Don't make more than 2 teams, dingus
@@ -61,12 +62,20 @@ public class Player {
 		return this.moveList;
 	}
 	
-	public void setPoints(double d) { // (?°???°)
-		this.points = d;
+	public void setWhitePoints(double d) { // (?°???°)
+		whitePoints = d;
 	}
 
-	public double getPoints() {
-		return points;
+	public double getWhitePoints() {
+		return whitePoints;
+	}
+	
+	public void setBlackPoints(double d) {
+		blackPoints = d;
+	}
+	
+	public double getBlackPoints() {
+		return blackPoints;
 	}
 
 	public void addPiece(Piece p) {
@@ -100,15 +109,24 @@ public class Player {
 		this.b = board;
 	}
 	
-    public double evalPoints(ArrayList<Piece> pieces){                                     
+    /**
+     * @author Henry Rheault
+     * Method to calculate the points state on the board for @param piece list (Normally hypothetical piece list for AI calculations)
+     * @return the player's points
+     */
+   
+	public double evalPoints(){                                     
         double result = 0;
-        BoardButton[][] board;               //Get locations
+        //BoardButton[][] board;               //Get locations
         ArrayList<Double> pointsList = new ArrayList<Double>(); //Create list of point objects
-        for(int i = 0; i < pieces.size(); i++){                             //For each row and column of BoardButton
-            result = result + AI.getGridOffset(pieces.get(i));    //Find pieces belonging to player p and summate points
+        for(Piece piece : pieceList){                             //For each row and column of BoardButton
+            result = result + piece.getPoints() + piece.getOffset();    //Find pieces belonging to player p and summate points
         }                                                        //This code isn't clean and needs to run hundreds of thousands of times
                                                                 //So it needs to be better than "check every square for where there's
                                                                 //A piece on that team, every time"
+        //System.out.println("Line 127 in Player, total score for team is " + result);
         return result;    
         }
+	
+	
 }

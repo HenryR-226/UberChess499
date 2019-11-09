@@ -31,27 +31,50 @@ public class Board {
 	 *         converts it as chess notation, and pushes it to array list as a
 	 *         string. This processes all possible moves for a given team.
 	 */
-	public ArrayList<Move> getMoves(Player p) throws Exception {
+	
+	//Current bugs: Will call new Move() on every piece and every square, so Knight gets Queen gamer moves. Could possibly fix this with less iteration for loops
+	public ArrayList<String> getMoves(Player p) throws Exception {
 		ArrayList<ArrayList<BoardButton>> moveSquareList = new ArrayList<ArrayList<BoardButton>>(); // List of Lists,
-																									// one list for each
-																									// piece's possible
-																									// moves
-		Move move; // Return string of given move
+		String moveString; // Return string of given move
+		Move move;
+		ArrayList<String> moves = new ArrayList<String>();
 		for (Piece piece : p.getPieceList()) { // For each piece in player's list
 			moveSquareList.add(piece.getMoves(piece, GameBoard)); // Add a list of possible board squares that piece can
 																	// move to
 			for (ArrayList<BoardButton> al : moveSquareList) { // For each list of boardbuttons in the movesquare list
 				for (BoardButton b : al) { // For each boadbutton IN said list of boardbuttons
-					move = new Move(piece, b); // Construct the move
+					move = new Move(piece, b, true); // Construct the move
 					possibleMoves.add(move); // Post the move to final move list
-				} // if statement for king not in check)
-			} // This will NOT report a space immediately forward of the pawn occupied by
-				// enemy piece as valid move.
-		} // This will be tested/weeded out in the Pawn specific candidate generation
-			// moves to keep this clean.
+				} 			// if statement for king not in check)
+			} 				// This will NOT report a space immediately forward of the pawn occupied by
+							// enemy piece as valid move.
+		} 					// This will be tested/weeded out in the Pawn specific candidate generation
+							// moves to keep this clean.
 		return possibleMoves; // Return the final move list. AI selects from this randomly and potential move
 	}						// to be made MUST BE in here
 	
+	
+	//Ryan's attempt, was in Main as it's own method:
+//	public static void getAllMoves(ArrayList<Piece> pieces, BoardButton[][] board) {
+//        Piece tempPiece = null;
+//        ArrayList<BoardButton> moves = new ArrayList<BoardButton>();
+//        ArrayList<String> allMoves = new ArrayList<String>();
+//       
+//        Stack<BoardButton> test = new Stack<BoardButton>();
+//       
+//       
+//        for (int i = 0; i < pieces.size(); i++) {
+//            moves = pieces.get(i).getMoves(pieces.get(i), board);
+//            for(int j = 0; j < moves.size() -2; j++)    {
+//                if(moves.size() != 0) {
+//                    test.push(moves.get(i));
+//                }  
+//            }
+//        }
+//       
+//        System.out.println(test.size());
+//    }
+//	
 	
 		// Draws out Ascii art of the gameboard. To be called after every successfully
 		// committed move.
@@ -203,6 +226,7 @@ public class Board {
 		Piece Rook2 = new Rook("Rook2", true, 0, 7);
 		whitePlayer.addPiece(Rook1);
 		whitePlayer.addPiece(Rook2);
+		//System.out.println("Rook2 offset tested from line 206 in Board : " + Rook2.getOffset());
 		Piece BishopLight = new Bishop("BishopLight", true, 0, 2);
 		Piece BishopDark = new Bishop("BishopDark", true, 0, 5);
 		whitePlayer.addPiece(BishopLight);
