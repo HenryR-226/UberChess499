@@ -99,4 +99,16 @@ public class Player {
 	public void setBoard(Board board) {
 		this.b = board;
 	}
+	
+    public double evalPoints(ArrayList<Piece> pieces){                                     
+        double result = 0;
+        BoardButton[][] board;               //Get locations
+        ArrayList<Double> pointsList = new ArrayList<Double>(); //Create list of point objects
+        for(int i = 0; i < pieces.size(); i++){                             //For each row and column of BoardButton
+            result = result + AI.getGridOffset(pieces.get(i));    //Find pieces belonging to player p and summate points
+        }                                                        //This code isn't clean and needs to run hundreds of thousands of times
+                                                                //So it needs to be better than "check every square for where there's
+                                                                //A piece on that team, every time"
+        return result;    
+        }
 }

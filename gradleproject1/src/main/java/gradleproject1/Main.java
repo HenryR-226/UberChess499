@@ -109,6 +109,12 @@ public class Main {
 					String oldX1 = null;
 					char[] oldXchar = { ' ' };
 					do {											//Do-while for the player to select a piece of the proper team
+						
+//					
+//						ArrayList<Piece> AiTestList = new ArrayList<Piece>();
+//						AiTestList = b.getWhitePlayer().getPieceList();
+//						System.out.println("Eval Points: " + b.getWhitePlayer().evalPoints(AiTestList));
+						
 						System.out.println("\nEnter Col ");			//While kicks the player back up here if they select a wrong team's piece or a piece with 0 moves 
 						oldX1 = s.nextLine();
 						if (oldX1.compareToIgnoreCase("quit") == 0) {

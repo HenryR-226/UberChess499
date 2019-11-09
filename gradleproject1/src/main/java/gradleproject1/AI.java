@@ -38,7 +38,7 @@ public class AI extends Player {              //H
      *
      * @Return Double (wrapper) for offset to add to points value for AI calculation.
     */
-    public Double getGridOffset(String location, char piece){                                 //H
+    public static Double getGridOffset(String location, char piece){                                 //H
         boolean userErrorFlag = false;                      //User F'd up or not?
         try {
             assert (location.length() == 2);
@@ -52,14 +52,16 @@ public class AI extends Player {              //H
                 userErrorFlag = true;                          //Make sure col starts with an actual letter between A and H
                 assert (Character.isLetter(col) && col<='H');  //Set user error flag and break out of try if not
             }  
-            if (r0w >8 || r0w<0){
+            if (r0w > '8' || r0w < '0'){
                 userErrorFlag = true;                        //Make sure row given is less than or = to 8
                 assert (r0w <=8 && r0w>0);                   //Set user error flag and break out of try if not
             }                    
             //Format verified, convert Letter-Number to Array indexes
             short column = (short) (col - 'A');              //A is 0, B is 1, etc. Returns numeric difference between A & input letter
-            short row2 = (short) r0w;                        //cast Char to Short because it gets mad if you cast to int
-            short row = (short) (row2 + 8);                                  //Add 8 to convert chess layout to Memory layout
+            short row2 = (short) (r0w - '0');                        //cast Char to Short because it gets mad if you cast to int
+            short row = (short) (row2);                                  //Add 8 to convert chess layout to Memory layout
+            
+            //System.out.println("piece " + piece + " column " + column + " Row " + row);
            
             switch (piece) {
                 //white pieces
@@ -110,7 +112,7 @@ public class AI extends Player {              //H
      * Overloaded Method to get the grid offset for a particular piece object as the piece is what has
      * access to it. @return double pointsOffset
      */
-    public Double getGridOffset(Piece p) {
+    public static Double getGridOffset(Piece p) {
         String location = p.getLocation();
         char piece = p.getAbbrev();
         Double points = getGridOffset(location, piece);
@@ -124,17 +126,17 @@ public class AI extends Player {              //H
      * @return the player's points
      */
    
-    private double evalPoints(ArrayList<Piece> pieces){                                     
-        double result = 0;
-        BoardButton[][] board;               //Get locations
-        ArrayList<Double> pointsList = new ArrayList<Double>(); //Create list of point objects
-        for(Piece piece : pieces){                             //For each row and column of BoardButton
-            result = result + getGridOffset(piece.getLocation(), piece.getAbbrev());    //Find pieces belonging to player p and summate points
-        }                                                        //This code isn't clean and needs to run hundreds of thousands of times
-                                                                //So it needs to be better than "check every square for where there's
-                                                                //A piece on that team, every time"
-        return result;    
-        }
+//    public double evalPoints(ArrayList<Piece> pieces){                                     
+//        double result = 0;
+//        BoardButton[][] board;               //Get locations
+//        ArrayList<Double> pointsList = new ArrayList<Double>(); //Create list of point objects
+//        for(Piece piece : pieces){                             //For each row and column of BoardButton
+//            result = result + getGridOffset(piece.getLocation(), piece.getAbbrev());    //Find pieces belonging to player p and summate points
+//        }                                                        //This code isn't clean and needs to run hundreds of thousands of times
+//                                                                //So it needs to be better than "check every square for where there's
+//                                                                //A piece on that team, every time"
+//        return result;    
+//        }
  
  
    
