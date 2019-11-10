@@ -325,8 +325,29 @@ public class King extends Piece {
 			}		
 		}
 		//Not in check! Returns default of False. Should there be an error causing it to 
-		//somehow not break out but still set to true probably best to return that and not just hardcode return 'false'.
+		//somehow not break out but still set to 'true' probably best to return that and not just hardcode return 'false'.
 		return result;
+	}
+	
+	/* 
+	 * @author Henry Rheault
+	 * 
+	 * Overloaded version of method above but takes in a hypothetical move. 
+	 * Probably going to be called from an Enhanced for loop on the list of
+	 * possible moves, to weed it down.
+	 */
+	public boolean isInCheck(BoardButton[][] board, ArrayList<Piece> pieces, String move) {
+		char[] c = move.toCharArray();			//Process the desired move
+		char abbrev = c[0];
+		int x,y;
+		if (c[1]=='x'){			//if Move is a capture, discard the 'x'
+			x = ((int) c[2] - 'A');
+			y = ((int) c[3]-'0'-1);
+		} else {
+			x = ((int) c[1] - 'A');
+			y = ((int)c[2]-'0'-1);
+		}
+		
 	}
 	
 	
