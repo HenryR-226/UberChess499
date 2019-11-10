@@ -94,6 +94,242 @@ public class King extends Piece {
 		return moveList;
 	}
 	
+	/**
+	 * @author Henry Rheault
+	 * 
+	 * Inputs argument of board layout and sees if king is in check.
+	 * Does it for CURRENTLY in check, TBD one taking a board and a possible candidate move.
+	 * Player parameter for piece list access
+	 */
+	
+	public boolean isInCheck(BoardButton[][] board) {
+		//String location
+		boolean result = false;
+		char[] c = location.toCharArray();
+		int x = ((int) c[0] - 'A');
+		int y = ((int)c[1]-'0'-1);
+		BoardButton b; Piece p; char abbrev; 
+		int ctrx = x;
+		int ctry = y;
+		boolean team = this.isWhite();
+		ArrayList<Integer> validX1 = new ArrayList<Integer>();
+		ArrayList<Integer> validX2 = new ArrayList<Integer>();
+		ArrayList<Integer> validY1 = new ArrayList<Integer>();
+		ArrayList<Integer> validY2 = new ArrayList<Integer>();
+		//Straight up Y checks
+		do {
+			try {
+				b = board[x][++ctry];
+				if (b.getPiece()!=null) {
+					p = b.getPiece();
+					abbrev = Character.toUpperCase(p.getAbbrev());
+					if (p.isWhite() == team) break;						//Friendly piece? If so no problem
+					else {
+						if (abbrev == 'K' && ctry==++y) return true;
+						if (abbrev == 'R' || abbrev == 'Q') return true;
+					}
+				}
+			} catch (Exception e) {
+				break;
+			}
+		} while (!result && ctry<8);
+		ctry=y;
+		//Straight down Y
+		do {
+			try {
+				b = board[x][--ctry];
+				if (b.getPiece()!=null) {
+					p = b.getPiece();
+					abbrev = Character.toUpperCase(p.getAbbrev());
+					if (p.isWhite() == team) break;						//Friendly piece? If so no problem
+					else {
+						if (abbrev == 'K' && ctry==--y) return true;
+						if (abbrev == 'R' || abbrev == 'Q') return true;
+					}
+				}
+			} catch (Exception e) {
+				break;
+			}
+		} while (!result && ctry>-1);
+		ctry = y;
+		//Due left
+		do {
+			try {
+				b = board[--ctrx][y];
+				if (b.getPiece()!=null) {
+					p = b.getPiece();
+					abbrev = Character.toUpperCase(p.getAbbrev());
+					if (p.isWhite() == team) break;						//Friendly piece? If so no problem
+					else {
+						if (abbrev == 'K' && ctry==++y) return true;
+						if (abbrev == 'R' || abbrev == 'Q') return true;
+					}
+				}
+			} catch (Exception e) {
+				break;
+			}
+		} while (!result && ctrx<8);
+		ctrx=x;
+		//Due Right
+		do {
+			try {
+				b = board[++ctrx][y];
+				if (b.getPiece()!=null) {
+					p = b.getPiece();
+					abbrev = Character.toUpperCase(p.getAbbrev());
+					if (p.isWhite() == team) break;						//Friendly piece? If so no problem
+					else {
+						if (abbrev == 'K' && ctry==++y) return true;
+						if (abbrev == 'R' || abbrev == 'Q') return true;
+					}
+				}
+			} catch (Exception e) {
+				break;
+			}
+		} while (!result && ctrx<8);
+		ctrx=x;
+		//Bishop checks
+		//Up and Right
+		do {
+			try {
+				b = board[++ctrx][++ctry];
+				if (b.getPiece()!=null) {
+					p = b.getPiece();
+					abbrev = Character.toUpperCase(p.getAbbrev());
+					if (p.isWhite() == team) break;						//Friendly piece? If so no problem
+					else {
+						if (abbrev == 'K' && ctry==++y) return true;
+						if (abbrev == 'B' || abbrev == 'Q') return true;
+						if (team && abbrev == 'P' && ctry==++y) return true;
+					}
+				}
+			} catch (Exception e) {
+				break;
+			}
+		} while (!result && ctry<8 && ctrx<8);
+		ctry=y; ctrx=x;
+		//Down and Right
+		do {
+			try {
+				b = board[++ctrx][--ctry];
+				if (b.getPiece()!=null) {
+					p = b.getPiece();
+					abbrev = Character.toUpperCase(p.getAbbrev());
+					if (p.isWhite() == team) break;						//Friendly piece? If so no problem
+					else {
+						if (abbrev == 'K' && ctry==--y) return true;
+						if (abbrev == 'B' || abbrev == 'Q') return true;
+						if (!team && abbrev == 'P' && ctry==--y) return true;
+					}
+				}
+			} catch (Exception e) {
+				break;
+			}
+		} while (!result && ctry>-1 && ctrx<8);
+		ctry=y; ctrx=x;
+		//Down and Left
+		do {
+			try {
+				b = board[--ctrx][--ctry];
+				if (b.getPiece()!=null) {
+					p = b.getPiece();
+					abbrev = Character.toUpperCase(p.getAbbrev());
+					if (p.isWhite() == team) break;						//Friendly piece? If so no problem
+					else {
+						if (abbrev == 'K' && ctry==++y) return true;
+						if (abbrev == 'R' || abbrev == 'Q') return true;
+						if (!team && abbrev=='P' && ctry==--y) return true;
+					}
+				}
+			} catch (Exception e) {
+				break;
+			}
+		} while (!result && ctry>-1 && ctrx>-1);
+		ctrx=x; ctry=y;
+		//Up and Left
+		do {
+			try {
+				b = board[--ctrx][++ctry];
+				if (b.getPiece()!=null) {
+					p = b.getPiece();
+					abbrev = Character.toUpperCase(p.getAbbrev());
+					if (p.isWhite() == team) break;						//Friendly piece? If so no problem
+					else {
+						if (abbrev == 'K' && ctry==++y) return true;
+						if (abbrev == 'R' || abbrev == 'Q') return true;
+						if(team && abbrev =='P' && ctry==++y) return true;
+					}
+				}
+			} catch (Exception e) {
+				break;
+			}
+		} while (!result && ctry<8 && ctrx>-1);
+		ctrx=x; ctry=y;
+		// Knight checks
+		validX1.add(x - 1);
+		validX2.add(x - 2);
+		validX1.add(x + 1);
+		validX2.add(x + 2);
+
+		int lsize = validX1.size();
+		for (int i = 0; i < lsize; i++) {
+			Integer a = validX1.get(i);
+			if (a < 0 || a > 7) {
+				lsize--;
+				validX1.remove(a);
+			}
+		}
+		lsize = validX2.size();
+		for (int i = 0; i < lsize; i++) {
+			Integer a = validX2.get(i);
+			if (a < 0 || a > 7) {
+				lsize--;
+				validX2.remove(a);
+			}
+		}
+		// Generate Y values valid for each list
+		validY1.add(y - 1);
+		validY2.add(y - 2);
+		validY1.add(y + 1);
+		validY2.add(y + 2);
+		lsize = validY1.size();
+		for (int i = 0; i < lsize; i++) {
+			Integer a = validY1.get(i);
+			if (a < 0 || a > 7) {
+				lsize--;
+				validY1.remove(a);
+			}
+		}
+		lsize = validY2.size();
+		for (int i = 0; i < lsize; i++) {
+
+			Integer a = validY2.get(i);
+			if (a < 0 || a > 7) {
+				lsize--;
+				validY2.remove(a);
+			}
+		}
+
+		// Combine X+-1 with Y+-2
+		for (Integer i : validX1) {
+			for (Integer j : validY2) {
+				p = board[i][j].getPiece();
+				if (p!=null) if (p.getAbbrev()=='N'||p.getAbbrev()=='n') return true;
+			}		
+		}
+		// Combine X+-2 with Y+-1
+		for (Integer i : validX1) {
+			for (Integer j : validY2) {
+				p = board[i][j].getPiece();
+				if (p!=null) if (p.getAbbrev()=='N'||p.getAbbrev()=='n') return true;
+			}		
+		}
+		//Not in check! Returns default of False. Should there be an error causing it to 
+		//somehow not break out but still set to true probably best to return that and not just hardcode return 'false'.
+		return result;
+	}
+	
+	
 	@Override
 	public Double getOffset() {
 		if (isWhite) {

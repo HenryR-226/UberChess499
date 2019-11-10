@@ -18,7 +18,7 @@ public class Piece {
 	private String name;
 	public String pieceID; 			// unique string to identify a particular piece object
 	double points;
-	private String location;
+	protected String location;
 
 	private ArrayList<BoardButton> possibleMoves; 		// Each piece keeps track of where it can currently move.
 

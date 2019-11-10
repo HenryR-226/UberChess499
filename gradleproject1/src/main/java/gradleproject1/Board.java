@@ -17,6 +17,44 @@ public class Board {
 	private BoardButton[][] GameBoard = new BoardButton[8][8];
 
 	private ArrayList<Move> possibleMoves;
+	
+	/**
+	 * @author Ryan Brodsky
+	 * 
+	 * Start of Henry's method to get all valid moves for a given team (rather, a list of pieces)
+	 * 
+	 */
+	public static ArrayList<String> getAllMoves(ArrayList<Piece> pieces, BoardButton[][] board) {
+
+        Piece tempPiece = null; //temp piece
+        ArrayList<ArrayList<BoardButton>> moves = new ArrayList<ArrayList<BoardButton>>(); //ArrayList of ArrayList of Buttons
+        ArrayList<String> allMoves = new ArrayList<String>(); //Array for the Moves
+        int counter = 0; //Counter
+
+        for (int i = 0; i < pieces.size(); i++) {
+            tempPiece = pieces.get(i); 									//Sets temp piece
+            moves.add(pieces.get(i).getMoves(tempPiece, board)); //returns array list of board buttons and adds to moves array
+            for(int j = 0; j < (pieces.get(i).getMoves(tempPiece, board).size()); j++)    { //for the size of the returned array add the piece abv
+                allMoves.add(Character.toString(tempPiece.getAbbrev()));
+            }
+        }
+
+        //loops through all the found moves
+        for(int j = 0; j < moves.size(); j++) {
+            for(int k = 0; k < moves.get(j).size(); k++)    {
+                allMoves.set(counter, allMoves.get(counter) + moves.get(j).get(k).getAbbreviation()); //adds the move + piece abv
+                counter++; //increases counter
+            }
+        }
+
+        //Print out List of Moves
+        for(int i = 0; i < allMoves.size(); i++)    {
+            System.out.println(allMoves.get(i));
+        }
+        return allMoves;
+    }
+	
+	
 
 	/**
 	 * @Author Henry Rheault
@@ -33,26 +71,26 @@ public class Board {
 	 */
 	
 	//Current bugs: Will call new Move() on every piece and every square, so Knight gets Queen gamer moves. Could possibly fix this with less iteration for loops
-	public ArrayList<String> getMoves(Player p) throws Exception {
-		ArrayList<ArrayList<BoardButton>> moveSquareList = new ArrayList<ArrayList<BoardButton>>(); // List of Lists,
-		String moveString; // Return string of given move
-		Move move;
-		ArrayList<String> moves = new ArrayList<String>();
-		for (Piece piece : p.getPieceList()) { // For each piece in player's list
-			moveSquareList.add(piece.getMoves(piece, GameBoard)); // Add a list of possible board squares that piece can
-																	// move to
-			for (ArrayList<BoardButton> al : moveSquareList) { // For each list of boardbuttons in the movesquare list
-				for (BoardButton b : al) { // For each boadbutton IN said list of boardbuttons
-					move = new Move(piece, b, true); // Construct the move
-					possibleMoves.add(move); // Post the move to final move list
-				} 			// if statement for king not in check)
-			} 				// This will NOT report a space immediately forward of the pawn occupied by
-							// enemy piece as valid move.
-		} 					// This will be tested/weeded out in the Pawn specific candidate generation
-							// moves to keep this clean.
-		return possibleMoves; // Return the final move list. AI selects from this randomly and potential move
-	}						// to be made MUST BE in here
-	
+//	public ArrayList<String> getMoves(Player p) throws Exception {
+//		ArrayList<ArrayList<BoardButton>> moveSquareList = new ArrayList<ArrayList<BoardButton>>(); // List of Lists,
+//		String moveString; // Return string of given move
+//		Move move;
+//		ArrayList<String> moves = new ArrayList<String>();
+//		for (Piece piece : p.getPieceList()) { // For each piece in player's list
+//			moveSquareList.add(piece.getMoves(piece, GameBoard)); // Add a list of possible board squares that piece can
+//																	// move to
+//			for (ArrayList<BoardButton> al : moveSquareList) { // For each list of boardbuttons in the movesquare list
+//				for (BoardButton b : al) { // For each boadbutton IN said list of boardbuttons
+//					move = new Move(piece, b, true); // Construct the move
+//					possibleMoves.add(move); // Post the move to final move list
+//				} 			// if statement for king not in check)
+//			} 				// This will NOT report a space immediately forward of the pawn occupied by
+//							// enemy piece as valid move.
+//		} 					// This will be tested/weeded out in the Pawn specific candidate generation
+//							// moves to keep this clean.
+//		return possibleMoves; // Return the final move list. AI selects from this randomly and potential move
+//	}						// to be made MUST BE in here
+//	
 	
 	//Ryan's attempt, was in Main as it's own method:
 //	public static void getAllMoves(ArrayList<Piece> pieces, BoardButton[][] board) {
