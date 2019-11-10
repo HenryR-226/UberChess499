@@ -94,6 +94,73 @@ public class King extends Piece {
 		return moveList;
 	}
 	
+	/* 
+	 * @author Henry Rheault
+	 * 
+	 * Overloaded version of method above but takes in a hypothetical move. 
+	 * Probably going to be called from an Enhanced for loop on the list of
+	 * possible moves, to weed it down.
+	 * 
+	 * Could possibly do it without passing in a Piece but that would require 
+	 * logical torture, a switch statement, etc to figure out WHICH piece 
+	 * (in the case of duplicates) the Move is to apply to.
+	 * 
+	 */
+	public boolean isInCheck(BoardButton[][] board, ArrayList<Piece> pieces, Piece piece, String move) {
+		//First, process the desired move and set up variables
+		char[] c = move.toCharArray();			//Logic's been done a hundred times before
+		char[] s2 = piece.getLocation().toCharArray();
+		char abbrev = c[0];
+		char abbrevUpper = Character.toUpperCase(abbrev);
+		boolean team = piece.isWhite();
+		boolean result = false;
+		int x1,y1, x2, y2;				//x & y of desired move square, x & y of current move square
+		char c1, c2;					//Ease of building a new location string to assign a piece to
+		
+		//Do low level formatting and housekeeping before method call
+		if (c[1]!='x'){			//if Move is NOT a capture, can't discard the 'x'
+			c1 = ( c[1]);
+			c2 = ( c[2]);
+			x1 = ((int) c1 - 'A');
+			y1 = ((int) c2-'0'-1);
+		} else {				//If move is a capture discard the X
+			c1 = c[2];
+			c2 = c[3];
+			x1 = ((int) c1 - 'A');
+			y1 = ((int)c2-'0'-1);
+		}							//s2 being the Piece's location, get it in X and Y:
+		x2 = piece.getCol();
+		y2 = piece.getRow();
+		
+		//Now begin setting up hypothetical board
+		//Remove piece from piece list
+		pieces.remove(piece);
+		//Make new piece (doesn't matter what as it's checking for itself being in check)
+		//Move to proposed move square
+		Pawn test = new Pawn("Test", true, x1, y1);
+		board[x1][y1].setPiece(test);
+		//Remove piece from board
+		board[x2][y2].removePiece();
+		pieces.add(test);
+		//test.setLocation((Character.toString(c[1] + Character.toString(c[2]))));
+		String location =Character.toString(c[1]);
+		location = location + Character.toString(c[2]);
+		test.setLocation(location);
+		
+		//Call the new hypothetical board!
+		result = isInCheck(board);
+		
+		//Restore everything since I'm not sure that would be done otherwise, Shallow Copy vs Deep Copy
+		pieces.remove(test);
+		pieces.add(piece);
+		board[x1][y1].removePiece();
+		board[x2][y2].setPiece(piece);
+		
+		//Return the result we got
+		return result;
+	}
+	
+	
 	/**
 	 * @author Henry Rheault
 	 * 
@@ -328,27 +395,7 @@ public class King extends Piece {
 		//somehow not break out but still set to 'true' probably best to return that and not just hardcode return 'false'.
 		return result;
 	}
-	
-	/* 
-	 * @author Henry Rheault
-	 * 
-	 * Overloaded version of method above but takes in a hypothetical move. 
-	 * Probably going to be called from an Enhanced for loop on the list of
-	 * possible moves, to weed it down.
-	 */
-	public boolean isInCheck(BoardButton[][] board, ArrayList<Piece> pieces, String move) {
-		char[] c = move.toCharArray();			//Process the desired move
-		char abbrev = c[0];
-		int x,y;
-		if (c[1]=='x'){			//if Move is a capture, discard the 'x'
-			x = ((int) c[2] - 'A');
-			y = ((int) c[3]-'0'-1);
-		} else {
-			x = ((int) c[1] - 'A');
-			y = ((int)c[2]-'0'-1);
-		}
-		
-	}
+
 	
 	
 	@Override
