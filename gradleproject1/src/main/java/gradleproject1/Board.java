@@ -24,34 +24,38 @@ public class Board {
 	 * Start of Henry's method to get all valid moves for a given team (rather, a list of pieces)
 	 * 
 	 */
-//	public static ArrayList<Move> getAllMoves(ArrayList<Piece> pieces, BoardButton[][] board) {
-//
-//        Piece tempPiece = null; //temp piece
-//        ArrayList<ArrayList<BoardButton>> moves = new ArrayList<ArrayList<BoardButton>>(); //ArrayList of ArrayList of Buttons
-//        ArrayList<Move> allMoves = new ArrayList<Move>(); //Array for the Moves
-//        int counter = 0; //Counter
-//        //Previous implementation was appending each char onto a string, this starts with piece abbreviation
-//        //For piece abbrev:
-//        for (int i = 0; i < pieces.size(); i++) {
-//            tempPiece = pieces.get(i); 									//Sets temp piece
-//            moves.add(pieces.get(i).getMoves(tempPiece, board)); //returns array list of board buttons and adds to moves array
-//        }
-//
-//        //loops through all the found moves
-//        for(int j = 0; j < moves.size(); j++) {
-//            for(int k = 0; k < moves.get(j).size(); k++)    {
-//            	Move m = new Move()
-//                allMoves.add(moves.get(j)); //adds the move + piece abv
-//                counter++; //increases counter
-//            }
-//        }
-//
-//        //Print out List of Moves
-//        for(int i = 0; i < allMoves.size(); i++)    {
-//            System.out.println(allMoves.get(i).getAbbreviation());
-//        }
-//        return allMoves;
-//    }
+	  public static ArrayList<Move> getAllMoves(ArrayList<Piece> pieces, BoardButton[][] board) {
+		  
+	        Piece tempPiece = null; //temp piece
+	        ArrayList<ArrayList<BoardButton>> moves = new ArrayList<ArrayList<BoardButton>>(); //ArrayList of ArrayList of Buttons
+	        ArrayList<Piece> allMoves = new ArrayList<Piece>(); //Array for the Moves
+	        int counter = 0; //Counter
+	        ArrayList<Move> moveList = new ArrayList<Move>();
+	 
+	        for (int i = 0; i < pieces.size(); i++) {
+	            tempPiece = pieces.get(i);                                  //Sets temp piece
+	            moves.add(pieces.get(i).getMoves(tempPiece, board)); //returns array list of board buttons and adds to moves array
+	            for(int j = 0; j < (pieces.get(i).getMoves(tempPiece, board).size()); j++)    { //for the size of the returned array add the piece abv
+	                allMoves.add(tempPiece);
+	            }
+	        }
+	 
+	        //loops through all the found moves
+	        for(int j = 0; j < moves.size(); j++) {
+	            for(int k = 0; k < moves.get(j).size(); k++)    {
+	                Move m;
+	                try {
+	                    m = new Move(allMoves.get(counter), moves.get(j).get(k));
+	                    moveList.add(m);
+	                    counter++;
+	                } catch (Exception e) {
+	                    e.printStackTrace();
+	                }                
+	            }
+	        }
+	 
+	        return moveList;
+	    }
 	
 	
 

@@ -141,10 +141,10 @@ public class Player {
 		  String result=null;
 		  String[] movesDepth = new String[depth];
 		  double points, maxPoints = 0;
-		  ArrayList<String> possibleMoves = new ArrayList<String>();
+		  ArrayList<Move> possibleMoves = new ArrayList<Move>();
 		  
 		  possibleMoves = b.getAllMoves(gamer.getPieceList(), bb);
-		  for (String s : possibleMoves) {
+		  for (Move m : possibleMoves) {
 			  //TODO- change to Move type object
 			  //Get the piece associated with this move, update it's location. If it's a capture make a clone of pieces lists and make the alterations
 			  //Then recursively call bestMove with depth = iterable - 1
