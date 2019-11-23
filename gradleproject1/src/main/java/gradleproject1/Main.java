@@ -255,14 +255,14 @@ public class Main {
 					}
 					
 					System.out.println("Generating all moves: ");
-					ArrayList<String> allPlayersMovesList = new ArrayList<String>();
+					ArrayList<Move> allPlayersMovesList = new ArrayList<Move>();
 					long time = System.nanoTime();
 					if (test2.isWhite()) allPlayersMovesList = b.getMoves(g.getWhite());
 					else allPlayersMovesList = b.getMoves(g.getBlack());
 					long time2 = System.nanoTime();
 					System.out.println("All moves for team selected: ");
-					for (String m : allPlayersMovesList) {
-						System.out.print(m + ", ");
+					for (Move m : allPlayersMovesList) {
+						System.out.print(m.getAbbreviation() + ", ");
 					}
 					long elapsed = time2-time;
 					long result = TimeUnit.SECONDS.convert(elapsed, TimeUnit.NANOSECONDS);

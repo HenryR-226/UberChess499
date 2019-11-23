@@ -11,8 +11,10 @@ package gradleproject1;
 public class Move {
 
 	private BoardButton old;
+	private int oldrow, oldcol;
 	private BoardButton n3w;
-
+	private int newrow, newcol;
+	
 	private String abbreviation;
 	private Piece piece;
 	private Piece captured;
@@ -83,7 +85,7 @@ public class Move {
 			int j = (int) loc[1] - '0' - 1;
 
 			this.old = GameBoard[i][j];
-//System.out.println("Calling remove on boardbutton" + i + " " + j);
+			//System.out.println("Calling remove on boardbutton" + i + " " + j);
 			this.n3w = button;
 			String abbrev = n3w.getAbbreviation();
 			System.out.println("Line 89 in Move, " + p.getAbbrev() + " moved from " + loc[0] + loc[1] + " to " + abbrev + ".");
@@ -144,6 +146,16 @@ public class Move {
 			System.out.println("Invalid move constructor taking board square. Try again.");
 			e.printStackTrace();
 		}
+	}
+	
+	/** @author Henry Rheault
+	 * Generates and returns a move based on a input string. 
+	 * Passed in 
+	 * @throws Exception 
+	 */
+	public Move newMove(Piece p, BoardButton button) throws Exception {
+		Move m = new Move(p, button);
+		return m;
 	}
 
 	// Get the boardbutton the move was FROM

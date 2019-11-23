@@ -18,7 +18,8 @@ public class Player {
 	private static int numTeams = 0; // Don't make more than 2 teams, dingus
 
 	private Board b;
-
+	private BoardButton[][] bb;
+	
 	public Player(boolean team, boolean ai) {
 		try {
 			assert (numTeams < 2);
@@ -107,6 +108,7 @@ public class Player {
 
 	public void setBoard(Board board) {
 		this.b = board;
+		this.bb = board.getGameBoard();
 	}
 	
     /**
@@ -128,5 +130,27 @@ public class Player {
         return result;    
         }
 	
+	/**
+	 * @author Henry Rheault
+	 * Method for the AI to generate the best possible moves, and return the one with the most points.
+	 * @param player- the player we're starting on- and depth- the amount of moves down (both sides) to eval.
+	 */
 	
+	  public String bestMove(Player gamer, int depth) {
+		  int iterable = depth*2;
+		  String result=null;
+		  String[] movesDepth = new String[depth];
+		  double points, maxPoints = 0;
+		  ArrayList<String> possibleMoves = new ArrayList<String>();
+		  
+		  possibleMoves = b.getAllMoves(gamer.getPieceList(), bb);
+		  for (String s : possibleMoves) {
+			  //TODO- change to Move type object
+			  //Get the piece associated with this move, update it's location. If it's a capture make a clone of pieces lists and make the alterations
+			  //Then recursively call bestMove with depth = iterable - 1
+		  }
+		  
+		  
+		  return result;
+	  }
 }
