@@ -204,6 +204,7 @@ public class Player {
 	private boolean iterableTeam = true;
 	private BoardButton[][] alteredGameBoard;
 	private Board instance;
+	private int whiteArrayIndex, blackArrayIndex = 0;								//Removed half-baked 'loop invariant' and just made this count up for array tracking
 	/**
 	 * @author Henry Rheault
 	 * Recursive Method for the AI to generate the best possible moves, and return the one with the most points.
@@ -215,10 +216,14 @@ public class Player {
 			char[][] whiteArray = whiteMoves.clone();
 			possibleMoves = instance.getAllMoves(gamer.getPieceList(), alteredGameBoard);
 			for (Move m : possibleMoves) {  		//Get the piece associated with this move, update it's location. If it's a capture make a clone of pieces lists and make the alterations
-				if (iterableTeam)					 //Then recursively call bestM ove with depth = iterable - 1
-					whiteArray[(int) depth - iterable / 2] = m.getAbbreviation().toCharArray();   //Set this particular row (move) 's move abbreviation to this particular move object
-				else
-					blackArray[(int) (depth - iterable / 2)] = m.getAbbreviation().toCharArray(); // TODO- check math/invariant, this may not be right or give ArrayOutOfBounds
+				if (iterableTeam) {					 //Then recursively call bestM ove with depth = iterable - 1
+					whiteArray[whiteArrayIndex] = m.getAbbreviation().toCharArray();   //Set this particular row (move) 's move abbreviation to this particular move object
+					whiteArrayIndex++;
+				}
+				else {
+					blackArray[blackArrayIndex] = m.getAbbreviation().toCharArray(); // TODO- check math/invariant, this may not be right or give ArrayOutOfBounds
+					blackArrayIndex++;
+				}
 				Piece p = m.getPiece();
 				Piece cap = m.getCaptured();
 				points = evalPoints(m);
