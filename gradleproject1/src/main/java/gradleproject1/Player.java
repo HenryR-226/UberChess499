@@ -188,7 +188,6 @@ public class Player {
 		alteredGameBoard = bb.clone();
 	}
 	
-	
 	//AI vars/flags to be set outside of the method so it's not re-allocating them or doing anything funny every loopthrough
 	private ArrayList<Piece> blackPieceList;          //BOTH STATIC AND UNCHANGING THROUGH METHOD CALL
 	private ArrayList<Piece> whitePieceList;
@@ -208,15 +207,14 @@ public class Player {
 	 * Recursive Method for the AI to generate the best possible moves, and return the one with the most points.
 	 * @param player- the player we're starting on- and depth- the amount of moves down (both sides) to eval.
 	 */
-	public Move bestMove(Player gamer, int depth) { // Iterable team is handled in setUpAI() and will be the same team
-													// as the 'gamer' object/instance
+	public Move bestMove(Player gamer, int depth) { // Iterable team is handled in setUpAI() and will be the same team as the 'gamer' object/instance
 		if (depth != -1) { // -1 means we're at the end
 			char[][] blackArray = blackMoves.clone();						//Clone the char array for each step of the game tree down
 			char[][] whiteArray = whiteMoves.clone();
-			possibleMoves = b.getAllMoves(gamer.getPieceList(), bb);
-			for (Move m : possibleMoves) {
-				if (iterableTeam)
-					whiteArray[(int) depth - iterable / 2] = m.getAbbreviation().toCharArray();
+			possibleMoves = b.getAllMoves(gamer.getPieceList(), alteredGameBoard);
+			for (Move m : possibleMoves) {  		//Get the piece associated with this move, update it's location. If it's a capture make a clone of pieces lists and make the alterations
+				if (iterableTeam)					 //Then recursively call bestM ove with depth = iterable - 1
+					whiteArray[(int) depth - iterable / 2] = m.getAbbreviation().toCharArray();   //Set this particular row (move) 's move abbreviation to this particular move object
 				else
 					blackArray[(int) (depth - iterable / 2)] = m.getAbbreviation().toCharArray(); // TODO- check math/invariant, this may not be right or give ArrayOutOfBounds
 				Piece p = m.getPiece();
@@ -230,7 +228,6 @@ public class Player {
 						whiteModifiedPieceList = whitePieceList; //
 						whiteModifiedPieceList.remove(cap);
 					}
-
 				}
 				if (depth == 0 || possibleMoves.size() == 0) { // If we've reached the bottom OR there's no valid moves
 																// => end of game
@@ -248,17 +245,13 @@ public class Player {
 				}
 				iterableTeam = !iterableTeam;
 				Move move = bestMove(b.getOtherPlayer(gamer), depth - 1);				//Recursive Call
-				 
-				  
-			  //Get the piece associated with this move, update it's location. If it's a capture make a clone of pieces lists and make the alterations
-			  //Then recursively call bestM ove with depth = iterable - 1
-			 
-		  }
-		 }	//else if (depth==-1){														//Reach this block if depth = -1 meaning we've hit 0 and are now evaluating best move
-		  
-		  
+			}
+		}	//else if (depth==-1){														//Reach this block if depth = -1 meaning we've hit 0 and are now evaluating best move
+		else {  
+			Move move = bestMove(b.getOtherPlayer(gamer), depth); 						//I think
+		}
 		  return result;
-	  }
+	}
 	  
 	  /**
 	   * @author Henry Rheault
@@ -278,7 +271,8 @@ public class Player {
 	  
 	  /**
 	   * @author Henry Rheault
-	   * Chooses best move out of the list of possible moves passed in at 0 steps down
+	   * Chooses best move out of the list of possible moves passed in at 0 steps down.
+	   * Tested and works, 11/23/2019, by Henry and Ryan
 	   */
 	  public Move bestMove(ArrayList<Move> possibles) {
 		  //0 length => Checkmate, future
