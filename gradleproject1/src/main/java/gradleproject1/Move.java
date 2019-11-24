@@ -54,6 +54,7 @@ public class Move {
 			int n = (int) column;
 			this.old = GameBoard[i][j];
 			this.n3w = GameBoard[m][n];
+			this.piece = p;
 
 			System.out.println(p.getAbbrev() + " moved from " + loc[0] + loc[1] + " to " + row + column + ".");
 			setAbbreviation(String.valueOf(p.getAbbrev()) + String.valueOf(row) + String.valueOf(column));
@@ -63,9 +64,9 @@ public class Move {
 				move = move + "x"; // x means a piece captured the piece on it's destination square
 			move = move + row + column;
 			if (p.isWhite())
-				whitePlayer.addMove(move);
+				whitePlayer.addMove(this);
 			else
-				blackPlayer.addMove(move);
+				blackPlayer.addMove(this);
 
 			String location = this.n3w.getAbbreviation();
 			p.setLocation(location); 
@@ -79,7 +80,6 @@ public class Move {
 		// to attempt a move to
 		try {
 			BoardButton[][] GameBoard = b.getGameBoard(); // Fetch gameboard object
-			this.piece = piece;
 			String s = p.getLocation();
 			char loc[] = s.toCharArray();
 			int i = (int) loc[0] - 'A'; // Number column
@@ -88,22 +88,18 @@ public class Move {
 			this.old = GameBoard[i][j];
 			//System.out.println("Calling remove on boardbutton" + i + " " + j);
 			this.n3w = button;
+			this.piece = p;
 			String abbrev = n3w.getAbbreviation();
-			System.out.println("Line 89 in Move, " + p.getAbbrev() + " moved from " + loc[0] + loc[1] + " to " + abbrev + ".");
+			System.out.println("Line 92 in Move, " + p.getAbbrev() + " moved from " + loc[0] + loc[1] + " to " + abbrev + ".");
 
 			String move = String.valueOf(p.getAbbrev());
 			if (n3w.getPiece() != null) {
 				move = move + "x"; // x means a piece captured the piece on it's destination square
 				capture = true;
+				this.captured = n3w.getPiece();
 			}
 			move = move + abbrev;
 			setAbbreviation(move);
-
-			if (p.isWhite()) {
-				whitePlayer.addMove(move);
-			} else {
-				blackPlayer.addMove(move);
-			}
 
 		} catch (Exception e) {
 			System.out.println("Invalid move constructor taking board square. Try again.");
@@ -125,6 +121,7 @@ public class Move {
 			this.old = GameBoard[i][j];
 			//System.out.println("Calling remove on boardbutton" + i + " " + j);
 			this.n3w = button;
+			this.piece = p;
 			String abbrev = n3w.getAbbreviation();
 			System.out.println(p.getAbbrev() + " moved from " + loc[0] + loc[1] + " to " + abbrev + ".");
 
@@ -132,14 +129,15 @@ public class Move {
 			if (n3w.getPiece()!=null) {
 				move = move + "x"; // x means a piece captured the piece on it's destination square
 				capture = true;
+				this.captured = n3w.getPiece();
 			}
 			move = move + abbrev;
 			setAbbreviation(move);
 
 			if (p.isWhite()) {
-				whitePlayer.addMove(move);
+				whitePlayer.addMove(this);
 			} else {
-				blackPlayer.addMove(move);
+				blackPlayer.addMove(this);
 			}
 			String location = this.n3w.getAbbreviation();
 

@@ -10,13 +10,13 @@ import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 
 public class Main {
-	
+	private static GameState g;
 	
 	// Creates test board with single piece in the center of the board for testability of generating moves. Space or other character for default
 	public static Board testBoard(char c) throws Exception {
 
-		Player whitePlayer = new Player(true, false);
-		Player blackPlayer = new Player(false, false);
+		Player whitePlayer = new Player(true, false, g);
+		Player blackPlayer = new Player(false, false, g);
 		Move.setWhitePlayer(whitePlayer);
 		Move.setBlackPlayer(blackPlayer);
 
@@ -47,8 +47,8 @@ public class Main {
 
 	public static Board initDefault() throws Exception {
 
-		Player whitePlayer = new Player(true, false);
-		Player blackPlayer = new Player(false, false);
+		Player whitePlayer = new Player(true, false, g);
+		Player blackPlayer = new Player(false, false, g);
 		Move.setWhitePlayer(whitePlayer);
 		Move.setBlackPlayer(blackPlayer);
 
@@ -66,6 +66,7 @@ public class Main {
 	public static void main(String[] args) throws Exception {
 		
 		GameState g = new GameState();
+		Main.g = g;
 
 		Scanner s = new Scanner(System.in);
 		String in = null;
@@ -276,13 +277,13 @@ public class Main {
 					//System.out.println("Calling History mode:");
 					boolean historyOfWhomstdve = g.whoseTurn();
 					//System.out.println("Team = " + historyOfWhomstdve);
-					ArrayList<String> gamerMoves;
+					ArrayList<Move> gamerMoves;
 					//System.out.println("Calling getMoves:");
 					if (historyOfWhomstdve) gamerMoves = g.getWhite().getMoves();
 					else gamerMoves = g.getBlack().getMoves();
 					System.out.println("Your team's moves:");
-					for (String m : gamerMoves) {
-						System.out.println(m);
+					for (Move m : gamerMoves) {
+						System.out.println(m.getAbbreviation());
 					}
 					System.out.println("");
 					

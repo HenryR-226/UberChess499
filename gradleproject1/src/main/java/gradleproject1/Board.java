@@ -45,7 +45,7 @@ public class Board {
 	            for(int k = 0; k < moves.get(j).size(); k++)    {
 	                Move m;
 	                try {
-	                    m = new Move(allMoves.get(counter), moves.get(j).get(k));
+	                    m = new Move(allMoves.get(counter), moves.get(j).get(k), true);		//True makes it call an overloaded move method that's purely hypothetical
 	                    moveList.add(m);
 	                    counter++;
 	                } catch (Exception e) {

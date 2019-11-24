@@ -10,6 +10,7 @@ public class GameState {
     private Player playerWhite;
     private Player playerBlack;
     boolean turn = true;						//True = white turn, false = black turn
+    private Integer depth;							//Number of turns to go down
     
     public int getCurrentThreads(){                    //Determines optimal number of threads to start for AI calculations
         int cores = Runtime.getRuntime().availableProcessors();
@@ -40,5 +41,9 @@ public class GameState {
     
     public void turn() {							//Turn made, next player's turn
     	this.turn = !turn;
+    }
+    
+    public int getDepth() {
+    	return this.depth;
     }
 }
