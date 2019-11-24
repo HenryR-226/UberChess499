@@ -175,7 +175,7 @@ public class Player {
 	 * 
 	 * Intended to be where heavy/slow/'deep copy' calls are made so they're only run ONCE. Okay here, not okay in bestMove().
 	 */
-	public void setUpAI(int depth) {
+	private void setUpAI(int depth) {
 		iterable = depth * 2;
 		blackPieceList = b.getBlackPlayer().getPieceList();
 		whitePieceList = b.getWhitePlayer().getPieceList();
@@ -186,6 +186,7 @@ public class Player {
 		blackMoves = new char[depth][4];	
 		result = null;
 		alteredGameBoard = bb.clone();
+		instance = b.copy();
 	}
 	
 	//AI vars/flags to be set outside of the method so it's not re-allocating them or doing anything funny every loopthrough
@@ -202,16 +203,17 @@ public class Player {
 	private int iterable;															//Loop counter of recursive calls, depth*2 at the start
 	private boolean iterableTeam = true;
 	private BoardButton[][] alteredGameBoard;
+	private Board instance;
 	/**
 	 * @author Henry Rheault
 	 * Recursive Method for the AI to generate the best possible moves, and return the one with the most points.
 	 * @param player- the player we're starting on- and depth- the amount of moves down (both sides) to eval.
 	 */
-	public Move bestMove(Player gamer, int depth) { // Iterable team is handled in setUpAI() and will be the same team as the 'gamer' object/instance
+	private Move bestMove(Player gamer, int depth) { // Iterable team is handled in setUpAI() and will be the same team as the 'gamer' object/instance
 		if (depth != -1) { // -1 means we're at the end
 			char[][] blackArray = blackMoves.clone();						//Clone the char array for each step of the game tree down
 			char[][] whiteArray = whiteMoves.clone();
-			possibleMoves = b.getAllMoves(gamer.getPieceList(), alteredGameBoard);
+			possibleMoves = instance.getAllMoves(gamer.getPieceList(), alteredGameBoard);
 			for (Move m : possibleMoves) {  		//Get the piece associated with this move, update it's location. If it's a capture make a clone of pieces lists and make the alterations
 				if (iterableTeam)					 //Then recursively call bestM ove with depth = iterable - 1
 					whiteArray[(int) depth - iterable / 2] = m.getAbbreviation().toCharArray();   //Set this particular row (move) 's move abbreviation to this particular move object
@@ -248,8 +250,9 @@ public class Player {
 			}
 		}	//else if (depth==-1){														//Reach this block if depth = -1 meaning we've hit 0 and are now evaluating best move
 		else {  
-			Move move = bestMove(b.getOtherPlayer(gamer), depth); 						//I think
+			//Move move = bestMove(b.getOtherPlayer(gamer), depth); 						//I think
 		}
+		
 		  return result;
 	}
 	  
@@ -258,14 +261,14 @@ public class Player {
 	   * A clean-up method to reset all the variables to make sure nothing funny happens when returning from an
 	   * AI call. Sets all the fields needed by AI to null so they're available for garbage collection.
 	   */
-	  public void cleanUpAI() {
+	  private void cleanUpAI() {
 		  blackPieceList = null;
 		  whitePieceList = null;
 		  blackModifiedPieceList = null;
 		  whiteModifiedPieceList = null;
-		  whiteMoves = null;
-		  blackMoves = null;
-		  result = null;
+		  //whiteMoves = null;
+		  //blackMoves = null;
+		  //result = null;
 		  iterable = 0;
 	  }
 	  

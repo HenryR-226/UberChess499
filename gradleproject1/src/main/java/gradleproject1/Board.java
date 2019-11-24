@@ -18,6 +18,13 @@ public class Board {
 
 	private ArrayList<Move> possibleMoves;
 	
+	//Used for AI generation to create a clone of the real board to sandbox stuff in
+	public Board copy() {
+		Board b = new Board(whitePlayer, blackPlayer);
+		b = this;
+		return b;
+	}
+	
 	/**
 	 * @author Ryan Brodsky
 	 * 
