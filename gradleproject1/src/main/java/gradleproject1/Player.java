@@ -130,27 +130,61 @@ public class Player {
         return result;    
         }
 	
+	//Evaluates the points on the board given a particular move object
+	public double evalPoints(Move m) {
+		ArrayList<Piece> instanceOfPieces = new ArrayList<Piece>();
+		instanceOfPieces = pieceList;
+		Piece p = m.getPiece();
+		if (m.wasCaptured()) instanceOfPieces.remove(m.getCaptured());
+		p.setLocation(m.getNew().getAbbreviation());				//Set the piece instance to the new place on the board
+		double points = evalPoints();							//Get the goods
+		p.setLocation(m.getOld().getAbbreviation());			//Reset the move
+		return points;
+	}
+	
 	/**
 	 * @author Henry Rheault
 	 * Method for the AI to generate the best possible moves, and return the one with the most points.
 	 * @param player- the player we're starting on- and depth- the amount of moves down (both sides) to eval.
 	 */
 	
-	  public String bestMove(Player gamer, int depth) {
-		  int iterable = depth*2;
-		  String result=null;
-		  String[] movesDepth = new String[depth];
+	  public Move bestMove(Player gamer, int depth) {
+		  int iterable = depth * 2;
+		  Move result = null;											//Best move to return. Lower line: abbreviation of this move so we know what to construct.
+		  Character[][] movesDepth = new Character[depth][4];			//Arrays of Char in lieu of String so that this executes faster. Wrapper class because this is passed by REFERENCE thus a bit faster.					
 		  double points, maxPoints = 0;
 		  ArrayList<Move> possibleMoves = new ArrayList<Move>();
 		  
 		  possibleMoves = b.getAllMoves(gamer.getPieceList(), bb);
 		  for (Move m : possibleMoves) {
-			  //TODO- change to Move type object
+			  //TODO- change to Move type object -> done
+			  Piece p = m.getPiece();
+			  points = evalPoints(m);
+			  
 			  //Get the piece associated with this move, update it's location. If it's a capture make a clone of pieces lists and make the alterations
 			  //Then recursively call bestMove with depth = iterable - 1
 		  }
 		  
 		  
 		  return result;
+	  }
+	  
+	  /**
+	   * @author Henry Rheault
+	   * Chooses best move out of the list of possible moves passed in
+	   */
+	  public Move bestMove(ArrayList<Move> possibles) {
+		  assert(possibles.size()!=0) : "Yo dummy you passed in a 0 length array list, Line 172 of Player, no valid moves here";
+		  double result = -99999999;
+		  Move returnStatement = null;
+		  double points = -99999999;
+		  for (Move m : possibles) {
+			  //Eval the points this would result in
+			  //Piece p = m.getPiece();
+			  points = evalPoints(m);
+			  
+			  if (points>=result) { result = points; returnStatement = m; }
+		  }
+		  return returnStatement;
 	  }
 }

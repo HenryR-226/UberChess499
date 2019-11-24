@@ -19,6 +19,7 @@ public class Move {
 	private Piece piece;
 	private Piece captured;
 	private boolean isWhite;
+	private boolean capture = false;
 
 	private static Player whitePlayer;
 	private static Player blackPlayer;
@@ -91,8 +92,10 @@ public class Move {
 			System.out.println("Line 89 in Move, " + p.getAbbrev() + " moved from " + loc[0] + loc[1] + " to " + abbrev + ".");
 
 			String move = String.valueOf(p.getAbbrev());
-			if (n3w.getPiece() != null)
+			if (n3w.getPiece() != null) {
 				move = move + "x"; // x means a piece captured the piece on it's destination square
+				capture = true;
+			}
 			move = move + abbrev;
 			setAbbreviation(move);
 
@@ -126,8 +129,10 @@ public class Move {
 			System.out.println(p.getAbbrev() + " moved from " + loc[0] + loc[1] + " to " + abbrev + ".");
 
 			String move = String.valueOf(p.getAbbrev());
-			if (n3w.getPiece()!=null)
+			if (n3w.getPiece()!=null) {
 				move = move + "x"; // x means a piece captured the piece on it's destination square
+				capture = true;
+			}
 			move = move + abbrev;
 			setAbbreviation(move);
 
@@ -190,6 +195,18 @@ public class Move {
 
 	public static void setBlackPlayer(Player black) {
 		blackPlayer = black;
+	}
+	
+	public Piece getPiece() {
+		return this.piece;
+	}
+	
+	public Piece getCaptured() {
+		return this.captured;
+	}
+	
+	public boolean wasCaptured() {
+		return capture;
 	}
 
 }

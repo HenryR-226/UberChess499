@@ -597,5 +597,12 @@ public class Board {
 	public Player getBlackPlayer() {
 		return blackPlayer;
 	}
-
+	/**
+	 * @author Henry Rheault
+	 * Helper method to return the OPPOSITE player of what's passed in
+	 */
+	public Player getOtherPlayer(Player p) {
+		if (p.isTeam()) return blackPlayer;
+		else return whitePlayer;
+	}
 }
