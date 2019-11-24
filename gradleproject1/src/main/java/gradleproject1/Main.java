@@ -15,8 +15,8 @@ public class Main {
 	// Creates test board with single piece in the center of the board for testability of generating moves. Space or other character for default
 	public static Board testBoard(char c) throws Exception {
 
-		Player whitePlayer = new Player(true, false, g);
-		Player blackPlayer = new Player(false, false, g);
+		Player whitePlayer = new Player(true, false, 3);
+		Player blackPlayer = new Player(false, false, 3);
 		Move.setWhitePlayer(whitePlayer);
 		Move.setBlackPlayer(blackPlayer);
 
@@ -41,14 +41,15 @@ public class Main {
 			break;
 		default:
 			b = initDefault();
+			break;
 		}
 		return b;
 	}
 
 	public static Board initDefault() throws Exception {
 
-		Player whitePlayer = new Player(true, false, g);
-		Player blackPlayer = new Player(false, false, g);
+		Player whitePlayer = new Player(true, false, 3);
+		Player blackPlayer = new Player(false, false, 3);
 		Move.setWhitePlayer(whitePlayer);
 		Move.setBlackPlayer(blackPlayer);
 

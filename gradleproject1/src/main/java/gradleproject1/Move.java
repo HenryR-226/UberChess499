@@ -17,7 +17,7 @@ public class Move {
 	
 	private String abbreviation;
 	private Piece piece;
-	private Piece captured;
+	private Piece captured = null;
 	private boolean isWhite;
 	private boolean capture = false;
 
@@ -60,8 +60,11 @@ public class Move {
 			setAbbreviation(String.valueOf(p.getAbbrev()) + String.valueOf(row) + String.valueOf(column));
 
 			String move = String.valueOf(p.getAbbrev());
-			if (n3w.getPiece() != null)
+			if (n3w.getPiece() != null) {
 				move = move + "x"; // x means a piece captured the piece on it's destination square
+				this.capture = true;
+				this.captured = n3w.getPiece();
+			}
 			move = move + row + column;
 			if (p.isWhite())
 				whitePlayer.addMove(this);
@@ -97,7 +100,7 @@ public class Move {
 				move = move + "x"; // x means a piece captured the piece on it's destination square
 				capture = true;
 				this.captured = n3w.getPiece();
-			}
+			} 
 			move = move + abbrev;
 			setAbbreviation(move);
 
