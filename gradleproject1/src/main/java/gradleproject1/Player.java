@@ -204,25 +204,24 @@ public class Player {
 	private boolean iterableTeam = true;
 	private BoardButton[][] alteredGameBoard;
 	private Board instance;
-	private int whiteArrayIndex, blackArrayIndex = 0;								//Removed half-baked 'loop invariant' and just made this count up for array tracking
+	private int whiteArrayIndex, blackArrayIndex = -1;								//Removed half-baked 'loop invariant' and just made this count up for array tracking
 	/**
 	 * @author Henry Rheault
 	 * Recursive Method for the AI to generate the best possible moves, and return the one with the most points.
 	 * @param player- the player we're starting on- and depth- the amount of moves down (both sides) to eval.
 	 */
 	private Move bestMove(Player gamer, int depth) { // Iterable team is handled in setUpAI() and will be the same team as the 'gamer' object/instance
+		try {
 		if (depth != -1) { // -1 means we're at the end
 			char[][] blackArray = blackMoves.clone();						//Clone the char array for each step of the game tree down
 			char[][] whiteArray = whiteMoves.clone();
 			possibleMoves = instance.getAllMoves(gamer.getPieceList(), alteredGameBoard);
 			for (Move m : possibleMoves) {  		//Get the piece associated with this move, update it's location. If it's a capture make a clone of pieces lists and make the alterations
 				if (iterableTeam) {					 //Then recursively call bestM ove with depth = iterable - 1
-					whiteArray[whiteArrayIndex] = m.getAbbreviation().toCharArray();   //Set this particular row (move) 's move abbreviation to this particular move object
-					whiteArrayIndex++;
+					whiteArray[++whiteArrayIndex] = m.getAbbreviation().toCharArray();   //Set this particular row (move) 's move abbreviation to this particular move object
 				}
 				else {
-					blackArray[blackArrayIndex] = m.getAbbreviation().toCharArray(); // TODO- check math/invariant, this may not be right or give ArrayOutOfBounds
-					blackArrayIndex++;
+					blackArray[++blackArrayIndex] = m.getAbbreviation().toCharArray(); // TODO- check math/invariant, this may not be right or give ArrayOutOfBounds
 				}
 				Piece p = m.getPiece();
 				Piece cap = m.getCaptured();
@@ -256,9 +255,15 @@ public class Player {
 		}	//else if (depth==-1){														//Reach this block if depth = -1 meaning we've hit 0 and are now evaluating best move
 		else {  
 			//Move move = bestMove(b.getOtherPlayer(gamer), depth); 						//I think
-		}
 		
 		  return result;
+		}
+		return result;
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+			return result;
+		}
 	}
 	  
 	  /**
