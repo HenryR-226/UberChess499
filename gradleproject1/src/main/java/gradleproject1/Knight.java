@@ -6,10 +6,10 @@ public class Knight extends Piece {
 
 	public Knight(String moveID, boolean team, int row, int col) {
 		String loc = new String();
-		loc = Character.toString((char)row + 'A');
-		loc = loc + Integer.toString(col+1);
+		loc = Character.toString((char) (row + 'A'));
+		loc = loc + Integer.toString(col + 1);
 		this.setLocation(loc);
-		
+
 		this.setName("Knight");
 		this.pieceID = moveID;
 		this.setIsWhite(team);
@@ -87,7 +87,7 @@ public class Knight extends Piece {
 				validY2.remove(a);
 			}
 		}
-		
+
 		// Combine X+-1 with Y+-2
 		for (Integer i : validX1) {
 			for (Integer j : validY2) {
@@ -105,40 +105,28 @@ public class Knight extends Piece {
 
 		return validSquares;
 	}
+
 	@Override
 	public Double getOffset() {
 		if (isWhite) {
 			return gridOffsetWhite[col][row];
-		}
-		else {
+		} else {
 			return gridOffsetBlack[col][row];
 		}
 	}
-	
-	private static final double[][] gridOffsetWhite = new double[][]
-		    {
-		        {-5, -4, -3, -3, -3, -3, -4, -5},
-		        {-4, -2, 0, 0.5, 0.5, 0, -2, -4},
-		        {-3, 0, 1, 1.5, 1.5, 1, 0, -3},
-		        {-3, 0.5, 1.5, 2, 2, 1.5, 0.5, -3},
-		        {-3, 0.5, 1.5, 2, 2, 1.5, 0.5, -3},
-		        {-3, 0.5, 1, 1.5, 1.5, 1, 0.5, -3},
-		        {-4, -2, 0, 0, 0, 0, -2, -4},
-		        {-5, -4, -3, -3, -3, -3, -4, -5}
-		       
-		    };
-	
-    private static final double[][] gridOffsetBlack = new double[][]
-    {
-        {-5, -4, -3, -3, -3, -3, -4, -5},
-        {-4, -2, 0, 0, 0, 0, -2, -4},
-        {-3, 0, 1, 1.5, 1.5, 1, 0, -3},
-        {-3, 0.5, 1.5, 2, 2, 1.5, 0.5, -3},
-        {-3, 0.5, 1.5, 2, 2, 1.5, 0.5, -3},
-        {-3, 0.5, 1, 1.5, 1.5, 1, 0.5, -3},
-        {-4, -2, 0, 0.5, 0.5, 0, -2, -4},
-        {-5, -4, -3, -3, -3, -3, -4, -5}
-       
-    };
+
+	private static final double[][] gridOffsetWhite = new double[][] { { -5, -4, -3, -3, -3, -3, -4, -5 },
+			{ -4, -2, 0, 0.5, 0.5, 0, -2, -4 }, { -3, 0, 1, 1.5, 1.5, 1, 0, -3 }, { -3, 0.5, 1.5, 2, 2, 1.5, 0.5, -3 },
+			{ -3, 0.5, 1.5, 2, 2, 1.5, 0.5, -3 }, { -3, 0.5, 1, 1.5, 1.5, 1, 0.5, -3 }, { -4, -2, 0, 0, 0, 0, -2, -4 },
+			{ -5, -4, -3, -3, -3, -3, -4, -5 }
+
+	};
+
+	private static final double[][] gridOffsetBlack = new double[][] { { -5, -4, -3, -3, -3, -3, -4, -5 },
+			{ -4, -2, 0, 0, 0, 0, -2, -4 }, { -3, 0, 1, 1.5, 1.5, 1, 0, -3 }, { -3, 0.5, 1.5, 2, 2, 1.5, 0.5, -3 },
+			{ -3, 0.5, 1.5, 2, 2, 1.5, 0.5, -3 }, { -3, 0.5, 1, 1.5, 1.5, 1, 0.5, -3 },
+			{ -4, -2, 0, 0.5, 0.5, 0, -2, -4 }, { -5, -4, -3, -3, -3, -3, -4, -5 }
+
+	};
 
 }

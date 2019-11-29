@@ -5,7 +5,24 @@ import java.util.ArrayList;
 public class BoardButton {
 	GameState g;
 	private int row;
-	int column;
+	private int column;
+
+	public int getRow() {
+		return row;
+	}
+
+	public void setRow(int row) {
+		this.row = row;
+	}
+
+	public int getColumn() {
+		return column;
+	}
+
+	public void setColumn(int column) {
+		this.column = column;
+	}
+
 	private Piece piece;
 	private String abbreviation;
 	private boolean isWhite; // Is the square dark or light
@@ -69,14 +86,14 @@ public class BoardButton {
 
 	// Assumes check has been run for empty square
 	public void setPiece(Piece p) {
-		try{
+		try {
 			if (this.isFull) {
-				assert (this.piece.isWhite()!=p.isWhite());
+				assert (this.piece.isWhite() != p.isWhite());
 			}
-			} catch (Exception e) {
-				System.out.println("Illegal move created, friendly fire!");
-				e.printStackTrace();
-			}
+		} catch (Exception e) {
+			System.out.println("Illegal move created, friendly fire!");
+			e.printStackTrace();
+		}
 
 		this.isFull = true;
 		this.piece = p;
@@ -86,8 +103,8 @@ public class BoardButton {
 	public void removePiece() {
 		this.isFull = false;
 		this.piece = null;
-		//System.out.println("Piece removed and set to null");
-		//System.out.println(this.isFull);
+		// System.out.println("Piece removed and set to null");
+		// System.out.println(this.isFull);
 	}
 
 	/**

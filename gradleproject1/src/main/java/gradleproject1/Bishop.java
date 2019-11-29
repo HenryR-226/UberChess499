@@ -10,10 +10,10 @@ public class Bishop extends Piece {
 
 	public Bishop(String moveID, boolean team, int row, int col) {
 		String loc = new String();
-		loc = Character.toString((char)row + 'A');
-		loc = loc + Integer.toString(col+1);
+		loc = Character.toString((char) (row + 'A'));
+		loc = loc + Integer.toString(col + 1);
 		this.setLocation(loc);
-		
+
 		this.setName("Bishop");
 		this.pieceID = moveID;
 		this.setIsWhite(team);
@@ -40,14 +40,14 @@ public class Bishop extends Piece {
 		int x = ((int) c[0] - 'A');
 		int y = (int) c[1] - '0' - 1;
 		int ctrx = x;
-		//System.out.println("This is x : " + ctrx);
+		// System.out.println("This is x : " + ctrx);
 		int ctry = y;
 		BoardButton b = null;
 		// if ((Math.abs(i - col)==(Math.abs(j - row))) && Math.abs(i - col)>0){
 		boolean team = p.isWhite();
-		//boolean enemyTeam = !p.isWhite();
-		//boolean testBool = false;
-		
+		// boolean enemyTeam = !p.isWhite();
+		// boolean testBool = false;
+
 		// Go in each of 4 diagonals.
 		// Plus X, Plus Y:
 		do {
@@ -55,14 +55,16 @@ public class Bishop extends Piece {
 				ctrx++;
 				ctry++;
 				b = board[ctrx][ctry];
-				//System.out.println("Bishop ++ checking " + ctrx + " and " + ctry);
-				//testBool = ((!b.isFull() || (b.getPiece().isWhite()!=team)) && ctry < 8 && ctrx < 8);
-				if ((!b.isFull() || (b.getPiece().isWhite()!=team)) && ctry < 8 && ctrx < 8)
+				// System.out.println("Bishop ++ checking " + ctrx + " and " + ctry);
+				// testBool = ((!b.isFull() || (b.getPiece().isWhite()!=team)) && ctry < 8 &&
+				// ctrx < 8);
+				if ((!b.isFull() || (b.getPiece().isWhite() != team)) && ctry < 8 && ctrx < 8)
 					validSquares.add(b);
-				//if (!b.isFull() && crty<8 && ctrx)
-				//System.out.println("Is " + b.getAbbreviation() + " full: " + b.isFull());
-				//System.out.println("Or " + b.isWhite()!= p.isWhite() + ".");
-				//System.out.println("Boolean result for " + b.getAbbreviation() + ": " + testBool);
+				// if (!b.isFull() && crty<8 && ctrx)
+				// System.out.println("Is " + b.getAbbreviation() + " full: " + b.isFull());
+				// System.out.println("Or " + b.isWhite()!= p.isWhite() + ".");
+				// System.out.println("Boolean result for " + b.getAbbreviation() + ": " +
+				// testBool);
 			} catch (Exception e) {
 				break;
 			}
@@ -72,16 +74,16 @@ public class Bishop extends Piece {
 		ctrx = x;
 		ctry = y;
 		do {
-			
+
 			try {
 				ctrx--;
 				ctry++;
 				b = board[ctrx][ctry];
-				//System.out.println("Bishop -+ checking " + ctrx + " and " + ctry);
-				if ((!b.isFull() || (b.getPiece().isWhite()!=team)) && ctry < 8 && ctrx > -1)
+				// System.out.println("Bishop -+ checking " + ctrx + " and " + ctry);
+				if ((!b.isFull() || (b.getPiece().isWhite() != team)) && ctry < 8 && ctrx > -1)
 					validSquares.add(b);
-				//System.out.println("Is " + b.getAbbreviation() + " full: " + !b.isFull());
-				//System.out.println("Or " + b.isWhite()!= p.isWhite() + ".");
+				// System.out.println("Is " + b.getAbbreviation() + " full: " + !b.isFull());
+				// System.out.println("Or " + b.isWhite()!= p.isWhite() + ".");
 			} catch (Exception e) {
 				break;
 			}
@@ -92,16 +94,16 @@ public class Bishop extends Piece {
 		ctrx = x;
 		ctry = y;
 		do {
-			
+
 			try {
 				ctrx--;
 				ctry--;
 				b = board[ctrx][ctry];
-				//System.out.println("Bishop -- checking " + ctrx + " and " + ctry);
-				if ((!b.isFull() || b.isWhite()!= team) && ctry > -1 && ctrx > -1)
+				// System.out.println("Bishop -- checking " + ctrx + " and " + ctry);
+				if ((!b.isFull() || b.isWhite() != team) && ctry > -1 && ctrx > -1)
 					validSquares.add(b);
-				//System.out.println("Is " + b.getAbbreviation() + " full: " + !b.isFull());
-				//System.out.println("Or " + b.isWhite()!= p.isWhite() + ".");
+				// System.out.println("Is " + b.getAbbreviation() + " full: " + !b.isFull());
+				// System.out.println("Or " + b.isWhite()!= p.isWhite() + ".");
 			} catch (Exception e) {
 				break;
 			}
@@ -111,16 +113,16 @@ public class Bishop extends Piece {
 		ctrx = x;
 		ctry = y;
 		do {
-			
+
 			try {
 				ctrx++;
 				ctry--;
 				b = board[ctrx][ctry];
-				//System.out.println("Bishop +- checking " + ctrx + " and " + ctry);
+				// System.out.println("Bishop +- checking " + ctrx + " and " + ctry);
 				if ((!b.isFull() || b.isWhite() != team) && ctry > -1 && ctrx < 8)
 					validSquares.add(b);
-				//System.out.println("Is " + b.getAbbreviation() + " full: " + !b.isFull());
-				//System.out.println("Or " + b.isWhite()!= p.isWhite() + ".");
+				// System.out.println("Is " + b.getAbbreviation() + " full: " + !b.isFull());
+				// System.out.println("Or " + b.isWhite()!= p.isWhite() + ".");
 			} catch (Exception e) {
 				break;
 			}

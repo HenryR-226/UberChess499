@@ -11,16 +11,16 @@ package gradleproject1;
 import java.util.ArrayList;
 
 public class Piece {
-	protected int row;			//Array notation column and row.
+	protected int row; // Array notation column and row.
 	protected int col;
 	protected boolean isWhite;
 	private char abbreviation;
 	private String name;
-	public String pieceID; 			// unique string to identify a particular piece object
+	public String pieceID; // unique string to identify a particular piece object
 	double points;
 	protected String location;
 
-	private ArrayList<BoardButton> possibleMoves; 		// Each piece keeps track of where it can currently move.
+	private ArrayList<BoardButton> possibleMoves; // Each piece keeps track of where it can currently move.
 
 	public ArrayList<BoardButton> getPossibleMoves() {
 		return possibleMoves;
@@ -62,40 +62,41 @@ public class Piece {
 		this.abbreviation = abbrev;
 	}
 
-	//Returns CHESS notation
+	// Returns CHESS notation
 	public String getLocation() {
 		return this.location;
 	}
-	
-	//Oleg wanted these. Returns ARRAY NOTATION
+
+	// Oleg wanted these. Returns ARRAY NOTATION
 	public int getCol() {
 		return this.col;
 	}
+
 	public int getRow() {
 		return this.row;
 	}
 
-	//Auto updates the location vars, both of them
+	// Auto updates the location vars, both of them
 	public void setLocation(String loc) {
 		try {
 			assert (loc.length() == 2);
 			char[] raw = loc.toCharArray();
 			char colc = Character.toUpperCase(raw[0]);
-			//System.out.println("Line 84 on Piece, col character val: " + colc);
-			assert (colc >='A' && colc <='H');
+			// System.out.println("Line 84 on Piece, col character val: " + colc);
+			assert (colc >= 'A' && colc <= 'H');
 			int rows = (int) raw[1] - '0' - 1;
-			//System.out.println("Line 87 on Piece, row integer val: " + rows);
-			assert (rows <=7 && rows>=0);
+			// System.out.println("Line 87 on Piece, row integer val: " + rows);
+			assert (rows <= 7 && rows >= 0);
 			this.location = loc;
 			this.row = rows;
-			this.col = colc-'A';
-			//System.out.println("Line 92 on Piece, constructor succeeded with raw values of col: " + colc + " col: " + rows);
+			this.col = colc - 'A';
+			// System.out.println("Line 92 on Piece, constructor succeeded with raw values
+			// of col: " + colc + " col: " + rows);
 		} catch (Exception e) {
 			System.out.println("Invalid string sent to setLocation in Piece class, line 78");
 			e.printStackTrace();
 		}
 	}
-		
 
 	public void setName(String s) {
 		this.name = s;
@@ -103,10 +104,6 @@ public class Piece {
 
 	public String getName() {
 		return this.name;
-	}
-
-	public ArrayList<BoardButton> getMovesOverloaded(Piece p, BoardButton[][] board) {
-		return null;
 	}
 
 	/**
@@ -124,56 +121,8 @@ public class Piece {
 	// Cocurrent modification:
 	// https://stackoverflow.com/questions/18448671/how-to-avoid-concurrentmodificationexception-while-removing-elements-from-arr
 	public ArrayList<BoardButton> getMoves(Piece p, BoardButton[][] board) {
-		ArrayList<BoardButton> candidateMoves = new ArrayList<BoardButton>(); // Returned list from Piece subclass to be
-																				// sifted through based on game rules
-		possibleMoves = new ArrayList<BoardButton>();
-		boolean team = p.isWhite();
-		char c = Character.toUpperCase(p.getAbbrev());
-		
-		switch (c) {
-		case 'P':
-			candidateMoves = getMoves((Pawn) p, board);
-			break;
-		case 'N':
-			candidateMoves = getMoves((Knight) p, board);
-			break;
-		case 'B':
-			candidateMoves = getMoves((Bishop) p, board);
-			break;
-		case 'R':
-			candidateMoves = getMoves((Rook) p, board);
-			break;
-		case 'Q':
-			candidateMoves = getMoves((Queen) p, board);
-			break;
-		case 'K':
-			candidateMoves = getMoves((King) p, board);
-			System.out.println("Switch Size " + candidateMoves.size());
-			break;
-		}
-
-		for (int i = 0; i < candidateMoves.size(); i++) { // Get valid moves for particular piece object
-			// if king not put in check - No need to test for 'is full' or 'can attack' as
-			// each piece method handles that now
-
-			// if (/*King not in check*/){
-			this.possibleMoves.add(candidateMoves.get(i));
-
-			/**
-			 * This breaks the Loop when all possible moves have been added from candidate
-			 * Moves. For some reason with out this break and if statement the for loop
-			 * counter "i" goes past candidateMoves.size() and goes until memory crash.
-			 */
-			if (possibleMoves.size() == candidateMoves.size()) {
-				break;
-			}
-		}
-
-		if (c == 'K')
-			possibleMoves.remove(possibleMoves.size() - 1);
-		return this.possibleMoves;
+		return null;
 	}
-	
 
 	public Double getOffset() {
 		return 69.69;
@@ -198,16 +147,10 @@ public class Piece {
 		String newGuy = "D5";
 
 	}
-	//Bishop grid offset to stop compiler error about not having a gridOffset value
-    private static final double[][] gridOffset = new double[][]
-    {
-        {99, 99, 99, 99, 99, 99, 99, 99},
-        {99, 99, 99, 99, 99, 99, 99, 99},
-        {99, 99, 99, 99, 99, 99, 99, 99},
-        {99, 99, 99, 99, 99, 99, 99, 99},
-        {99, 99, 99, 99, 99, 99, 99, 99},
-        {99, 99, 99, 99, 99, 99, 99, 99},
-        {99, 99, 99, 99, 99, 99, 99, 99},
-        {99, 99, 99, 99, 99, 99, 99, 99}
-    };
+
+	// Bishop grid offset to stop compiler error about not having a gridOffset value
+	private static final double[][] gridOffset = new double[][] { { 99, 99, 99, 99, 99, 99, 99, 99 },
+			{ 99, 99, 99, 99, 99, 99, 99, 99 }, { 99, 99, 99, 99, 99, 99, 99, 99 }, { 99, 99, 99, 99, 99, 99, 99, 99 },
+			{ 99, 99, 99, 99, 99, 99, 99, 99 }, { 99, 99, 99, 99, 99, 99, 99, 99 }, { 99, 99, 99, 99, 99, 99, 99, 99 },
+			{ 99, 99, 99, 99, 99, 99, 99, 99 } };
 }

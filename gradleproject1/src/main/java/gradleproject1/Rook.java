@@ -6,18 +6,18 @@ public class Rook extends Piece {
 	public Rook(String moveID, boolean team, int row, int col) {
 		this.setName("Rook");
 		this.pieceID = moveID;
-		String loc = Character.toString((char)row + 'A');
-		//System.out.println("Loc: "+ loc);
-		loc = loc + Integer.toString(col+1);
+		String loc = Character.toString((char) (row + 'A'));
+		// System.out.println("Loc: "+ loc);
+		loc = loc + Integer.toString(col + 1);
 		this.setLocation(loc);
 		this.setIsWhite(team);
 		if (team)
 			this.setAbbreviation('R');
-		else 
+		else
 			this.setAbbreviation('r');
 		this.points = 5;
 	}
-	
+
 	@Override
 	public ArrayList<BoardButton> getMoves(Piece piece, BoardButton[][] board) {
 		Rook p = (Rook) piece;
@@ -30,12 +30,12 @@ public class Rook extends Piece {
 		int ctrx = x;
 		int ctry = y;
 		boolean team = p.isWhite();
-		
+
 		do {
 			try {
 				ctry++;
 				b = board[x][ctry]; // Go positive Y down it's col
-				//System.out.println("Rook checking " + ctrx + " and " + ctry);
+				// System.out.println("Rook checking " + ctrx + " and " + ctry);
 				if (!b.isFull() || b.getPiece().isWhite() != team && ctry < 8)
 					validSquares.add(b);
 			} catch (Exception e) {
@@ -47,8 +47,8 @@ public class Rook extends Piece {
 			ctry--;
 			try {
 				b = board[x][ctry]; // Go negative Y down it's col
-				//System.out.println("Rook checking " + x + " and " + ctry);
-				if (!b.isFull() || b.getPiece().isWhite() !=team && ctry > -1)
+				// System.out.println("Rook checking " + x + " and " + ctry);
+				if (!b.isFull() || b.getPiece().isWhite() != team && ctry > -1)
 					validSquares.add(b);
 			} catch (Exception e) {
 				break;
@@ -58,7 +58,7 @@ public class Rook extends Piece {
 			ctrx++;
 			try {
 				b = board[ctrx][y]; // Go positive X down it's row
-				//System.out.println("Rook checking " + ctrx + " and " + ctry);
+				// System.out.println("Rook checking " + ctrx + " and " + ctry);
 				if (!b.isFull() || b.getPiece().isWhite() != p.isWhite() && ctrx < 8)
 					validSquares.add(b);
 			} catch (Exception e) {
@@ -70,45 +70,33 @@ public class Rook extends Piece {
 			ctrx--;
 			try {
 				b = board[ctrx][y]; // Negative X down it's row
-				//System.out.println("Rook checking " + ctrx + " and " + ctry);
+				// System.out.println("Rook checking " + ctrx + " and " + ctry);
 				if (!b.isFull() || b.getPiece().isWhite() != p.isWhite() && ctrx > -1)
 					validSquares.add(b);
 			} catch (Exception e) {
 				break;
 			}
 		} while (!b.isFull() && ctrx > -1); // Stop at first occupied or out of bounds square
-		
+
 		return validSquares;
 	}
+
 	@Override
 	public Double getOffset() {
 		if (isWhite) {
 			return gridOffsetWhite[col][row];
-		}
-		else {
+		} else {
 			return gridOffsetBlack[col][row];
 		}
 	}
-	private static final double[][] gridOffsetWhite = new double[][] {
-		 {0, 0, 0, 0.5, 0.5, 0, 0, 0}  ,
-		 {-.5, 0, 0, 0, 0, 0, 0, -.5},
-		 {-.5, 0, 0, 0, 0, 0, 0, -.5},
-        {-.5, 0, 0, 0, 0, 0, 0, -.5},
-        {-.5, 0, 0, 0, 0, 0, 0, -.5},
-        {-.5, 0, 0, 0, 0, 0, 0, -.5},
-        {0.5, 1, 1, 1, 1, 1, 1, 0.5},
-        {0, 0, 0, 0, 0, 0, 0, 0}
-    };
-		
-	
-	 private static final double[][] gridOffsetBlack = new double[][]{                                //H
-	        {0, 0, 0, 0, 0, 0, 0, 0},
-	        {0.5, 1, 1, 1, 1, 1, 1, 0.5},
-	        {-.5, 0, 0, 0, 0, 0, 0, -.5},
-	        {-.5, 0, 0, 0, 0, 0, 0, -.5},
-	        {-.5, 0, 0, 0, 0, 0, 0, -.5},
-	        {-.5, 0, 0, 0, 0, 0, 0, -.5},
-	        {-.5, 0, 0, 0, 0, 0, 0, -.5},  
-	        {0, 0, 0, 0.5, 0.5, 0, 0, 0}      
-	    };
+
+	private static final double[][] gridOffsetWhite = new double[][] { { 0, 0, 0, 0.5, 0.5, 0, 0, 0 },
+			{ -.5, 0, 0, 0, 0, 0, 0, -.5 }, { -.5, 0, 0, 0, 0, 0, 0, -.5 }, { -.5, 0, 0, 0, 0, 0, 0, -.5 },
+			{ -.5, 0, 0, 0, 0, 0, 0, -.5 }, { -.5, 0, 0, 0, 0, 0, 0, -.5 }, { 0.5, 1, 1, 1, 1, 1, 1, 0.5 },
+			{ 0, 0, 0, 0, 0, 0, 0, 0 } };
+
+	private static final double[][] gridOffsetBlack = new double[][] { // H
+			{ 0, 0, 0, 0, 0, 0, 0, 0 }, { 0.5, 1, 1, 1, 1, 1, 1, 0.5 }, { -.5, 0, 0, 0, 0, 0, 0, -.5 },
+			{ -.5, 0, 0, 0, 0, 0, 0, -.5 }, { -.5, 0, 0, 0, 0, 0, 0, -.5 }, { -.5, 0, 0, 0, 0, 0, 0, -.5 },
+			{ -.5, 0, 0, 0, 0, 0, 0, -.5 }, { 0, 0, 0, 0.5, 0.5, 0, 0, 0 } };
 }

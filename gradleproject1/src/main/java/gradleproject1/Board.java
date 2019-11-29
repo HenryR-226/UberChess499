@@ -17,54 +17,60 @@ public class Board {
 	private BoardButton[][] GameBoard = new BoardButton[8][8];
 
 	private ArrayList<Move> possibleMoves;
-	
-	//Used for AI generation to create a clone of the real board to sandbox stuff in
+
+	// Used for AI generation to create a clone of the real board to sandbox stuff
+	// in
 	public Board copy() {
 		Board b = new Board(whitePlayer, blackPlayer);
 		b = this;
 		return b;
 	}
-	
+
 	/**
 	 * @author Ryan Brodsky
 	 * 
-	 * Start of Henry's method to get all valid moves for a given team (rather, a list of pieces)
+	 *         Start of Henry's method to get all valid moves for a given team
+	 *         (rather, a list of pieces)
 	 * 
 	 */
-	  public static ArrayList<Move> getAllMoves(ArrayList<Piece> pieces, BoardButton[][] board) {
-		  
-	        Piece tempPiece = null; //temp piece
-	        ArrayList<ArrayList<BoardButton>> moves = new ArrayList<ArrayList<BoardButton>>(); //ArrayList of ArrayList of Buttons
-	        ArrayList<Piece> allMoves = new ArrayList<Piece>(); //Array for the Moves
-	        int counter = 0; //Counter
-	        ArrayList<Move> moveList = new ArrayList<Move>();
-	 
-	        for (int i = 0; i < pieces.size(); i++) {
-	            tempPiece = pieces.get(i);                                  //Sets temp piece
-	            moves.add(pieces.get(i).getMoves(tempPiece, board)); //returns array list of board buttons and adds to moves array
-	            for(int j = 0; j < (pieces.get(i).getMoves(tempPiece, board).size()); j++)    { //for the size of the returned array add the piece abv
-	                allMoves.add(tempPiece);
-	            }
-	        }
-	 
-	        //loops through all the found moves
-	        for(int j = 0; j < moves.size(); j++) {
-	            for(int k = 0; k < moves.get(j).size(); k++)    {
-	                Move m;
-	                try {
-	                    m = new Move(allMoves.get(counter), moves.get(j).get(k), true);		//True makes it call an overloaded move method that's purely hypothetical
-	                    moveList.add(m);
-	                    counter++;
-	                } catch (Exception e) {
-	                    e.printStackTrace();
-	                }                
-	            }
-	        }
-	 
-	        return moveList;
-	    }
-	
-	
+	public static ArrayList<Move> getAllMoves(ArrayList<Piece> pieces, BoardButton[][] board) {
+
+		Piece tempPiece = null; // temp piece
+		ArrayList<ArrayList<BoardButton>> moves = new ArrayList<ArrayList<BoardButton>>(); // ArrayList of ArrayList of
+																							// Buttons
+		ArrayList<Piece> allMoves = new ArrayList<Piece>(); // Array for the Moves
+		int counter = 0; // Counter
+		ArrayList<Move> moveList = new ArrayList<Move>();
+
+		for (int i = 0; i < pieces.size(); i++) {
+			tempPiece = pieces.get(i); // Sets temp piece
+			moves.add(pieces.get(i).getMoves(tempPiece, board)); // returns array list of board buttons and adds to
+																	// moves array
+			for (int j = 0; j < (pieces.get(i).getMoves(tempPiece, board).size()); j++) { // for the size of the
+																							// returned array add the
+																							// piece abv
+				allMoves.add(tempPiece);
+			}
+		}
+
+		// loops through all the found moves
+		for (int j = 0; j < moves.size(); j++) {
+			for (int k = 0; k < moves.get(j).size(); k++) {
+				Move m;
+				try {
+					m = new Move(allMoves.get(counter), moves.get(j).get(k), true); // True makes it call an overloaded
+																					// move method that's purely
+																					// hypothetical
+					moveList.add(m);
+					counter++;
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		}
+
+		return moveList;
+	}
 
 	/**
 	 * @Author Henry Rheault
@@ -79,8 +85,9 @@ public class Board {
 	 *         converts it as chess notation, and pushes it to array list as a
 	 *         string. This processes all possible moves for a given team.
 	 */
-	
-	//Current bugs: Will call new Move() on every piece and every square, so Knight gets Queen gamer moves. Could possibly fix this with less iteration for loops
+
+	// Current bugs: Will call new Move() on every piece and every square, so Knight
+	// gets Queen gamer moves. Could possibly fix this with less iteration for loops
 	public ArrayList<Move> getMoves(Player p) throws Exception {
 		ArrayList<ArrayList<BoardButton>> moveSquareList = new ArrayList<ArrayList<BoardButton>>(); // List of Lists,
 		String moveString; // Return string of given move
@@ -93,16 +100,15 @@ public class Board {
 				for (BoardButton b : al) { // For each boadbutton IN said list of boardbuttons
 					move = new Move(piece, b, true); // Construct the move
 					possibleMoves.add(move); // Post the move to final move list
-				} 			// if statement for king not in check)
-			} 				// This will NOT report a space immediately forward of the pawn occupied by
-							// enemy piece as valid move.
-		} 					// This will be tested/weeded out in the Pawn specific candidate generation
-							// moves to keep this clean.
+				} // if statement for king not in check)
+			} // This will NOT report a space immediately forward of the pawn occupied by
+				// enemy piece as valid move.
+		} // This will be tested/weeded out in the Pawn specific candidate generation
+			// moves to keep this clean.
 		return possibleMoves; // Return the final move list. AI selects from this randomly and potential move
-	}						// to be made MUST BE in here
-	
-	
-	//Ryan's attempt, was in Main as it's own method:
+	} // to be made MUST BE in here
+
+	// Ryan's attempt, was in Main as it's own method:
 //	public static void getAllMoves(ArrayList<Piece> pieces, BoardButton[][] board) {
 //        Piece tempPiece = null;
 //        ArrayList<BoardButton> moves = new ArrayList<BoardButton>();
@@ -123,36 +129,34 @@ public class Board {
 //        System.out.println(test.size());
 //    }
 //	
-	
-		// Draws out Ascii art of the gameboard. To be called after every successfully
-		// committed move.
-		// MASSIVE overhaul/Bugfix on the part of Ryan and Henry on 10/27/2019
-		public void draw(Board b) {
-			BoardButton butn = null;
-			byte rowOffset = 8;
-			char c;
-			System.out.println("   A B C D E F G H");
-			for (int j = 7; j >= 0; j--) {
-				System.out.print((rowOffset) + " ["); // Rows starting from 8
-				for (int i = 0; i <= 7; i++) {
-					butn = GameBoard[i][j];
-					if (butn.isFull()) {
-						c = (char) butn.getPiece().getAbbrev();
-						System.out.print(c + ",");
-					} else if (butn.isWhite()) {
-						System.out.print("-,");
-					} else {
-						System.out.print("+,");
-					}
 
+	// Draws out Ascii art of the gameboard. To be called after every successfully
+	// committed move.
+	// MASSIVE overhaul/Bugfix on the part of Ryan and Henry on 10/27/2019
+	public void draw(Board b) {
+		BoardButton butn = null;
+		byte rowOffset = 8;
+		char c;
+		System.out.println("   A B C D E F G H");
+		for (int j = 7; j >= 0; j--) {
+			System.out.print((rowOffset) + " ["); // Rows starting from 8
+			for (int i = 0; i <= 7; i++) {
+				butn = GameBoard[i][j];
+				if (butn.isFull()) {
+					c = (char) butn.getPiece().getAbbrev();
+					System.out.print(c + ",");
+				} else if (butn.isWhite()) {
+					System.out.print("-,");
+				} else {
+					System.out.print("+,");
 				}
-				System.out.println("] " + (rowOffset));
-				rowOffset--;
+
 			}
-			System.out.println("   A B C D E F G H"); // Letter Grid
+			System.out.println("] " + (rowOffset));
+			rowOffset--;
 		}
-		
-	
+		System.out.println("   A B C D E F G H"); // Letter Grid
+	}
 
 	/**
 	 * @author Henry Rheault Returns specific BoardButton given the arguments of X &
@@ -274,7 +278,8 @@ public class Board {
 		Piece Rook2 = new Rook("Rook2", true, 0, 7);
 		whitePlayer.addPiece(Rook1);
 		whitePlayer.addPiece(Rook2);
-		//System.out.println("Rook2 offset tested from line 206 in Board : " + Rook2.getOffset());
+		// System.out.println("Rook2 offset tested from line 206 in Board : " +
+		// Rook2.getOffset());
 		Piece BishopLight = new Bishop("BishopLight", true, 0, 2);
 		Piece BishopDark = new Bishop("BishopDark", true, 0, 5);
 		whitePlayer.addPiece(BishopLight);
@@ -283,9 +288,9 @@ public class Board {
 		Piece Knight2 = new Knight("Knight2", true, 0, 6);
 		whitePlayer.addPiece(Knight1);
 		whitePlayer.addPiece(Knight2);
-		Piece Queen = new Queen("Queen", true, 0, 3);
+		Piece Queen = new Queen("Queen", true, 0, 4);
 		whitePlayer.addPiece(Queen);
-		Piece Kang = new King("Kang", true, 0, 4);
+		Piece Kang = new King("Kang", true, 0, 3);
 		whitePlayer.addPiece(Kang);
 		BoardButton a;
 
@@ -333,12 +338,12 @@ public class Board {
 		a = GameBoard[5][0];
 		a.setPiece(BishopDark);
 		BishopDark.setLocation("F1");
-		a = GameBoard[4][0];
-		a.setPiece(Kang);
-		Kang.setLocation("E1");
 		a = GameBoard[3][0];
+		a.setPiece(Kang);
+		Kang.setLocation("D1");
+		a = GameBoard[4][0];
 		a.setPiece(Queen);
-		Queen.setLocation("D1");
+		Queen.setLocation("E1");
 	}
 
 	public void initBlack() {
@@ -371,9 +376,9 @@ public class Board {
 		Piece knight2 = new Knight("knight2", false, 6, 7);
 		blackPlayer.addPiece(knight1);
 		blackPlayer.addPiece(knight2);
-		Piece queen = new Queen("queen", false, 3, 7);
+		Piece queen = new Queen("queen", false, 4, 7);
 		blackPlayer.addPiece(queen);
-		Piece kang = new King("kang", false, 4, 7);
+		Piece kang = new King("kang", false, 3, 7);
 		blackPlayer.addPiece(kang);
 
 		BoardButton a;
@@ -421,16 +426,14 @@ public class Board {
 		a = GameBoard[2][7];
 		a.setPiece(bishopLight);
 		bishopLight.setLocation("C8");
-		a = GameBoard[4][7];
-		a.setPiece(kang);
-		kang.setLocation("E8");
 		a = GameBoard[3][7];
+		a.setPiece(kang);
+		kang.setLocation("D8");
+		a = GameBoard[4][7];
 		a.setPiece(queen);
-		queen.setLocation("D8");
+		queen.setLocation("E8");
 
 	}
-
-	
 
 	public BoardButton[][] getGameBoard() {
 		return GameBoard;
@@ -458,33 +461,47 @@ public class Board {
 		BoardButton a = GameBoard[3][3];
 		Queen.setLocation("D4");
 		a.setPiece(Queen);
-		Piece queen = new Queen("queen", false, 5,5);
+		Piece queen = new Queen("queen", false, 5, 5);
 		a = GameBoard[5][5];
 		queen.setLocation("F6");
 		a.setPiece(queen);
-		//System.out.println(a.getPiece().getAbbrev());
-		//System.out.println(a.getPiece().getLocation());
+		// System.out.println(a.getPiece().getAbbrev());
+		// System.out.println(a.getPiece().getLocation());
 		Piece rook = new Rook("rook", false, 3, 6);
 		Piece rook2 = new Rook("rook2", false, 1, 3);
 		Piece rook3 = new Rook("rook3", false, 6, 3);
 		Piece rook4 = new Rook("rook4", false, 3, 1);
-		a = GameBoard[3][6]; rook.setLocation("D7"); a.setPiece(rook);
-		a = GameBoard[1][3]; a.setPiece(rook2); rook2.setLocation("B4");
-		a= GameBoard[6][3]; a.setPiece(rook3);  rook3.setLocation("G4");
-		a= GameBoard[3][1]; a.setPiece(rook4);  rook4.setLocation("D2");
-		
+		a = GameBoard[3][6];
+		rook.setLocation("D7");
+		a.setPiece(rook);
+		a = GameBoard[1][3];
+		a.setPiece(rook2);
+		rook2.setLocation("B4");
+		a = GameBoard[6][3];
+		a.setPiece(rook3);
+		rook3.setLocation("G4");
+		a = GameBoard[3][1];
+		a.setPiece(rook4);
+		rook4.setLocation("D2");
+
 		Piece bishop = new Bishop("Bishop", false, 6, 6);
 		Piece bishop2 = new Bishop("Bishop", false, 1, 1);
-		Piece bishop3= new Bishop("Bishop", false, 1, 5);
+		Piece bishop3 = new Bishop("Bishop", false, 1, 5);
 		Piece bishop4 = new Bishop("Bishop", false, 5, 1);
 		a = GameBoard[6][6];
 		bishop.setLocation("G7");
 		a.setPiece(bishop);
-		//a = GameBoard[6][6]; a.setPiece(bishop); bishop.setLocation("G7");
-		a = GameBoard[1][1]; a.setPiece(bishop2); bishop2.setLocation("B2");
-		a = GameBoard[1][5]; a.setPiece(bishop3); bishop3.setLocation("B6");
-		a = GameBoard[5][1]; a.setPiece(bishop4); bishop4.setLocation("F2");
-		
+		// a = GameBoard[6][6]; a.setPiece(bishop); bishop.setLocation("G7");
+		a = GameBoard[1][1];
+		a.setPiece(bishop2);
+		bishop2.setLocation("B2");
+		a = GameBoard[1][5];
+		a.setPiece(bishop3);
+		bishop3.setLocation("B6");
+		a = GameBoard[5][1];
+		a.setPiece(bishop4);
+		bishop4.setLocation("F2");
+
 	}
 
 	public void initBoardKnightTest() throws Exception {
@@ -506,9 +523,11 @@ public class Board {
 		BoardButton a = GameBoard[3][3];
 		a.setPiece(Knight);
 		Knight.setLocation("D4");
-		Piece knight = new Knight("knight", false, 5,5);
-		a = GameBoard[5][5];  knight.setLocation("F6");  a.setPiece(knight);
-		
+		Piece knight = new Knight("knight", false, 5, 5);
+		a = GameBoard[5][5];
+		knight.setLocation("F6");
+		a.setPiece(knight);
+
 	}
 
 	public void initBoardKingTest() throws Exception {
@@ -559,10 +578,18 @@ public class Board {
 		Piece rook2 = new Rook("rook2", false, 1, 5);
 		Piece rook3 = new Rook("rook3", false, 6, 5);
 		Piece rook4 = new Rook("rook4", false, 3, 1);
-		a = GameBoard[3][6]; rook.setLocation("D7"); a.setPiece(rook);
-		a = GameBoard[1][3]; a.setPiece(rook2); rook2.setLocation("B4");
-		a= GameBoard[6][3]; a.setPiece(rook3);  rook3.setLocation("G4");
-		a= GameBoard[3][1]; a.setPiece(rook4);  rook4.setLocation("D2");
+		a = GameBoard[3][6];
+		rook.setLocation("D7");
+		a.setPiece(rook);
+		a = GameBoard[1][3];
+		a.setPiece(rook2);
+		rook2.setLocation("B4");
+		a = GameBoard[6][3];
+		a.setPiece(rook3);
+		rook3.setLocation("G4");
+		a = GameBoard[3][1];
+		a.setPiece(rook4);
+		rook4.setLocation("D2");
 	}
 
 	public void initBoardBishopTest() throws Exception {
@@ -586,15 +613,21 @@ public class Board {
 		Bishop.setLocation("D4");
 		Piece bishop = new Bishop("Bishop", false, 6, 6);
 		Piece bishop2 = new Bishop("Bishop", false, 1, 1);
-		Piece bishop3= new Bishop("Bishop", false, 1, 5);
+		Piece bishop3 = new Bishop("Bishop", false, 1, 5);
 		Piece bishop4 = new Bishop("Bishop", false, 5, 1);
 		a = GameBoard[6][6];
 		bishop.setLocation("G7");
 		a.setPiece(bishop);
-		//a = GameBoard[6][6]; a.setPiece(bishop); bishop.setLocation("G7");
-		a = GameBoard[1][1]; a.setPiece(bishop2); bishop2.setLocation("B2");
-		a = GameBoard[1][5]; a.setPiece(bishop3); bishop3.setLocation("B6");
-		a = GameBoard[5][1]; a.setPiece(bishop4); bishop4.setLocation("F2");
+		// a = GameBoard[6][6]; a.setPiece(bishop); bishop.setLocation("G7");
+		a = GameBoard[1][1];
+		a.setPiece(bishop2);
+		bishop2.setLocation("B2");
+		a = GameBoard[1][5];
+		a.setPiece(bishop3);
+		bishop3.setLocation("B6");
+		a = GameBoard[5][1];
+		a.setPiece(bishop4);
+		bishop4.setLocation("F2");
 	}
 
 	public Player getWhitePlayer() {
@@ -604,12 +637,15 @@ public class Board {
 	public Player getBlackPlayer() {
 		return blackPlayer;
 	}
+
 	/**
-	 * @author Henry Rheault
-	 * Helper method to return the OPPOSITE player of what's passed in
+	 * @author Henry Rheault Helper method to return the OPPOSITE player of what's
+	 *         passed in
 	 */
 	public Player getOtherPlayer(Player p) {
-		if (p.isTeam()) return blackPlayer;
-		else return whitePlayer;
+		if (p.isTeam())
+			return blackPlayer;
+		else
+			return whitePlayer;
 	}
 }
