@@ -105,6 +105,10 @@ public class King extends Piece {
 	 * logical torture, a switch statement, etc to figure out WHICH piece (in the
 	 * case of duplicates) the Move is to apply to.
 	 * 
+	 * @param PIECE: the piece to be moved
+	 * @param MOVE: the move to be implemented
+	 * @param PIECES: the piece list to be changed and that applies in the instant this is being tested
+	 * @param BOARD: the board to be changed & that applies in the instant this is being tested
 	 */
 	public boolean isInCheck(BoardButton[][] board, ArrayList<Piece> pieces, Piece piece, Move move) {
 		// First, process the desired move and set up variables

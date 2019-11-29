@@ -137,10 +137,16 @@ public class Move {
 			move = move + abbrev;
 			setAbbreviation(move);
 
-			if (p.isWhite()) {
+			if (p.isWhite()) {				
+				//Check move implementations, needs to be tested. 11/29/2019				
+				if (whitePlayer.inCheck()) 		//If we're in check, make sure this takes us out of check
+					if (!whitePlayer.getKing().isInCheck(GameBoard, whitePlayer.getPieceList(), this.piece, this)) whitePlayer.removeCheck();
+					//else return null because you can't push this move
 				whitePlayer.addMove(this);
-				if whitePlayer.getKing().is
 			} else {
+				if (blackPlayer.inCheck()) 
+					if (!blackPlayer.getKing().isInCheck(GameBoard, whitePlayer.getPieceList(), this.piece, this)) blackPlayer.removeCheck();
+					//else return null because you can't push this move
 				blackPlayer.addMove(this);
 			}
 			String location = this.n3w.getAbbreviation();
