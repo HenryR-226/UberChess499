@@ -11,6 +11,7 @@ package gradleproject1;
 import java.util.ArrayList;
 
 public class Piece {
+	private Boolean firstMove = false;
 	protected int row; // Array notation column and row.
 	protected int col;
 	protected boolean isWhite;
@@ -96,6 +97,15 @@ public class Piece {
 			System.out.println("Invalid string sent to setLocation in Piece class, line 78");
 			e.printStackTrace();
 		}
+	}
+
+	public boolean firstMove() {
+		return this.firstMove;
+	}
+
+	public void madeFirstMove() {
+		this.firstMove = false;
+		;
 	}
 
 	public void setName(String s) {

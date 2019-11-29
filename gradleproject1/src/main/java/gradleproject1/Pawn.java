@@ -144,7 +144,8 @@ public class Pawn extends Piece {
 	}
 
 	public void madeFirstMove() {
-		this.firstMove = true;
+		this.firstMove = false;
+		;
 	}
 
 	@Override
