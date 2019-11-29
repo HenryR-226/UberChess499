@@ -38,7 +38,7 @@ public class Piece {
 	public void addMoveSquare(BoardButton b) throws Exception {
 		possibleMoves.add(b);
 	}
-
+	
 	public char getAbbrev() {
 		return this.abbreviation;
 	}

@@ -77,9 +77,9 @@ public class Pawn extends Piece {
 				}
 			}
 
-			if (((highSide != null) && (((highSide.getPiece() != null)) && (!highSide.getPiece().isWhite()))))
+			if (((highSide != null) && (((highSide.isFull())) && !highSide.getPiece().isWhite())))
 				result.add(highSide);
-			if (((lowSide != null) && (((lowSide.getPiece() != null)) || (!lowSide.getPiece().isWhite()))))
+			if (((lowSide != null) && ((lowSide.isFull()) && !lowSide.getPiece().isWhite())))
 				result.add(lowSide);
 			if (!front.isFull() && y != 7)
 				result.add(front);

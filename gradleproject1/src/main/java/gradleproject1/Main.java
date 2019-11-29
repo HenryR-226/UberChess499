@@ -157,6 +157,17 @@ public class Main {
 						} catch (Exception e) {
 							System.out.println("Generalized error. Try again.");
 						}
+						if (test.isWhite() && b.getWhitePlayer().inCheck()) {
+							System.out.println("You're in check!!");
+							if (b.getBlackPlayer().inCheck()) System.out.println("Black player in check as well.");
+						}
+						else if (!test.isWhite() && b.getBlackPlayer().inCheck()) {
+							System.out.println("You're in check!!");
+							if (b.getWhitePlayer().inCheck()) System.out.println("White player in check as well.");
+						}
+						else if (b.getBlackPlayer().inCheck()) System.out.println("Black player in check");
+						else if (b.getWhitePlayer().inCheck()) System.out.println("White player in check");
+						
 						moves = test.getMoves(test, GameBoard); // Make sure the moves list isnt' null, would previously
 																// 'pass' your turn
 						System.out.println("Possible Moves:");
