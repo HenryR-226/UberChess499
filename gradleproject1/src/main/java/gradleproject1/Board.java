@@ -35,11 +35,11 @@ public class Board {
 	 */
 	public static ArrayList<Move> getAllMoves(ArrayList<Piece> pieces, BoardButton[][] board) {
 
-		Piece tempPiece = null; // temp piece
-		ArrayList<ArrayList<BoardButton>> moves = new ArrayList<ArrayList<BoardButton>>(); // ArrayList of ArrayList of
-																							// Buttons
-		ArrayList<Piece> allMoves = new ArrayList<Piece>(); // Array for the Moves
-		int counter = 0; // Counter
+		Piece tempPiece = null; 															// temp piece
+		ArrayList<ArrayList<BoardButton>> moves = new ArrayList<ArrayList<BoardButton>>();  // ArrayList of ArrayList of Buttons
+																							
+		ArrayList<Piece> allMoves = new ArrayList<Piece>(); 								// Array for the Moves
+		int counter = 0; 																	// Counter
 		ArrayList<Move> moveList = new ArrayList<Move>();
 
 		for (int i = 0; i < pieces.size(); i++) {

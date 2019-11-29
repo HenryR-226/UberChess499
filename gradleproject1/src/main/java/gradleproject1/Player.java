@@ -7,8 +7,9 @@ public class Player {
 	private ArrayList<Move> moveList = new ArrayList<Move>();
 	private ArrayList<Piece> pieceList = new ArrayList<Piece>(); // Pieces currently on the board
 	private ArrayList<Piece> piecesLost = new ArrayList<Piece>(); // Pieces lost by that gamer
-	private boolean hasCastled; // Has the gamer castled
-	private boolean canCastle; // CAN the gamer castle, false if king and/or close side rook moves
+	private boolean hasCastled; 			// Has the gamer castled
+	private boolean canCastle; 				// CAN the gamer castle, false if king and/or close side rook moves
+	private boolean inCheck = false;		//Is player in check
 
 	private boolean team;
 	private boolean ai = false;
@@ -38,6 +39,13 @@ public class Player {
 	public boolean isTeam() {
 		return team;
 	}
+	
+	public Player getPlayer() {
+		if (team) {
+			return b.getWhitePlayer();
+		}
+		else return b.getBlackPlayer();
+	}
 
 	public void setTeam(boolean team) {
 		this.team = team;
@@ -54,6 +62,17 @@ public class Player {
 	public void removePiece(Piece p) {
 		pieceList.remove(p);
 		piecesLost.add(p);
+	}
+	
+	//Returns the king for Check testing
+	public King getKing() {
+		King k = null;
+		for (Piece p : pieceList) {
+			char c = p.getAbbrev();
+			if (c=='K' || c=='k') k = (King) p;
+		}
+		assert(k!=null) : "King is null so something bad happened. Line 68 of Player";
+		return k;
 	}
 
 	public void addMove(Move moveIteration) {
@@ -118,6 +137,16 @@ public class Player {
 				System.out.println("Player Black wins!");
 		}
 	}
+	public void setCheck() {		//Set in check to true
+		this.inCheck = true;
+	}
+	public void removeCheck() {		//Take check away
+		this.inCheck=false;
+	}
+	public boolean inCheck() {		//Test for in check
+		return this.inCheck;
+	}
+	
 
 	public void setBoard(Board board) {
 		this.b = board;

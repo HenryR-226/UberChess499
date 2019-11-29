@@ -106,9 +106,9 @@ public class King extends Piece {
 	 * case of duplicates) the Move is to apply to.
 	 * 
 	 */
-	public boolean isInCheck(BoardButton[][] board, ArrayList<Piece> pieces, Piece piece, String move) {
+	public boolean isInCheck(BoardButton[][] board, ArrayList<Piece> pieces, Piece piece, Move move) {
 		// First, process the desired move and set up variables
-		char[] c = move.toCharArray(); // Logic's been done a hundred times before
+		char[] c = move.getAbbreviation().toCharArray(); // Logic's been done a hundred times before
 		char[] s2 = piece.getLocation().toCharArray();
 		char abbrev = c[0];
 		char abbrevUpper = Character.toUpperCase(abbrev);

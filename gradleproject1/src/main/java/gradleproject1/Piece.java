@@ -11,7 +11,7 @@ package gradleproject1;
 import java.util.ArrayList;
 
 public class Piece {
-	private Boolean firstMove = false;
+	private Boolean firstMove = true;
 	protected int row; // Array notation column and row.
 	protected int col;
 	protected boolean isWhite;

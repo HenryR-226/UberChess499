@@ -139,6 +139,7 @@ public class Move {
 
 			if (p.isWhite()) {
 				whitePlayer.addMove(this);
+				if whitePlayer.getKing().is
 			} else {
 				blackPlayer.addMove(this);
 			}
@@ -147,6 +148,7 @@ public class Move {
 			old.removePiece();
 			n3w.setPiece(p);
 			p.setLocation(location);
+			
 
 		} catch (Exception e) {
 			System.out.println("Invalid move constructor taking board square. Try again.");
