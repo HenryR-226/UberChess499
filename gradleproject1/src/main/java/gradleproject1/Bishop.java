@@ -90,10 +90,13 @@ public class Bishop extends Piece {
 				ctry--;
 				b = board[ctrx][ctry];
 				// System.out.println("Bishop -- checking " + ctrx + " and " + ctry);
-				if ((!b.isFull() || b.isWhite() != team) && ctry > -1 && ctrx > -1)
+				if ((!b.isFull() || b.getPiece().isWhite() != team) && ctry > -1 && ctrx > -1) {
+
 					validSquares.add(b);
-				// System.out.println("Is " + b.getAbbreviation() + " full: " + !b.isFull());
-				// System.out.println("Or " + b.isWhite()!= p.isWhite() + ".");
+				}
+				// System.out.println("Is "+ b.getAbbreviation() + " full: " + !b.isFull());
+				// System.out.println("Or " + b.isWhite() != p.isWhite() + ".");
+
 			} catch (Exception e) {
 				break;
 			}
@@ -109,7 +112,7 @@ public class Bishop extends Piece {
 				ctry--;
 				b = board[ctrx][ctry];
 				// System.out.println("Bishop +- checking " + ctrx + " and " + ctry);
-				if ((!b.isFull() || b.isWhite() != team) && ctry > -1 && ctrx < 8)
+				if ((!b.isFull() || b.getPiece().isWhite() != team) && ctry > -1 && ctrx < 8)
 					validSquares.add(b);
 				// System.out.println("Is " + b.getAbbreviation() + " full: " + !b.isFull());
 				// System.out.println("Or " + b.isWhite()!= p.isWhite() + ".");
