@@ -48,30 +48,30 @@ public class Pawn extends Piece {
 
 		//System.out.println("Moves Found:");
 		if (team) { // White pawn, goes up
-			if (x + 1 < 8) {
+			if (x + 1 < 8 && y + 1 < 9) {
 				highSide = board[x + 1][y + 1];
-				System.out.println("HighSide set to: " + (x + 1) + " " + (y + 1));
+				//System.out.println("HighSide set to: " + (x + 1) + " " + (y + 1));
 			} else {
 				highSide = null;
-				 System.out.println("Highside set to: null ");
+				// System.out.println("Highside set to: null ");
 			}
-			if (x - 1 > -1) {
+			if (x - 1 > -1 && y + 1 < 9) {
 				lowSide = board[x - 1][y + 1];
-				System.out.println("LowSide set to: " + (x - 1) + " " + (y + 1));
+				//System.out.println("LowSide set to: " + (x - 1) + " " + (y + 1));
 			} else {
 				lowSide = null;
-				System.out.println("Lowside set to: null ");
+				//System.out.println("Lowside set to: null ");
 			}
 			if (y + 1 < 9) {
 				front = board[x][y + 1];
-				System.out.println("Front set to: " + x + " " + (y + 1));
+				//System.out.println("Front set to: " + x + " " + (y + 1));
 			} else {
 				front = null;
-				System.out.println("Front set to: null");
+				//System.out.println("Front set to: null");
 			}
 			if (p.firstMove()) {
 				BoardButton front2 = board[x][y + 2];
-				if (!front2.isFull() && !front.isFull()) {
+				if (front != null && !front2.isFull() && !front.isFull()) {
 					//System.out.println("Pawn's first move! Should add " + front2.getAbbreviation() + " to list!");
 
 					result.add(front2);
@@ -86,26 +86,27 @@ public class Pawn extends Piece {
 				result.add(front);
 
 		} else { // Black team, pawn down
-			if (x + 1 < 8) {
+			if (x + 1 < 8 && y - 1 > -1) {
+				//System.out.println("X value "  + x + " , Y Value " + y);
 				highSide = board[x + 1][y - 1];
-				// System.out.println("HighSide set to: " + (x + 1) + " " + (y - 1));
+				//System.out.println("HighSide set to: " + (x + 1) + " " + (y - 1));
 			} else {
 				highSide = null;
-				// System.out.println("Highside set to null ");
+				//System.out.println("Highside set to null ");
 			}
-			if (x - 1 > -1) {
+			if (x - 1 > -1 && y - 1 > -1) {
 				lowSide = board[x - 1][y - 1];
-				// System.out.println("LowSide set to: " + (x - 1) + " " + (y - 1));
+				//System.out.println("LowSide set to: " + (x - 1) + " " + (y - 1));
 			} else {
 				lowSide = null;
-				// System.out.println("Lowside set to null ");
+				//System.out.println("Lowside set to null ");
 			}
 			if (y - 1 > -1) {
 				front = board[x][y - 1];
-				// System.out.println("Front set to: " + x + " " + (y - 1));
+				//System.out.println("Front set to: " + x + " " + (y - 1));
 			} else {
 				front = null;
-				// System.out.println("Front set to null");
+				//System.out.println("Front set to null");
 			}
 			if (p.firstMove()) {
 				BoardButton front2 = board[x][y - 2];
@@ -118,7 +119,7 @@ public class Pawn extends Piece {
 				result.add(highSide);
 			if (lowSide != null && lowSide.isFull() && lowSide.getPiece().isWhite())
 				result.add(lowSide);
-			if (!front.isFull() && y != 7)
+			if (front != null && !front.isFull() && y != 7)
 				result.add(front);
 		}
 		return result;
