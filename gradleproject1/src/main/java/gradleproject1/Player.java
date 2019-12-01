@@ -60,7 +60,57 @@ public class Player {
 //(* Initial call *)
 //alphabeta(origin, depth, −inf, +inf, TRUE)
 
+		//FIXME - Ryan Brodsky's 3 move deep ai agent
+		//Hard coded for 3 steps down on Black Player, doesn't account for captures, and doesn't account for other team's moves
+		//Tested and works 12/1/2019
+	   public Move bestMoveForLoop(ArrayList<Move> currentPossibleMoves) {
+	        Move bestMove = null;
+	        ArrayList<Move> bestMovePath = new ArrayList<Move>(3);
+	        double bestMovePoints = -99999;
+	        int count = 0;
 
+	        for(int i = 0; i < currentPossibleMoves.size(); i++)    {
+	            count++;
+	            Move move1 = currentPossibleMoves.get(i);
+	            Piece p1 = move1.getPiece();
+	            p1.setLocation(currentPossibleMoves.get(i).getNew().getAbbreviation());
+	            ArrayList<Piece> newPieceList = new ArrayList<Piece>();
+	            newPieceList = b.getBlackPlayer().getPieceList();
+	            ArrayList<Move> twoDeepMoveList = new ArrayList<Move>();
+	            twoDeepMoveList = b.getAllMoves(newPieceList, b.getGameBoard());
+	            for(int j = 0; j < twoDeepMoveList.size(); j++) {
+	                count++;
+	                Move move2 = twoDeepMoveList.get(i);
+	                Piece p2 = move2.getPiece();
+	                p2.setLocation(twoDeepMoveList.get(i).getNew().getAbbreviation());
+	                ArrayList<Piece> newPieceList2 = new ArrayList<Piece>();
+	                newPieceList2 = b.getBlackPlayer().getPieceList();
+	                ArrayList<Move> threeDeepMoveList = new ArrayList<Move>();
+	                threeDeepMoveList = b.getAllMoves(newPieceList2, b.getGameBoard());
+	                for(int k = 0; k < threeDeepMoveList.size(); k++)   {
+	                    count++;
+	                    Move move3 = threeDeepMoveList.get(i);
+	                    Piece p3 = move3.getPiece();
+	                    p3.setLocation(threeDeepMoveList.get(i).getNew().getAbbreviation());
+	                    if(b.getBlackPlayer().evalPoints() > bestMovePoints) {
+	                        System.out.println("Eval Points " + b.getBlackPlayer().evalPoints() + " > " + "Best Move Points" + bestMovePoints);
+	                        bestMovePoints = b.getBlackPlayer().evalPoints();
+	                        bestMove = move1;
+	                        bestMovePath.add(0, bestMove);
+	                        bestMovePath.add(1, move2);
+	                        bestMovePath.add(2, move3);
+	                    }
+	                    p3.setLocation(threeDeepMoveList.get(i).getOld().getAbbreviation());
+	                }
+	                p2.setLocation(twoDeepMoveList.get(i).getOld().getAbbreviation());
+	            }
+	            p1.setLocation(currentPossibleMoves.get(i).getOld().getAbbreviation());
+	        }
+	        System.out.println("Best Path Found: " + bestMovePath.get(0).getAbbreviation() + ", " + bestMovePath.get(1).getAbbreviation() + ", " + bestMovePath.get(2).getAbbreviation());
+	        System.out.println("Line 337 Player, Total Moves Found 3 Deep: " + count);
+	        return bestMove;
+	    }
+	   
 	public boolean isTeam() {
 		return team;
 	}

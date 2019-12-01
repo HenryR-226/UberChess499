@@ -113,6 +113,18 @@ public class Main {
 					BoardButton a = null;
 					String oldX1 = null;
 					char[] oldXchar = { ' ' };
+					
+					//FIXME - In progress AI agent code
+					//Ryan Brodsky's 3 move search depth move gen, only does one team
+					  ArrayList<Piece> AiPieceList = new ArrayList<Piece>();
+                      AiPieceList = b.getBlackPlayer().getPieceList();
+                      ArrayList<Move> AiCurrentPossibleMoves = new ArrayList<Move>();
+                      AiCurrentPossibleMoves = b.getAllMoves(AiPieceList, b.getGameBoard());
+         
+                      Move bestMove = b.getBlackPlayer().bestMoveForLoop(AiCurrentPossibleMoves);
+                      System.out.println(bestMove.getAbbreviation());
+                      //End in progress
+                      
 					do { // Do-while for the player to select a piece of the proper team
 
 //					
