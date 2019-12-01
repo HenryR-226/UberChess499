@@ -257,6 +257,7 @@ public class Main {
 						// Already done so not needed: b.getBlackPlayer().addMove(moveIteration);
 					}
 					// End in progress
+					g.turn();
 				}
 
 				// MOVE MODE -FIXME

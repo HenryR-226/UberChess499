@@ -67,31 +67,36 @@ public class Player {
 	        Move bestMove = null;
 	        ArrayList<Move> bestMovePath = new ArrayList<Move>(3);
 	        double bestMovePoints = -99999;
+	        double secondMovePoints = 0.0, firstMovePoints = 0.0;
 	        int count = 0;
-
-	        for(int i = 0; i < currentPossibleMoves.size(); i++)    {
+	        long nsTime = System.nanoTime();
+	        long nsTime2, nsTimeElapsed = 0L;
+	        double millisecondsElapsed, posPerSec = 0.0;
+	        
+	        for(Move i : currentPossibleMoves)    {
 	            count++;
-	            Move move1 = currentPossibleMoves.get(i);
+	            Move move1 = i;
 	            Piece p1 = move1.getPiece();
-	            p1.setLocation(currentPossibleMoves.get(i).getNew().getAbbreviation());
+	            p1.setLocation(i.getNew().getAbbreviation());
 	            ArrayList<Piece> newPieceList = new ArrayList<Piece>();
 	            newPieceList = b.getBlackPlayer().getPieceList();
 	            ArrayList<Move> twoDeepMoveList = new ArrayList<Move>();
 	            twoDeepMoveList = b.getAllMoves(newPieceList, b.getGameBoard());
-	            for(int j = 0; j < twoDeepMoveList.size(); j++) {
+	            for(Move j : twoDeepMoveList) {
 	                count++;
-	                Move move2 = twoDeepMoveList.get(i);
+	                Move move2 = j;
 	                Piece p2 = move2.getPiece();
-	                p2.setLocation(twoDeepMoveList.get(i).getNew().getAbbreviation());
+	                p2.setLocation(j.getNew().getAbbreviation());
 	                ArrayList<Piece> newPieceList2 = new ArrayList<Piece>();
 	                newPieceList2 = b.getBlackPlayer().getPieceList();
 	                ArrayList<Move> threeDeepMoveList = new ArrayList<Move>();
 	                threeDeepMoveList = b.getAllMoves(newPieceList2, b.getGameBoard());
-	                for(int k = 0; k < threeDeepMoveList.size(); k++)   {
+	                for(Move k : threeDeepMoveList)   {
 	                    count++;
-	                    Move move3 = threeDeepMoveList.get(i);
+	                    Move move3 = k;
 	                    Piece p3 = move3.getPiece();
-	                    p3.setLocation(threeDeepMoveList.get(i).getNew().getAbbreviation());
+	                    p3.setLocation(k.getNew().getAbbreviation());
+	                    //Only goes into this search tree if the evaluated points are greater than the current bestMovePoints
 	                    if(b.getBlackPlayer().evalPoints() > bestMovePoints) {
 	                        System.out.println("Eval Points " + b.getBlackPlayer().evalPoints() + " > " + "Best Move Points" + bestMovePoints);
 	                        bestMovePoints = b.getBlackPlayer().evalPoints();
@@ -100,14 +105,26 @@ public class Player {
 	                        bestMovePath.add(1, move2);
 	                        bestMovePath.add(2, move3);
 	                    }
-	                    p3.setLocation(threeDeepMoveList.get(i).getOld().getAbbreviation());
+	                    p3.setLocation(k.getOld().getAbbreviation());
 	                }
-	                p2.setLocation(twoDeepMoveList.get(i).getOld().getAbbreviation());
+	                p2.setLocation(j.getOld().getAbbreviation());
+	                secondMovePoints = b.getBlackPlayer().evalPoints();
 	            }
-	            p1.setLocation(currentPossibleMoves.get(i).getOld().getAbbreviation());
+	            p1.setLocation(i.getOld().getAbbreviation());
+	            firstMovePoints = b.getBlackPlayer().evalPoints();
 	        }
+	        nsTime2=System.nanoTime();
+	        nsTimeElapsed = nsTime2-nsTime;
+	        millisecondsElapsed = nsTimeElapsed / 1000000;
+	        posPerSec = count/millisecondsElapsed;
+	        
 	        System.out.println("Best Path Found: " + bestMovePath.get(0).getAbbreviation() + ", " + bestMovePath.get(1).getAbbreviation() + ", " + bestMovePath.get(2).getAbbreviation());
+	        System.out.println("Points after move 1: " + firstMovePoints);
+	        System.out.println("Points after move 2: " + secondMovePoints);
+	        System.out.println("Points after move 3: " + bestMovePoints);
+	        
 	        System.out.println("Line 337 Player, Total Moves Found 3 Deep: " + count);
+	        System.out.println("Time taken: " + nsTimeElapsed/1_000_000 + " milliseconds. " + posPerSec*1000 + " positions evaluated a second.");
 	        return bestMove;
 	    }
 	   
