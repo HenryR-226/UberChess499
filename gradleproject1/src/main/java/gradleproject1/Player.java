@@ -98,7 +98,7 @@ public class Player {
 	                    p3.setLocation(k.getNew().getAbbreviation());
 	                    //Only goes into this search tree if the evaluated points are greater than the current bestMovePoints
 	                    if(b.getBlackPlayer().evalPoints() > bestMovePoints) {
-	                        System.out.println("Eval Points " + b.getBlackPlayer().evalPoints() + " > " + "Best Move Points" + bestMovePoints);
+	                        System.out.println("Eval Points " + b.getBlackPlayer().evalPoints() + " > " + "Best Move Points " + bestMovePoints);
 	                        bestMovePoints = b.getBlackPlayer().evalPoints();
 	                        bestMove = move1;
 	                        bestMovePath.add(0, bestMove);
@@ -255,7 +255,7 @@ public class Player {
 	public double evalPoints(){                                     
         double result = 0;
         //BoardButton[][] board;               //Get locations
-        ArrayList<Double> pointsList = new ArrayList<Double>(); //Create list of point objects
+        //ArrayList<Double> pointsList = new ArrayList<Double>(); //Create list of point objects
         for(Piece piece : pieceList){                             //For each row and column of BoardButton
             result = result + piece.getPoints() + piece.getOffset();    //Find pieces belonging to player p and summate points
         }                                                        //This code isn't clean and needs to run hundreds of thousands of times

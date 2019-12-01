@@ -150,7 +150,10 @@ public class Move {
 				blackPlayer.addMove(this);
 			}
 			String location = this.n3w.getAbbreviation();
-
+			//Update pawn first move field
+			if (this.piece.getAbbrev() == 'p' || this.piece.getAbbrev()=='P') {
+				if (this.piece.firstMove()) piece.madeFirstMove();
+			}
 			old.removePiece();
 			n3w.setPiece(p);
 			p.setLocation(location);

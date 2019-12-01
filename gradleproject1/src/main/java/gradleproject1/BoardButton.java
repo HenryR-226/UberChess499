@@ -59,7 +59,7 @@ public class BoardButton {
 		char[] c = s.toCharArray();
 		int x = ((int) c[0] - 65);
 		reeturn.add(x);
-		int y = (int) c[1] - 49;
+		int y = (int) c[1] - 48;
 		reeturn.add(y);
 		return reeturn;
 	}

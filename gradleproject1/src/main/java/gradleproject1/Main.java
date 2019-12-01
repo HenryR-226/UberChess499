@@ -249,7 +249,7 @@ public class Main {
 						ArrayList<Piece> AiPieceList = new ArrayList<Piece>();
 						AiPieceList = b.getBlackPlayer().getPieceList();
 						ArrayList<Move> AiCurrentPossibleMoves = new ArrayList<Move>();
-						AiCurrentPossibleMoves = Board.getAllMoves(AiPieceList, b.getGameBoard());
+						AiCurrentPossibleMoves = b.getAllMoves(AiPieceList, b.getGameBoard());
 
 						Move bestMove = b.getBlackPlayer().bestMoveForLoop(AiCurrentPossibleMoves);
 						System.out.println("Best move for black player: " + bestMove.getAbbreviation());

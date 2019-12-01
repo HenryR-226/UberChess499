@@ -36,7 +36,8 @@ public class Pawn extends Piece {
 
 		ArrayList<Integer> cords = BoardButton.toArray(location);
 		int x = cords.get(0);
-		int y = cords.get(1);
+		//FIXME - This is probably not right, this references line 56 of BoardButton. ONLY pawn was having an off by one issue. 12/1/2019
+		int y = cords.get(1)-1;
 		boolean team = p.isWhite();
 
 		BoardButton highSide;
@@ -49,28 +50,28 @@ public class Pawn extends Piece {
 		if (team) { // White pawn, goes up
 			if (x + 1 < 8) {
 				highSide = board[x + 1][y + 1];
-				// System.out.println("HighSide set to: " + (x + 1) + " " + (y + 1));
+				System.out.println("HighSide set to: " + (x + 1) + " " + (y + 1));
 			} else {
 				highSide = null;
-				// System.out.println("Highside set to: null ");
+				 System.out.println("Highside set to: null ");
 			}
 			if (x - 1 > -1) {
 				lowSide = board[x - 1][y + 1];
-				// System.out.println("LowSide set to: " + (x - 1) + " " + (y + 1));
+				System.out.println("LowSide set to: " + (x - 1) + " " + (y + 1));
 			} else {
 				lowSide = null;
-				// System.out.println("Lowside set to: null ");
+				System.out.println("Lowside set to: null ");
 			}
 			if (y + 1 < 9) {
 				front = board[x][y + 1];
-				// System.out.println("Front set to: " + x + " " + (y + 1));
+				System.out.println("Front set to: " + x + " " + (y + 1));
 			} else {
 				front = null;
-				// System.out.println("Front set to: null");
+				System.out.println("Front set to: null");
 			}
 			if (p.firstMove()) {
 				BoardButton front2 = board[x][y + 2];
-				if (!front2.isFull()) {
+				if (!front2.isFull() && !front.isFull()) {
 					//System.out.println("Pawn's first move! Should add " + front2.getAbbreviation() + " to list!");
 
 					result.add(front2);
@@ -108,7 +109,7 @@ public class Pawn extends Piece {
 			}
 			if (p.firstMove()) {
 				BoardButton front2 = board[x][y - 2];
-				if (!front2.isFull()) {
+				if (!front2.isFull() && !front.isFull()) {
 					result.add(front2);
 				}
 			}

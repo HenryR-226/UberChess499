@@ -33,7 +33,7 @@ public class Board {
 	 *         (rather, a list of pieces)
 	 * 
 	 */
-	public static ArrayList<Move> getAllMoves(ArrayList<Piece> pieces, BoardButton[][] board) {
+	public ArrayList<Move> getAllMoves(ArrayList<Piece> pieces, BoardButton[][] board) {
 
 		Piece tempPiece = null; 															// temp piece
 		ArrayList<ArrayList<BoardButton>> moves = new ArrayList<ArrayList<BoardButton>>();  // ArrayList of ArrayList of Buttons
