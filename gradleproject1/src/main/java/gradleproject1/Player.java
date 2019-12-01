@@ -72,12 +72,17 @@ public class Player {
 	        long nsTime = System.nanoTime();
 	        long nsTime2, nsTimeElapsed = 0L;
 	        double millisecondsElapsed, posPerSec = 0.0;
+	        double capturePoints = 0;
 	        
 	        for(Move i : currentPossibleMoves)    {
 	            count++;
 	            Move move1 = i;
 	            Piece p1 = move1.getPiece();
 	            p1.setLocation(i.getNew().getAbbreviation());
+	            if(move1.wasCaptured()) {
+	            	capturePoints = move1.getPiece().getPoints();
+	            	System.out.println("Capture Points " + capturePoints);
+	            }
 	            ArrayList<Piece> newPieceList = new ArrayList<Piece>();
 	            newPieceList = b.getBlackPlayer().getPieceList();
 	            ArrayList<Move> twoDeepMoveList = new ArrayList<Move>();
@@ -97,9 +102,9 @@ public class Player {
 	                    Piece p3 = move3.getPiece();
 	                    p3.setLocation(k.getNew().getAbbreviation());
 	                    //Only goes into this search tree if the evaluated points are greater than the current bestMovePoints
-	                    if(b.getBlackPlayer().evalPoints() > bestMovePoints) {
+	                    if(b.getBlackPlayer().evalPoints() + capturePoints > bestMovePoints) {
 	                        System.out.println("Eval Points " + b.getBlackPlayer().evalPoints() + " > " + "Best Move Points " + bestMovePoints);
-	                        bestMovePoints = b.getBlackPlayer().evalPoints();
+	                        bestMovePoints = b.getBlackPlayer().evalPoints() + capturePoints;
 	                        bestMove = move1;
 	                        bestMovePath.add(0, bestMove);
 	                        bestMovePath.add(1, move2);
