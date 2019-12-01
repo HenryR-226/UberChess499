@@ -101,29 +101,172 @@ public class Main {
 			ArrayList<BoardButton> moves = new ArrayList<BoardButton>();
 			try {
 
-				System.out.println("Move or Info? M for move, I for info, H for history, 'Quit' to quit:");
+				System.out.println("Move or Info? M for manual move, A for AI move (black only), I for info, H for history, 'Quit' to quit:");
 				String control = s.nextLine();
 				if (control.compareToIgnoreCase("quit") == 0) {
 					break;
 				}
+				//AI mode
+				if (control.compareToIgnoreCase("a") == 0) {
+					System.out.println("AI move selected.");
 
-				// MOVE MODE
+					// Copy - pasted from below 'move mode', altered to only support white player's
+					// moves
+
+					Piece test = null;
+					BoardButton a = null;
+					String oldX1 = null;
+					char[] oldXchar = { ' ' };
+
+					if (g.whoseTurn()) {
+
+						do { // Do-while for the player to select a piece of the proper team
+
+							System.out.println("\nEnter Col "); // While kicks the player back up here if they select a
+																// wrong team's piece or a piece with 0 moves
+							oldX1 = s.nextLine();
+							if (oldX1.compareToIgnoreCase("quit") == 0) {
+								break;
+							}
+							oldXchar = oldX1.toCharArray();
+							oldXchar[0] = Character.toUpperCase(oldXchar[0]);
+							int x = (int) oldXchar[0];
+							System.out.println("Enter Row ");
+							String oldY1 = s.nextLine();
+							if (oldY1.compareToIgnoreCase("quit") == 0) {
+								break;
+							}
+							// Changed 11/2/2019 - Test again. Attempted to make the test values be Letter &
+							// Row Number
+							// System.out.println("Asserts being called");
+							assert (x - 'A') >= 0;
+							assert (x - 'A') <= 7;
+							assert (Integer.valueOf(oldY1) - 1) >= 0;
+							assert (Integer.valueOf(oldY1) - 1) <= 7;
+							// System.out.println("Asserts true");
+							a = GameBoard[x - 'A'][Integer.valueOf(oldY1) - 1];
+
+							// System.out.println("Calling button " + (x - 'A') + " " +
+							// (Integer.valueOf(oldY1) - 1));
+
+							try {
+								test = a.getPiece();
+								if (test.isWhite() != g.whoseTurn())
+									System.out.println("Wrong team. Try again:");
+								assert (test.isWhite() == g.whoseTurn()); // Crash the Try-Catch if a piece is selected
+																			// of
+																			// wrong color
+
+							} catch (Exception e) {
+								System.out.println("Generalized error. Try again.");
+							}
+							if (test.isWhite() && b.getWhitePlayer().inCheck()) {
+								System.out.println("You're in check!!");
+								if (b.getBlackPlayer().inCheck())
+									System.out.println("Black player in check as well.");
+							} else if (!test.isWhite() && b.getBlackPlayer().inCheck()) {
+								System.out.println("You're in check!!");
+								if (b.getWhitePlayer().inCheck())
+									System.out.println("White player in check as well.");
+							} else if (b.getBlackPlayer().inCheck())
+								System.out.println("Black player in check");
+							else if (b.getWhitePlayer().inCheck())
+								System.out.println("White player in check");
+
+							moves = test.getMoves(test, GameBoard); // Make sure the moves list isnt' null, would
+																	// previously
+																	// 'pass' your turn
+							System.out.println("Possible Moves:");
+							for (int ctr = 0; ctr < moves.size(); ctr++)
+								System.out.print(moves.get(ctr).getAbbreviation() + ", ");
+							System.out.println(".");
+							System.out.println("Current offset: " + test.getOffset());
+							if (moves.size() == 0) {
+								System.out.println("No valid moves. Select another piece.");
+							}
+
+						} while (test.isWhite() != g.whoseTurn() || moves.size() == 0); // End do-while. Piece obtained,
+																						// getmoves called
+
+						// System.out.println("Piece obtained: " + a.getPiece().getName() + " , calling
+						// getmoves");
+
+						boolean moveFlag = true;
+						Move moveIteration = null;
+						while (moveFlag) {
+							/*
+							 * System.out.println("Enter col to move:"); String move = s.nextLine(); if
+							 * (move.compareToIgnoreCase("quit")==0) break;
+							 */
+							System.out.println("\nEnter Col to Move to: ");
+							String oldX2 = s.nextLine();
+							if (oldX2.compareToIgnoreCase("quit") == 0) {
+								break;
+							}
+							char[] oldXchar2 = oldX1.toCharArray();
+							int x2 = (int) Character.toUpperCase(oldXchar[0]);
+							System.out.println("Enter Row to Move to: ");
+							String oldY2 = s.nextLine();
+							if (oldY2.compareToIgnoreCase("quit") == 0) {
+								break;
+							}
+							// System.out.println("Move attempted: " + );
+							boolean madeMove = false;
+							for (BoardButton butn : moves) {
+								if ((Character.toString(test.getAbbrev()) + oldX2.toUpperCase() + oldY2)
+										.compareTo(test.getAbbrev() + butn.getAbbreviation()) == 0) {
+									Piece enemy = butn.getPiece();
+									moveIteration = new Move(test, butn);
+									madeMove = true;
+
+									if (moveIteration.getAbbreviation().contains("x")) {
+										System.out.println("Piece captured!");
+										if (enemy.isWhite())
+											System.out.println("White " + enemy.getName() + " captured on square "
+													+ butn.getAbbreviation() + "!");
+										else
+											System.out.println("Black " + enemy.getName() + " captured on square "
+													+ butn.getAbbreviation() + "!");
+									}
+
+								}
+
+							}
+							if (!madeMove)
+								System.out.println("Invalid move. Try again.");
+							moveFlag = false;
+							if (g.whoseTurn())
+								System.out.println("Black's Turn:");
+							else
+								System.out.println("White's Turn:");
+							g.turn();
+
+						}
+					} else {
+						// FIXME - In progress AI agent code
+						// Ryan Brodsky's 3 move search depth move gen, only does one team
+
+						ArrayList<Piece> AiPieceList = new ArrayList<Piece>();
+						AiPieceList = b.getBlackPlayer().getPieceList();
+						ArrayList<Move> AiCurrentPossibleMoves = new ArrayList<Move>();
+						AiCurrentPossibleMoves = Board.getAllMoves(AiPieceList, b.getGameBoard());
+
+						Move bestMove = b.getBlackPlayer().bestMoveForLoop(AiCurrentPossibleMoves);
+						System.out.println("Best move for black player: " + bestMove.getAbbreviation());
+						Move moveIteration = new Move(bestMove.getPiece(), bestMove.getNew());
+						// Already done so not needed: b.getBlackPlayer().addMove(moveIteration);
+					}
+					// End in progress
+				}
+
+				// MOVE MODE -FIXME
 				if (control.compareToIgnoreCase("M") == 0) { // Call moves, select a grid location of a piece
 					Piece test = null;
 					BoardButton a = null;
 					String oldX1 = null;
 					char[] oldXchar = { ' ' };
 					
-					//FIXME - In progress AI agent code
-					//Ryan Brodsky's 3 move search depth move gen, only does one team
-					  ArrayList<Piece> AiPieceList = new ArrayList<Piece>();
-                      AiPieceList = b.getBlackPlayer().getPieceList();
-                      ArrayList<Move> AiCurrentPossibleMoves = new ArrayList<Move>();
-                      AiCurrentPossibleMoves = b.getAllMoves(AiPieceList, b.getGameBoard());
-         
-                      Move bestMove = b.getBlackPlayer().bestMoveForLoop(AiCurrentPossibleMoves);
-                      System.out.println(bestMove.getAbbreviation());
-                      //End in progress
+					
                       
 					do { // Do-while for the player to select a piece of the proper team
 
@@ -249,7 +392,7 @@ public class Main {
 
 					}
 				}
-				// INFO MODE
+				// INFO MODE- -FIXME
 				else if (control.compareToIgnoreCase("I") == 0) {
 					System.out.println("\nEnter Col ");
 					String oldX = s.nextLine();

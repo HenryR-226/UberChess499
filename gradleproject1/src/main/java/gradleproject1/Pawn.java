@@ -43,9 +43,9 @@ public class Pawn extends Piece {
 		BoardButton lowSide;
 		BoardButton front;
 
-		System.out.println("\nLocation Entrered: " + location + "\n");
+		//System.out.println("\nLocation Entrered: " + location + "\n");
 
-		System.out.println("Moves Found:");
+		//System.out.println("Moves Found:");
 		if (team) { // White pawn, goes up
 			if (x + 1 < 8) {
 				highSide = board[x + 1][y + 1];
@@ -71,7 +71,7 @@ public class Pawn extends Piece {
 			if (p.firstMove()) {
 				BoardButton front2 = board[x][y + 2];
 				if (!front2.isFull()) {
-					System.out.println("Pawn's first move! Should add " + front2.getAbbreviation() + " to list!");
+					//System.out.println("Pawn's first move! Should add " + front2.getAbbreviation() + " to list!");
 
 					result.add(front2);
 				}

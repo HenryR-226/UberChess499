@@ -93,7 +93,7 @@ public class Move {
 			this.n3w = button;
 			this.piece = p;
 			String abbrev = n3w.getAbbreviation();
-			System.out.println("Line 92 in Move, " + p.getAbbrev() + " moved from " + loc[0] + loc[1] + " to " + abbrev + ".");
+			//System.out.println("Line 92 in Move, " + p.getAbbrev() + " moved from " + loc[0] + loc[1] + " to " + abbrev + ".");
 
 			String move = String.valueOf(p.getAbbrev());
 			if (n3w.getPiece() != null) {

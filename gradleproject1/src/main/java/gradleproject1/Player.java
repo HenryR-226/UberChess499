@@ -140,11 +140,13 @@ public class Player {
 	}
 	
 	//Returns the king for Check testing
+	//Not tested or verified, 12/1/2019
 	public King getKing() {
 		King k = null;
 		for (Piece p : pieceList) {
 			char c = p.getAbbrev();
 			if (c=='K' || c=='k') k = (King) p;
+			break;
 		}
 		assert(k!=null) : "King is null so something bad happened. Line 74 of Player";
 		return k;
