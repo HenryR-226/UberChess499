@@ -35,6 +35,31 @@ public class Player {
 			e.printStackTrace();
 		}
 	}
+	
+			//		https://en.wikipedia.org/wiki/Alpha-beta_pruning
+//	function alphabeta(node, depth, alpha, beta, maximizingPlayer) is
+//    if depth = 0 or node is a terminal node then
+//        return the heuristic value of node
+//    if maximizingPlayer then
+//        value := -inf
+//        for each child of node do
+//            value := max(value, alphabeta(child, depth − 1, alpha, beta, FALSE))
+//            alpha := max(alpha, value)
+//            if alpha >= beta then
+//                break (* beta cut-off *)
+//        return value
+//    else
+//        value := +inf
+//        for each child of node do
+//            value := min(value, alphabeta(child, depth − 1, alpha, beta, TRUE))
+//            beta := min(beta, value)
+//            if alpha >= beta then
+//                break (* alpha cut-off *)
+//        return value
+//
+//(* Initial call *)
+//alphabeta(origin, depth, −inf, +inf, TRUE)
+
 
 	public boolean isTeam() {
 		return team;
@@ -71,7 +96,7 @@ public class Player {
 			char c = p.getAbbrev();
 			if (c=='K' || c=='k') k = (King) p;
 		}
-		assert(k!=null) : "King is null so something bad happened. Line 68 of Player";
+		assert(k!=null) : "King is null so something bad happened. Line 74 of Player";
 		return k;
 	}
 
@@ -95,7 +120,7 @@ public class Player {
 		return this.moveList;
 	}
 	
-	public void setWhitePoints(double d) { // (?�???�)
+	public void setWhitePoints(double d) { // (?°???°)
 		whitePoints = d;
 	}
 
@@ -172,6 +197,7 @@ public class Player {
         }
 	
 	//Evaluates the points on the board given a particular move object
+	//Tested by Ryan Brosky and works, 12/1/2019
 	public double evalPoints(Move m) {
 		ArrayList<Piece> instanceOfPieces = new ArrayList<Piece>();
 		instanceOfPieces = pieceList;
@@ -218,7 +244,7 @@ public class Player {
 		instance = b.copy();
 	}
 	
-	//AI vars/flags to be set outside of the method so it's not re-allocating them or doing anything funny every loopthrough
+	//AI vars/flags to be set outside of the method so it's not re-allocating them or doing anything funny every loop through
 	private ArrayList<Piece> blackPieceList;          //BOTH STATIC AND UNCHANGING THROUGH METHOD CALL
 	private ArrayList<Piece> whitePieceList;
 	private ArrayList<Piece> blackModifiedPieceList;  //Used to reflect potential changes in the recursive calls of hypothetical game states
