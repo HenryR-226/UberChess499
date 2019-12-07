@@ -792,8 +792,12 @@ case 'M':
 	
 	//Generates a gameboard that puts black one square away from Fool's checkmate
 	public void initCheckmateTest() {
-		initWhite();
-		initBlack();
+		try {
+			initBoard();
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		//public Move(Piece p, BoardButton button)
 		Pawn f3; Pawn e5; Pawn g4; Queen h4;
 		
