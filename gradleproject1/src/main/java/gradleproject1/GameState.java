@@ -12,6 +12,7 @@ public class GameState {
     Boolean turn = true;						//True = white turn, false = black turn
     private Integer depth = 4;							//Number of turns to go down
     private Player winrar = null;				//Winner gamer, True if white, false if black, invalid/null for in progress
+    Boolean stalemate = false;
     
     public int getCurrentThreads(){                    //Determines optimal number of threads to start for AI calculations
         int cores = Runtime.getRuntime().availableProcessors();
@@ -51,5 +52,11 @@ public class GameState {
     public void setWinrar(Player p) {
     	this.winrar = p;
     	turn = null;
+    }
+    public void setStalemate() {
+    	this.stalemate = true;
+    }
+    public boolean isStalemate(){
+    	return this.stalemate;
     }
 }

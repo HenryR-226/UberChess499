@@ -179,7 +179,7 @@ public class Pawn extends Piece {
 	 * (Realistically only Queen, or Knight in the case of a super big brain gamer)
 	 * Returns piece created to be added to the board
 	 */
-	private Piece promote() {
+	public Piece promote() {
 		Piece result = null;
 		if (this.canPromote()) {
 			String s;

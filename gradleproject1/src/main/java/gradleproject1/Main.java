@@ -160,18 +160,58 @@ public class Main {
 							} catch (Exception e) {
 								System.out.println("Generalized error. Try again.");
 							}
+							ArrayList<Move> allMoves = new ArrayList<Move>();
 							if (test.isWhite() && b.getWhitePlayer().inCheck()) {
+								//if 0 length it's a checkmate
+								allMoves = b.getAllMoves(b.getWhitePlayer().getPieceList(), b.getGameBoard());
+								if (allMoves.size() == 0) {
+									System.out.println("White checkmated! Line 167 Main");
+									g.setWinrar(b.getBlackPlayer());
+									b.getWhitePlayer().setGame(false);
+									b.getBlackPlayer().setGame(true);
+								}
 								System.out.println("You're in check!!");
 								if (b.getBlackPlayer().inCheck())
 									System.out.println("Black player in check as well.");
 							} else if (!test.isWhite() && b.getBlackPlayer().inCheck()) {
+								//if 0 length it's a checkmate
+								allMoves = b.getAllMoves(b.getBlackPlayer().getPieceList(), b.getGameBoard());
+								if (allMoves.size() == 0) {
+									System.out.println("Black checkmated! Line 180 Main");
+									g.setWinrar(b.getWhitePlayer());
+									b.getWhitePlayer().setGame(true);
+									b.getBlackPlayer().setGame(false);
+								}
+							
 								System.out.println("You're in check!!");
-								if (b.getWhitePlayer().inCheck())
-									System.out.println("White player in check as well.");
-							} else if (b.getBlackPlayer().inCheck())
+								if (b.getWhitePlayer().inCheck()) System.out.println("White player in check as well.");
+							}
+							
+							 else if (b.getBlackPlayer().inCheck()) {
+								allMoves = b.getAllMoves(b.getBlackPlayer().getPieceList(), b.getGameBoard());
+								if (allMoves.size() == 0) {
+								System.out.println("Black checkmated! Line 191 Main");
+								g.setWinrar(b.getWhitePlayer());
+								b.getWhitePlayer().setGame(true);
+								b.getBlackPlayer().setGame(false);
+								}
+							
 								System.out.println("Black player in check");
-							else if (b.getWhitePlayer().inCheck())
+							}
+								else if (b.getWhitePlayer().inCheck()) {
+
+									if (b.getWhitePlayer().inCheck()) {
+										allMoves = b.getAllMoves(b.getWhitePlayer().getPieceList(), b.getGameBoard());
+										if (allMoves.size() == 0) {
+											System.out.println("White checkmated! Line 167 Main");
+											g.setWinrar(b.getBlackPlayer());
+											b.getWhitePlayer().setGame(false);
+											b.getBlackPlayer().setGame(true);
+										}
+									}
+								
 								System.out.println("White player in check");
+								}
 
 							moves = test.getMoves(test, GameBoard); // Make sure the moves list isnt' null, would
 																	// previously

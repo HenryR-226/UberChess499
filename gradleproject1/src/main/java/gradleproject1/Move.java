@@ -26,6 +26,8 @@ public class Move {
 
 	private static Board b;
 	
+	private static int movesWithoutCapture = 0;
+	
 	/**
 	 * @author Henry Rheault
 	 *
@@ -135,6 +137,7 @@ public class Move {
 				move = move + "x"; // x means a piece captured the piece on it's destination square
 				capture = true;
 				this.captured = n3w.getPiece();
+				movesWithoutCapture = 0;
 			}
 			move = move + abbrev;
 			setAbbreviation(move);
@@ -154,13 +157,32 @@ public class Move {
 			String location = this.n3w.getAbbreviation();
 			//Update pawn first move field
 			if (this.piece.getAbbrev() == 'p' || this.piece.getAbbrev()=='P') {
-				if (this.piece.firstMove()) piece.madeFirstMove();
+				if (this.piece.firstMove()) {
+					piece.madeFirstMove();
+					if (this.newrow - this.oldrow == 2) this.getPiece().incRank();
+				}
+				if (this.piece.getRank()==5 && ((Pawn) this.piece).canPromote()) { 
+					try {
+						((Pawn)this.piece).promote();
+					} catch (Exception e) {
+						
+					}
+				
+				}
+				this.getPiece().incRank();
+				this.getPiece().madeFirstMove();
 			}
 			old.removePiece();
 			n3w.setPiece(p);
 			p.setLocation(location);
-			this.getPiece().incRank();
-			this.getPiece().madeFirstMove();
+			if (p.getAbbrev()=='p' || p.getAbbrev()=='P') movesWithoutCapture = 0;
+			
+			//Stalemate!!
+			if (movesWithoutCapture == 50 || (b.getBlackPlayer().getPieceList().size()==1 && b.getWhitePlayer().getPieceList().size()==1)) {
+				System.out.println("50 move or King-only stalemate! Game's over. Line 171 Move");
+				Player.getGameState().setWinrar(null);
+				Player.getGameState().setStalemate();
+			}
 
 		} catch (Exception e) {
 			System.out.println("Invalid move constructor taking board square. Try again.");

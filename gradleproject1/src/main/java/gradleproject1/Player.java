@@ -16,7 +16,7 @@ public class Player {
 	private static double whitePoints; // AI points variable for current game state
 	private static double blackPoints;
 	private Boolean g = null; // True = won, false = lost, null = in progress, thus upper case 'B'
-	private GameState game;
+	private static GameState game;
 
 
 	private static int numTeams = 0; // Don't make more than 2 teams, dingus
@@ -451,5 +451,9 @@ public class Player {
 			  if (points>=result) { result = points; returnStatement = m; }
 		  }
 		  return returnStatement;
+	  }
+	  
+	  public static GameState getGameState() {
+		  return game;
 	  }
 }
