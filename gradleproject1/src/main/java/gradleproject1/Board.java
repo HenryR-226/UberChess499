@@ -14,7 +14,7 @@ public class Board {
 		whitePlayer.setBoard(this);
 	}
 
-	private BoardButton[][] GameBoard = new BoardButton[8][8];
+	private static BoardButton[][] GameBoard = new BoardButton[8][8];
 
 	private ArrayList<Move> possibleMoves;
 
@@ -265,187 +265,187 @@ public class Board {
 	}
 
 	public void initWhite() {
-		Pawn Pawn1 = new Pawn("Pawn1", true,this, 0, 1);
-		Pawn Pawn2 = new Pawn("Pawn2", true,this, 1, 1);
-		Pawn Pawn3 = new Pawn("Pawn3", true,this, 2, 1);
-		Pawn Pawn4 = new Pawn("Pawn4", true,this, 3, 1);
-		Pawn Pawn5 = new Pawn("Pawn5", true,this, 4, 1);
-		Pawn Pawn6 = new Pawn("Pawn6", true,this, 5, 1);
-		Pawn Pawn7 = new Pawn("Pawn7", true,this, 6, 1);
-		Pawn Pawn8 = new Pawn("Pawn8", true,this, 7, 1);
-		// Manually add pieces to piece list. Should be done in piece constructor but
-		// w/e
-		whitePlayer.addPiece(Pawn1);
-		whitePlayer.addPiece(Pawn2);
-		whitePlayer.addPiece(Pawn3);
-		whitePlayer.addPiece(Pawn4);
-		whitePlayer.addPiece(Pawn5);
-		whitePlayer.addPiece(Pawn6);
-		whitePlayer.addPiece(Pawn7);
-		whitePlayer.addPiece(Pawn8);
+        Pawn Pawn1 = new Pawn("Pawn1", true,this, 0, 1);
+        Pawn Pawn2 = new Pawn("Pawn2", true,this, 1, 1);
+        Pawn Pawn3 = new Pawn("Pawn3", true,this, 2, 1);
+        Pawn Pawn4 = new Pawn("Pawn4", true,this, 3, 1);
+        Pawn Pawn5 = new Pawn("Pawn5", true,this, 4, 1);
+        Pawn Pawn6 = new Pawn("Pawn6", true,this, 5, 1);
+        Pawn Pawn7 = new Pawn("Pawn7", true,this, 6, 1);
+        Pawn Pawn8 = new Pawn("Pawn8", true,this, 7, 1);
+        // Manually add pieces to piece list. Should be done in piece constructor but
+        // w/e
+        whitePlayer.addPiece(Pawn1);
+        whitePlayer.addPiece(Pawn2);
+        whitePlayer.addPiece(Pawn3);
+        whitePlayer.addPiece(Pawn4);
+        whitePlayer.addPiece(Pawn5);
+        whitePlayer.addPiece(Pawn6);
+        whitePlayer.addPiece(Pawn7);
+        whitePlayer.addPiece(Pawn8);
+ 
+        Piece Rook1 = new Rook("Rook1", true,this, 0, 0);
+        Piece Rook2 = new Rook("Rook2", true,this, 0, 7);
+        whitePlayer.addPiece(Rook1);
+        whitePlayer.addPiece(Rook2);
+        // System.out.println("Rook2 offset tested from line 206 in Board : " +
+        // Rook2.getOffset());
+        Piece BishopLight = new Bishop("BishopLight", true,this, 0, 2);
+        Piece BishopDark = new Bishop("BishopDark", true,this, 0, 5);
+        whitePlayer.addPiece(BishopLight);
+        whitePlayer.addPiece(BishopDark);
+        Piece Knight1 = new Knight("Knight1", true,this, 0, 1);
+        Piece Knight2 = new Knight("Knight2", true,this, 0, 6);
+        whitePlayer.addPiece(Knight1);
+        whitePlayer.addPiece(Knight2);
+        Piece Queen = new Queen("Queen", true,this, 0, 4);
+        whitePlayer.addPiece(Queen);
+        Piece Kang = new King("Kang", true, this, 0, 3);
+        whitePlayer.addPiece(Kang);
+        BoardButton a;
+ 
+        // Manually placing and declaring to each piece their locations
+ 
+        GameBoard[Pawn1.getRow()][Pawn1.getCol()].setPiece(Pawn1);
+        Pawn1.setLocation("A2");
+ 
+        GameBoard[Pawn2.getRow()][Pawn2.getCol()].setPiece(Pawn2);
+        Pawn2.setLocation("B2");
+ 
+        GameBoard[Pawn3.getRow()][Pawn3.getCol()].setPiece(Pawn3);
+        Pawn3.setLocation("C2");
+ 
+        GameBoard[Pawn4.getRow()][Pawn4.getCol()].setPiece(Pawn4);
+        Pawn4.setLocation("D2");
+ 
+        GameBoard[Pawn5.getRow()][Pawn5.getCol()].setPiece(Pawn5);
+        Pawn5.setLocation("E2");
+ 
+        GameBoard[Pawn6.getRow()][Pawn6.getCol()].setPiece(Pawn6);
+        Pawn6.setLocation("F2");
+ 
+        GameBoard[Pawn7.getRow()][Pawn7.getCol()].setPiece(Pawn7);
+        Pawn7.setLocation("G2");
+ 
+        GameBoard[Pawn8.getRow()][Pawn8.getCol()].setPiece(Pawn8);
+        Pawn8.setLocation("H2");
+ 
+        a = GameBoard[0][0];
+        a.setPiece(Rook1);
+        Rook1.setLocation("A1");
+        a = GameBoard[7][0];
+        a.setPiece(Rook2);
+        Rook2.setLocation("H1");
+        a = GameBoard[1][0];
+        a.setPiece(Knight1);
+        Knight1.setLocation("B1");
+        a = GameBoard[6][0];
+        a.setPiece(Knight2);
+        Knight2.setLocation("G1");
+        a = GameBoard[2][0];
+        a.setPiece(BishopLight);
+        BishopLight.setLocation("C1");
+        a = GameBoard[5][0];
+        a.setPiece(BishopDark);
+        BishopDark.setLocation("F1");
+        a = GameBoard[4][0];
+        a.setPiece(Kang);
+        Kang.setLocation("E1");
+        a = GameBoard[3][0];
+        a.setPiece(Queen);
+        Queen.setLocation("D1");
+    }
+ 
+    public void initBlack() {
+        Piece pawn1 = new Pawn("pawn1", false, this, 0, 6);
+        Piece pawn2 = new Pawn("pawn2", false, this, 1, 6);
+        Piece pawn3 = new Pawn("pawn3", false, this,2, 6);
+        Piece pawn4 = new Pawn("pawn4", false,this, 3, 6);
+        Piece pawn5 = new Pawn("pawn5", false, this,4, 6);
+        Piece pawn6 = new Pawn("pawn6", false,this, 5, 6);
+        Piece pawn7 = new Pawn("pawn7", false, this,6, 6);
+        Piece pawn8 = new Pawn("pawn8", false, this,7, 6);
+        blackPlayer.addPiece(pawn1);
+        blackPlayer.addPiece(pawn2);
+        blackPlayer.addPiece(pawn3);
+        blackPlayer.addPiece(pawn4);
+        blackPlayer.addPiece(pawn5);
+        blackPlayer.addPiece(pawn6);
+        blackPlayer.addPiece(pawn7);
+        blackPlayer.addPiece(pawn8);
+ 
+        Piece rook1 = new Rook("rook1", false,this, 0, 7);
+        Piece rook2 = new Rook("rook2", false,this, 7, 7);
+        blackPlayer.addPiece(rook1);
+        blackPlayer.addPiece(rook2);
+        Piece bishopLight = new Bishop("bishopLight", false,this, 2, 7);
+        Piece bishopDark = new Bishop("bishopDark", false,this, 5, 7);
+        blackPlayer.addPiece(bishopLight);
+        blackPlayer.addPiece(bishopDark);
+        Piece knight1 = new Knight("knight1", false, this,1, 7);
+        Piece knight2 = new Knight("knight2", false,this, 6, 7);
+        blackPlayer.addPiece(knight1);
+        blackPlayer.addPiece(knight2);
+        Piece queen = new Queen("queen", false,this, 4, 7);
+        blackPlayer.addPiece(queen);
+        Piece kang = new King("kang", false,this, 3, 7);
+        blackPlayer.addPiece(kang);
+ 
+        BoardButton a;
+ 
+        a = GameBoard[0][6];
+        a.setPiece(pawn1);
+        pawn1.setLocation("A7");
+        a = GameBoard[1][6];
+        a.setPiece(pawn2);
+        a = GameBoard[2][6];
+        pawn2.setLocation("B7");
+        a.setPiece(pawn3);
+        a = GameBoard[3][6];
+        pawn3.setLocation("C7");
+        a.setPiece(pawn4);
+        a = GameBoard[4][6];
+        pawn4.setLocation("D7");
+        a.setPiece(pawn5);
+        a = GameBoard[5][6];
+        pawn5.setLocation("E7");
+        a.setPiece(pawn6);
+        a = GameBoard[6][6];
+        pawn6.setLocation("F7");
+        a.setPiece(pawn7);
+        a = GameBoard[7][6];
+        pawn7.setLocation("G7");
+        a.setPiece(pawn8);
+        pawn8.setLocation("H7");
+ 
+        a = GameBoard[0][7];
+        a.setPiece(rook1);
+        rook1.setLocation("A8");
+        a = GameBoard[7][7];
+        a.setPiece(rook2);
+        rook2.setLocation("H8");
+        a = GameBoard[1][7];
+        a.setPiece(knight1);
+        knight1.setLocation("B8");
+        a = GameBoard[6][7];
+        a.setPiece(knight2);
+        knight2.setLocation("G8");
+        a = GameBoard[5][7];
+        a.setPiece(bishopDark);
+        bishopDark.setLocation("F8");
+        a = GameBoard[2][7];
+        a.setPiece(bishopLight);
+        bishopLight.setLocation("C8");
+        a = GameBoard[4][7];
+        a.setPiece(kang);
+        kang.setLocation("E8");
+        a = GameBoard[3][7];
+        a.setPiece(queen);
+        queen.setLocation("D8");
+ 
+    }
 
-		Piece Rook1 = new Rook("Rook1", true,this, 0, 0);
-		Piece Rook2 = new Rook("Rook2", true,this, 0, 7);
-		whitePlayer.addPiece(Rook1);
-		whitePlayer.addPiece(Rook2);
-		// System.out.println("Rook2 offset tested from line 206 in Board : " +
-		// Rook2.getOffset());
-		Piece BishopLight = new Bishop("BishopLight", true,this, 0, 2);
-		Piece BishopDark = new Bishop("BishopDark", true,this, 0, 5);
-		whitePlayer.addPiece(BishopLight);
-		whitePlayer.addPiece(BishopDark);
-		Piece Knight1 = new Knight("Knight1", true,this, 0, 1);
-		Piece Knight2 = new Knight("Knight2", true,this, 0, 6);
-		whitePlayer.addPiece(Knight1);
-		whitePlayer.addPiece(Knight2);
-		Piece Queen = new Queen("Queen", true,this, 0, 3);
-		whitePlayer.addPiece(Queen);
-		Piece Kang = new King("Kang", true, this, 0, 4);
-		whitePlayer.addPiece(Kang);
-		BoardButton a;
-
-		// Manually placing and declaring to each piece their locations
-
-		GameBoard[Pawn1.getRow()][Pawn1.getCol()].setPiece(Pawn1);
-		Pawn1.setLocation("A2");
-
-		GameBoard[Pawn2.getRow()][Pawn2.getCol()].setPiece(Pawn2);
-		Pawn2.setLocation("B2");
-
-		GameBoard[Pawn3.getRow()][Pawn3.getCol()].setPiece(Pawn3);
-		Pawn3.setLocation("C2");
-
-		GameBoard[Pawn4.getRow()][Pawn4.getCol()].setPiece(Pawn4);
-		Pawn4.setLocation("D2");
-
-		GameBoard[Pawn5.getRow()][Pawn5.getCol()].setPiece(Pawn5);
-		Pawn5.setLocation("E2");
-
-		GameBoard[Pawn6.getRow()][Pawn6.getCol()].setPiece(Pawn6);
-		Pawn6.setLocation("F2");
-
-		GameBoard[Pawn7.getRow()][Pawn7.getCol()].setPiece(Pawn7);
-		Pawn7.setLocation("G2");
-
-		GameBoard[Pawn8.getRow()][Pawn8.getCol()].setPiece(Pawn8);
-		Pawn8.setLocation("H2");
-
-		a = GameBoard[0][0];
-		a.setPiece(Rook1);
-		Rook1.setLocation("A1");
-		a = GameBoard[7][0];
-		a.setPiece(Rook2);
-		Rook2.setLocation("H1");
-		a = GameBoard[1][0];
-		a.setPiece(Knight1);
-		Knight1.setLocation("B1");
-		a = GameBoard[6][0];
-		a.setPiece(Knight2);
-		Knight2.setLocation("G1");
-		a = GameBoard[2][0];
-		a.setPiece(BishopLight);
-		BishopLight.setLocation("C1");
-		a = GameBoard[5][0];
-		a.setPiece(BishopDark);
-		BishopDark.setLocation("F1");
-		a = GameBoard[4][0];
-		a.setPiece(Kang);
-		Kang.setLocation("E1");
-		a = GameBoard[3][0];
-		a.setPiece(Queen);
-		Queen.setLocation("D1");
-	}
-
-	public void initBlack() {
-		Piece pawn1 = new Pawn("pawn1", false, this, 0, 6);
-		Piece pawn2 = new Pawn("pawn2", false, this, 1, 6);
-		Piece pawn3 = new Pawn("pawn3", false, this,2, 6);
-		Piece pawn4 = new Pawn("pawn4", false,this, 3, 6);
-		Piece pawn5 = new Pawn("pawn5", false, this,4, 6);
-		Piece pawn6 = new Pawn("pawn6", false,this, 5, 6);
-		Piece pawn7 = new Pawn("pawn7", false, this,6, 6);
-		Piece pawn8 = new Pawn("pawn8", false, this,7, 6);
-		blackPlayer.addPiece(pawn1);
-		blackPlayer.addPiece(pawn2);
-		blackPlayer.addPiece(pawn3);
-		blackPlayer.addPiece(pawn4);
-		blackPlayer.addPiece(pawn5);
-		blackPlayer.addPiece(pawn6);
-		blackPlayer.addPiece(pawn7);
-		blackPlayer.addPiece(pawn8);
-
-		Piece rook1 = new Rook("rook1", false,this, 0, 7);
-		Piece rook2 = new Rook("rook2", false,this, 7, 7);
-		blackPlayer.addPiece(rook1);
-		blackPlayer.addPiece(rook2);
-		Piece bishopLight = new Bishop("bishopLight", false,this, 2, 7);
-		Piece bishopDark = new Bishop("bishopDark", false,this, 5, 7);
-		blackPlayer.addPiece(bishopLight);
-		blackPlayer.addPiece(bishopDark);
-		Piece knight1 = new Knight("knight1", false, this,1, 7);
-		Piece knight2 = new Knight("knight2", false,this, 6, 7);
-		blackPlayer.addPiece(knight1);
-		blackPlayer.addPiece(knight2);
-		Piece queen = new Queen("queen", false,this, 3, 7);
-		blackPlayer.addPiece(queen);
-		Piece kang = new King("kang", false,this, 4, 7);
-		blackPlayer.addPiece(kang);
-
-		BoardButton a;
-
-		a = GameBoard[0][6];
-		a.setPiece(pawn1);
-		pawn1.setLocation("A7");
-		a = GameBoard[1][6];
-		a.setPiece(pawn2);
-		a = GameBoard[2][6];
-		pawn2.setLocation("B7");
-		a.setPiece(pawn3);
-		a = GameBoard[3][6];
-		pawn3.setLocation("C7");
-		a.setPiece(pawn4);
-		a = GameBoard[4][6];
-		pawn4.setLocation("D7");
-		a.setPiece(pawn5);
-		a = GameBoard[5][6];
-		pawn5.setLocation("E7");
-		a.setPiece(pawn6);
-		a = GameBoard[6][6];
-		pawn6.setLocation("F7");
-		a.setPiece(pawn7);
-		a = GameBoard[7][6];
-		pawn7.setLocation("G7");
-		a.setPiece(pawn8);
-		pawn8.setLocation("H7");
-
-		a = GameBoard[0][7];
-		a.setPiece(rook1);
-		rook1.setLocation("A8");
-		a = GameBoard[7][7];
-		a.setPiece(rook2);
-		rook2.setLocation("H8");
-		a = GameBoard[1][7];
-		a.setPiece(knight1);
-		knight1.setLocation("B8");
-		a = GameBoard[6][7];
-		a.setPiece(knight2);
-		knight2.setLocation("G8");
-		a = GameBoard[5][7];
-		a.setPiece(bishopDark);
-		bishopDark.setLocation("F8");
-		a = GameBoard[2][7];
-		a.setPiece(bishopLight);
-		bishopLight.setLocation("C8");
-		a = GameBoard[4][7];
-		a.setPiece(kang);
-		kang.setLocation("E8");
-		a = GameBoard[3][7];
-		a.setPiece(queen);
-		queen.setLocation("D8");
-
-	}
-
-	public BoardButton[][] getGameBoard() {
+	public static BoardButton[][] getGameBoard() {
 		return GameBoard;
 	}
 
@@ -541,6 +541,7 @@ public class Board {
 	}
 
 	public void initBoardKingTest() throws Exception {
+		
 		boolean white = false;
 		for (int i = 0; i < 8; i++) {
 			for (int j = 1; j < 9; j++) {
@@ -791,41 +792,18 @@ case 'M':
 	}
 	
 	//Generates a gameboard that puts black one square away from Fool's checkmate
-	public void initCheckmateTest() {
-		try {
-			initBoard();
-		} catch (Exception e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		//public Move(Piece p, BoardButton button)
-		Pawn f3; Pawn e5; Pawn g4; Queen h4;
+	public void initCheckmateTest() throws NullPointerException, Exception {
+			initBoard();			//Literally calls default board construction so it shouldn't fail??
 		
-		try {
-			Move whiteFirst = new Move(GameBoard[5][2].getPiece(), GameBoard[5][2]);
-		} catch (NullPointerException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		try {
-			Move blackFirst = new Move(GameBoard[4][4].getPiece(), GameBoard[4][4]);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		try {
-			Move whiteSecond = new Move(GameBoard[6][3].getPiece(), GameBoard[6][3]);
-		} catch (NullPointerException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		whitePlayer.getGameState().turn();
+		Pawn f3; Pawn ex5; Pawn g4; Queen h4;		//To remind me which moves create the fool's checkmate
+
+			Move whiteFirst = new Move(GameBoard[5][1].getPiece(), GameBoard[5][2]);
+
+			Move blackFirst = new Move(GameBoard[4][6].getPiece(), GameBoard[4][4]);
+	
+			Move whiteSecond = new Move(GameBoard[6][1].getPiece(), GameBoard[6][3]);
+			//Moves succeed but fail in checkmate test in move, so it's surrounded by try-catch. Line 181 Move
+	
 		
 		System.out.println("Move Queen to H4 to checkmate white!");
 		System.out.println("Move Queen to H4 to checkmate white!");
