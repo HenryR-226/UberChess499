@@ -791,48 +791,37 @@ case 'M':
 	}
 	
 	//Generates a gameboard that puts black one square away from Fool's checkmate
-	public void initCheckmateTest() {
+	public void initCheckmateTest() throws Exception {
+		
 		try {
 			initBoard();
+			
+			BoardButton a = GameBoard[5][1];
+			Piece p = a.getPiece();
+			BoardButton b = GameBoard[5][2];
+			a.removePiece();
+			b.setPiece(p);
+			
+			a = GameBoard[4][6];
+			p = a.getPiece();
+			b = GameBoard[4][5];
+			a.removePiece();
+			b.setPiece(p);
+			
+			a = GameBoard[6][1];
+			p = a.getPiece();
+			b = GameBoard[6][3];
+			a.removePiece();
+			b.setPiece(p);
+			
+			System.out.println("Line 817 Board, Move D8 to H4 for CheckMate");
+		
+			
 		} catch (Exception e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		//public Move(Piece p, BoardButton button)
-		Pawn f3; Pawn e5; Pawn g4; Queen h4;
-		
-		try {
-			Move whiteFirst = new Move(GameBoard[5][2].getPiece(), GameBoard[5][2]);
-		} catch (NullPointerException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		try {
-			Move blackFirst = new Move(GameBoard[4][4].getPiece(), GameBoard[4][4]);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		try {
-			Move whiteSecond = new Move(GameBoard[6][3].getPiece(), GameBoard[6][3]);
-		} catch (NullPointerException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		whitePlayer.getGameState().turn();
-		
-		System.out.println("Move Queen to H4 to checkmate white!");
-		System.out.println("Move Queen to H4 to checkmate white!");
-		System.out.println("Move Queen to H4 to checkmate white!");
-		System.out.println("Move Queen to H4 to checkmate white!");
-		System.out.println("Move Queen to H4 to checkmate white!");
-		
+	
 	}
 	
 	public Player getWhitePlayer() {
