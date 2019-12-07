@@ -73,6 +73,8 @@ public class Move {
 
 			String location = this.n3w.getAbbreviation();
 			p.setLocation(location); 
+			this.getPiece().incRank();
+			this.getPiece().madeFirstMove();
 			
 		} catch (Exception e) {
 			System.out.println("Invalid move constructor. Try again.");
@@ -157,7 +159,8 @@ public class Move {
 			old.removePiece();
 			n3w.setPiece(p);
 			p.setLocation(location);
-			
+			this.getPiece().incRank();
+			this.getPiece().madeFirstMove();
 
 		} catch (Exception e) {
 			System.out.println("Invalid move constructor taking board square. Try again.");

@@ -9,8 +9,9 @@ public class GameState {
     private int cores;                                //Number of CPU hardware threads available to JVM at run time
     private Player playerWhite;
     private Player playerBlack;
-    boolean turn = true;						//True = white turn, false = black turn
+    Boolean turn = true;						//True = white turn, false = black turn
     private Integer depth = 4;							//Number of turns to go down
+    private Player winrar = null;				//Winner gamer, True if white, false if black, invalid/null for in progress
     
     public int getCurrentThreads(){                    //Determines optimal number of threads to start for AI calculations
         int cores = Runtime.getRuntime().availableProcessors();
@@ -45,5 +46,10 @@ public class GameState {
     
     public Integer getDepth() {
     	return this.depth;
+    }
+    
+    public void setWinrar(Player p) {
+    	this.winrar = p;
+    	turn = null;
     }
 }

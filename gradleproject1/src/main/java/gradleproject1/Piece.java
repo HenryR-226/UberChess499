@@ -21,6 +21,7 @@ public class Piece {
 	public String pieceID; // unique string to identify a particular piece object
 	double points;
 	protected String location;
+	int rank = 0;								//Mostly for pawns but handled for all types. Number of moves this piece has made
 	
 	BoardButton[][] bb;
 
@@ -36,6 +37,15 @@ public class Piece {
 		} catch (Exception e) {
 			System.out.println("deleteMoveSquare called with invalid board square argument.");
 		}
+	}
+	
+	//Increments rank by 1
+	public void incRank() {
+		this.rank++;
+	}
+	
+	public int getRank() {
+		return this.rank;
 	}
 
 	public void addMoveSquare(BoardButton b) throws Exception {
@@ -97,7 +107,7 @@ public class Piece {
 			// System.out.println("Line 92 on Piece, constructor succeeded with raw values
 			// of col: " + colc + " col: " + rows);
 		} catch (Exception e) {
-			System.out.println("Invalid string sent to setLocation in Piece class, line 78");
+			System.out.println("Invalid string sent to setLocation in Piece class, line 110");
 			e.printStackTrace();
 		}
 	}
