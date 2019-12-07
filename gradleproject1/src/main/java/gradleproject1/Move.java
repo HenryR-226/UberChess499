@@ -118,7 +118,7 @@ public class Move {
 	public Move(Piece p, BoardButton button) throws Exception { // Overloaded constructor, simply declare a boardbutton
 																// to attempt a move to
 		try {
-			BoardButton[][] GameBoard = Board.getGameBoard(); // Fetch gameboard object
+			BoardButton[][] GameBoard = b.getGameBoard(); // Fetch gameboard object
 
 			String s = p.getLocation();
 			char loc[] = s.toCharArray();
@@ -178,15 +178,10 @@ public class Move {
 			if (p.getAbbrev()=='p' || p.getAbbrev()=='P') movesWithoutCapture = 0;
 			
 			//Stalemate!!
-			try {
 			if (movesWithoutCapture == 50 || (b.getBlackPlayer().getPieceList().size()==1 && b.getWhitePlayer().getPieceList().size()==1)) {
 				System.out.println("50 move or King-only stalemate! Game's over. Line 171 Move");
 				Player.getGameState().setWinrar(null);
 				Player.getGameState().setStalemate();
-			}
-			} catch (Exception e) {
-				System.out.println("Something's scuffed in Stalemate function. Line 188 Move");
-				e.printStackTrace();
 			}
 
 		} catch (Exception e) {

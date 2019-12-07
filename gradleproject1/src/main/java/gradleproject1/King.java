@@ -33,7 +33,6 @@ public class King extends Piece {
 	 */
 	
 	private boolean canCastleTo(Rook r) {
-		System.out.println("Called canCastleTo with " + r.getAbbrev());
 		if (r == null) return false;			//Did you pass me null
 		if (!r.firstMove()) return false;		//Has the rook moved before
 		int myCol = this.col;
@@ -74,10 +73,8 @@ public class King extends Piece {
 		if (this.firstMove()) {									//Only hit this mess if it is the king's first move
 			Rook[] rooks = this.player.getRooks();				//Returns array of length 2 with possible null elements at [1] or [0 - 1]
 			Rook rook1 = rooks[0]; Rook rook2 = rooks[1];		//Pull the rooks out of the array into instance vars
-			boolean rook1can =false, rook2can = false;
-			if (rook1!= null) rook1can = canCastleTo(rook1);
-			if (rook2!= null) rook2can = canCastleTo(rook2);
-			System.out.println(rook1.getName() + " can castle: " + rook1can + " , " + rook2.getName() + " can castle: " + rook2can);
+			boolean rook1can = canCastleTo(rook1);
+			boolean rook2can = canCastleTo(rook2);
 			
 			if (!rook1can && !rook2can) return null; 			//Neither can so break out with null
 			assert (rook1.getRow() == this.getRow() && rook2.getRow() == this.getRow()): "Assert for the rows of rook and king failed but both firstMove flags are set to true. Line 81 in King";
@@ -174,11 +171,6 @@ public class King extends Piece {
 		}
 
 		moveList.remove(board[col][row]);
-		BoardButton[] result = new BoardButton[2];
-		if (firstMove) result = castle();
-		for (BoardButton b : result) {
-			if (b!= null) moveList.add(b);
-		}
 		return moveList;
 	}
 
