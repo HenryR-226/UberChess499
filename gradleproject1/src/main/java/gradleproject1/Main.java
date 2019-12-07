@@ -96,7 +96,9 @@ public class Main {
 
 		g.setWhite(b.getWhitePlayer());
 		g.setBlack(b.getBlackPlayer());
-
+		if (c == 'm')	{
+			g.turn();
+		}
 		b.draw(b);
 
 		Move.setGameBoard(b);
