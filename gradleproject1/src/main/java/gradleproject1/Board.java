@@ -109,7 +109,7 @@ public class Board {
 			for (ArrayList<BoardButton> al : moveSquareList) { // For each list of boardbuttons in the movesquare list
 				for (BoardButton b : al) { // For each boadbutton IN said list of boardbuttons
 					move = new Move(piece, b, true); // Construct the move
-					possibleMoves.add(move); // Post the move to final move list
+					if (move!=null)	possibleMoves.add(move); // Post the move to final move list
 				} // if statement for king not in check)
 			} // This will NOT report a space immediately forward of the pawn occupied by
 				// enemy piece as valid move.
@@ -298,9 +298,9 @@ public class Board {
 		Piece Knight2 = new Knight("Knight2", true,this, 0, 6);
 		whitePlayer.addPiece(Knight1);
 		whitePlayer.addPiece(Knight2);
-		Piece Queen = new Queen("Queen", true,this, 0, 4);
+		Piece Queen = new Queen("Queen", true,this, 0, 3);
 		whitePlayer.addPiece(Queen);
-		Piece Kang = new King("Kang", true, this, 0, 3);
+		Piece Kang = new King("Kang", true, this, 0, 4);
 		whitePlayer.addPiece(Kang);
 		BoardButton a;
 
@@ -348,12 +348,12 @@ public class Board {
 		a = GameBoard[5][0];
 		a.setPiece(BishopDark);
 		BishopDark.setLocation("F1");
-		a = GameBoard[3][0];
-		a.setPiece(Kang);
-		Kang.setLocation("D1");
 		a = GameBoard[4][0];
+		a.setPiece(Kang);
+		Kang.setLocation("E1");
+		a = GameBoard[3][0];
 		a.setPiece(Queen);
-		Queen.setLocation("E1");
+		Queen.setLocation("D1");
 	}
 
 	public void initBlack() {
@@ -386,9 +386,9 @@ public class Board {
 		Piece knight2 = new Knight("knight2", false,this, 6, 7);
 		blackPlayer.addPiece(knight1);
 		blackPlayer.addPiece(knight2);
-		Piece queen = new Queen("queen", false,this, 4, 7);
+		Piece queen = new Queen("queen", false,this, 3, 7);
 		blackPlayer.addPiece(queen);
-		Piece kang = new King("kang", false,this, 3, 7);
+		Piece kang = new King("kang", false,this, 4, 7);
 		blackPlayer.addPiece(kang);
 
 		BoardButton a;
@@ -436,12 +436,12 @@ public class Board {
 		a = GameBoard[2][7];
 		a.setPiece(bishopLight);
 		bishopLight.setLocation("C8");
-		a = GameBoard[3][7];
-		a.setPiece(kang);
-		kang.setLocation("D8");
 		a = GameBoard[4][7];
+		a.setPiece(kang);
+		kang.setLocation("E8");
+		a = GameBoard[3][7];
 		a.setPiece(queen);
-		queen.setLocation("E8");
+		queen.setLocation("D8");
 
 	}
 
@@ -639,7 +639,198 @@ public class Board {
 		a.setPiece(bishop4);
 		bishop4.setLocation("F2");
 	}
+/*	
+case 'P':	
+	b.initPromotionTest();
+	break;
+case 'C':
+	b.initCastlingTest();
+	break;
+case 'M':	
+	b.initCheckmateTest();
+	break;
+*/
+	public void initPromotionTest() {
+		
+		boolean white = false;
+		System.out.println("Pawn/Promote test board call:");
+		for (int i = 0; i < 8; i++) {
+			for (int j = 1; j < 9; j++) {
+				BoardButton butn = new BoardButton(i, j);
+				butn.setColor(white);
+				// ABBREVIATION IS BEING PASSED ASCII VALUES!! NEEDS FIX!
+				try {
+					butn.setAbbreviation(i, j);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				GameBoard[i][j - 1] = butn;
+				white = !white; // Flip color
 
+			}
+			white = !white;
+		}
+		
+		BoardButton a = null;
+		
+		Piece pawn1 = new Pawn("pawn1", false, this, 0, 7);
+		System.out.println(pawn1.getRank());
+		Piece pawn2 = new Pawn("pawn2", false, this, 1, 7);
+		Piece pawn3 = new Pawn("pawn3", false, this,2, 7);
+		Piece pawn4 = new Pawn("pawn4", false,this, 3, 7);
+		Piece pawn5 = new Pawn("pawn5", false, this,4, 7);
+		Piece pawn6 = new Pawn("pawn6", false, this, 6,1);
+		
+		blackPlayer.addPiece(pawn1);
+		blackPlayer.addPiece(pawn2);
+		blackPlayer.addPiece(pawn3);
+		blackPlayer.addPiece(pawn4);
+		blackPlayer.addPiece(pawn5);
+		blackPlayer.addPiece(pawn6);
+		
+		a = GameBoard[0][7];
+		a.setPiece(pawn1);
+		pawn1.setLocation("A8");
+		a = GameBoard[1][7];
+		a.setPiece(pawn2);
+		a = GameBoard[2][7];
+		pawn2.setLocation("B8");
+		a.setPiece(pawn3);
+		a = GameBoard[3][7];
+		pawn3.setLocation("C8");
+		a.setPiece(pawn4);
+		a = GameBoard[4][7];
+		pawn4.setLocation("D8");
+		a.setPiece(pawn5);
+		a = GameBoard[6][1];
+		a.setPiece(pawn6);
+		pawn6.setLocation("G2");
+		
+		for (Piece p : blackPlayer.getPieceList()) {
+			p.setRank(-1);
+		}
+		pawn6.setRank(5);
+		
+		Pawn Pawn1 = new Pawn("Pawn1", true, this, 0, 6);
+		Pawn Pawn2 = new Pawn("Pawn2", true,this, 1, 6);
+		Pawn Pawn3 = new Pawn("Pawn3", true,this, 2, 6);
+		Pawn Pawn4 = new Pawn("Pawn4", true,this, 3, 6);
+		Pawn Pawn5 = new Pawn("Pawn5", true,this, 4, 6);
+		whitePlayer.addPiece(Pawn1);
+		whitePlayer.addPiece(Pawn2);
+		whitePlayer.addPiece(Pawn3);
+		whitePlayer.addPiece(Pawn4);
+		whitePlayer.addPiece(Pawn5);
+		Pawn1.setLocation("A7");
+		GameBoard[Pawn1.getRow()][Pawn1.getCol()].setPiece(Pawn1);
+
+		GameBoard[Pawn2.getRow()][Pawn2.getCol()].setPiece(Pawn2);
+		Pawn2.setLocation("B7");
+
+		GameBoard[Pawn3.getRow()][Pawn3.getCol()].setPiece(Pawn3);
+		Pawn3.setLocation("C7");
+
+		GameBoard[Pawn4.getRow()][Pawn4.getCol()].setPiece(Pawn4);
+		Pawn4.setLocation("D7");
+
+		GameBoard[Pawn5.getRow()][Pawn5.getCol()].setPiece(Pawn5);
+		Pawn5.setLocation("E7");
+		
+		for(Piece p : whitePlayer.getPieceList()) {
+			p.setRank(5);
+		}
+		
+	}
+	
+	public void initCastlingTest() {
+		boolean white = false;
+		System.out.println("Castling test board called:");
+		for (int i = 0; i < 8; i++) {
+			for (int j = 1; j < 9; j++) {
+				BoardButton butn = new BoardButton(i, j);
+				butn.setColor(white);
+				// ABBREVIATION IS BEING PASSED ASCII VALUES!! NEEDS FIX!
+				try {
+					butn.setAbbreviation(i, j);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				GameBoard[i][j - 1] = butn;
+				white = !white; // Flip color
+
+			}
+			white = !white;
+		}
+		
+		Piece Rook1 = new Rook("HighsideRook", true, this, 0, 0);
+		Piece Rook2 = new Rook("LowsideRook", true, this, 0, 7);
+		Piece King = new King("KingTest", true, this, 3, 0);
+		BoardButton a;
+		a = GameBoard[0][0];
+		a.setPiece(Rook1);
+		Rook1.setLocation("A1");
+		a = GameBoard[7][0];
+		a.setPiece(Rook2);
+		Rook2.setLocation("H1");
+		a = GameBoard[3][0];
+		a.setPiece(King);
+		King.setLocation("D1");
+		
+		Piece rook1 = new Rook("highsiderook", false, this, 0, 7);
+		Piece rook2 = new Rook("lowsiderook", false, this, 7, 7);
+		Piece kang = new King("kang", false, this, 3, 7);
+		a = GameBoard[3][7];
+		a.setPiece(kang);
+		kang.setLocation("D8");
+		a = GameBoard[0][7];
+		a.setPiece(rook1);
+		a = GameBoard[7][7];
+		a.setPiece(rook2);
+	}
+	
+	//Generates a gameboard that puts black one square away from Fool's checkmate
+	public void initCheckmateTest() {
+		initWhite();
+		initBlack();
+		//public Move(Piece p, BoardButton button)
+		Pawn f3; Pawn e5; Pawn g4; Queen h4;
+		
+		try {
+			Move whiteFirst = new Move(GameBoard[5][2].getPiece(), GameBoard[5][2]);
+		} catch (NullPointerException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			Move blackFirst = new Move(GameBoard[4][4].getPiece(), GameBoard[4][4]);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			Move whiteSecond = new Move(GameBoard[6][3].getPiece(), GameBoard[6][3]);
+		} catch (NullPointerException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		whitePlayer.getGameState().turn();
+		
+		System.out.println("Move Queen to H4 to checkmate white!");
+		System.out.println("Move Queen to H4 to checkmate white!");
+		System.out.println("Move Queen to H4 to checkmate white!");
+		System.out.println("Move Queen to H4 to checkmate white!");
+		System.out.println("Move Queen to H4 to checkmate white!");
+		
+	}
+	
 	public Player getWhitePlayer() {
 		return whitePlayer;
 	}

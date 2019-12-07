@@ -1,5 +1,6 @@
 package gradleproject1;
 
+import java.math.BigInteger;
 /*
  Uberchess current build : 0.00.01
 */
@@ -38,6 +39,15 @@ public class Main {
 		case 'R':
 			b.initBoardRookTest();
 			break;
+		case 'P':	
+			b.initPromotionTest();
+			break;
+		case 'C':
+			b.initCastlingTest();
+			break;
+		case 'M':	
+			b.initCheckmateTest();
+			break;
 		default:
 			b = initDefault();
 			break;
@@ -72,7 +82,8 @@ public class Main {
 		Scanner s = new Scanner(System.in);
 		String in = null;
 		char c = ' ';
-		System.out.println("Enter character of Piece to construct test board, invalid char/piece for default game:");
+		System.out.println("Enter character of Piece to construct test board, C for Castle test,\n"
+				+ "P for promotion/pawn test, M for Checkmate Test,\ninvalid char/piece for default game:");
 		if (s.hasNextLine())
 			in = s.nextLine();
 		if (in != null)
@@ -480,20 +491,21 @@ public class Main {
 
 					System.out.println("Generating all moves: ");
 					ArrayList<Move> allPlayersMovesList = new ArrayList<Move>();
-					long time = System.nanoTime();
+					double time = (double) System.nanoTime();
 					if (test2.isWhite())
-						allPlayersMovesList = b.getMoves(g.getWhite());
+						allPlayersMovesList = b.getAllMoves(g.getWhite().getPieceList(), b.getGameBoard());
 					else
-						allPlayersMovesList = b.getMoves(g.getBlack());
-					long time2 = System.nanoTime();
+						allPlayersMovesList = b.getAllMoves(g.getBlack().getPieceList(), b.getGameBoard());
+					double time2 = (double) System.nanoTime();
 					System.out.println("All moves for team selected: ");
 					for (Move m : allPlayersMovesList) {
 						System.out.print(m.getAbbreviation() + ", ");
 					}
-					long elapsed = time2 - time;
-					long result = TimeUnit.SECONDS.convert(elapsed, TimeUnit.NANOSECONDS);
+					double elapsed = (double) time2 - (double) time;
+					elapsed = elapsed / 1000000;
+					//long result = TimeUnit.SECONDS.convert(elapsed, TimeUnit.NANOSECONDS);
 
-					System.out.println("Time taken to generate moves:" + result);
+					System.out.println("Time taken to generate moves: " + elapsed + " Milliseconds.");
 
 				}
 

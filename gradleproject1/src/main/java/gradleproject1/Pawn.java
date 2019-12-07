@@ -5,11 +5,12 @@ import java.util.Scanner;
 
 public class Pawn extends Piece {
 	// int pawnID; //ID of the pawn
-	boolean firstMove = true; 	// If it is the pawn's first move allowing a double jump
+	//boolean firstMove = true; 	// If it is the pawn's first move allowing a double jump
 	boolean canAttack; 			// If the pawn can attack
 	boolean blocked; 			// currently blocked in front?
 	char column; 				// Pawn's "home" column
 	int col, row;
+	Board b;
 
 	public Pawn(String pawnID, boolean team, Board b, int row, int col) {
 		this.setRow(row);
@@ -241,8 +242,8 @@ public class Pawn extends Piece {
 				this.player.addPiece(promotedrook);
 				result = promotedrook;
 				break;
-			}
-		}
+			}	pawnScanner.close();
+		} 
 		return result;
 	}
 

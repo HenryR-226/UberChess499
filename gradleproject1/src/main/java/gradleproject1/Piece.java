@@ -21,7 +21,7 @@ public class Piece {
 	public String pieceID; // unique string to identify a particular piece object
 	double points;
 	protected String location;
-	int rank = 0;								//Mostly for pawns but handled for all types. Number of moves this piece has made
+	protected int rank = 0;								//Mostly for pawns but handled for all types. Number of moves this piece has made
 	
 	BoardButton[][] bb;
 
@@ -37,6 +37,10 @@ public class Piece {
 		} catch (Exception e) {
 			System.out.println("deleteMoveSquare called with invalid board square argument.");
 		}
+	}
+	//ONLY DONE FOR TEST CASES AS AN OVVERIDE. DO NOT SET
+	public void setRank(int i) {
+		this.rank = i;
 	}
 	
 	//Increments rank by 1
