@@ -55,11 +55,11 @@ public class Pawn extends Piece {
 
 		//System.out.println("Moves Found:");
 		if (team) { // White pawn, goes up
-<<<<<<<
+//<<<<<<<
 			if (x + 1 < 8 && y + 1 < 9) {
-=======
-			if (x + 1 < 8 && y-1 > -1) {
->>>>>>>
+//=======
+
+//>>>>>>>
 				highSide = board[x + 1][y + 1];
 				//System.out.println("HighSide set to: " + (x + 1) + " " + (y + 1));
 			} else {

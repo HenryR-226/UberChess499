@@ -68,7 +68,18 @@ public class Board {
 				}
 			}
 		}
-
+		if (moveList.size() == 0) { /*Checkmate, loser! */ 
+			if (pieces.get(0).isWhite()) { 
+				whitePlayer.setGame(false);
+				blackPlayer.setGame(true);
+				System.out.println("White player checkmated! Black Wins!");			
+			}
+			else {
+				blackPlayer.setGame(false);
+				whitePlayer.setGame(true);
+				System.out.println("Black player checkmated! White Wins!");
+			}
+		}
 		return moveList;
 	}
 
@@ -86,7 +97,6 @@ public class Board {
 	 *         string. This processes all possible moves for a given team.
 	 */
 
-	// Current bugs: Will call new Move() on every piece and every square, so Knight
 	// gets Queen gamer moves. Could possibly fix this with less iteration for loops
 	public ArrayList<Move> getMoves(Player p) throws Exception {
 		ArrayList<ArrayList<BoardButton>> moveSquareList = new ArrayList<ArrayList<BoardButton>>(); // List of Lists,

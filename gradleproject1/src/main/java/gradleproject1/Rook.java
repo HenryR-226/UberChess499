@@ -103,7 +103,7 @@ public class Rook extends Piece {
 			assert (kingRow == this.getRow()): "Rook and Kings rows are supposedly unequal but firstMove flags not set! Line 94 in Rook";
 			int colDiff = kingCol - myCol; 		//Checking for positive or negative to determine which side we're on
 					//If positive, this rook is on the LEFT of the king. If neg, it's on the RIGHT
-			if(colDiff > 0) {
+			if (colDiff > 0) {
 				//Check LEFT
 				for (int i = kingCol; i>0; i--) {
 					iterable = bb[myCol][i];

@@ -15,7 +15,7 @@ public class Player {
 	private boolean ai = false;
 	private static double whitePoints; // AI points variable for current game state
 	private static double blackPoints;
-	private Boolean g; // True = won, false = lost, null = in progress, thus upper case 'B'
+	private Boolean g = null; // True = won, false = lost, null = in progress, thus upper case 'B'
 	private GameState game;
 
 
