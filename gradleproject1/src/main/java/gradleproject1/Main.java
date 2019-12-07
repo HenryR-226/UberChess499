@@ -10,6 +10,8 @@ import java.util.concurrent.TimeUnit;
 
 public class Main {
 	private static GameState g;
+	
+	public static Scanner scan;
 
 	// Creates test board with single piece in the center of the board for
 	// testability of generating moves. Space or other character for default
@@ -80,6 +82,7 @@ public class Main {
 		Main.g = g;
 
 		Scanner s = new Scanner(System.in);
+		scan = s;
 		String in = null;
 		char c = ' ';
 		System.out.println("Enter character of Piece to construct test board, C for Castle test,\n"

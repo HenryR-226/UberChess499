@@ -739,6 +739,7 @@ case 'M':
 		
 		for(Piece p : whitePlayer.getPieceList()) {
 			p.setRank(5);
+			p.madeFirstMove();
 		}
 		
 	}

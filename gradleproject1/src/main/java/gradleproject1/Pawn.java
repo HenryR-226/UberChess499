@@ -11,6 +11,7 @@ public class Pawn extends Piece {
 	char column; 				// Pawn's "home" column
 	int col, row;
 	Board b;
+	private static Scanner scan;
 
 	public Pawn(String pawnID, boolean team, Board b, int row, int col) {
 		this.setRow(row);
@@ -32,6 +33,7 @@ public class Pawn extends Piece {
 		}
 		this.bb = b.getGameBoard();
 		this.points = 1;
+		scan = Main.scan;
 	}
 
 	@Override
@@ -184,14 +186,13 @@ public class Pawn extends Piece {
 			String s;
 			Character c = 'Z';
 			System.out.println("Pawn reached end of board, type character of piece you'd like to promote it to:");
-			Scanner pawnScanner = new Scanner(System.in);
 			do {
-				c = pawnScanner.nextLine().charAt(0);
+				c = scan.nextLine().charAt(0);
 				if (isValid(c))
 					break;
 				else
 					System.out.println("Invalid character. Try again:");
-			} while (pawnScanner.hasNextLine() && !isValid(c));
+			} while (scan.hasNextLine() && !isValid(c));
 			switch (c) { // Not toUpperCase, we're going to use the case to determine the team and deal
 							// with it here
 			case 'Q':
@@ -242,7 +243,7 @@ public class Pawn extends Piece {
 				this.player.addPiece(promotedrook);
 				result = promotedrook;
 				break;
-			}	pawnScanner.close();
+			}	//Do NOT close the scan, it's the main's scan as well!!!
 		} 
 		return result;
 	}
