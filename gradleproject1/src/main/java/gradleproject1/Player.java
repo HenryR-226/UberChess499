@@ -18,6 +18,7 @@ public class Player {
 	private Boolean g; // True = won, false = lost, null = in progress, thus upper case 'B'
 	private GameState game;
 
+
 	private static int numTeams = 0; // Don't make more than 2 teams, dingus
 
 	private Board b;
@@ -217,6 +218,24 @@ public class Player {
 	public ArrayList<Piece> getPieceList() {
 		return this.pieceList;
 	}
+	
+	//Needed for King's castle method. Returns the rooks still alive on the board.
+	public Rook[] getRooks(){
+		Rook[] result = new Rook[2];
+		ArrayList<Piece> pl = this.getPieceList();
+		int index = -1;										//Pre-incrementing, be big brain
+		for (Piece p : pl) {
+			++index;
+			if (p.getAbbrev() == 'R' || p.getAbbrev() == 'r' ) result[0] = (Rook) p;
+		}
+		//Now check at the given index++ and see if we find another
+		while (index < pl.size() - 2) {				//-2 because Pre-Incrementing. We start at index of last rook found, then pre-increment, and at -2 we hit end of list
+			++index;
+			if (pl.get(index).getAbbrev() == 'R' || pl.get(index).getAbbrev() == 'r') result[1] = (Rook) pl.get(index);
+											//It's possible this array is empty or only has one element. This is fine.
+		}
+		return result;
+	}
 
 	public void pieceCaptured(Piece p) {
 		if (p.isWhite()) b.getBlackPlayer().removePiece(p);
@@ -250,6 +269,10 @@ public class Player {
 	public void setBoard(Board board) {
 		this.b = board;
 		this.bb = board.getGameBoard();
+	}
+	
+	public Board getBoard() {
+		return this.b;
 	}
 	
     /**

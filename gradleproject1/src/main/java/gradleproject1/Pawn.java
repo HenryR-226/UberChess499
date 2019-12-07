@@ -10,20 +10,25 @@ public class Pawn extends Piece {
 	char column; // Pawn's "home" column
 	int col, row;
 
-	public Pawn(String pawnID, boolean team, int row, int col) {
+	public Pawn(String pawnID, boolean team, Board b, int row, int col) {
 		this.setRow(row);
 		this.setCol(col);
 		String loc = Character.toString((char) ((char) row + 'A'));
 		loc = loc + Integer.toString(col + 1);
+		//System.out.println("Pawn internal loc set as " + loc + ", line 17 in Pawn"); 	//- tested and works, 12/1/2019, certified not a problem
 		this.setLocation(loc);
 		this.setName("Pawn");
 		this.pieceID = pawnID;
 		this.setIsWhite(team);
-		if (team)
+		if (team) {
 			setAbbreviation('P');
-		else if (!team)
+			this.player = b.getWhitePlayer();
+		}
+		else if (!team) {
 			setAbbreviation('p');
-
+			this.player = b.getBlackPlayer();
+		}
+		this.bb = b.getGameBoard();
 		this.points = 1;
 	}
 
@@ -32,12 +37,14 @@ public class Pawn extends Piece {
 		Pawn p = (Pawn) piece;
 		ArrayList<BoardButton> result = new ArrayList<BoardButton>();
 
-		String location = p.getLocation();
+		//String location = p.getLocation();
 
-		ArrayList<Integer> cords = BoardButton.toArray(location);
-		int x = cords.get(0);
+		//ArrayList<Integer> cords = BoardButton.toArray(location);
+		int x = piece.getCol()-1;
+		System.out.println("X set to " + x + " , line 39 pawn");
 		//FIXME - This is probably not right, this references line 56 of BoardButton. ONLY pawn was having an off by one issue. 12/1/2019
-		int y = cords.get(1)-1;
+		int y = piece.getRow()+1;			//Problem- crashes program when accessed on Black players- line 114 below
+		System.out.println("Y ste to " + y + " , line 42 pawn");
 		boolean team = p.isWhite();
 
 		BoardButton highSide;
@@ -48,7 +55,11 @@ public class Pawn extends Piece {
 
 		//System.out.println("Moves Found:");
 		if (team) { // White pawn, goes up
+<<<<<<<
 			if (x + 1 < 8 && y + 1 < 9) {
+=======
+			if (x + 1 < 8 && y-1 > -1) {
+>>>>>>>
 				highSide = board[x + 1][y + 1];
 				//System.out.println("HighSide set to: " + (x + 1) + " " + (y + 1));
 			} else {

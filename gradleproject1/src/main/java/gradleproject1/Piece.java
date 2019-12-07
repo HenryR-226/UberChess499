@@ -11,7 +11,8 @@ package gradleproject1;
 import java.util.ArrayList;
 
 public class Piece {
-	private Boolean firstMove = true;
+	protected Player player;
+	protected Boolean firstMove = true;
 	protected int row; // Array notation column and row.
 	protected int col;
 	protected boolean isWhite;
@@ -20,6 +21,8 @@ public class Piece {
 	public String pieceID; // unique string to identify a particular piece object
 	double points;
 	protected String location;
+	
+	BoardButton[][] bb;
 
 	private ArrayList<BoardButton> possibleMoves; // Each piece keeps track of where it can currently move.
 

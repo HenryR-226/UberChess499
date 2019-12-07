@@ -3,7 +3,7 @@ package gradleproject1;
 import java.util.ArrayList;
 
 public class Rook extends Piece {
-	public Rook(String moveID, boolean team, int row, int col) {
+	public Rook(String moveID, boolean team, Board b, int row, int col) {
 		this.setName("Rook");
 		this.pieceID = moveID;
 		String loc = Character.toString((char) (row + 'A'));
@@ -11,10 +11,15 @@ public class Rook extends Piece {
 		loc = loc + Integer.toString(col + 1);
 		this.setLocation(loc);
 		this.setIsWhite(team);
-		if (team)
+		if (team) {
 			this.setAbbreviation('R');
-		else
+			this.player = b.getWhitePlayer();
+		}
+		else {
 			this.setAbbreviation('r');
+			this.player = b.getBlackPlayer();
+		}
+		this.bb = b.getGameBoard();
 		this.points = 5;
 	}
 
@@ -79,6 +84,44 @@ public class Rook extends Piece {
 		} while (!b.isFull() && ctrx > -1); // Stop at first occupied or out of bounds square
 
 		return validSquares;
+	}
+	
+	/**
+	 * @author Henry Rheault
+	 * 
+	 * Castling method for Rook. When called on a rook object will check for the ability to castle for the team and if so, return true
+	 * In this instance, add the King's  location to possible moves for the rook.
+	 * Has a complement method in King, I didn't deem this heavyweight enough to make Castling an Interface (given it's at most twice a game)
+	 */
+	
+	public boolean castle() {
+		boolean result = false; BoardButton iterable = null;
+		King kang = this.player.getKing();
+		if (!firstMove || !kang.firstMove()) return result; 				//Not able to castle so break out with null
+		else {
+			int kingRow = kang.getRow(); int kingCol = kang.getCol(); int myCol = this.getCol();
+			assert (kingRow == this.getRow()): "Rook and Kings rows are supposedly unequal but firstMove flags not set! Line 94 in Rook";
+			int colDiff = kingCol - myCol; 		//Checking for positive or negative to determine which side we're on
+					//If positive, this rook is on the LEFT of the king. If neg, it's on the RIGHT
+			if(colDiff > 0) {
+				//Check LEFT
+				for (int i = kingCol; i>0; i--) {
+					iterable = bb[myCol][i];
+					if (iterable.isFull()) return false;					//Return null
+				}
+				return true;
+			}
+			else if (colDiff < 0) {
+				//Check RIGHT
+				for (int i = kingCol; i<7; i++) {
+					iterable = bb[myCol][i];
+					if (iterable.isFull()) return false;	
+				}
+				return true;
+			}
+			
+		}
+		return false;
 	}
 
 	@Override

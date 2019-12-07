@@ -8,7 +8,7 @@ import java.util.ArrayList;
 public class Bishop extends Piece {
 	boolean lightSquares; // True for light square bishop, false for dark square
 
-	public Bishop(String moveID, boolean team, int row, int col) {
+	public Bishop(String moveID, boolean team, Board b, int row, int col) {
 		String loc = new String();
 		loc = Character.toString((char) (row + 'A'));
 		loc = loc + Integer.toString(col + 1);
@@ -17,10 +17,15 @@ public class Bishop extends Piece {
 		this.setName("Bishop");
 		this.pieceID = moveID;
 		this.setIsWhite(team);
-		if (team)
+		if (team) {
 			setAbbreviation('B');
-		else
+			this.player = b.getWhitePlayer(); 
+		}
+		else {
 			setAbbreviation('b');
+			this.player = b.getBlackPlayer();
+		}
+		this.bb = b.getGameBoard();
 		this.points = 3;
 	}
 

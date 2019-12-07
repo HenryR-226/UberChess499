@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Knight extends Piece {
 
-	public Knight(String moveID, boolean team, int row, int col) {
+	public Knight(String moveID, boolean team, Board b, int row, int col) {
 		String loc = new String();
 		loc = Character.toString((char) (row + 'A'));
 		loc = loc + Integer.toString(col + 1);
@@ -13,11 +13,16 @@ public class Knight extends Piece {
 		this.setName("Knight");
 		this.pieceID = moveID;
 		this.setIsWhite(team);
-		if (team)
+		if (team) {
 			setAbbreviation('N');
-		else if (!team)
+			this.player = b.getWhitePlayer();
+		}
+		else if (!team) {
 			setAbbreviation('n');
+			this.player = b.getBlackPlayer();
+		}
 		this.points = 3.25;
+		this.bb = b.getGameBoard();
 	}
 
 	/**

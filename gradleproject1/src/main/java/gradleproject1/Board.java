@@ -255,14 +255,14 @@ public class Board {
 	}
 
 	public void initWhite() {
-		Pawn Pawn1 = new Pawn("Pawn1", true, 0, 1);
-		Pawn Pawn2 = new Pawn("Pawn2", true, 1, 1);
-		Pawn Pawn3 = new Pawn("Pawn3", true, 2, 1);
-		Pawn Pawn4 = new Pawn("Pawn4", true, 3, 1);
-		Pawn Pawn5 = new Pawn("Pawn5", true, 4, 1);
-		Pawn Pawn6 = new Pawn("Pawn6", true, 5, 1);
-		Pawn Pawn7 = new Pawn("Pawn7", true, 6, 1);
-		Pawn Pawn8 = new Pawn("Pawn8", true, 7, 1);
+		Pawn Pawn1 = new Pawn("Pawn1", true,this, 0, 1);
+		Pawn Pawn2 = new Pawn("Pawn2", true,this, 1, 1);
+		Pawn Pawn3 = new Pawn("Pawn3", true,this, 2, 1);
+		Pawn Pawn4 = new Pawn("Pawn4", true,this, 3, 1);
+		Pawn Pawn5 = new Pawn("Pawn5", true,this, 4, 1);
+		Pawn Pawn6 = new Pawn("Pawn6", true,this, 5, 1);
+		Pawn Pawn7 = new Pawn("Pawn7", true,this, 6, 1);
+		Pawn Pawn8 = new Pawn("Pawn8", true,this, 7, 1);
 		// Manually add pieces to piece list. Should be done in piece constructor but
 		// w/e
 		whitePlayer.addPiece(Pawn1);
@@ -274,23 +274,23 @@ public class Board {
 		whitePlayer.addPiece(Pawn7);
 		whitePlayer.addPiece(Pawn8);
 
-		Piece Rook1 = new Rook("Rook1", true, 0, 0);
-		Piece Rook2 = new Rook("Rook2", true, 0, 7);
+		Piece Rook1 = new Rook("Rook1", true,this, 0, 0);
+		Piece Rook2 = new Rook("Rook2", true,this, 0, 7);
 		whitePlayer.addPiece(Rook1);
 		whitePlayer.addPiece(Rook2);
 		// System.out.println("Rook2 offset tested from line 206 in Board : " +
 		// Rook2.getOffset());
-		Piece BishopLight = new Bishop("BishopLight", true, 0, 2);
-		Piece BishopDark = new Bishop("BishopDark", true, 0, 5);
+		Piece BishopLight = new Bishop("BishopLight", true,this, 0, 2);
+		Piece BishopDark = new Bishop("BishopDark", true,this, 0, 5);
 		whitePlayer.addPiece(BishopLight);
 		whitePlayer.addPiece(BishopDark);
-		Piece Knight1 = new Knight("Knight1", true, 0, 1);
-		Piece Knight2 = new Knight("Knight2", true, 0, 6);
+		Piece Knight1 = new Knight("Knight1", true,this, 0, 1);
+		Piece Knight2 = new Knight("Knight2", true,this, 0, 6);
 		whitePlayer.addPiece(Knight1);
 		whitePlayer.addPiece(Knight2);
-		Piece Queen = new Queen("Queen", true, 0, 4);
+		Piece Queen = new Queen("Queen", true,this, 0, 4);
 		whitePlayer.addPiece(Queen);
-		Piece Kang = new King("Kang", true, 0, 3);
+		Piece Kang = new King("Kang", true, this, 0, 3);
 		whitePlayer.addPiece(Kang);
 		BoardButton a;
 
@@ -347,14 +347,14 @@ public class Board {
 	}
 
 	public void initBlack() {
-		Piece pawn1 = new Pawn("pawn1", false, 0, 6);
-		Piece pawn2 = new Pawn("pawn2", false, 1, 6);
-		Piece pawn3 = new Pawn("pawn3", false, 2, 6);
-		Piece pawn4 = new Pawn("pawn4", false, 3, 6);
-		Piece pawn5 = new Pawn("pawn5", false, 4, 6);
-		Piece pawn6 = new Pawn("pawn6", false, 5, 6);
-		Piece pawn7 = new Pawn("pawn7", false, 6, 6);
-		Piece pawn8 = new Pawn("pawn8", false, 7, 6);
+		Piece pawn1 = new Pawn("pawn1", false, this, 0, 6);
+		Piece pawn2 = new Pawn("pawn2", false, this, 1, 6);
+		Piece pawn3 = new Pawn("pawn3", false, this,2, 6);
+		Piece pawn4 = new Pawn("pawn4", false,this, 3, 6);
+		Piece pawn5 = new Pawn("pawn5", false, this,4, 6);
+		Piece pawn6 = new Pawn("pawn6", false,this, 5, 6);
+		Piece pawn7 = new Pawn("pawn7", false, this,6, 6);
+		Piece pawn8 = new Pawn("pawn8", false, this,7, 6);
 		blackPlayer.addPiece(pawn1);
 		blackPlayer.addPiece(pawn2);
 		blackPlayer.addPiece(pawn3);
@@ -364,21 +364,21 @@ public class Board {
 		blackPlayer.addPiece(pawn7);
 		blackPlayer.addPiece(pawn8);
 
-		Piece rook1 = new Rook("rook1", false, 0, 7);
-		Piece rook2 = new Rook("rook2", false, 7, 7);
+		Piece rook1 = new Rook("rook1", false,this, 0, 7);
+		Piece rook2 = new Rook("rook2", false,this, 7, 7);
 		blackPlayer.addPiece(rook1);
 		blackPlayer.addPiece(rook2);
-		Piece bishopLight = new Bishop("bishopLight", false, 2, 7);
-		Piece bishopDark = new Bishop("bishopDark", false, 5, 7);
+		Piece bishopLight = new Bishop("bishopLight", false,this, 2, 7);
+		Piece bishopDark = new Bishop("bishopDark", false,this, 5, 7);
 		blackPlayer.addPiece(bishopLight);
 		blackPlayer.addPiece(bishopDark);
-		Piece knight1 = new Knight("knight1", false, 1, 7);
-		Piece knight2 = new Knight("knight2", false, 6, 7);
+		Piece knight1 = new Knight("knight1", false, this,1, 7);
+		Piece knight2 = new Knight("knight2", false,this, 6, 7);
 		blackPlayer.addPiece(knight1);
 		blackPlayer.addPiece(knight2);
-		Piece queen = new Queen("queen", false, 4, 7);
+		Piece queen = new Queen("queen", false,this, 4, 7);
 		blackPlayer.addPiece(queen);
-		Piece kang = new King("kang", false, 3, 7);
+		Piece kang = new King("kang", false,this, 3, 7);
 		blackPlayer.addPiece(kang);
 
 		BoardButton a;
@@ -456,21 +456,21 @@ public class Board {
 			}
 			white = !white;
 		}
-		Piece Queen = new Queen("Queen", true, 3, 3);
+		Piece Queen = new Queen("Queen", true,this, 3, 3);
 		whitePlayer.addPiece(Queen);
 		BoardButton a = GameBoard[3][3];
 		Queen.setLocation("D4");
 		a.setPiece(Queen);
-		Piece queen = new Queen("queen", false, 5, 5);
+		Piece queen = new Queen("queen", false,this, 5, 5);
 		a = GameBoard[5][5];
 		queen.setLocation("F6");
 		a.setPiece(queen);
 		// System.out.println(a.getPiece().getAbbrev());
 		// System.out.println(a.getPiece().getLocation());
-		Piece rook = new Rook("rook", false, 3, 6);
-		Piece rook2 = new Rook("rook2", false, 1, 3);
-		Piece rook3 = new Rook("rook3", false, 6, 3);
-		Piece rook4 = new Rook("rook4", false, 3, 1);
+		Piece rook = new Rook("rook", false,this, 3, 6);
+		Piece rook2 = new Rook("rook2", false,this, 1, 3);
+		Piece rook3 = new Rook("rook3", false,this, 6, 3);
+		Piece rook4 = new Rook("rook4", false, this,3, 1);
 		a = GameBoard[3][6];
 		rook.setLocation("D7");
 		a.setPiece(rook);
@@ -484,10 +484,10 @@ public class Board {
 		a.setPiece(rook4);
 		rook4.setLocation("D2");
 
-		Piece bishop = new Bishop("Bishop", false, 6, 6);
-		Piece bishop2 = new Bishop("Bishop", false, 1, 1);
-		Piece bishop3 = new Bishop("Bishop", false, 1, 5);
-		Piece bishop4 = new Bishop("Bishop", false, 5, 1);
+		Piece bishop = new Bishop("Bishop", false,this, 6, 6);
+		Piece bishop2 = new Bishop("Bishop", false,this, 1, 1);
+		Piece bishop3 = new Bishop("Bishop", false,this, 1, 5);
+		Piece bishop4 = new Bishop("Bishop", false,this, 5, 1);
 		a = GameBoard[6][6];
 		bishop.setLocation("G7");
 		a.setPiece(bishop);
@@ -518,12 +518,12 @@ public class Board {
 			}
 			white = !white;
 		}
-		Piece Knight = new Knight("Knight", true, 3, 3);
+		Piece Knight = new Knight("Knight", true,this, 3, 3);
 		whitePlayer.addPiece(Knight);
 		BoardButton a = GameBoard[3][3];
 		a.setPiece(Knight);
 		Knight.setLocation("D4");
-		Piece knight = new Knight("knight", false, 5, 5);
+		Piece knight = new Knight("knight", false,this, 5, 5);
 		a = GameBoard[5][5];
 		knight.setLocation("F6");
 		a.setPiece(knight);
@@ -544,12 +544,12 @@ public class Board {
 			}
 			white = !white;
 		}
-		Piece King = new King("King", true, 3, 3);
+		Piece King = new King("King", true,this, 3, 3);
 		whitePlayer.addPiece(King);
 		BoardButton a = GameBoard[3][3];
 		a.setPiece(King);
 		King.setLocation("D4");
-		Piece king = new King("king", false, 5, 5);
+		Piece king = new King("king", false,this, 5, 5);
 		a = GameBoard[5][5];
 		king.setLocation("F6");
 		a.setPiece(king);
@@ -569,15 +569,15 @@ public class Board {
 			}
 			white = !white;
 		}
-		Piece Rook = new Rook("Rook", true, 3, 3);
+		Piece Rook = new Rook("Rook", true,this, 3, 3);
 		whitePlayer.addPiece(Rook);
 		BoardButton a = GameBoard[3][3];
 		a.setPiece(Rook);
 		Rook.setLocation("D4");
-		Piece rook = new Rook("rook", false, 3, 6);
-		Piece rook2 = new Rook("rook2", false, 1, 5);
-		Piece rook3 = new Rook("rook3", false, 6, 5);
-		Piece rook4 = new Rook("rook4", false, 3, 1);
+		Piece rook = new Rook("rook", false,this, 3, 6);
+		Piece rook2 = new Rook("rook2", false,this, 1, 5);
+		Piece rook3 = new Rook("rook3", false,this, 6, 5);
+		Piece rook4 = new Rook("rook4", false,this, 3, 1);
 		a = GameBoard[3][6];
 		rook.setLocation("D7");
 		a.setPiece(rook);
@@ -606,15 +606,15 @@ public class Board {
 			}
 			white = !white;
 		}
-		Piece Bishop = new Bishop("Bishop", true, 3, 3);
+		Piece Bishop = new Bishop("Bishop", true,this,3, 3);
 		whitePlayer.addPiece(Bishop);
 		BoardButton a = GameBoard[3][3];
 		a.setPiece(Bishop);
 		Bishop.setLocation("D4");
-		Piece bishop = new Bishop("Bishop", false, 6, 6);
-		Piece bishop2 = new Bishop("Bishop", false, 1, 1);
-		Piece bishop3 = new Bishop("Bishop", false, 1, 5);
-		Piece bishop4 = new Bishop("Bishop", false, 5, 1);
+		Piece bishop = new Bishop("Bishop", false,this, 6, 6);
+		Piece bishop2 = new Bishop("Bishop", false,this, 1, 1);
+		Piece bishop3 = new Bishop("Bishop", false,this, 1, 5);
+		Piece bishop4 = new Bishop("Bishop", false,this, 5, 1);
 		a = GameBoard[6][6];
 		bishop.setLocation("G7");
 		a.setPiece(bishop);

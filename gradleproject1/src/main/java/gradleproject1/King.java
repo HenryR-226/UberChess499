@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class King extends Piece {
 
-	public King(String moveID, boolean team, int row, int col) {
+	public King(String moveID, boolean team, Board b, int row, int col) {
 		String loc = new String();
 		loc = Character.toString((char) (row + 'A'));
 		loc = loc + Integer.toString(col + 1);
@@ -13,12 +13,92 @@ public class King extends Piece {
 		this.setName("Kang");
 		this.pieceID = moveID;
 		this.setIsWhite(team);
-		if (team)
+		if (team) {
 			setAbbreviation('K');
-		else if (!team)
+			this.player = b.getWhitePlayer();
+		}
+		else if (!team) {
 			setAbbreviation('k');
+			this.player = b.getBlackPlayer();
+		}
+		this.bb = b.getGameBoard();
 		this.points = 90;
 	}
+	
+	/**
+	 * @author Henry Rheault
+	 * 
+	 * Helper method to quickly test if a given rook can be castled to. Assumes check for King first move has been called first.
+	 * Needs to be called for each rook on board (2 max, 0 min).
+	 */
+	
+	private boolean canCastleTo(Rook r) {
+		if (r == null) return false;			//Did you pass me null
+		if (!r.firstMove()) return false;		//Has the rook moved before
+		int myCol = this.col;
+		int rookCol = r.getCol();
+		int diffCol = myCol - rookCol;		//If NEGATIVE this means rook is to the right, if POS to left
+		int itr = myCol;						//Iterable
+		
+		if (diffCol > -1) { //Check left
+			while (itr>1) {
+				--itr;
+				if (bb[itr][myCol].isFull()) return false;			//Can't go here because a piece is in the way
+			}
+			return true;
+		}	
+		else if (diffCol < 0) {
+			while (itr<7) {
+				++itr;
+				if (bb[itr][myCol].isFull()) return false;
+			}
+			return true;
+		}
+		return false;			//If we got here something broke so just break out with false
+	}
+	
+	
+	/**
+	 * @author Henry Rheault
+	 * Method to tell whether the king can castle or not. Complement method exists in Rook.
+	 * Didn't deem this a core enough of a feature to make an interface for it.
+	 * If this can castle it will return the rook's boardbutton which it can castle to.
+	 * 
+	 * Not tested. 12/7/2019
+	 */
+	
+	public BoardButton[] castle() {
+		BoardButton[] result = new BoardButton[2]; BoardButton iterable = null;
+		Rook r=null; boolean flag = false;
+		if (this.firstMove()) {									//Only hit this mess if it is the king's first move
+			Rook[] rooks = this.player.getRooks();				//Returns array of length 2 with possible null elements at [1] or [0 - 1]
+			Rook rook1 = rooks[0]; Rook rook2 = rooks[1];		//Pull the rooks out of the array into instance vars
+			boolean rook1can = canCastleTo(rook1);
+			boolean rook2can = canCastleTo(rook2);
+			
+			if (!rook1can && !rook2can) return null; 			//Neither can so break out with null
+			assert (rook1.getRow() == this.getRow() && rook2.getRow() == this.getRow()): "Assert for the rows of rook and king failed but both firstMove flags are set to true. Line 81 in King";
+			int rookCol, myCol;							//One of them can so add the valid boardbutton moves to the array
+				if (rook1can) {
+					rookCol = rook1.getCol(); myCol = this.getCol();
+					if (myCol - rookCol > 0) /*If we're to the right of the rook */ 
+						result[0] = bb[++rookCol][rook1.getRow()];
+					else if (myCol - rookCol < 0 ) /*If we're to the LEFT of the rook */
+						result[0] = bb[--rookCol][rook1.getRow()];
+				}
+					
+				if (rook2can) {
+					rookCol = rook2.getCol(); myCol = this.getCol();
+					if (myCol - rookCol < 0) /*If we're to the left of the rook */
+						result [1] = bb[--rookCol][rook1.getRow()];
+					else if (myCol - rookCol > 0) /*If we're to the right of the rook */
+						result [1] = bb[++rookCol][rook1.getRow()];
+				}
+				
+			}				//If the if statement passed, we have a [2] of BB with one possibly null. If failed, both are null.
+		return result;
+	}
+		
 
 	@Override
 	public ArrayList<BoardButton> getMoves(Piece p, BoardButton[][] board) {
@@ -142,7 +222,7 @@ public class King extends Piece {
 		// Make new piece (doesn't matter what as it's checking for itself being in
 		// check)
 		// Move to proposed move square
-		Pawn test = new Pawn("Test", true, x1, y1);
+		Pawn test = new Pawn("Test", true, this.player.getBoard(), x1, y1);
 		board[x1][y1].setPiece(test);
 		// Remove piece from board
 		board[x2][y2].removePiece();

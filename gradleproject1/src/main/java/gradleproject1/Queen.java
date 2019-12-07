@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Queen extends Piece {
 
-	public Queen(String moveID, boolean team, int row, int col) {
+	public Queen(String moveID, boolean team, Board b, int row, int col) {
 		// System.out.println("Row: " + row + " , col: " + col);
 		// System.out.println((char) (row + 'A'));
 		String loc = Character.toString((char) ((char) row + 'A'));
@@ -16,19 +16,24 @@ public class Queen extends Piece {
 		this.setName("Queen");
 		this.pieceID = moveID;
 		this.setIsWhite(team);
-		if (team)
+		if (team) {
 			setAbbreviation('Q');
-		else if (!team)
+			this.player = b.getWhitePlayer();
+		}
+		else if (!team) {
 			setAbbreviation('q');
+			this.player = b.getBlackPlayer();
+		}
 		this.points = 9;
+		this.bb = b.getGameBoard();
 	}
 
 	@Override
 	public ArrayList<BoardButton> getMoves(Piece piece, BoardButton[][] board) {
-		Rook rook = new Rook("Rook1", piece.isWhite(), piece.getRow(), piece.getCol());
+		Rook rook = new Rook("Rook1", piece.isWhite(), this.player.getBoard(), piece.getRow(), piece.getCol());
 		rook.setLocation(piece.getLocation());
 		//System.out.println("Line 30 in Queen, calling rook with explicit type");
-		Bishop bishop = new Bishop("fggfd", piece.isWhite(), piece.getRow(), piece.getCol());
+		Bishop bishop = new Bishop("fggfd", piece.isWhite(), this.player.getBoard(), piece.getRow(), piece.getCol());
 		bishop.setLocation(piece.getLocation());
 		ArrayList<BoardButton> validSquares = new ArrayList<BoardButton>();
 		validSquares = bishop.getMoves(bishop, board);
