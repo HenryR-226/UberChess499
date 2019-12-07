@@ -38,14 +38,14 @@ public class Pawn extends Piece {
 		Pawn p = (Pawn) piece;
 		ArrayList<BoardButton> result = new ArrayList<BoardButton>();
 
-		//String location = p.getLocation();
+		String location = p.getLocation();
 
-		//ArrayList<Integer> cords = BoardButton.toArray(location);
-		int x = piece.getCol()-1;
-		System.out.println("X set to " + x + " , line 39 pawn");
+		ArrayList<Integer> cords = BoardButton.toArray(location);
+		int x = cords.get(0);
+		//System.out.println("X set to " + x + " , line 39 pawn");
 		//FIXME - This is probably not right, this references line 56 of BoardButton. ONLY pawn was having an off by one issue. 12/1/2019
-		int y = piece.getRow()+1;			//Problem- crashes program when accessed on Black players- line 114 below
-		System.out.println("Y ste to " + y + " , line 42 pawn");
+		int y = cords.get(1)-1;			//Problem- crashes program when accessed on Black players- line 114 below
+		//System.out.println("Y ste to " + y + " , line 42 pawn");
 		boolean team = p.isWhite();
 
 		BoardButton highSide;
@@ -56,11 +56,9 @@ public class Pawn extends Piece {
 
 		//System.out.println("Moves Found:");
 		if (team) { // White pawn, goes up
-//<<<<<<<
-			if (x + 1 < 8 && y + 1 < 9) {
-//=======
 
-//>>>>>>>
+			if (x + 1 < 8 && y + 1 < 9) {
+
 				highSide = board[x + 1][y + 1];
 				//System.out.println("HighSide set to: " + (x + 1) + " " + (y + 1));
 			} else {
