@@ -40,7 +40,7 @@ public class King extends Piece {
 		int diffCol = myCol - rookCol;		//If NEGATIVE this means rook is to the right, if POS to left
 		int itr = myCol;						//Iterable
 		
-		if (diffCol > -1) { //Check left
+		if (diffCol >=0) { //Check left
 			while (itr>1) {
 				--itr;
 				if (bb[itr][myCol].isFull()) return false;			//Can't go here because a piece is in the way
@@ -48,7 +48,7 @@ public class King extends Piece {
 			return true;
 		}	
 		else if (diffCol < 0) {
-			while (itr<7) {
+			while (itr<6) {
 				++itr;
 				if (bb[itr][myCol].isFull()) return false;
 			}
@@ -68,7 +68,7 @@ public class King extends Piece {
 	 */
 	
 	public BoardButton[] castle() {
-		BoardButton[] result = new BoardButton[2]; BoardButton iterable = null;
+		BoardButton[] result = {null, null}; BoardButton iterable = null;
 		Rook r=null; boolean flag = false;
 		if (this.firstMove()) {									//Only hit this mess if it is the king's first move
 			Rook[] rooks = this.player.getRooks();				//Returns array of length 2 with possible null elements at [1] or [0 - 1]
@@ -78,12 +78,12 @@ public class King extends Piece {
 			
 			if (!rook1can && !rook2can) return null; 			//Neither can so break out with null
 			assert (rook1.getRow() == this.getRow() && rook2.getRow() == this.getRow()): "Assert for the rows of rook and king failed but both firstMove flags are set to true. Line 81 in King";
-			int rookCol, myCol;							//One of them can so add the valid boardbutton moves to the array
+			int rookCol=0, myCol = 0;							//One of them can so add the valid boardbutton moves to the array
 				if (rook1can) {
 					rookCol = rook1.getCol(); myCol = this.getCol();
-					if (myCol - rookCol > 0) /*If we're to the right of the rook */ 
-						result[0] = bb[++rookCol][rook1.getRow()];
-					else if (myCol - rookCol < 0 ) /*If we're to the LEFT of the rook */
+					result[0] = bb[rookCol + 2][rook1.getRow()];
+				}
+				else if (myCol - rookCol < 0 ) { /*If we're to the LEFT of the rook */
 						result[0] = bb[--rookCol][rook1.getRow()];
 				}
 					
@@ -91,11 +91,12 @@ public class King extends Piece {
 					rookCol = rook2.getCol(); myCol = this.getCol();
 					if (myCol - rookCol < 0) /*If we're to the left of the rook */
 						result [1] = bb[--rookCol][rook1.getRow()];
-					else if (myCol - rookCol > 0) /*If we're to the right of the rook */
-						result [1] = bb[++rookCol][rook1.getRow()];
+					else if (myCol - rookCol > 0) { /*If we're to the right of the rook */
+						result [1] = bb[rookCol +2][rook1.getRow()];
 				}
 				
 			}				//If the if statement passed, we have a [2] of BB with one possibly null. If failed, both are null.
+		}
 		return result;
 	}
 		
@@ -169,6 +170,20 @@ public class King extends Piece {
 				// System.out.println("Y: " + y);
 			}
 		}
+		
+		if (this.firstMove()) { 
+			BoardButton[] castleArray = {null, null};
+			castleArray = castle(); if (castleArray [0] == null) return moveList;
+			//for (BoardButton b : castleArray) if (b != null) System.out.print("Button abbrev in castle array: " + b.getAbbreviation()); 
+			if (castleArray[0]!=null && moveList!= null) { 
+				//System.out.println("Adding " + castleArray[0].getAbbreviation() + " to move list, line 181 King"); 
+				moveList.add(castleArray[0]); }
+			else {return moveList;}									//If first is null the second will be as well, nothing more to do, just return
+			if (castleArray[1]!=null && moveList!= null) { 
+				//System.out.println("Adding " + castleArray[1].getAbbreviation() + " to move list, line 181 King"); 
+				moveList.add(castleArray[1]);}
+		}
+		
 
 		moveList.remove(board[col][row]);
 		return moveList;
@@ -190,7 +205,7 @@ public class King extends Piece {
 	 * @param PIECES: the piece list to be changed and that applies in the instant this is being tested
 	 * @param BOARD: the board to be changed & that applies in the instant this is being tested
 	 */
-	public boolean isInCheck(BoardButton[][] board, ArrayList<Piece> pieces, Piece piece, Move move) {
+	public synchronized boolean isInCheck(BoardButton[][] board, ArrayList<Piece> pieces, Piece piece, Move move) {
 		// First, process the desired move and set up variables
 		char[] c = move.getAbbreviation().toCharArray(); // Logic's been done a hundred times before
 		char[] s2 = piece.getLocation().toCharArray();
@@ -222,7 +237,7 @@ public class King extends Piece {
 		// Make new piece (doesn't matter what as it's checking for itself being in
 		// check)
 		// Move to proposed move square
-		Pawn test = new Pawn("Test", true, this.player.getBoard(), x1, y1);
+		Pawn test = new Pawn("Test", true, this.player.getBoard(), y1, x1);
 		board[x1][y1].setPiece(test);
 		// Remove piece from board
 		board[x2][y2].removePiece();

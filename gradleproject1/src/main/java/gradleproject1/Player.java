@@ -226,12 +226,12 @@ public class Player {
 		int index = -1;										//Pre-incrementing, be big brain
 		for (Piece p : pl) {
 			++index;
-			if (p.getAbbrev() == 'R' || p.getAbbrev() == 'r' ) result[0] = (Rook) p;
+			if (p.getAbbrev() == 'R' || p.getAbbrev() == 'r' ) { result[0] = (Rook) p; break; }
 		}
 		//Now check at the given index++ and see if we find another
 		while (index < pl.size() - 2) {				//-2 because Pre-Incrementing. We start at index of last rook found, then pre-increment, and at -2 we hit end of list
 			++index;
-			if (pl.get(index).getAbbrev() == 'R' || pl.get(index).getAbbrev() == 'r') result[1] = (Rook) pl.get(index);
+			if (pl.get(index).getAbbrev() == 'R' || pl.get(index).getAbbrev() == 'r') { result[1] = (Rook) pl.get(index); break; }
 											//It's possible this array is empty or only has one element. This is fine.
 		}
 		return result;
