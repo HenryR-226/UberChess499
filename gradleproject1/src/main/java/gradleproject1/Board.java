@@ -616,12 +616,12 @@ case 'M':
 		
 		BoardButton a = null;
 		
-		Piece pawn1 = new Pawn("pawn1", false, this, 0, 7);
-		Piece pawn2 = new Pawn("pawn2", false, this, 1, 7);
-		Piece pawn3 = new Pawn("pawn3", false, this, 2, 7);
-		Piece pawn4 = new Pawn("pawn4", false, this, 3, 7);
-		Piece pawn5 = new Pawn("pawn5", false, this, 4, 7);
-		Piece pawn6 = new Pawn("pawn6", false, this, 6, 1);
+		Piece pawn1 = new Pawn("pawn1", false, this, 7, 0);
+		Piece pawn2 = new Pawn("pawn2", false, this, 7, 1);
+		Piece pawn3 = new Pawn("pawn3", false, this, 7, 2);
+		Piece pawn4 = new Pawn("pawn4", false, this, 7, 3);
+		Piece pawn5 = new Pawn("pawn5", false, this, 7, 4);
+		Piece pawn6 = new Pawn("pawn6", false, this, 7, 5);
 		
 		blackPlayer.addPiece(pawn1);
 		blackPlayer.addPiece(pawn2);
@@ -654,11 +654,11 @@ case 'M':
 		}
 		pawn6.setRank(5);
 		
-		Pawn Pawn1 = new Pawn("Pawn1", true, this, 0, 6);
-		Pawn Pawn2 = new Pawn("Pawn2", true, this, 1, 6);
-		Pawn Pawn3 = new Pawn("Pawn3", true, this, 2, 6);
-		Pawn Pawn4 = new Pawn("Pawn4", true, this, 3, 6);
-		Pawn Pawn5 = new Pawn("Pawn5", true, this, 4, 6);
+		Pawn Pawn1 = new Pawn("Pawn1", true, this, 6, 0);
+		Pawn Pawn2 = new Pawn("Pawn2", true, this, 6, 1);
+		Pawn Pawn3 = new Pawn("Pawn3", true, this, 6, 2);
+		Pawn Pawn4 = new Pawn("Pawn4", true, this, 6, 3);
+		Pawn Pawn5 = new Pawn("Pawn5", true, this, 1, 6);
 		whitePlayer.addPiece(Pawn1);
 		whitePlayer.addPiece(Pawn2);
 		whitePlayer.addPiece(Pawn3);
