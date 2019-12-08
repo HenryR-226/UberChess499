@@ -126,6 +126,16 @@ public class BoardButton {
 		this.piece = p;
 		this.isFull = true;
 	}
+	
+//	public void castledPiece(King k, Rook r) {
+//		Player player;
+//		boolean team = k.isWhite();
+//		if (team)
+//			player = g.getWhite();
+//		else
+//			player = g.getBlack();
+//		this.piece =
+//	}
 
 	public boolean isFull() {
 		return this.isFull;
@@ -203,7 +213,7 @@ public class BoardButton {
 
 	}
 
-	public BoardButton(int row, int column) {
+	public BoardButton(int column, int row) {
 		this.row = row;
 		this.column = column;
 	}

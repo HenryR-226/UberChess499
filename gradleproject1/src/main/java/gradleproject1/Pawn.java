@@ -9,15 +9,15 @@ public class Pawn extends Piece {
 	boolean canAttack; 			// If the pawn can attack
 	boolean blocked; 			// currently blocked in front?
 	char column; 				// Pawn's "home" column
-	int col, row;
+	//int col, row;
 	Board b;
 	private static Scanner scan;
 
 	public Pawn(String pawnID, boolean team, Board b, int row, int col) {
-		this.setRow(row);
-		this.setCol(col);
-		String loc = Character.toString((char) ((char) row + 'A'));
-		loc = loc + Integer.toString(col + 1);
+		//this.setRow(row);
+		//this.setCol(col);
+		String loc = Character.toString((char) ((char) col + 'A'));
+		loc = loc + Integer.toString(row + 1);
 		//System.out.println("Pawn internal loc set as " + loc + ", line 17 in Pawn"); 	//- tested and works, 12/1/2019, certified not a problem
 		this.setLocation(loc);
 		this.setName("Pawn");
@@ -61,7 +61,6 @@ public class Pawn extends Piece {
 		if (team) { // White pawn, goes up
 
 			if (x + 1 < 8 && y + 1 < 9) {
-
 				highSide = board[x + 1][y + 1];
 				//System.out.println("HighSide set to: " + (x + 1) + " " + (y + 1));
 			} else {
@@ -139,7 +138,7 @@ public class Pawn extends Piece {
 	}
 	
 	public boolean canPromote() {
-		if (this.rank == 5) {
+		if ((this.row == 7 && this.isWhite) || (this.row == 1 && !this.isWhite)) {
 			//BoardButton b;
 			if (this.isWhite) {
 				if (!bb[this.col][++this.row].isFull()) return true;
@@ -176,7 +175,7 @@ public class Pawn extends Piece {
 	
 	/**
 	 * @author Henry Rheault
-	 * Handles promotions, if rank == 6 (after it moves to the end of the board) will handle dialog of what piece to construct in it's place 
+	 * Handles promotions, if row == 7 or for corresponding teams. Will handle dialog of what piece to construct in it's place 
 	 * (Realistically only Queen, or Knight in the case of a super big brain gamer)
 	 * Returns piece created to be added to the board
 	 */
