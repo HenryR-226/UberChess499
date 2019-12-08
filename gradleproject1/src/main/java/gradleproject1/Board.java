@@ -688,9 +688,9 @@ case 'M':
 		blackPlayer.addPiece(pawn5);
 		blackPlayer.addPiece(pawn6);
 		
-		//a = GameBoard[0][7];
-		//a.setPiece(pawn1);
-		//pawn1.setLocation("A8");
+		a = GameBoard[0][7];
+		a.setPiece(pawn1);
+		pawn1.setLocation("A8");
 		a = GameBoard[1][7];
 		a.setPiece(pawn2);
 		a = GameBoard[2][7];
