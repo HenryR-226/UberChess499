@@ -168,8 +168,10 @@ public class Player {
 		King k = null;
 		for (Piece p : pieceList) {
 			char c = p.getAbbrev();
-			if (c=='K' || c=='k') k = (King) p;
-			break;
+			if (c=='K' || c=='k') { 
+				k = (King) p;
+				break;
+			}
 		}
 		assert(k!=null) : "King is null so something bad happened. Line 74 of Player";
 		return k;
