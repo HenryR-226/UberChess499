@@ -82,14 +82,6 @@ public class Rook extends Piece {
 				break;
 			}
 		} while (!b.isFull() && ctrx > -1); // Stop at first occupied or out of bounds square
-		
-		if (this.firstMove()) 						//If this is the first move evaluate castle() boolean
-			if (castle(true)) 								//If it can castle add the King's square to the move list
-				validSquares.add(board[this.player.getKing().getCol() + 1]
-						[this.player.getKing().getRow()]);
-			if (castle(false))
-				validSquares.add(board[this.player.getKing().getCol() - 1]
-						[this.player.getKing().getRow()]);
 
 		return validSquares;
 	}
@@ -97,23 +89,21 @@ public class Rook extends Piece {
 	/**
 	 * @author Henry Rheault
 	 * 
-	 * Castling test method for Rook. When called on a rook object will check for the ability to castle for the team and if so, return true
+	 * Castling method for Rook. When called on a rook object will check for the ability to castle for the team and if so, return true
 	 * In this instance, add the King's  location to possible moves for the rook.
 	 * Has a complement method in King, I didn't deem this heavyweight enough to make Castling an Interface (given it's at most twice a game)
-	 * 
-	 * Boolean is for right side or left side castle, needs to be called twice
 	 */
 	
-	public boolean castle(boolean side) {
+	public boolean castle() {
 		boolean result = false; BoardButton iterable = null;
 		King kang = this.player.getKing();
 		if (!firstMove || !kang.firstMove()) return result; 				//Not able to castle so break out with null
 		else {
 			int kingRow = kang.getRow(); int kingCol = kang.getCol(); int myCol = this.getCol();
 			assert (kingRow == this.getRow()): "Rook and Kings rows are supposedly unequal but firstMove flags not set! Line 94 in Rook";
-			//int colDiff = kingCol - myCol; 		//Checking for positive or negative to determine which side we're on
+			int colDiff = kingCol - myCol; 		//Checking for positive or negative to determine which side we're on
 					//If positive, this rook is on the LEFT of the king. If neg, it's on the RIGHT
-			if (!side) {
+			if (colDiff > 0) {
 				//Check LEFT
 				for (int i = kingCol; i>0; i--) {
 					iterable = bb[myCol][i];
@@ -121,7 +111,7 @@ public class Rook extends Piece {
 				}
 				return true;
 			}
-			else if (side) {
+			else if (colDiff < 0) {
 				//Check RIGHT
 				for (int i = kingCol; i<7; i++) {
 					iterable = bb[myCol][i];

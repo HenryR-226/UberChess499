@@ -117,7 +117,6 @@ public class Piece {
 	}
 
 	public boolean firstMove() {
-		//System.out.println("First move called for " + this.getAbbrev() + " , value is " + this.firstMove + "\nLine 120 Piece");
 		return this.firstMove;
 	}
 

@@ -166,17 +166,12 @@ public class Player {
 	//Not tested or verified, 12/1/2019
 	public King getKing() {
 		King k = null;
-		
-		for (Piece p : this.getPieceList()) {
+		for (Piece p : pieceList) {
 			char c = p.getAbbrev();
-			//System.out.println("Piece in iterable loop abbrev: " + c);
-			if (c=='K' || c=='k') {
-				k = (King) p;
-				break;
-			}
+			if (c=='K' || c=='k') k = (King) p;
+			break;
 		}
-		//System.out.println("King fetched from getKing in player, line 174 " + k.getName());
-		assert(k!=null) : "King is null so something bad happened. Line 175 of Player";
+		assert(k!=null) : "King is null so something bad happened. Line 74 of Player";
 		return k;
 	}
 
@@ -231,18 +226,12 @@ public class Player {
 		int index = -1;										//Pre-incrementing, be big brain
 		for (Piece p : pl) {
 			++index;
-			if (p.getAbbrev() == 'R' || p.getAbbrev() == 'r' ) { 
-				result[0] = (Rook) p; 
-				//System.out.println("rook 1 found, player line 234"); 
-				break; }
+			if (p.getAbbrev() == 'R' || p.getAbbrev() == 'r' ) result[0] = (Rook) p;
 		}
 		//Now check at the given index++ and see if we find another
 		while (index < pl.size() - 2) {				//-2 because Pre-Incrementing. We start at index of last rook found, then pre-increment, and at -2 we hit end of list
 			++index;
-			if (pl.get(index).getAbbrev() == 'R' || pl.get(index).getAbbrev() == 'r') { 
-				result[1] = (Rook) pl.get(index); 
-				//System.out.println("rook2 found, player line 239"); 
-				break; }
+			if (pl.get(index).getAbbrev() == 'R' || pl.get(index).getAbbrev() == 'r') result[1] = (Rook) pl.get(index);
 											//It's possible this array is empty or only has one element. This is fine.
 		}
 		return result;
@@ -321,8 +310,6 @@ public class Player {
 	 * @author Henry Rheault, Ryan Brodsky
 	 * Helper method to make an AI call in ONE call only. Calls setUp, bestMove and cleanUp.
 	 * Depth is immutible (for now) from GameState and gotten below.
-	 * 
-	 * @deprecated
 	 */
 	public Move generateAIMove() {
 		setUpAI(depth);
@@ -339,8 +326,6 @@ public class Player {
 	 * by another helper method.
 	 * 
 	 * Intended to be where heavy/slow/'deep copy' calls are made so they're only run ONCE. Okay here, not okay in bestMove().
-	 * 
-	 * @deprecated
 	 */
 	private void setUpAI(int depth) {
 		iterable = depth * 2;
@@ -437,8 +422,6 @@ public class Player {
 	   * @author Henry Rheault
 	   * A clean-up method to reset all the variables to make sure nothing funny happens when returning from an
 	   * AI call. Sets all the fields needed by AI to null so they're available for garbage collection.
-	   * 
-	   * @deprecated
 	   */
 	  private void cleanUpAI() {
 		  blackPieceList = null;
