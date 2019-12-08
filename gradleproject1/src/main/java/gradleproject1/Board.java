@@ -317,21 +317,21 @@ public class Board {
 		blackPlayer.addPiece(pawn7);
 		blackPlayer.addPiece(pawn8);
 
-		Piece rook1 = new Rook("rook1", false,this, 0, 7);
+		Piece rook1 = new Rook("rook1", false,this, 7, 0);
 		Piece rook2 = new Rook("rook2", false,this, 7, 7);
 		blackPlayer.addPiece(rook1);
 		blackPlayer.addPiece(rook2);
-		Piece bishopLight = new Bishop("bishopLight", false,this, 2, 7);
-		Piece bishopDark = new Bishop("bishopDark", false,this, 5, 7);
+		Piece bishopLight = new Bishop("bishopLight", false,this, 7, 2);
+		Piece bishopDark = new Bishop("bishopDark", false,this, 7, 5);
 		blackPlayer.addPiece(bishopLight);
 		blackPlayer.addPiece(bishopDark);
-		Piece knight1 = new Knight("knight1", false, this,1, 7);
-		Piece knight2 = new Knight("knight2", false,this, 6, 7);
+		Piece knight1 = new Knight("knight1", false, this,7, 1);
+		Piece knight2 = new Knight("knight2", false,this, 7, 6);
 		blackPlayer.addPiece(knight1);
 		blackPlayer.addPiece(knight2);
-		Piece queen = new Queen("queen", false,this, 3, 7);
+		Piece queen = new Queen("queen", false,this, 7, 3);
 		blackPlayer.addPiece(queen);
-		Piece kang = new King("kang", false,this, 4, 7);
+		Piece kang = new King("kang", false,this, 7, 4);
 		blackPlayer.addPiece(kang);
 
 		BoardButton a;

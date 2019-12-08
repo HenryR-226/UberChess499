@@ -159,7 +159,8 @@ public class Move {
 			if (this.piece.getAbbrev() == 'p' || this.piece.getAbbrev()=='P') {
 				if (this.piece.firstMove()) {
 					piece.madeFirstMove();
-					if (this.newrow - this.oldrow == 2) this.getPiece().incRank();
+					
+					if (Math.abs(this.n3w.getColumn() - this.old.getColumn()) == 2) this.getPiece().incRank();
 				}
 				if (this.piece.getRank()==5 && ((Pawn) this.piece).canPromote()) { 
 					try {
