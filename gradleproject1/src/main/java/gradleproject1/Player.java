@@ -166,12 +166,17 @@ public class Player {
 	//Not tested or verified, 12/1/2019
 	public King getKing() {
 		King k = null;
-		for (Piece p : pieceList) {
+		
+		for (Piece p : this.getPieceList()) {
 			char c = p.getAbbrev();
-			if (c=='K' || c=='k') k = (King) p;
-			break;
+			//System.out.println("Piece in iterable loop abbrev: " + c);
+			if (c=='K' || c=='k') {
+				k = (King) p;
+				break;
+			}
 		}
-		assert(k!=null) : "King is null so something bad happened. Line 74 of Player";
+		//System.out.println("King fetched from getKing in player, line 174 " + k.getName());
+		assert(k!=null) : "King is null so something bad happened. Line 175 of Player";
 		return k;
 	}
 
@@ -226,12 +231,18 @@ public class Player {
 		int index = -1;										//Pre-incrementing, be big brain
 		for (Piece p : pl) {
 			++index;
-			if (p.getAbbrev() == 'R' || p.getAbbrev() == 'r' ) result[0] = (Rook) p;
+			if (p.getAbbrev() == 'R' || p.getAbbrev() == 'r' ) { 
+				result[0] = (Rook) p; 
+				//System.out.println("rook 1 found, player line 234"); 
+				break; }
 		}
 		//Now check at the given index++ and see if we find another
 		while (index < pl.size() - 2) {				//-2 because Pre-Incrementing. We start at index of last rook found, then pre-increment, and at -2 we hit end of list
 			++index;
-			if (pl.get(index).getAbbrev() == 'R' || pl.get(index).getAbbrev() == 'r') result[1] = (Rook) pl.get(index);
+			if (pl.get(index).getAbbrev() == 'R' || pl.get(index).getAbbrev() == 'r') { 
+				result[1] = (Rook) pl.get(index); 
+				//System.out.println("rook2 found, player line 239"); 
+				break; }
 											//It's possible this array is empty or only has one element. This is fine.
 		}
 		return result;
