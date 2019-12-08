@@ -139,7 +139,7 @@ public class Pawn extends Piece {
 	}
 	
 	public boolean canPromote() {
-		if (this.rank == 5) {
+		if (this.rank == 6) {
 			//BoardButton b;
 			if (this.isWhite) {
 				if (!bb[this.col][++this.row].isFull()) return true;
