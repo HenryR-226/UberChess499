@@ -28,61 +28,6 @@ public class Move {
 	
 	private static int movesWithoutCapture = 0;
 	
-	/**
-	 * @author Henry Rheault
-	 *
-	 *         Commits a move to a gamer's move list. Assumes move is valid when
-	 *         being called. Try-Catch for good measure and debugging ease to see if
-	 *         the error is within Move or elsewhere.
-	 * 
-	 *         Adds a move to a particular gamer's move list for demo purposes.
-	 *         
-	 *         @deprecated
-	 */
-	public Move(Piece p, char row, char column) throws Exception {
-		try {
-
-			BoardButton[][] GameBoard = b.getGameBoard(); // Fetch gameboard object
-
-			String s = p.getLocation();
-			char loc[] = s.toCharArray();
-			int i = (int) loc[0]; // Number column
-			int j = (int) loc[1];
-
-			// 10/27/19: Update and make sure with new grid layout this reports/converts the
-			// correct grid notations!
-			// A1 - 0,0; H8 - 7,7, etc.
-			int m = (int) row;
-			int n = (int) column;
-			this.old = GameBoard[i][j];
-			this.n3w = GameBoard[m][n];
-			this.piece = p;
-
-			System.out.println(p.getAbbrev() + " moved from " + loc[0] + loc[1] + " to " + row + column + ".");
-			setAbbreviation(String.valueOf(p.getAbbrev()) + String.valueOf(row) + String.valueOf(column));
-
-			String move = String.valueOf(p.getAbbrev());
-			if (n3w.getPiece() != null) {
-				move = move + "x"; // x means a piece captured the piece on it's destination square
-				this.capture = true;
-				this.captured = n3w.getPiece();
-			}
-			move = move + row + column;
-			if (p.isWhite())
-				whitePlayer.addMove(this);
-			else
-				blackPlayer.addMove(this);
-
-			String location = this.n3w.getAbbreviation();
-			p.setLocation(location); 
-			this.getPiece().incRank();
-			this.getPiece().madeFirstMove();
-			
-		} catch (Exception e) {
-			System.out.println("Invalid move constructor. Try again.");
-		}
-	}
-	
 	public Move(Piece p, BoardButton button, boolean thisIsAMoveGeneratorOnlyWillNotPushAMove) throws Exception { // Overloaded																											// boardbutton
 		// to attempt a move to
 		try {
@@ -114,12 +59,96 @@ public class Move {
 		}
 	}
 
+	//Castle move. Called from above move method and then above move method will be crashed within the try-catch. Unless someone's paying
+	//Religious attention to Console it shouldn't matter.
+	public Move (King k, Rook r) {
+		this.captured = r;
+		this.piece = k;
+		BoardButton[][] bb = b.getGameBoard();
+		
+		int col1, row1, col2, row2;
+		String s;
+		col1 = k.getCol(); row1 = k.getRow();
+		col2 = r.getCol(); row2 = r.getRow();
+		BoardButton itr = bb[col1][row1];
+		if (!k.isWhite) {
+			if (col1 - col2 > 0) { 					//King is castling LEFT
+				k.setLocation("C8");
+				itr = bb[2][7]; this.n3w = itr; n3w.removePiece(); n3w.setPiece(k);
+				r.setLocation("D8");
+				itr = bb[3][7]; this.old = itr; old.removePiece(); old.setPiece(r); 
+				itr = bb[4][7]; itr.removePiece(); itr = bb[0][7]; itr.removePiece(); 
+				s = "krk";
+			}
+			else {									//King is castling RIGHT
+				k.setLocation("G8");
+				itr = bb[6][7]; this.n3w = itr; n3w.removePiece(); n3w.setPiece(k);
+				r.setLocation("F8");
+				itr = bb[5][7]; this.old = itr; old.removePiece(); old.setPiece(r);
+				s = "krq";
+				itr = bb[4][7]; itr.removePiece(); itr=bb[7][7]; itr.removePiece();
+			}
+			
+		}
+		else {
+			if (col1 - col2 > 0) { 					//King is castling LEFT
+				k.setLocation("C1");
+				itr = bb[2][0]; this.n3w = itr; n3w.removePiece(); n3w.setPiece(k);
+				r.setLocation("D1");
+				itr = bb[3][0]; this.old = itr; old.removePiece(); old.setPiece(r); 
+				s = "KRK";
+				itr = bb[4][0]; itr.removePiece(); itr = bb[0][0]; itr.removePiece();
+			}
+			else {									//King is castling RIGHT
+				k.setLocation("G8");
+				itr = bb[6][0]; this.n3w = itr; n3w.removePiece(); n3w.setPiece(k); 
+				r.setLocation("F8");
+				itr = bb[5][0]; this.old = itr; old.removePiece(); old.setPiece(r);
+				s = "KRQ";
+				itr = bb[4][0]; itr.removePiece(); itr = bb[7][0]; itr.removePiece();
+			}
+			
+		}	
+		movesWithoutCapture++;
+		this.abbreviation = s;
+		
+	}
 	
 	public Move(Piece p, BoardButton button) throws Exception { // Overloaded constructor, simply declare a boardbutton
 																// to attempt a move to
 		try {
 			BoardButton[][] GameBoard = b.getGameBoard(); // Fetch gameboard object
-
+			
+			if ((p.getAbbrev() == 'K' || p.getAbbrev() == 'k') && (Math.abs(button.getColumn() - p.getCol())>1)) {			//This is a castle move
+				int colDiff = button.getColumn() - p.getCol();					//This crashes with ArrayOutOfBoundsException to get out of standard move constructor. NOT BROKEN.
+				Rook r = null;
+				if (colDiff > 0) {					//Castling right
+					if (!p.isWhite) {
+						r = (Rook) GameBoard[7][7].getPiece();
+						Move m = new Move((King)p, r);
+						Piece crash = GameBoard[9][0].getPiece();				//Crash to get out of try-catch, move already constructed
+					}
+					else {
+						r = (Rook) GameBoard[0][0].getPiece();
+						Move m = new Move((King)p, r);
+						Piece crash = GameBoard[9][0].getPiece();				//Crash to get out of try-catch, move already constructed	
+					}
+				}
+				else {
+					if (!p.isWhite) {
+						r = (Rook) GameBoard[0][7].getPiece();
+						Move m = new Move((King)p, r);
+						Piece crash = GameBoard[9][0].getPiece();				//Crash to get out of try-catch, move already constructed
+					}
+					else {
+						r = (Rook) GameBoard[0][0].getPiece();
+						Move m = new Move((King)p, r);
+						Piece crash = GameBoard[9][0].getPiece();				//Crash to get out of try-catch, move already constructed	
+					}
+					
+				}
+			}
+			
 			String s = p.getLocation();
 			char loc[] = s.toCharArray();
 			int i = (int) loc[0] - 'A'; // Number column
@@ -264,6 +293,8 @@ public class Move {
 		this.piece = promoted;
 		promoted.setLocation(abbrev);
 	}
+	
+	
 	
 	/** @author Henry Rheault
 	 * Generates and returns a move based on a input string. 

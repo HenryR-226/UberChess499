@@ -103,8 +103,8 @@ public class BoardButton {
 	public void removePiece() {
 		this.isFull = false;
 		this.piece = null;
-		// System.out.println("Piece removed and set to null");
-		// System.out.println(this.isFull);
+		System.out.println("Piece removed and set to null, line 106 BB");
+		System.out.println(abbreviation + this.isFull);
 	}
 
 	/**
@@ -119,9 +119,9 @@ public class BoardButton {
 		Player player;
 		boolean team = p.isWhite();
 		if (team)
-			player = g.getBlack(); // If p is white -> black lost piece
+			player = GameState.getBlack(); // If p is white -> black lost piece
 		else
-			player = g.getWhite(); // If p is black -> white lost piece
+			player = GameState.getWhite(); // If p is black -> white lost piece
 		player.pieceCaptured(this.piece);
 		this.piece = p;
 		this.isFull = true;

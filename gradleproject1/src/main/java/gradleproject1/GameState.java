@@ -7,8 +7,8 @@ package gradleproject1;
 
 public class GameState {
     private int cores;                                //Number of CPU hardware threads available to JVM at run time
-    private Player playerWhite;
-    private Player playerBlack;
+    private static Player playerWhite;
+    private static Player playerBlack;
     Boolean turn = true;						//True = white turn, false = black turn
     private Integer depth = 4;							//Number of turns to go down
     private Player winrar = null;				//Winner gamer, True if white, false if black, invalid/null for in progress
@@ -26,11 +26,11 @@ public class GameState {
     }
     
     //These two methods needed for Piece Capturing implementation
-    public Player getWhite(){
-        return this.playerWhite;
+    public static Player getWhite(){
+        return playerWhite;
     }
-    public Player getBlack(){
-        return this.playerBlack;
+    public static Player getBlack(){
+        return playerBlack;
     }    
     
     public GameState getGameState(){

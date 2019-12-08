@@ -42,15 +42,13 @@ public class King extends Piece {
 		
 		if (diffCol >=0) { //Check left
 			while (itr>1) {
-				--itr;
-				if (bb[itr][myCol].isFull()) return false;			//Can't go here because a piece is in the way
+				if (bb[--itr][myCol].isFull()) return false;			//Can't go here because a piece is in the way
 			}
 			return true;
 		}	
 		else if (diffCol < 0) {
 			while (itr<6) {
-				++itr;
-				if (bb[itr][myCol].isFull()) return false;
+				if (bb[++itr][myCol].isFull()) return false;
 			}
 			return true;
 		}
