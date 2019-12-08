@@ -189,6 +189,78 @@ public class Move {
 			e.printStackTrace();
 		}
 	}
+	/**
+	 * Move constructor for pawn promotion only, straight up column
+	 */
+	public Move (Pawn p) {
+		assert (p.getRow() == 6 || p.getRow() == 1);
+		BoardButton[][] GameBoard = b.getGameBoard(); // Fetch gameboard object
+
+		String s = p.getLocation();
+		char loc[] = s.toCharArray();
+		int i = (int) loc[0] - 'A'; // Number column
+		int j = (int) loc[1] - '0' - 1;
+
+		this.old = GameBoard[i][j];
+		//System.out.println("Calling remove on boardbutton" + i + " " + j);
+		if (p.isWhite) this.n3w = GameBoard[p.getCol()][7];
+		if (!p.isWhite) this.n3w = GameBoard[p.getCol()][0];
+		
+		//this.piece = p;
+		String abbrev = n3w.getAbbreviation();
+		String move = String.valueOf(p.getAbbrev());
+		movesWithoutCapture = 0;
+		move = move + abbrev;
+		setAbbreviation(move);
+		
+		Piece promoted = p.promote(); 
+		
+		old.removePiece();
+		n3w.setPiece(promoted);
+		
+		this.piece = promoted;
+		promoted.setLocation(abbrev);
+	}
+	
+	//Overloaded, boolean true = steps RIGHT, false = steps LEFT
+	public Move (Pawn p, boolean side) {
+		assert (p.getRow() == 6 || p.getRow() == 1);
+		BoardButton[][] GameBoard = b.getGameBoard(); // Fetch gameboard object
+
+		String s = p.getLocation();
+		char loc[] = s.toCharArray();
+		int i = (int) loc[0] - 'A'; // Number column
+		int j = (int) loc[1] - '0' - 1;
+
+		this.old = GameBoard[i][j];
+		//System.out.println("Calling remove on boardbutton" + i + " " + j);
+		if (p.isWhite) {
+			if (side) this.n3w = GameBoard[p.getCol()+1][7];
+			else this.n3w = GameBoard[p.getCol()-1][7];
+		}
+		if (!p.isWhite) {
+			if (side) this.n3w = GameBoard[p.getCol()+1][0];
+			else this.n3w = GameBoard[p.getCol()-1][0];
+		}
+		
+		//this.piece = p;
+		String abbrev = n3w.getAbbreviation();
+		String move = String.valueOf(p.getAbbrev());
+		String x = "x";
+		movesWithoutCapture = 0;
+		move = move + x + abbrev;
+		if (n3w.isFull()) captured = n3w.getPiece();
+		setAbbreviation(move);
+		
+		Piece promoted = p.promote(); 
+		
+		old.removePiece();
+		n3w.removePiece(promoted);
+		n3w.setPiece(promoted);
+		
+		this.piece = promoted;
+		promoted.setLocation(abbrev);
+	}
 	
 	/** @author Henry Rheault
 	 * Generates and returns a move based on a input string. 

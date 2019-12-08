@@ -18,8 +18,7 @@ public class Board {
 
 	private ArrayList<Move> possibleMoves;
 
-	// Used for AI generation to create a clone of the real board to sandbox stuff
-	// in
+	// Used for AI generation to create a clone of the real board to sandbox stuff in
 	public Board copy() {
 		Board b = new Board(whitePlayer, blackPlayer);
 		b = this;
@@ -44,10 +43,9 @@ public class Board {
 
 		for (int i = 0; i < pieces.size(); i++) {
 			tempPiece = pieces.get(i); // Sets temp piece
-			moves.add(pieces.get(i).getMoves(tempPiece, board)); // returns array list of board buttons and adds to
-																	// moves array
-			for (int j = 0; j < (pieces.get(i).getMoves(tempPiece, board).size()); j++) { // for the size of the
-																							// returned array add the
+			moves.add(pieces.get(i).getMoves(tempPiece, board)); 							// returns array list of board buttons and adds to
+																							// moves array
+			for (int j = 0; j < (pieces.get(i).getMoves(tempPiece, board).size()); j++) { // for the size of the returned array add the
 																							// piece abv
 				allMoves.add(tempPiece);
 			}
@@ -100,7 +98,6 @@ public class Board {
 	// gets Queen gamer moves. Could possibly fix this with less iteration for loops
 	public ArrayList<Move> getMoves(Player p) throws Exception {
 		ArrayList<ArrayList<BoardButton>> moveSquareList = new ArrayList<ArrayList<BoardButton>>(); // List of Lists,
-		String moveString; // Return string of given move
 		Move move;
 		ArrayList<Move> moves = new ArrayList<Move>();
 		for (Piece piece : p.getPieceList()) { // For each piece in player's list
@@ -109,36 +106,14 @@ public class Board {
 			for (ArrayList<BoardButton> al : moveSquareList) { // For each list of boardbuttons in the movesquare list
 				for (BoardButton b : al) { // For each boadbutton IN said list of boardbuttons
 					move = new Move(piece, b, true); // Construct the move
-					if (move!=null)	possibleMoves.add(move); // Post the move to final move list
-				} // if statement for king not in check)
+					if (move!=null && !p.getKing().isInCheck(this.getGameBoard(), p.getPieceList(), piece, move)) possibleMoves.add(move); // Post the move to final move list
+				} 				// AND an if statement for king not in check)
 			} // This will NOT report a space immediately forward of the pawn occupied by
 				// enemy piece as valid move.
 		} // This will be tested/weeded out in the Pawn specific candidate generation
 			// moves to keep this clean.
 		return possibleMoves; // Return the final move list. AI selects from this randomly and potential move
 	} // to be made MUST BE in here
-
-	// Ryan's attempt, was in Main as it's own method:
-//	public static void getAllMoves(ArrayList<Piece> pieces, BoardButton[][] board) {
-//        Piece tempPiece = null;
-//        ArrayList<BoardButton> moves = new ArrayList<BoardButton>();
-//        ArrayList<String> allMoves = new ArrayList<String>();
-//       
-//        Stack<BoardButton> test = new Stack<BoardButton>();
-//       
-//       
-//        for (int i = 0; i < pieces.size(); i++) {
-//            moves = pieces.get(i).getMoves(pieces.get(i), board);
-//            for(int j = 0; j < moves.size() -2; j++)    {
-//                if(moves.size() != 0) {
-//                    test.push(moves.get(i));
-//                }  
-//            }
-//        }
-//       
-//        System.out.println(test.size());
-//    }
-//	
 
 	// Draws out Ascii art of the gameboard. To be called after every successfully
 	// committed move.
@@ -169,8 +144,9 @@ public class Board {
 	}
 
 	/**
-	 * @author Henry Rheault Returns specific BoardButton given the arguments of X &
-	 *         Y coordinates.
+	 * @author Henry Rheault 
+	 * Returns specific BoardButton given the arguments of X &
+	 * Y coordinates.
 	 */
 	public BoardButton getBoardButton(int x, int y) {
 		try {
@@ -202,47 +178,13 @@ public class Board {
 	}
 
 	/**
-	 * @author Henry Rheault Method to take in string of piece location and
-	 *         natively/abstractly convert to array memory location.
-	 * 
-	 *         Needs to be fixed as of 10/27 as the board layout has been altered.
-	 * 
-	 * @deprecated
-	 */
-
-	// public BoardButton toArray(String s){
-	/*
-	 * BoardButton b; int x=-1; int y=-1; try{ assert (s.length() == 2); char[] temp
-	 * = s.toCharArray();
-	 * 
-	 * //Take string, convert to chars, and get Memory Array location from the Chess
-	 * String location char col = temp[0]; //A-H, not case sensitive, input argument
-	 * char r0w = temp[1]; //1-8, input argument col = Character.toUpperCase(col);
-	 * //Ensures that the column character is upper case for ease of assert if
-	 * (!(Character.isLetter(col) || col>'H')) assert (Character.isLetter(col) &&
-	 * col<='H'); //Set user error flag and break out of try if not else x = col -
-	 * 'A';
-	 * 
-	 * 
-	 * if (r0w >8 || r0w<0) assert (r0w <=8 && r0w>0); //Set user error flag and
-	 * break out of try if not else y = 8-r0w; b = GameBoard[x][y]; return b; }
-	 * catch (Exception e) { System.out.
-	 * println("You should probably not call publically available methods with random input."
-	 * ); e.printStackTrace(); } finally { return null; }
-	 */
-
-	// }
-
-	/**
 	 * @author Henry Rheault
 	 * 
-	 *         Updated 10/29/2019 and not tested- Added feature to assign board
-	 *         abbreviations within init board method. So it goes to each board
-	 *         square and tells it 'you are A1/E4', etc. Calls an overloaded method
+	 *        	Calls an overloaded method
 	 *         that processes the int input and then itself calls the setter.
 	 * @throws Exception
 	 * 
-	 *                   FIXME : Row E and all Knights are not being initialized!!
+	 * 
 	 */
 
 	public void initBoard() throws Exception {
@@ -265,14 +207,14 @@ public class Board {
 	}
 
 	public void initWhite() {
-		Pawn Pawn1 = new Pawn("Pawn1", true,this, 0, 1);
+		Pawn Pawn1 = new Pawn("Pawn1", true,this, 1, 0);
 		Pawn Pawn2 = new Pawn("Pawn2", true,this, 1, 1);
-		Pawn Pawn3 = new Pawn("Pawn3", true,this, 2, 1);
-		Pawn Pawn4 = new Pawn("Pawn4", true,this, 3, 1);
-		Pawn Pawn5 = new Pawn("Pawn5", true,this, 4, 1);
-		Pawn Pawn6 = new Pawn("Pawn6", true,this, 5, 1);
-		Pawn Pawn7 = new Pawn("Pawn7", true,this, 6, 1);
-		Pawn Pawn8 = new Pawn("Pawn8", true,this, 7, 1);
+		Pawn Pawn3 = new Pawn("Pawn3", true,this, 1, 2);
+		Pawn Pawn4 = new Pawn("Pawn4", true,this, 1, 3);
+		Pawn Pawn5 = new Pawn("Pawn5", true,this, 1, 4);
+		Pawn Pawn6 = new Pawn("Pawn6", true,this, 1, 5);
+		Pawn Pawn7 = new Pawn("Pawn7", true,this, 1, 6);
+		Pawn Pawn8 = new Pawn("Pawn8", true,this, 1, 7);
 		// Manually add pieces to piece list. Should be done in piece constructor but
 		// w/e
 		whitePlayer.addPiece(Pawn1);
@@ -357,14 +299,14 @@ public class Board {
 	}
 
 	public void initBlack() {
-		Piece pawn1 = new Pawn("pawn1", false, this, 0, 6);
-		Piece pawn2 = new Pawn("pawn2", false, this, 1, 6);
-		Piece pawn3 = new Pawn("pawn3", false, this,2, 6);
-		Piece pawn4 = new Pawn("pawn4", false,this, 3, 6);
-		Piece pawn5 = new Pawn("pawn5", false, this,4, 6);
-		Piece pawn6 = new Pawn("pawn6", false,this, 5, 6);
+		Piece pawn1 = new Pawn("pawn1", false, this, 6, 0);
+		Piece pawn2 = new Pawn("pawn2", false, this, 6, 1);
+		Piece pawn3 = new Pawn("pawn3", false, this,6, 2);
+		Piece pawn4 = new Pawn("pawn4", false,this, 6, 3);
+		Piece pawn5 = new Pawn("pawn5", false, this,6, 4);
+		Piece pawn6 = new Pawn("pawn6", false,this, 6, 5);
 		Piece pawn7 = new Pawn("pawn7", false, this,6, 6);
-		Piece pawn8 = new Pawn("pawn8", false, this,7, 6);
+		Piece pawn8 = new Pawn("pawn8", false, this,6, 7);
 		blackPlayer.addPiece(pawn1);
 		blackPlayer.addPiece(pawn2);
 		blackPlayer.addPiece(pawn3);
@@ -816,9 +758,6 @@ case 'M':
 		b.setPiece(p);
 		
 		System.out.println("Line 817 Board, Move D8 to H4 for CheckMate");
-	
-		
-		
 	}
 	
 	public Player getWhitePlayer() {
