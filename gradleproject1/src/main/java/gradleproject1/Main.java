@@ -422,9 +422,26 @@ public class Main {
 							if ((Character.toString(test.getAbbrev()) + oldX2.toUpperCase() + oldY2)
 									.compareTo(test.getAbbrev() + butn.getAbbreviation()) == 0) {
 								Piece enemy = butn.getPiece();
-								moveIteration = new Move(test, butn);
-								madeMove = true;
-
+								
+								if (test.getAbbrev() == 'P' && oldY2.compareTo(Integer.toString(8)) == 0) {
+									if (oldX2.compareTo(oldX1)!=0) {
+										if (oldX2.compareTo(oldX1) > 0) moveIteration = new Move((Pawn)test, true);	//Step right
+										if (oldX2.compareTo(oldX1) < 0) moveIteration = new Move((Pawn) test, false);	//Step left
+									}
+									else moveIteration = new Move ((Pawn) test);		
+										
+									}
+								else if (test.getAbbrev() == 'p' && oldY2.compareTo(Integer.toString(0)) == '0') {
+									if (oldX2.compareTo(oldX1)!=0) {
+										if (oldX2.compareTo(oldX1) > 0) moveIteration = new Move((Pawn)test, true);	//Step right
+										if (oldX2.compareTo(oldX1) < 0) moveIteration = new Move((Pawn) test, false);	//Step left
+									}
+									else moveIteration = new Move ((Pawn) test);
+								}
+								else {
+									moveIteration = new Move(test, butn);
+									madeMove = true;
+								}
 								if (moveIteration.getAbbreviation().contains("x")) {
 									System.out.println("Piece captured!");
 									if (enemy.isWhite())

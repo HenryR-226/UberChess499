@@ -310,6 +310,8 @@ public class Player {
 	 * @author Henry Rheault, Ryan Brodsky
 	 * Helper method to make an AI call in ONE call only. Calls setUp, bestMove and cleanUp.
 	 * Depth is immutible (for now) from GameState and gotten below.
+	 * 
+	 * @deprecated
 	 */
 	public Move generateAIMove() {
 		setUpAI(depth);
@@ -326,6 +328,8 @@ public class Player {
 	 * by another helper method.
 	 * 
 	 * Intended to be where heavy/slow/'deep copy' calls are made so they're only run ONCE. Okay here, not okay in bestMove().
+	 * 
+	 * @deprecated
 	 */
 	private void setUpAI(int depth) {
 		iterable = depth * 2;
@@ -422,6 +426,8 @@ public class Player {
 	   * @author Henry Rheault
 	   * A clean-up method to reset all the variables to make sure nothing funny happens when returning from an
 	   * AI call. Sets all the fields needed by AI to null so they're available for garbage collection.
+	   * 
+	   * @deprecated
 	   */
 	  private void cleanUpAI() {
 		  blackPieceList = null;

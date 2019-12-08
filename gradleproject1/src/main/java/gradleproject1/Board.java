@@ -694,7 +694,6 @@ case 'M':
 			for (int j = 1; j < 9; j++) {
 				BoardButton butn = new BoardButton(i, j);
 				butn.setColor(white);
-				// ABBREVIATION IS BEING PASSED ASCII VALUES!! NEEDS FIX!
 				try {
 					butn.setAbbreviation(i, j);
 				} catch (Exception e) {
