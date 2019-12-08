@@ -248,28 +248,29 @@ public class Board {
 
 		// Manually placing and declaring to each piece their locations
 
-		GameBoard[Pawn1.getRow()][Pawn1.getCol()].setPiece(Pawn1);
+		a = GameBoard[0][1];
+		a.setPiece(Pawn1);
 		Pawn1.setLocation("A2");
-
-		GameBoard[Pawn2.getRow()][Pawn2.getCol()].setPiece(Pawn2);
+		a = GameBoard[1][1];
+		a.setPiece(Pawn2);
+		a = GameBoard[2][1];
 		Pawn2.setLocation("B2");
-
-		GameBoard[Pawn3.getRow()][Pawn3.getCol()].setPiece(Pawn3);
+		a.setPiece(Pawn3);
+		a = GameBoard[3][1];
 		Pawn3.setLocation("C2");
-
-		GameBoard[Pawn4.getRow()][Pawn4.getCol()].setPiece(Pawn4);
+		a.setPiece(Pawn4);
+		a = GameBoard[4][1];
 		Pawn4.setLocation("D2");
-
-		GameBoard[Pawn5.getRow()][Pawn5.getCol()].setPiece(Pawn5);
+		a.setPiece(Pawn5);
+		a = GameBoard[5][1];
 		Pawn5.setLocation("E2");
-
-		GameBoard[Pawn6.getRow()][Pawn6.getCol()].setPiece(Pawn6);
+		a.setPiece(Pawn6);
+		a = GameBoard[6][1];
 		Pawn6.setLocation("F2");
-
-		GameBoard[Pawn7.getRow()][Pawn7.getCol()].setPiece(Pawn7);
+		a.setPiece(Pawn7);
+		a = GameBoard[7][1];
 		Pawn7.setLocation("G2");
-
-		GameBoard[Pawn8.getRow()][Pawn8.getCol()].setPiece(Pawn8);
+		a.setPiece(Pawn8);
 		Pawn8.setLocation("H2");
 
 		a = GameBoard[0][0];
