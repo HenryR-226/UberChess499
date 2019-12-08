@@ -207,14 +207,14 @@ public class Board {
 	}
 
 	public void initWhite() {
-		Pawn Pawn1 = new Pawn("Pawn1", true,this, 1, 0);
+		Pawn Pawn1 = new Pawn("Pawn1", true,this, 0, 1);
 		Pawn Pawn2 = new Pawn("Pawn2", true,this, 1, 1);
-		Pawn Pawn3 = new Pawn("Pawn3", true,this, 1, 2);
-		Pawn Pawn4 = new Pawn("Pawn4", true,this, 1, 3);
-		Pawn Pawn5 = new Pawn("Pawn5", true,this, 1, 4);
-		Pawn Pawn6 = new Pawn("Pawn6", true,this, 1, 5);
-		Pawn Pawn7 = new Pawn("Pawn7", true,this, 1, 6);
-		Pawn Pawn8 = new Pawn("Pawn8", true,this, 1, 7);
+		Pawn Pawn3 = new Pawn("Pawn3", true,this, 2, 1);
+		Pawn Pawn4 = new Pawn("Pawn4", true,this, 3, 1);
+		Pawn Pawn5 = new Pawn("Pawn5", true,this, 4, 1);
+		Pawn Pawn6 = new Pawn("Pawn6", true,this, 5, 1);
+		Pawn Pawn7 = new Pawn("Pawn7", true,this, 6, 1);
+		Pawn Pawn8 = new Pawn("Pawn8", true,this, 7, 1);
 		// Manually add pieces to piece list. Should be done in piece constructor but
 		// w/e
 		whitePlayer.addPiece(Pawn1);
@@ -236,8 +236,8 @@ public class Board {
 		Piece BishopDark = new Bishop("BishopDark", true,this, 0, 5);
 		whitePlayer.addPiece(BishopLight);
 		whitePlayer.addPiece(BishopDark);
-		Piece Knight1 = new Knight("Knight1", true,this, 0, 1);
-		Piece Knight2 = new Knight("Knight2", true,this, 0, 6);
+		Piece Knight1 = new Knight("Knight1", true,this, 1, 0);
+		Piece Knight2 = new Knight("Knight2", true,this, 6, 0);
 		whitePlayer.addPiece(Knight1);
 		whitePlayer.addPiece(Knight2);
 		Piece Queen = new Queen("Queen", true,this, 0, 3);
@@ -248,28 +248,29 @@ public class Board {
 
 		// Manually placing and declaring to each piece their locations
 
-		GameBoard[Pawn1.getRow()][Pawn1.getCol()].setPiece(Pawn1);
+		a = GameBoard[0][1];
+		a.setPiece(Pawn1);
 		Pawn1.setLocation("A2");
-
-		GameBoard[Pawn2.getRow()][Pawn2.getCol()].setPiece(Pawn2);
+		a = GameBoard[1][1];
+		a.setPiece(Pawn2);
+		a = GameBoard[2][1];
 		Pawn2.setLocation("B2");
-
-		GameBoard[Pawn3.getRow()][Pawn3.getCol()].setPiece(Pawn3);
+		a.setPiece(Pawn3);
+		a = GameBoard[3][1];
 		Pawn3.setLocation("C2");
-
-		GameBoard[Pawn4.getRow()][Pawn4.getCol()].setPiece(Pawn4);
+		a.setPiece(Pawn4);
+		a = GameBoard[4][1];
 		Pawn4.setLocation("D2");
-
-		GameBoard[Pawn5.getRow()][Pawn5.getCol()].setPiece(Pawn5);
+		a.setPiece(Pawn5);
+		a = GameBoard[5][1];
 		Pawn5.setLocation("E2");
-
-		GameBoard[Pawn6.getRow()][Pawn6.getCol()].setPiece(Pawn6);
+		a.setPiece(Pawn6);
+		a = GameBoard[6][1];
 		Pawn6.setLocation("F2");
-
-		GameBoard[Pawn7.getRow()][Pawn7.getCol()].setPiece(Pawn7);
+		a.setPiece(Pawn7);
+		a = GameBoard[7][1];
 		Pawn7.setLocation("G2");
-
-		GameBoard[Pawn8.getRow()][Pawn8.getCol()].setPiece(Pawn8);
+		a.setPiece(Pawn8);
 		Pawn8.setLocation("H2");
 
 		a = GameBoard[0][0];
@@ -299,14 +300,14 @@ public class Board {
 	}
 
 	public void initBlack() {
-		Piece pawn1 = new Pawn("pawn1", false, this, 6, 0);
-		Piece pawn2 = new Pawn("pawn2", false, this, 6, 1);
-		Piece pawn3 = new Pawn("pawn3", false, this,6, 2);
-		Piece pawn4 = new Pawn("pawn4", false,this, 6, 3);
-		Piece pawn5 = new Pawn("pawn5", false, this,6, 4);
-		Piece pawn6 = new Pawn("pawn6", false,this, 6, 5);
+		Piece pawn1 = new Pawn("pawn1", false, this, 0, 6);
+		Piece pawn2 = new Pawn("pawn2", false, this, 1, 6);
+		Piece pawn3 = new Pawn("pawn3", false, this, 2, 6);
+		Piece pawn4 = new Pawn("pawn4", false,this, 3, 6);
+		Piece pawn5 = new Pawn("pawn5", false, this,4, 6);
+		Piece pawn6 = new Pawn("pawn6", false,this, 5, 6);
 		Piece pawn7 = new Pawn("pawn7", false, this,6, 6);
-		Piece pawn8 = new Pawn("pawn8", false, this,6, 7);
+		Piece pawn8 = new Pawn("pawn8", false, this,7, 6);
 		blackPlayer.addPiece(pawn1);
 		blackPlayer.addPiece(pawn2);
 		blackPlayer.addPiece(pawn3);
@@ -316,21 +317,21 @@ public class Board {
 		blackPlayer.addPiece(pawn7);
 		blackPlayer.addPiece(pawn8);
 
-		Piece rook1 = new Rook("rook1", false,this, 0, 7);
+		Piece rook1 = new Rook("rook1", false,this, 7, 0);
 		Piece rook2 = new Rook("rook2", false,this, 7, 7);
 		blackPlayer.addPiece(rook1);
 		blackPlayer.addPiece(rook2);
-		Piece bishopLight = new Bishop("bishopLight", false,this, 2, 7);
-		Piece bishopDark = new Bishop("bishopDark", false,this, 5, 7);
+		Piece bishopLight = new Bishop("bishopLight", false,this, 7, 2);
+		Piece bishopDark = new Bishop("bishopDark", false,this, 7, 5);
 		blackPlayer.addPiece(bishopLight);
 		blackPlayer.addPiece(bishopDark);
 		Piece knight1 = new Knight("knight1", false, this,1, 7);
 		Piece knight2 = new Knight("knight2", false,this, 6, 7);
 		blackPlayer.addPiece(knight1);
 		blackPlayer.addPiece(knight2);
-		Piece queen = new Queen("queen", false,this, 3, 7);
+		Piece queen = new Queen("queen", false,this, 7, 3);
 		blackPlayer.addPiece(queen);
-		Piece kang = new King("kang", false,this, 4, 7);
+		Piece kang = new King("kang", false,this, 7, 4);
 		blackPlayer.addPiece(kang);
 
 		BoardButton a;
@@ -616,12 +617,12 @@ case 'M':
 		
 		BoardButton a = null;
 		
-		Piece pawn1 = new Pawn("pawn1", false, this, 7, 0);
-		Piece pawn2 = new Pawn("pawn2", false, this, 7, 1);
-		Piece pawn3 = new Pawn("pawn3", false, this, 7, 2);
-		Piece pawn4 = new Pawn("pawn4", false, this, 7, 3);
-		Piece pawn5 = new Pawn("pawn5", false, this, 7, 4);
-		Piece pawn6 = new Pawn("pawn6", false, this, 7, 5);
+		Piece pawn1 = new Pawn("pawn1", false, this, 0, 7);
+		Piece pawn2 = new Pawn("pawn2", false, this, 1, 7);
+		Piece pawn3 = new Pawn("pawn3", false, this, 2, 7);
+		Piece pawn4 = new Pawn("pawn4", false, this, 3, 7);
+		Piece pawn5 = new Pawn("pawn5", false, this, 4, 7);
+		Piece pawn6 = new Pawn("pawn6", false, this, 6, 1);
 		
 		blackPlayer.addPiece(pawn1);
 		blackPlayer.addPiece(pawn2);
@@ -654,11 +655,11 @@ case 'M':
 		}
 		pawn6.setRank(5);
 		
-		Pawn Pawn1 = new Pawn("Pawn1", true, this, 6, 0);
-		Pawn Pawn2 = new Pawn("Pawn2", true, this, 6, 1);
-		Pawn Pawn3 = new Pawn("Pawn3", true, this, 6, 2);
-		Pawn Pawn4 = new Pawn("Pawn4", true, this, 6, 3);
-		Pawn Pawn5 = new Pawn("Pawn5", true, this, 1, 6);
+		Pawn Pawn1 = new Pawn("Pawn1", true, this, 0, 6);
+		Pawn Pawn2 = new Pawn("Pawn2", true, this, 1, 6);
+		Pawn Pawn3 = new Pawn("Pawn3", true, this, 2, 6);
+		Pawn Pawn4 = new Pawn("Pawn4", true, this, 3, 6);
+		Pawn Pawn5 = new Pawn("Pawn5", true, this, 4, 6);
 		whitePlayer.addPiece(Pawn1);
 		whitePlayer.addPiece(Pawn2);
 		whitePlayer.addPiece(Pawn3);
