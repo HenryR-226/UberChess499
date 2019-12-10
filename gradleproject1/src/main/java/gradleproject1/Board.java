@@ -51,7 +51,7 @@ public class Board {
 			}
 		}
 
-		// loops through all the found moves
+		// loops through all the found moves. Can't be a for : loop because we need the index
 		for (int j = 0; j < moves.size(); j++) {
 			for (int k = 0; k < moves.get(j).size(); k++) {
 				Move m;

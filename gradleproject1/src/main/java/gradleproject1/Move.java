@@ -118,7 +118,7 @@ public class Move {
 																// to attempt a move to
 		try {
 			BoardButton[][] GameBoard = b.getGameBoard(); // Fetch gameboard object
-			
+			boolean castle = false;
 			if ((p.getAbbrev() == 'K' || p.getAbbrev() == 'k') && (Math.abs(button.getColumn() - p.getCol())>1)) {			//This is a castle move
 				int colDiff = button.getColumn() - p.getCol();					//This crashes with ArrayOutOfBoundsException to get out of standard move constructor. NOT BROKEN.
 				Rook r = null;
@@ -126,94 +126,103 @@ public class Move {
 					if (!p.isWhite) {
 						r = (Rook) GameBoard[7][7].getPiece();
 						Move m = new Move((King)p, r);
-						Piece crash = GameBoard[9][0].getPiece();				//Crash to get out of try-catch, move already constructed
+						castle=true;
+						//Piece crash = GameBoard[9][0].getPiece();				//Crash to get out of try-catch, move already constructed
 					}
 					else {
 						r = (Rook) GameBoard[0][0].getPiece();
 						Move m = new Move((King)p, r);
-						Piece crash = GameBoard[9][0].getPiece();				//Crash to get out of try-catch, move already constructed	
+						//Piece crash = GameBoard[9][0].getPiece();				//Crash to get out of try-catch, move already constructed	
+						castle = true;
 					}
 				}
 				else {
 					if (!p.isWhite) {
 						r = (Rook) GameBoard[0][7].getPiece();
 						Move m = new Move((King)p, r);
-						Piece crash = GameBoard[9][0].getPiece();				//Crash to get out of try-catch, move already constructed
+						//Piece crash = GameBoard[9][0].getPiece();				//Crash to get out of try-catch, move already constructed
+						castle = true;
 					}
 					else {
 						r = (Rook) GameBoard[0][0].getPiece();
 						Move m = new Move((King)p, r);
-						Piece crash = GameBoard[9][0].getPiece();				//Crash to get out of try-catch, move already constructed	
+						//Piece crash = GameBoard[9][0].getPiece();				//Crash to get out of try-catch, move already constructed	
+						castle = true;
 					}
-					
 				}
 			}
-			
-			String s = p.getLocation();
-			char loc[] = s.toCharArray();
-			int i = (int) loc[0] - 'A'; // Number column
-			int j = (int) loc[1] - '0' - 1;
+			if (!castle) {
+				String s = p.getLocation();
+				char loc[] = s.toCharArray();
+				int i = (int) loc[0] - 'A'; // Number column
+				int j = (int) loc[1] - '0' - 1;
 
-			this.old = GameBoard[i][j];
-			//System.out.println("Calling remove on boardbutton" + i + " " + j);
-			this.n3w = button;
-			this.piece = p;
-			String abbrev = n3w.getAbbreviation();
-			System.out.println(p.getAbbrev() + " moved from " + loc[0] + loc[1] + " to " + abbrev + ".");
+				this.old = GameBoard[i][j];
+				// System.out.println("Calling remove on boardbutton" + i + " " + j);
+				this.n3w = button;
+				this.piece = p;
+				String abbrev = n3w.getAbbreviation();
+				System.out.println(p.getAbbrev() + " moved from " + loc[0] + loc[1] + " to " + abbrev + ".");
 
-			String move = String.valueOf(p.getAbbrev());
-			if (n3w.getPiece()!=null && n3w.getPiece().isWhite()!=piece.isWhite()) {
-				move = move + "x"; // x means a piece captured the piece on it's destination square
-				capture = true;
-				this.captured = n3w.getPiece();
-				movesWithoutCapture = 0;
-				n3w.removePiece(piece);
-			}
-			else old.removePiece();
-			move = move + abbrev;
-			setAbbreviation(move);
+				String move = String.valueOf(p.getAbbrev());
+				if (n3w.getPiece() != null && n3w.getPiece().isWhite() != piece.isWhite()) {
+					move = move + "x"; // x means a piece captured the piece on it's destination square
+					capture = true;
+					this.captured = n3w.getPiece();
+					movesWithoutCapture = 0;
+					n3w.removePiece(piece);
+				} else
+					old.removePiece();
+				move = move + abbrev;
+				setAbbreviation(move);
 
-			if (p.isWhite()) {				
-				//Check move implementations, needs to be tested. 11/29/2019				
-				if (whitePlayer.inCheck()) 		//If we're in check, make sure this takes us out of check
-					if (!whitePlayer.getKing().isInCheck(GameBoard, whitePlayer.getPieceList(), this.piece, this)) whitePlayer.removeCheck();
-					//else return null because you can't push this move
-				whitePlayer.addMove(this);
-			} else {
-				if (blackPlayer.inCheck()) 
-					if (!blackPlayer.getKing().isInCheck(GameBoard, whitePlayer.getPieceList(), this.piece, this)) blackPlayer.removeCheck();
-					//else return null because you can't push this move
-				blackPlayer.addMove(this);
-			}
-			String location = this.n3w.getAbbreviation();
-			//Update pawn first move field
-			if (this.piece.getAbbrev() == 'p' || this.piece.getAbbrev()=='P') {
-				if (this.piece.firstMove()) {
-					piece.madeFirstMove();
-					
-					if (Math.abs(this.n3w.getRow() - this.old.getRow()) == 2) this.getPiece().incRank();
+				if (p.isWhite()) {
+					// Check move implementations, needs to be tested. 11/29/2019
+					if (whitePlayer.inCheck()) // If we're in check, make sure this takes us out of check
+						if (!whitePlayer.getKing().isInCheck(GameBoard, whitePlayer.getPieceList(), this.piece, this))
+							whitePlayer.removeCheck();
+					// else return null because you can't push this move
+					whitePlayer.addMove(this);
+				} else {
+					if (blackPlayer.inCheck())
+						if (!blackPlayer.getKing().isInCheck(GameBoard, whitePlayer.getPieceList(), this.piece, this))
+							blackPlayer.removeCheck();
+					// else return null because you can't push this move
+					blackPlayer.addMove(this);
 				}
-				if (this.piece.getRank()==5 && ((Pawn) this.piece).canPromote()) { 
-					try {
-						((Pawn)this.piece).promote();
-					} catch (Exception e) {
-						
+				String location = this.n3w.getAbbreviation();
+				// Update pawn first move field
+				if (this.piece.getAbbrev() == 'p' || this.piece.getAbbrev() == 'P') {
+					if (this.piece.firstMove()) {
+						piece.madeFirstMove();
+
+						if (Math.abs(this.n3w.getRow() - this.old.getRow()) == 2)
+							this.getPiece().incRank();
 					}
-				
+					if (this.piece.getRank() == 5 && ((Pawn) this.piece).canPromote()) {
+						try {
+							((Pawn) this.piece).promote();
+						} catch (Exception e) {
+
+						}
+
+					}
+					this.getPiece().incRank();
+					this.getPiece().madeFirstMove();
 				}
-				this.getPiece().incRank();
-				this.getPiece().madeFirstMove();
-			}
-			old.removePiece();
-			n3w.setPiece(p);
-			p.setLocation(location);
-			if (p.getAbbrev()=='p' || p.getAbbrev()=='P') movesWithoutCapture = 0;
-			
-			//Stalemate!!
-			if (movesWithoutCapture == 50 || (b.getBlackPlayer().getPieceList().size()==1 && b.getWhitePlayer().getPieceList().size()==1)) {
-				System.out.println("50 move or King-only stalemate! Game's over. Line 171 Move");
-				Player.getGameState().setWinrar(null);
-				Player.getGameState().setStalemate();
+				old.removePiece();
+				n3w.setPiece(p);
+				p.setLocation(location);
+				if (p.getAbbrev() == 'p' || p.getAbbrev() == 'P')
+					movesWithoutCapture = 0;
+
+				// Stalemate!!
+				if (movesWithoutCapture == 50 || (b.getBlackPlayer().getPieceList().size() == 1
+						&& b.getWhitePlayer().getPieceList().size() == 1)) {
+					System.out.println("50 move or King-only stalemate! Game's over. Line 171 Move");
+					Player.getGameState().setWinrar(null);
+					Player.getGameState().setStalemate();
+				}
 			}
 
 		} catch (Exception e) {

@@ -36,19 +36,20 @@ public class King extends Piece {
 		if (r == null) return false;			//Did you pass me null
 		if (!r.firstMove()) return false;		//Has the rook moved before
 		int myCol = this.col;
+		int myRow = this.row;
 		int rookCol = r.getCol();
 		int diffCol = myCol - rookCol;		//If NEGATIVE this means rook is to the right, if POS to left
 		int itr = myCol;						//Iterable
 		
 		if (diffCol >=0) { //Check left
 			while (itr>1) {
-				if (bb[--itr][myCol].isFull()) return false;			//Can't go here because a piece is in the way
+				if (bb[--itr][myRow].isFull()) return false;			//Can't go here because a piece is in the way
 			}
 			return true;
 		}	
 		else if (diffCol < 0) {
 			while (itr<6) {
-				if (bb[++itr][myCol].isFull()) return false;
+				if (bb[++itr][myRow].isFull()) return false;
 			}
 			return true;
 		}
@@ -74,7 +75,7 @@ public class King extends Piece {
 			boolean rook1can = canCastleTo(rook1);
 			boolean rook2can = canCastleTo(rook2);
 			
-			if (!rook1can && !rook2can) return null; 			//Neither can so break out with null
+			if (!rook1can && !rook2can) return result; 			//Neither can so break out with null
 			assert (rook1.getRow() == this.getRow() && rook2.getRow() == this.getRow()): "Assert for the rows of rook and king failed but both firstMove flags are set to true. Line 81 in King";
 			int rookCol=0, myCol = 0;							//One of them can so add the valid boardbutton moves to the array
 				if (rook1can) {
