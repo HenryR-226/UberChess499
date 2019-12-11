@@ -133,14 +133,12 @@ public class Move {
 			System.out.println(p.getAbbrev() + " moved from " + loc[0] + loc[1] + " to " + abbrev + ".");
 
 			String move = String.valueOf(p.getAbbrev());
-			if (n3w.getPiece()!=null && n3w.getPiece().isWhite()!=piece.isWhite()) {
+			if (n3w.getPiece()!=null) {
 				move = move + "x"; // x means a piece captured the piece on it's destination square
 				capture = true;
 				this.captured = n3w.getPiece();
 				movesWithoutCapture = 0;
-				n3w.removePiece(piece);
 			}
-			else old.removePiece();
 			move = move + abbrev;
 			setAbbreviation(move);
 
@@ -162,7 +160,7 @@ public class Move {
 				if (this.piece.firstMove()) {
 					piece.madeFirstMove();
 					
-					if (Math.abs(this.n3w.getRow() - this.old.getRow()) == 2) this.getPiece().incRank();
+					if (Math.abs(this.n3w.getColumn() - this.old.getColumn()) == 2) this.getPiece().incRank();
 				}
 				if (this.piece.getRank()==5 && ((Pawn) this.piece).canPromote()) { 
 					try {

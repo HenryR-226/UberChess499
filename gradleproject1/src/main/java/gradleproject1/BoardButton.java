@@ -203,7 +203,7 @@ public class BoardButton {
 
 	}
 
-	public BoardButton(int column, int row) {
+	public BoardButton(int row, int column) {
 		this.row = row;
 		this.column = column;
 	}

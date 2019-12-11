@@ -115,7 +115,6 @@ public class Board {
 		return possibleMoves; // Return the final move list. AI selects from this randomly and potential move
 	} // to be made MUST BE in here
 
-	
 	// Draws out Ascii art of the gameboard. To be called after every successfully
 	// committed move.
 	// MASSIVE overhaul/Bugfix on the part of Ryan and Henry on 10/27/2019
@@ -303,9 +302,9 @@ public class Board {
 	public void initBlack() {
 		Piece pawn1 = new Pawn("pawn1", false, this, 6, 0);
 		Piece pawn2 = new Pawn("pawn2", false, this, 6, 1);
-		Piece pawn3 = new Pawn("pawn3", false, this, 6, 2);
+		Piece pawn3 = new Pawn("pawn3", false, this,6, 2);
 		Piece pawn4 = new Pawn("pawn4", false,this, 6, 3);
-		Piece pawn5 = new Pawn("pawn5", false, this, 6, 4);
+		Piece pawn5 = new Pawn("pawn5", false, this,6, 4);
 		Piece pawn6 = new Pawn("pawn6", false,this, 6, 5);
 		Piece pawn7 = new Pawn("pawn7", false, this,6, 6);
 		Piece pawn8 = new Pawn("pawn8", false, this,6, 7);
@@ -696,6 +695,7 @@ case 'M':
 			for (int j = 1; j < 9; j++) {
 				BoardButton butn = new BoardButton(i, j);
 				butn.setColor(white);
+				// ABBREVIATION IS BEING PASSED ASCII VALUES!! NEEDS FIX!
 				try {
 					butn.setAbbreviation(i, j);
 				} catch (Exception e) {
