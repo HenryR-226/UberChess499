@@ -116,7 +116,7 @@ public class Rook extends Piece {
 			if (!side) {
 				//Check LEFT
 				for (int i = kingCol; i>0; i--) {
-					iterable = bb[i][kingRow];
+					iterable = bb[myCol][i];
 					if (iterable.isFull()) return false;					//Return null
 				}
 				return true;
@@ -124,7 +124,7 @@ public class Rook extends Piece {
 			else if (side) {
 				//Check RIGHT
 				for (int i = kingCol; i<7; i++) {
-					iterable = bb[i][kingRow];
+					iterable = bb[myCol][i];
 					if (iterable.isFull()) return false;	
 				}
 				return true;
