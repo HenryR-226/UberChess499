@@ -160,24 +160,6 @@ public class Board {
 		}
 	}
 
-	/*
-	 * Same as above but in chess notation. Don't know which one will be more
-	 * convenient or used more.
-	 */
-	public BoardButton getBoardButton(char row, char col) {
-		try {
-			int x = ((int) row - 'A');
-			int y = (int) col;
-			BoardButton result = GameBoard[x][y];
-			return result;
-		} catch (Exception e) {
-			System.out.println("Getting board button failed. Probably passed bad Chess notation input.");
-			e.printStackTrace();
-		} finally {
-			return null;
-		}
-	}
-
 	/**
 	 * @author Henry Rheault
 	 * 
@@ -194,7 +176,6 @@ public class Board {
 			for (int j = 1; j < 9; j++) {
 				BoardButton butn = new BoardButton(i, j);
 				butn.setColor(white);
-				// ABBREVIATION IS BEING PASSED ASCII VALUES!! NEEDS FIX!
 				butn.setAbbreviation(i, j);
 				GameBoard[i][j - 1] = butn;
 				white = !white; // Flip color
@@ -419,8 +400,6 @@ public class Board {
 		a = GameBoard[5][5];
 		queen.setLocation("F6");
 		a.setPiece(queen);
-		// System.out.println(a.getPiece().getAbbrev());
-		// System.out.println(a.getPiece().getLocation());
 		Piece rook = new Rook("rook", false,this, 3, 6);
 		Piece rook2 = new Rook("rook2", false,this, 1, 3);
 		Piece rook3 = new Rook("rook3", false,this, 6, 3);
@@ -445,7 +424,6 @@ public class Board {
 		a = GameBoard[6][6];
 		bishop.setLocation("G7");
 		a.setPiece(bishop);
-		// a = GameBoard[6][6]; a.setPiece(bishop); bishop.setLocation("G7");
 		a = GameBoard[1][1];
 		a.setPiece(bishop2);
 		bishop2.setLocation("B2");
@@ -464,7 +442,6 @@ public class Board {
 			for (int j = 1; j < 9; j++) {
 				BoardButton butn = new BoardButton(i, j);
 				butn.setColor(white);
-				// ABBREVIATION IS BEING PASSED ASCII VALUES!! NEEDS FIX!
 				butn.setAbbreviation(i, j);
 				GameBoard[i][j - 1] = butn;
 				white = !white; // Flip color
@@ -490,10 +467,9 @@ public class Board {
 			for (int j = 1; j < 9; j++) {
 				BoardButton butn = new BoardButton(i, j);
 				butn.setColor(white);
-				// ABBREVIATION IS BEING PASSED ASCII VALUES!! NEEDS FIX!
 				butn.setAbbreviation(i, j);
 				GameBoard[i][j - 1] = butn;
-				white = !white; // Flip color
+				white = !white; 					// Flip color
 
 			}
 			white = !white;
@@ -515,10 +491,9 @@ public class Board {
 			for (int j = 1; j < 9; j++) {
 				BoardButton butn = new BoardButton(i, j);
 				butn.setColor(white);
-				// ABBREVIATION IS BEING PASSED ASCII VALUES!! NEEDS FIX!
 				butn.setAbbreviation(i, j);
 				GameBoard[i][j - 1] = butn;
-				white = !white; // Flip color
+				white = !white; 						// Flip color
 
 			}
 			white = !white;
@@ -552,7 +527,6 @@ public class Board {
 			for (int j = 1; j < 9; j++) {
 				BoardButton butn = new BoardButton(i, j);
 				butn.setColor(white);
-				// ABBREVIATION IS BEING PASSED ASCII VALUES!! NEEDS FIX!
 				butn.setAbbreviation(i, j);
 				GameBoard[i][j - 1] = butn;
 				white = !white; // Flip color
@@ -572,7 +546,6 @@ public class Board {
 		a = GameBoard[6][6];
 		bishop.setLocation("G7");
 		a.setPiece(bishop);
-		// a = GameBoard[6][6]; a.setPiece(bishop); bishop.setLocation("G7");
 		a = GameBoard[1][1];
 		a.setPiece(bishop2);
 		bishop2.setLocation("B2");
@@ -583,17 +556,7 @@ public class Board {
 		a.setPiece(bishop4);
 		bishop4.setLocation("F2");
 	}
-/*	
-case 'P':	
-	b.initPromotionTest();
-	break;
-case 'C':
-	b.initCastlingTest();
-	break;
-case 'M':	
-	b.initCheckmateTest();
-	break;
-*/
+	
 	public void initPromotionTest() {
 		
 		boolean white = false;
@@ -602,7 +565,6 @@ case 'M':
 			for (int j = 1; j < 9; j++) {
 				BoardButton butn = new BoardButton(i, j);
 				butn.setColor(white);
-				// ABBREVIATION IS BEING PASSED ASCII VALUES!! NEEDS FIX!
 				try {
 					butn.setAbbreviation(i, j);
 				} catch (Exception e) {
@@ -699,11 +661,10 @@ case 'M':
 				try {
 					butn.setAbbreviation(i, j);
 				} catch (Exception e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				GameBoard[i][j - 1] = butn;
-				white = !white; // Flip color
+				white = !white; 									// Flip color
 
 			}
 			white = !white;

@@ -100,16 +100,12 @@ public class Piece {
 			assert (loc.length() == 2);
 			char[] raw = loc.toCharArray();
 			char colc = Character.toUpperCase(raw[0]);
-			// System.out.println("Line 84 on Piece, col character val: " + colc);
 			assert (colc >= 'A' && colc <= 'H');
 			int rows = (int) raw[1] - '0' - 1;
-			// System.out.println("Line 87 on Piece, row integer val: " + rows);
 			assert (rows <= 7 && rows >= 0);
 			this.location = loc;
 			this.row = rows;
 			this.col = colc - 'A';
-			// System.out.println("Line 92 on Piece, constructor succeeded with raw values
-			// of col: " + colc + " col: " + rows);
 		} catch (Exception e) {
 			System.out.println("Invalid string sent to setLocation in Piece class, line 110");
 			e.printStackTrace();
@@ -153,26 +149,6 @@ public class Piece {
 
 	public Double getOffset() {
 		return 69.69;
-	}
-
-	// Started by Henry Rheault on 11/3/2019
-	// Designed to sort an array list into actual legible alphabetical order since I
-	// don't understand the <T> pattern and want the BBs sorted by string
-	// lexiographal order. But way too much work to implement for QOL in printouts
-
-	public ArrayList<BoardButton> sort(ArrayList<BoardButton> a) {
-
-		ArrayList<BoardButton> ret = new ArrayList<BoardButton>();
-
-		return ret;
-	}
-
-	/*
-	 * Started by James. I don't remember what for. Kurwa.
-	 */
-	public void deleteThis() {
-		String newGuy = "D5";
-
 	}
 
 	// Bishop grid offset to stop compiler error about not having a gridOffset value

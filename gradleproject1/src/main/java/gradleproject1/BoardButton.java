@@ -25,8 +25,8 @@ public class BoardButton {
 
 	private Piece piece;
 	private String abbreviation;
-	private boolean isWhite; // Is the square dark or light
-	private boolean isFull; // Is something there
+	private boolean isWhite; 			// Is the square dark or light
+	private boolean isFull; 			// Is something there
 	private boolean highlighted = false; // Should I be highlighted right now?
 
 	public void setGameState(GameState game) {
@@ -35,14 +35,6 @@ public class BoardButton {
 
 	public BoardButton() {
 	}
-
-	private boolean isClicked; // is specific square clicked
-	static private boolean somethingClicked; // is anything on the board clicked, can't be static
-
-	// Gameboard
-
-	static private char c;
-	static private short rowOffset = 1; // idk why I put these here as globals since I only need it in draw()
 
 	public Piece getPiece() throws NullPointerException {
 		try {

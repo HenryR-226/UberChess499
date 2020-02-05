@@ -104,17 +104,14 @@ public class King extends Piece {
 	public ArrayList<BoardButton> getMoves(Piece p, BoardButton[][] board) {
 
 		ArrayList<BoardButton> moveList = new ArrayList<>(); // Return values
-		// ArrayList<String> validGrids = new ArrayList<String>();
 		ArrayList<Integer> validX = new ArrayList<>();
 		ArrayList<Integer> validY = new ArrayList<>();
 
 		String s = this.getLocation(); // Readability
 		char[] c = s.toCharArray(); // converts location into char array to get the column and row
 		Integer col = c[0] - 65;
-		// System.out.println("King's col: " + col);
 		Integer row = c[1] - 49;
-		// System.out.println("King's row: " + row);
-
+		
 		// Populates an array list with strings of Int, for taking all permutations of
 		// to get move list grid squares
 		if (col != 0 && col != 7) {
@@ -154,32 +151,25 @@ public class King extends Piece {
 			validY.add(row);
 			row = row + 1;
 		}
-		// System.out.println("Valid X and Y's for King moves");
 		for (Integer x : validX) {
 			for (Integer y : validY) {
-				// System.out.println("X: " + x + " Y: " + y);
 
 				BoardButton button = board[x][y];
-				// Now take all permutations of the row and col values, discarding the
-				// 'unchanged' move
+				// Now take all permutations of the row and col values, discarding the 'unchanged' move
 
 				if (!button.isFull() || button.isFull() && button.getPiece().isWhite() != p.isWhite())
 					moveList.add(button);
 
-				// System.out.println("Y: " + y);
 			}
 		}
 		
 		if (this.firstMove()) { 
 			BoardButton[] castleArray = {null, null};
 			castleArray = castle(); if (castleArray [0] == null) return moveList;
-			//for (BoardButton b : castleArray) if (b != null) System.out.print("Button abbrev in castle array: " + b.getAbbreviation()); 
 			if (castleArray[0]!=null && moveList!= null) { 
-				//System.out.println("Adding " + castleArray[0].getAbbreviation() + " to move list, line 181 King"); 
 				moveList.add(castleArray[0]); }
 			else {return moveList;}									//If first is null the second will be as well, nothing more to do, just return
 			if (castleArray[1]!=null && moveList!= null) { 
-				//System.out.println("Adding " + castleArray[1].getAbbreviation() + " to move list, line 181 King"); 
 				moveList.add(castleArray[1]);}
 		}
 		
@@ -241,7 +231,6 @@ public class King extends Piece {
 		// Remove piece from board
 		board[x2][y2].removePiece();
 		pieces.add(test);
-		// test.setLocation((Character.toString(c[1] + Character.toString(c[2]))));
 		String location = Character.toString(c[1]);
 		location = location + Character.toString(c[2]);
 		test.setLocation(location);
@@ -529,8 +518,7 @@ public class King extends Piece {
 			}
 		}
 		// Not in check! Returns default of False. Should there be an error causing it
-		// to
-		// somehow not break out but still set to 'true' probably best to return that
+		// to somehow not break out but still set to 'true' probably best to return that
 		// and not just hardcode return 'false'.
 		return result;
 	}

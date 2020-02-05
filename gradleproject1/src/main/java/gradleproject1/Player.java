@@ -7,8 +7,6 @@ public class Player {
 	private ArrayList<Move> moveList = new ArrayList<Move>();
 	private ArrayList<Piece> pieceList = new ArrayList<Piece>(); // Pieces currently on the board
 	private ArrayList<Piece> piecesLost = new ArrayList<Piece>(); // Pieces lost by that gamer
-	private boolean hasCastled; 			// Has the gamer castled
-	private boolean canCastle; 				// CAN the gamer castle, false if king and/or close side rook moves
 	private boolean inCheck = false;		//Is player in check
 
 	private boolean team;
@@ -36,34 +34,8 @@ public class Player {
 			e.printStackTrace();
 		}
 	}
-	
-			//		https://en.wikipedia.org/wiki/Alpha-beta_pruning
-//	function alphabeta(node, depth, alpha, beta, maximizingPlayer) is
-//    if depth = 0 or node is a terminal node then
-//        return the heuristic value of node
-//    if maximizingPlayer then
-//        value := -inf
-//        for each child of node do
-//            value := max(value, alphabeta(child, depth − 1, alpha, beta, FALSE))
-//            alpha := max(alpha, value)
-//            if alpha >= beta then
-//                break (* beta cut-off *)
-//        return value
-//    else
-//        value := +inf
-//        for each child of node do
-//            value := min(value, alphabeta(child, depth − 1, alpha, beta, TRUE))
-//            beta := min(beta, value)
-//            if alpha >= beta then
-//                break (* alpha cut-off *)
-//        return value
-//
-//(* Initial call *)
-//alphabeta(origin, depth, −inf, +inf, TRUE)
 
-		//FIXME - Ryan Brodsky's 3 move deep ai agent
 		//Hard coded for 3 steps down on Black Player, doesn't account for captures, and doesn't account for other team's moves
-		//Tested and works 12/1/2019
 	   public Move bestMoveForLoop(ArrayList<Move> currentPossibleMoves) {
 	        Move bestMove = null;
 	        ArrayList<Move> bestMovePath = new ArrayList<Move>(3);
@@ -132,7 +104,7 @@ public class Player {
 	        System.out.println("Line 337 Player, Total Moves Found 3 Deep: " + count);
 	        System.out.println("Time taken: " + nsTimeElapsed/1_000_000 + " milliseconds. " + posPerSec*1000 + " positions evaluated a second.");
 	        return bestMove;
-	    }
+	   }
 	   
 	public boolean isTeam() {
 		return team;
@@ -163,7 +135,6 @@ public class Player {
 	}
 	
 	//Returns the king for Check testing
-	//Not tested or verified, 12/1/2019
 	public King getKing() {
 		King k = null;
 		for (Piece p : pieceList) {
@@ -179,7 +150,6 @@ public class Player {
 
 	public void addMove(Move moveIteration) {
 		moveList.add(moveIteration);
-		//System.out.println("Move added: " + moveIteration);
 	}
 
 	public String getLastMoveAbbrev() {
@@ -193,11 +163,10 @@ public class Player {
 	}
 
 	public ArrayList<Move> getMoves(){
-		//for (String s : moveList) System.out.println(s);
 		return this.moveList;
 	}
 	
-	public void setWhitePoints(double d) { // (?°???°)
+	public void setWhitePoints(double d) {
 		whitePoints = d;
 	}
 
@@ -284,16 +253,11 @@ public class Player {
      */
 	public double evalPoints(){                                     
         double result = 0;
-        //BoardButton[][] board;               //Get locations
-        //ArrayList<Double> pointsList = new ArrayList<Double>(); //Create list of point objects
         for(Piece piece : pieceList){                             //For each row and column of BoardButton
             result = result + piece.getPoints() + piece.getOffset();    //Find pieces belonging to player p and summate points
-        }                                                        //This code isn't clean and needs to run hundreds of thousands of times
-                                                                //So it needs to be better than "check every square for where there's
-                                                                //A piece on that team, every time"
-        //System.out.println("Line 127 in Player, total score for team is " + result);
+        }                                               
         return result;    
-        }
+    }
 	
 	//Evaluates the points on the board given a particular move object
 	//Tested by Ryan Brosky and works, 12/1/2019
@@ -443,7 +407,7 @@ public class Player {
 	   */
 	  public Move bestMove(ArrayList<Move> possibles) {
 		  //0 length => Checkmate, future
-		  assert(possibles.size()!=0) : "Yo dummy you passed in a 0 length array list, Line 172 of Player, no valid moves here";
+		  assert(possibles.size()!=0) : "You passed in a 0 length array list, Line 172 of Player, no valid moves here";
 		  double result = -99999999;
 		  Move returnStatement = null;
 		  double points = -99999999;

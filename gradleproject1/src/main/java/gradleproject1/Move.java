@@ -127,12 +127,10 @@ public class Move {
 						r = (Rook) GameBoard[7][7].getPiece();
 						Move m = new Move((King)p, r);
 						castle=true;
-						//Piece crash = GameBoard[9][0].getPiece();				//Crash to get out of try-catch, move already constructed
 					}
 					else {
 						r = (Rook) GameBoard[0][0].getPiece();
 						Move m = new Move((King)p, r);
-						//Piece crash = GameBoard[9][0].getPiece();				//Crash to get out of try-catch, move already constructed	
 						castle = true;
 					}
 				}
@@ -140,13 +138,11 @@ public class Move {
 					if (!p.isWhite) {
 						r = (Rook) GameBoard[0][7].getPiece();
 						Move m = new Move((King)p, r);
-						//Piece crash = GameBoard[9][0].getPiece();				//Crash to get out of try-catch, move already constructed
 						castle = true;
 					}
 					else {
 						r = (Rook) GameBoard[0][0].getPiece();
 						Move m = new Move((King)p, r);
-						//Piece crash = GameBoard[9][0].getPiece();				//Crash to get out of try-catch, move already constructed	
 						castle = true;
 					}
 				}
@@ -158,7 +154,6 @@ public class Move {
 				int j = (int) loc[1] - '0' - 1;
 
 				this.old = GameBoard[i][j];
-				// System.out.println("Calling remove on boardbutton" + i + " " + j);
 				this.n3w = button;
 				this.piece = p;
 				String abbrev = n3w.getAbbreviation();
@@ -177,7 +172,6 @@ public class Move {
 				setAbbreviation(move);
 
 				if (p.isWhite()) {
-					// Check move implementations, needs to be tested. 11/29/2019
 					if (whitePlayer.inCheck()) // If we're in check, make sure this takes us out of check
 						if (!whitePlayer.getKing().isInCheck(GameBoard, whitePlayer.getPieceList(), this.piece, this))
 							whitePlayer.removeCheck();
@@ -243,7 +237,6 @@ public class Move {
 		int j = (int) loc[1] - '0' - 1;
 
 		this.old = GameBoard[i][j];
-		//System.out.println("Calling remove on boardbutton" + i + " " + j);
 		if (p.isWhite) this.n3w = GameBoard[p.getCol()][7];
 		if (!p.isWhite) this.n3w = GameBoard[p.getCol()][0];
 		
@@ -274,7 +267,6 @@ public class Move {
 		int j = (int) loc[1] - '0' - 1;
 
 		this.old = GameBoard[i][j];
-		//System.out.println("Calling remove on boardbutton" + i + " " + j);
 		if (p.isWhite) {
 			if (side) this.n3w = GameBoard[p.getCol()+1][7];
 			else this.n3w = GameBoard[p.getCol()-1][7];
