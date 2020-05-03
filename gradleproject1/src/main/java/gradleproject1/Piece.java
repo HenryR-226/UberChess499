@@ -22,8 +22,11 @@ public class Piece {
 	double points;
 	protected String location;
 	protected int rank = 0;								//Mostly for pawns but handled for all types. Number of moves this piece has made
-	
-	BoardButton[][] bb;
+
+	Boolean alpha = null;				//Piece A or piece B, for when there's two
+	public Boolean getAlpha(){ return alpha; }
+
+	static BoardButton[][] bb;
 
 	private ArrayList<BoardButton> possibleMoves; // Each piece keeps track of where it can currently move.
 

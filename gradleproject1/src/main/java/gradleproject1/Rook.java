@@ -3,6 +3,8 @@ package gradleproject1;
 import java.util.ArrayList;
 
 public class Rook extends Piece {
+	boolean first = true;
+
 	public Rook(String moveID, boolean team, Board b, int row, int col) {
 		this.setName("Rook");
 		this.pieceID = moveID;
@@ -20,6 +22,13 @@ public class Rook extends Piece {
 		}
 		this.bb = b.getGameBoard();
 		this.points = 5;
+
+		if (first==true){
+			this.alpha=true;
+			first=false;
+		} else {
+			this.alpha=false;
+		}
 	}
 
 	@Override

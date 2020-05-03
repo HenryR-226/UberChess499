@@ -1,11 +1,12 @@
 package gradleproject1;
-
+import java.util.ArrayList;
 /**
  * @author Henry Rheault
  */
 public class Bishop extends Piece {
 	boolean lightSquares; // True for light square bishop, false for dark square
 
+	static boolean first = true;
 	public Bishop(String moveID, boolean team, Board b, int row, int col) {
 		String loc = new String();
 		loc = Character.toString((char) (row + 'A'));
@@ -25,6 +26,12 @@ public class Bishop extends Piece {
 		}
 		this.bb = b.getGameBoard();
 		this.points = 3;
+		if (first==true){
+			this.alpha=true;
+			first=false;
+		} else {
+			this.alpha=false;
+		}
 	}
 
 	// Bishop raw moves generator

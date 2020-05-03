@@ -14,7 +14,7 @@ public class Board {
 		whitePlayer.setBoard(this);
 	}
 
-	private BoardButton[][] GameBoard = new BoardButton[8][8];
+	static BoardButton[][] GameBoard = new BoardButton[8][8];
 
 	private ArrayList<Move> possibleMoves;
 

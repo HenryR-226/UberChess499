@@ -1,9 +1,16 @@
 /*
  *  Singleton object intended to be collections of players, handle 
  *  win/loss/tie, do backend housekeeping, and allow for references to 
- *  player objects to be passed nicely based on color. 
+ *  player objects to be passed nicely based on color.
+ *
+ *  Handles Thread Pool storage as well.
  */
 package gradleproject1;
+
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ThreadFactory;
+import java.util.Set;
 
 public class GameState {
     private int cores;                                //Number of CPU hardware threads available to JVM at run time
@@ -13,11 +20,17 @@ public class GameState {
     private Integer depth = 4;							//Number of turns to go down
     private Player winrar = null;				//Winner gamer, True if white, false if black, invalid/null for in progress
     Boolean stalemate = false;
-    
+
+    private static int ctr0 =0;
+
     public int getCurrentThreads(){                    //Determines optimal number of threads to start for AI calculations
         int cores = Runtime.getRuntime().availableProcessors();
         return cores;
     }
+
+
+
+
     public void setWhite(Player white) {
     	this.playerWhite = white;
     }
@@ -59,4 +72,5 @@ public class GameState {
     public boolean isStalemate(){
     	return this.stalemate;
     }
+
 }

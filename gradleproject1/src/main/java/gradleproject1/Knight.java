@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 public class Knight extends Piece {
 
+	boolean first = true;
 	public Knight(String moveID, boolean team, Board b, int row, int col) {
 		String loc = new String();
 		loc = Character.toString((char) (row + 'A'));
@@ -23,6 +24,12 @@ public class Knight extends Piece {
 		}
 		this.points = 3.25;
 		this.bb = b.getGameBoard();
+		if (first==true){
+			this.alpha=true;
+			first=false;
+		} else {
+			this.alpha=false;
+		}
 	}
 
 	/**

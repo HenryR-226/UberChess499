@@ -9,6 +9,7 @@ public class Pawn extends Piece {
 	char column; 				// Pawn's "home" column
 	Board b;
 	private static Scanner scan;
+	private int rank = 0;
 
 	public Pawn(String pawnID, boolean team, Board b, int row, int col) {
 		String loc = Character.toString((char) ((char) col + 'A'));
@@ -29,6 +30,8 @@ public class Pawn extends Piece {
 		this.points = 1;
 		scan = Main.scan;
 	}
+
+	public int getRank() { return rank; }
 
 	@Override
 	public ArrayList<BoardButton> getMoves(Piece piece, BoardButton[][] board) {
